@@ -23,9 +23,11 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
@@ -126,7 +128,7 @@ public class Util {
 
     public static boolean chkVazio(String... campos) {
         for (String chk : campos) {
-            if (chk.isEmpty() || chk.equals("--") || chk.equals("  /  /    ")) {
+            if (chk.isEmpty() || chk.equals("--") || chk.equals("  /  /    ")||chk.equals("   .   .   -  ")) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos com '*'!");
                 return false;
             }
@@ -266,8 +268,16 @@ public class Util {
 
     public static String retornaCaminhoApp() {
         String EnderecoDoJar = System.getProperty("java.class.path");
-        String end = EnderecoDoJar.substring(0, EnderecoDoJar.length() - 9);
+        String end = EnderecoDoJar.substring(0, EnderecoDoJar.length() - 11);
         return end;
+    }
+    
+    public static ImageIcon redimensionar(JLabel jLabel, int xLargura, int yAltura){
+       
+        ImageIcon img = new ImageIcon (jLabel.getIcon().toString());  
+        img.setImage(img.getImage().getScaledInstance(xLargura, yAltura, 100));
+       
+        return img;
     }
 
 }

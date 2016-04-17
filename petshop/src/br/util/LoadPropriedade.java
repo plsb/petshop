@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class LoadPropriedade {
@@ -17,7 +15,7 @@ public class LoadPropriedade {
     public static String loadProperty(String property) {
 
         try {
-//            enderecoDoJar =Util.retornaCaminhoApp()+"/config.ini";
+//            enderecoDoJar =Util.retornaCaminhoApp()+"config.ini";
             enderecoDoJar ="config.ini";
             File file = new File(enderecoDoJar);
             FileInputStream f = new FileInputStream(file);

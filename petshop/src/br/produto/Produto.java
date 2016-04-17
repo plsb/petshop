@@ -13,11 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Produto {
+public class Produto implements Comparable<Produto>{
     
     @Id
     @GeneratedValue
     private Integer id;
+    
+    private String codigo;
     
     @ManyToOne
     private GrupoProduto grupoProduto;
@@ -36,6 +38,14 @@ public class Produto {
     
     private String descricaoUnidade;
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -165,6 +175,19 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto{" + "id=" + id + ", grupoProduto=" + grupoProduto + ", servico=" + servico + ", descricao=" + descricao + ", qtdEstoque=" + qtdEstoque + ", precoVenda=" + precoVenda + ", precoCusto=" + precoCusto + ", estoqueMinimo=" + estoqueMinimo + ", descricaoUnidade=" + descricaoUnidade + '}';
+    }
+
+    @Override
+    public int compareTo(Produto o) {
+        return descricao.compareTo(o.descricao);
+    }
+    
+    public String getTipo(){
+        if(servico){
+            return "Serviço";
+        } else {
+            return "Produto";
+        }
     }
         
 }

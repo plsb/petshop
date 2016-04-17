@@ -11,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Cliente {
+public class Cliente implements Comparable<Cliente>{
     
     @Id
     @GeneratedValue
@@ -26,7 +26,47 @@ public class Cliente {
     private String celular;
     
     private String cpf;
+    
+    private char sexo;
+    
+    private String cidade;
+    
+    private String estado;
+    
+    private String nomeMae;
 
+    public String getNomeMae() {
+        return nomeMae;
+    }
+
+    public void setNomeMae(String nomeMae) {
+        this.nomeMae = nomeMae;
+    }
+    
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    public char getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(char sexo) {
+        this.sexo = sexo;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -74,16 +114,24 @@ public class Cliente {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+    
+    @Override
+    public int compareTo(Cliente o) {
+        return getNome().compareTo(o.nome);
+    }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.nome);
-        hash = 53 * hash + Objects.hashCode(this.endereco);
-        hash = 53 * hash + Objects.hashCode(this.telefone);
-        hash = 53 * hash + Objects.hashCode(this.celular);
-        hash = 53 * hash + Objects.hashCode(this.cpf);
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.id);
+        hash = 31 * hash + Objects.hashCode(this.nome);
+        hash = 31 * hash + Objects.hashCode(this.endereco);
+        hash = 31 * hash + Objects.hashCode(this.telefone);
+        hash = 31 * hash + Objects.hashCode(this.celular);
+        hash = 31 * hash + Objects.hashCode(this.cpf);
+        hash = 31 * hash + this.sexo;
+        hash = 31 * hash + Objects.hashCode(this.cidade);
+        hash = 31 * hash + Objects.hashCode(this.estado);
         return hash;
     }
 
@@ -114,12 +162,21 @@ public class Cliente {
         if (!Objects.equals(this.cpf, other.cpf)) {
             return false;
         }
+        if (this.sexo != other.sexo) {
+            return false;
+        }
+        if (!Objects.equals(this.cidade, other.cidade)) {
+            return false;
+        }
+        if (!Objects.equals(this.estado, other.estado)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefone=" + telefone + ", celular=" + celular + ", cpf=" + cpf + '}';
+        return "Cliente{" + "id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefone=" + telefone + ", celular=" + celular + ", cpf=" + cpf + ", sexo=" + sexo + ", cidade=" + cidade + ", estado=" + estado + '}';
     }
     
 }

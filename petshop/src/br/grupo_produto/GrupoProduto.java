@@ -11,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class GrupoProduto {
+public class GrupoProduto implements Comparable<GrupoProduto>{
     
     @Id
     @GeneratedValue
@@ -77,7 +77,12 @@ public class GrupoProduto {
 
     @Override
     public String toString() {
-        return "GrupoProduto{" + "id=" + id + ", descricao=" + descricao + ", descontoAVista=" + descontoAVista + '}';
+        return descricao;
+    }
+
+    @Override
+    public int compareTo(GrupoProduto o) {
+        return descricao.compareTo(o.descricao);
     }
     
     
