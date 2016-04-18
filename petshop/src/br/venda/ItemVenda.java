@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class ItemVenda {
+public class ItemVenda{
     
     @Id
     @GeneratedValue
@@ -24,6 +24,16 @@ public class ItemVenda {
     
     @ManyToOne
     private Produto produto;
+    
+    private double quantidade;
+
+    public double getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(double quantidade) {
+        this.quantidade = quantidade;
+    }
 
     public Integer getId() {
         return id;
@@ -82,6 +92,24 @@ public class ItemVenda {
     @Override
     public String toString() {
         return "ItensVenda{" + "id=" + id + ", venda=" + venda + ", produto=" + produto + '}';
+    }
+    
+    public double getParcial(){
+        return quantidade*produto.getPrecoVenda();
+    }
+    
+    public double getDesconto(){
+        double desconto=0;
+        if(venda.getTipoPagamento().equals("VV")){
+            if(produto.getGrupoProduto().getDescontoAVista()>0){
+                desconto = getParcial()*(produto.getGrupoProduto().getDescontoAVista()/100);
+            } 
+        }
+        return desconto;
+    }
+    
+    public double getSubtotal(){
+        return getParcial()-getDesconto();
     }
     
 }

@@ -176,7 +176,7 @@ public class Cliente implements Comparable<Cliente>{
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefone=" + telefone + ", celular=" + celular + ", cpf=" + cpf + ", sexo=" + sexo + ", cidade=" + cidade + ", estado=" + estado + '}';
+        return nome;
     }
     
 }

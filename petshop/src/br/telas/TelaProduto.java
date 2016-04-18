@@ -143,7 +143,7 @@ public class TelaProduto extends javax.swing.JDialog {
         jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, 43, -1));
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
-        btNovo.setToolTipText("Novor");
+        btNovo.setToolTipText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovoActionPerformed(evt);
@@ -219,7 +219,7 @@ public class TelaProduto extends javax.swing.JDialog {
         jPanel2.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         cbUnidade.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        cbUnidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "L", "KG", "UN" }));
+        cbUnidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "CX", "L", "HOR", "KG", "PC", "SCO", "UNI" }));
         jPanel2.add(cbUnidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 160, -1));
 
         tfPrecoCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));

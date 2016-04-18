@@ -26,6 +26,9 @@ public class Venda {
     @Temporal(TemporalType.DATE)
     private Date data;
     
+    @Temporal(TemporalType.TIME)
+    private Date hora;
+    
     @ManyToOne
     private Vendedor vendedor;
     
@@ -39,6 +42,14 @@ public class Venda {
     private double valorTotal;
     
     private String tipoPagamento;
+
+    public Date getHora() {
+        return hora;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
+    }
 
     public Integer getId() {
         return id;

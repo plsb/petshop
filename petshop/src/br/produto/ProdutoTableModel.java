@@ -27,7 +27,7 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class ProdutoTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Código", "Descrição", "Grupo de Produto", "Tipo", "Qtd", "Valor"};
+    private String[] nomeColunas = {"Id", "Código", "Descrição", "Grupo de Produto", "Tipo", "Qtd", "Valor"};
     private List<Produto> produtos;
 
     /**
@@ -78,14 +78,16 @@ public class ProdutoTableModel extends AbstractTableModel {
             case 0:
                 return Util.decimalFormat().format(p.getId());
             case 1:
-                return p.getDescricao();
+                return p.getCodigo();
             case 2:
-                return p.getGrupoProduto().getDescricao();
+                return p.getDescricao();
             case 3:
-                return p.getTipo();
+                return p.getGrupoProduto().getDescricao();
             case 4:
-                return p.getQtdEstoque();
+                return p.getTipo();
             case 5:
+                return p.getQtdEstoque();
+            case 6:
                 return p.getPrecoVenda();
 
         }
@@ -113,6 +115,8 @@ public class ProdutoTableModel extends AbstractTableModel {
                 return nomeColunas[4];
             case 5:
                 return nomeColunas[5];
+            case 6:
+                return nomeColunas[6];
 
         }
         return null;
