@@ -8,7 +8,7 @@ package br.telas;
 import br.cliente.*;
 import br.grupo_produto.GrupoProduto;
 import br.grupo_produto.GrupoProdutoDAO;
-import br.grupo_produto.ProdutoTableModel;
+import br.produto.ProdutoTableModel;
 import br.produto.Produto;
 import br.produto.ProdutoDAO;
 import br.util.Util;

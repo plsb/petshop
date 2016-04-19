@@ -13,19 +13,43 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class ItemVenda{
-    
+public class ItemVenda implements Comparable<ItemVenda> {
+
+    public ItemVenda() {
+        cancelado = false;
+    }
+
     @Id
     @GeneratedValue
     private Integer id;
-    
+
     @ManyToOne
     private Venda venda;
-    
+
     @ManyToOne
     private Produto produto;
-    
+
     private double quantidade;
+
+    private Integer ordem;
+
+    private boolean cancelado;
+
+    public Integer getOrdem() {
+        return ordem;
+    }
+
+    public void setOrdem(Integer ordem) {
+        this.ordem = ordem;
+    }
+
+    public boolean isCancelado() {
+        return cancelado;
+    }
+
+    public void setCancelado(boolean cancelado) {
+        this.cancelado = cancelado;
+    }
 
     public double getQuantidade() {
         return quantidade;
@@ -93,23 +117,41 @@ public class ItemVenda{
     public String toString() {
         return "ItensVenda{" + "id=" + id + ", venda=" + venda + ", produto=" + produto + '}';
     }
-    
-    public double getParcial(){
-        return quantidade*produto.getPrecoVenda();
+
+    public double getParcial() {
+        if (cancelado != true) {
+            return quantidade * produto.getPrecoVenda();
+        }
+        return 0;
     }
-    
-    public double getDesconto(){
-        double desconto=0;
-        if(venda.getTipoPagamento().equals("VV")){
-            if(produto.getGrupoProduto().getDescontoAVista()>0){
-                desconto = getParcial()*(produto.getGrupoProduto().getDescontoAVista()/100);
-            } 
+
+    public double getDesconto() {
+        double desconto = 0;
+        if (venda.getTipoPagamento().equals("VV") && cancelado != true) {
+            if (produto.getGrupoProduto().getDescontoAVista() > 0) {
+                desconto = getParcial() * (produto.getGrupoProduto().getDescontoAVista() / 100);
+            }
         }
         return desconto;
     }
-    
-    public double getSubtotal(){
-        return getParcial()-getDesconto();
+
+    public String getSubtotal() {
+        if (cancelado != true) {
+            return String.valueOf(getParcial() - getDesconto());
+        }
+        return "Cancelado";
     }
-    
+
+    @Override
+    public int compareTo(ItemVenda o) {
+        if (ordem < o.ordem) {
+            return -1;
+        }
+        if (ordem > o.ordem) {
+            return 1;
+        }
+
+        return 0;
+    }
+
 }

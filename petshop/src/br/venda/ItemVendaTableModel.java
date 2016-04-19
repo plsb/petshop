@@ -1,15 +1,3 @@
-/* Este arquivo é parte do OSBiblio.
- * Copyright (C) 2014 (Pedro Saraiva, Túlio Vidal, Luís Henrique, Adriano Lima, Oziel Pereira,
- * Marcos Ellys, Francisco Júnior, Fátima Pinheiro, Darly Vinicio).
- *
- * OSBiblio é um software livre; você pode redistribuí-lo e/ou  modificá-lo dentro dos termos da 
- * Licença Pública Geral GNU como publicada pela Fundação do Software Livre (FSF); na versão 2 da Licença,
- * ou (na sua opinião) qualquer versão.
- *
- * Este programa é distribuído na esperança de que possa ser útil, mas SEM NENHUMA GARANTIA; sem uma garantia 
- * implícita de ADEQUAÇÃO a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU
- * para maiores detalhes.
- */
 package br.venda;
 
 import br.produto.*;
@@ -21,14 +9,10 @@ import java.util.HashSet;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author Francisco Junior
- */
 @SuppressWarnings("serial")
 public class ItemVendaTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Código", "Descrição", "Tipo", "Quantidade", "Valor", "Parcial", "Desconto", "Subtotal"};
+    private String[] nomeColunas = {"Ordem", "Código", "Descrição", "Tipo", "Quantidade", "Valor", "Parcial", "Desconto", "Subtotal"};
     private List<ItemVenda> produtos;
 
     /**
@@ -38,10 +22,11 @@ public class ItemVendaTableModel extends AbstractTableModel {
      */
     // construtor que adiciona a lista passada pelo método ao alunos  
     public ItemVendaTableModel(List<ItemVenda> lista) {
-        produtos = new ArrayList(new HashSet(lista));
+//        produtos = new ArrayList(new HashSet(lista));
+        produtos = lista;
 //        this.leitores.clear();
 //        this.leitores.addAll(lista);
-//        Collections.sort(produtos);
+        Collections.sort(produtos);
         super.fireTableDataChanged();
     }
 
@@ -77,20 +62,22 @@ public class ItemVendaTableModel extends AbstractTableModel {
         ItemVenda p = produtos.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return p.getProduto().getCodigo();
+                return p.getOrdem();
             case 1:
-                return p.getProduto().getDescricao();
+                return p.getProduto().getCodigo();
             case 2:
-                return p.getProduto().getTipo();
+                return p.getProduto().getDescricao();
             case 3:
-                return p.getQuantidade();
+                return p.getProduto().getTipo();
             case 4:
-                return p.getProduto().getPrecoVenda();
+                return p.getQuantidade();
             case 5:
-                return p.getParcial();
+                return p.getProduto().getPrecoVenda();
             case 6:
-                return p.getDesconto();
+                return p.getParcial();
             case 7:
+                return p.getDesconto();
+            case 8:
                 return p.getSubtotal();
 
         }
@@ -122,6 +109,8 @@ public class ItemVendaTableModel extends AbstractTableModel {
                 return nomeColunas[6];
             case 7:
                 return nomeColunas[7];
+            case 8:
+                return nomeColunas[8];
 
         }
         return null;

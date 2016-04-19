@@ -42,7 +42,17 @@ public class Venda {
     private double valorTotal;
     
     private String tipoPagamento;
+    
+    private boolean cancelada;
 
+    public boolean isCancelada() {
+        return cancelada;
+    }
+
+    public void setCancelada(boolean cancelada) {
+        this.cancelada = cancelada;
+    }
+    
     public Date getHora() {
         return hora;
     }
