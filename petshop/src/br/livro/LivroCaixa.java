@@ -5,22 +5,59 @@
  */
 package br.livro;
 
+import br.venda.Venda;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-public class LivroCaixa {
+public class LivroCaixa implements Comparable<LivroCaixa>{
     
     @Id
     @GeneratedValue
     private Integer id;
     
+    private String descricao;
+    
     private double valorEntrada;
     
     private double valorSaida;
+    
+    @Temporal(TemporalType.DATE)
+    private Date data;
 
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+    
+    @ManyToOne
+    private Venda venda;
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -78,6 +115,11 @@ public class LivroCaixa {
     @Override
     public String toString() {
         return "LivroCaixa{" + "id=" + id + ", valorEntrada=" + valorEntrada + ", valorSaida=" + valorSaida + '}';
+    }
+
+    @Override
+    public int compareTo(LivroCaixa o) {
+        return id.compareTo(o.id);
     }
     
 }

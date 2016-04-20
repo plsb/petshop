@@ -8,21 +8,40 @@ package br.telas;
 import br.cliente.*;
 import br.grupo_produto.GrupoProduto;
 import br.grupo_produto.GrupoProdutoDAO;
+import br.produto.Estoque;
+import br.produto.EstoqueDAO;
 import br.produto.ProdutoTableModel;
 import br.produto.Produto;
 import br.produto.ProdutoDAO;
+import br.util.HibernateUtil;
+import br.util.LoadPropriedade;
 import br.util.Util;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author Pedro Saraiva
  */
 public class TelaProduto extends javax.swing.JDialog {
+
+    private double quantidade = 0;
 
     /**
      * Creates new form TelaCliente
@@ -64,6 +83,9 @@ public class TelaProduto extends javax.swing.JDialog {
     private void initComponents() {
 
         sexo = new javax.swing.ButtonGroup();
+        mpRelatorio = new javax.swing.JPopupMenu();
+        imHistoricoAlteracaoItem = new javax.swing.JMenuItem();
+        imRelacaoProdutos = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -90,6 +112,24 @@ public class TelaProduto extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tfCodigo = new javax.swing.JTextField();
+        btnImprimir = new javax.swing.JButton();
+
+        imHistoricoAlteracaoItem.setText("Histórico de Alteração do Ítem");
+        imHistoricoAlteracaoItem.setEnabled(false);
+        imHistoricoAlteracaoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imHistoricoAlteracaoItemActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(imHistoricoAlteracaoItem);
+
+        imRelacaoProdutos.setText("Relação Produtos");
+        imRelacaoProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imRelacaoProdutosActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(imRelacaoProdutos);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -239,6 +279,14 @@ public class TelaProduto extends javax.swing.JDialog {
         tfCodigo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jPanel1.add(tfCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 400, -1));
 
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 40, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 430, 420));
 
         pack();
@@ -255,6 +303,20 @@ public class TelaProduto extends javax.swing.JDialog {
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void adicionaEstoque(String desc, double qtdEntrada, double qtdSaida, Produto produto) {
+        Estoque e = new Estoque();
+        EstoqueDAO eDAO = new EstoqueDAO();
+
+        e.setData(new Date());
+        e.setHora(new Date());
+        e.setDescricao(desc);
+        e.setProduto(produto);
+        e.setQtdEntrada(qtdEntrada);
+        e.setQtdSaida(qtdSaida);
+
+        eDAO.add(e);
+    }
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (produto == null) {
@@ -305,10 +367,23 @@ public class TelaProduto extends javax.swing.JDialog {
                     tfCodigo.requestFocus();
                     return;
                 }
+                if (produto.getQtdEstoque() <= 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Quantidade não pode ser menor ou igual a 0!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    tfQtdEstoque.requestFocus();
+                    return;
+                }
                 dao.add(produto);
+                adicionaEstoque("PRODUTO CADASTRADO", produto.getQtdEstoque(), 0, produto);
                 JOptionPane.showMessageDialog(rootPane, "Produto Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 dao.update(produto);
+                if (quantidade > produto.getQtdEstoque()) {
+                    double saida = quantidade - produto.getQtdEstoque();
+                    adicionaEstoque("PRODUTO EDITADO", 0, saida, produto);
+                } else if (quantidade < produto.getQtdEstoque()) {
+                    double entrada = produto.getQtdEstoque() - quantidade;
+                    adicionaEstoque("PRODUTO EDITADO", entrada, 0, produto);
+                }
                 JOptionPane.showMessageDialog(rootPane, "Produto Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
             }
             limpaCampos();
@@ -331,6 +406,7 @@ public class TelaProduto extends javax.swing.JDialog {
         cbGrupo.setSelectedIndex(0);
         cbUnidade.setSelectedIndex(0);
         btDelete.setEnabled(false);
+        imHistoricoAlteracaoItem.setEnabled(false);
         chbServico.setSelected(false);
         produtoServico();
 
@@ -348,6 +424,7 @@ public class TelaProduto extends javax.swing.JDialog {
             tfPrecoVenda.setText(String.valueOf(produto.getPrecoVenda()));
             tfPrecoCompra.setText(String.valueOf(produto.getPrecoCusto()));
             tfQtdEstoque.setText(String.valueOf(produto.getQtdEstoque()));
+            quantidade = produto.getQtdEstoque();
             cbGrupo.setSelectedItem(produto.getGrupoProduto());
             if (produto.getDescricaoUnidade().equals("")) {
                 cbUnidade.setSelectedIndex(0);
@@ -358,6 +435,7 @@ public class TelaProduto extends javax.swing.JDialog {
             produtoServico();
             tfCodigo.setText(produto.getCodigo());
             btDelete.setEnabled(true);
+            imHistoricoAlteracaoItem.setEnabled(true);
         }
 
     }//GEN-LAST:event_btPesquisar1ActionPerformed
@@ -376,6 +454,95 @@ public class TelaProduto extends javax.swing.JDialog {
         // TODO add your handling code here:
         produtoServico();
     }//GEN-LAST:event_chbServicoActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // TODO add your handling code here:
+        mpRelatorio.show(btnImprimir, btnImprimir.getWidth(), btnImprimir.getHeight());
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void imHistoricoAlteracaoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imHistoricoAlteracaoItemActionPerformed
+        if (!produto.isServico()) {
+            JasperReport pathjrxml;
+            HashMap parametros = new HashMap();
+
+            String sql = "", texto = "";
+
+            sql += String.valueOf(produto.getId());
+
+            try {
+                parametros.put("sql", sql);
+            } catch (Exception e) {
+            }
+
+//            String caminho = Util.retornaCaminhoApp() + "/";
+        String caminho = "";
+
+            Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
+            try {
+                JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
+                viewer.setSize(1000, 600);
+                viewer.setLocationRelativeTo(null);
+                viewer.setModal(true);
+                File file = new File(caminho+"relatorios/reportHistoricoItem.jrxml");
+                FileInputStream is = new FileInputStream(file);
+                pathjrxml = JasperCompileManager.compileReport(is);
+                JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
+                        connection);
+                JasperViewer jv = new JasperViewer(printReport, false);
+                viewer.getContentPane().add(jv.getContentPane());
+                viewer.setVisible(true);
+                //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
+
+                //jv.setVisible(true);
+            } catch (JRException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(tfPrecoCompra, "Serviço não possui histórico!");
+        }
+
+    }//GEN-LAST:event_imHistoricoAlteracaoItemActionPerformed
+
+    private void imRelacaoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imRelacaoProdutosActionPerformed
+        JasperReport pathjrxml;
+            HashMap parametros = new HashMap();
+
+            String sql = " order by g.descricao, p.descricao", texto = "Geral";
+
+            try {
+                parametros.put("sql", sql);
+            } catch (Exception e) {
+            }
+            parametros.put("texto", texto);
+
+//            String caminho = Util.retornaCaminhoApp() + "/";
+        String caminho = "";
+
+            Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
+            try {
+                JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
+                viewer.setSize(1200, 600);
+                viewer.setLocationRelativeTo(null);
+                viewer.setModal(true);
+                File file = new File(caminho+"relatorios/reportInvetarioEstoque.jrxml");
+                FileInputStream is = new FileInputStream(file);
+                pathjrxml = JasperCompileManager.compileReport(is);
+                JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
+                        connection);
+                JasperViewer jv = new JasperViewer(printReport, false);
+                viewer.getContentPane().add(jv.getContentPane());
+                viewer.setVisible(true);
+                //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
+
+                //jv.setVisible(true);
+            } catch (JRException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+    }//GEN-LAST:event_imRelacaoProdutosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,9 +586,12 @@ public class TelaProduto extends javax.swing.JDialog {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar1;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JComboBox cbGrupo;
     private javax.swing.JComboBox cbUnidade;
     private javax.swing.JCheckBox chbServico;
+    private javax.swing.JMenuItem imHistoricoAlteracaoItem;
+    private javax.swing.JMenuItem imRelacaoProdutos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;
@@ -434,6 +604,7 @@ public class TelaProduto extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lbTexto;
+    private javax.swing.JPopupMenu mpRelatorio;
     private javax.swing.ButtonGroup sexo;
     private javax.swing.JTextField tfCodigo;
     private javax.swing.JTextField tfDescricao;

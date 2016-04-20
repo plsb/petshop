@@ -7,13 +7,20 @@ package br.telas;
 
 import br.cliente.Cliente;
 import br.cliente.ClienteDAO;
+import br.livro.LivroCaixa;
+import br.livro.LivroCaixaDAO;
+import br.produto.Estoque;
+import br.produto.EstoqueDAO;
 import br.produto.ProdutoTableModel;
 import br.produto.Produto;
 import br.produto.ProdutoDAO;
 import br.util.FormataTamanhoColunasJTable;
+import br.util.Util;
 import br.venda.ItemVenda;
+import br.venda.ItemVendaDAO;
 import br.venda.ItemVendaTableModel;
 import br.venda.Venda;
+import br.venda.VendaDAO;
 import br.vendedor.Vendedor;
 import br.vendedor.VendedorDAO;
 import java.awt.event.KeyEvent;
@@ -111,6 +118,14 @@ public class TelaVenda extends javax.swing.JDialog {
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 255));
@@ -255,7 +270,7 @@ public class TelaVenda extends javax.swing.JDialog {
         jLabel6.setText("Descrição.: *");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 121, -1, 20));
 
-        tfQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        tfQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfQuantidade.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         tfQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -335,11 +350,20 @@ public class TelaVenda extends javax.swing.JDialog {
         if (venda == null) {
             venda = new Venda();
         }
-        venda.setTipoPagamento(tipoPagamento());
-        
+        if (cbTipoPagamento.getSelectedIndex() > 0) {
+            venda.setTipoPagamento(tipoPagamento());
+        }
+        if (cbCliente.getSelectedIndex() > 0) {
+            venda.setCliente((Cliente) cbCliente.getSelectedItem());
+        }
+        if (cbVendedor.getSelectedIndex() > 0) {
+            venda.setVendedor((Vendedor) cbVendedor.getSelectedItem());
+        }
+        venda.setCancelada(false);
+
     }
-    
-    private String tipoPagamento(){
+
+    private String tipoPagamento() {
         switch (cbTipoPagamento.getSelectedIndex()) {
             case 1:
 //                venda.setTipoPagamento("VV");
@@ -355,6 +379,7 @@ public class TelaVenda extends javax.swing.JDialog {
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         if (cbTipoPagamento.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(rootPane, "Informe o Tipo de Pagamento!");
             cbTipoPagamento.requestFocus();
@@ -413,9 +438,12 @@ public class TelaVenda extends javax.swing.JDialog {
                     return;
                 }
                 if (verificaProdutoAdicionado()) {
+                    
                     return;
                 }
                 it.setOrdem(itensVenda.size() + 1);
+                adicionaEstoque("SAÍDA EM VENDA", 0, it.getQuantidade(), produto);
+                modificaQtdProduto(produto.getQtdEstoque() - it.getQuantidade());
                 itensVenda.add(it);
                 produto = null;
                 lblDescricaoProduto.setText("");
@@ -426,6 +454,14 @@ public class TelaVenda extends javax.swing.JDialog {
         preencheTabela();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void modificaQtdProduto(double qtd) {
+        if (!produto.isServico()) {
+            produto.setQtdEstoque(qtd);
+            ProdutoDAO pDAO = new ProdutoDAO();
+            pDAO.update(produto);
+        }
+    }
+
     private boolean verificaProdutoAdicionado() {
         for (int i = 0; i < itensVenda.size(); i++) {
             if (itensVenda.get(i).getProduto().equals(produto) && !itensVenda.get(i).isCancelado()) {
@@ -435,6 +471,8 @@ public class TelaVenda extends javax.swing.JDialog {
                     double qtd = itensVenda.get(i).getQuantidade();
                     double nvQtd = Double.parseDouble(tfQuantidade.getText().replace(",", "."));
                     itensVenda.get(i).setQuantidade(qtd + nvQtd);
+                    adicionaEstoque("SAÍDA EM VENDA", 0, nvQtd, produto);
+                    modificaQtdProduto(produto.getQtdEstoque() - nvQtd);
                     produto = null;
                     lblDescricaoProduto.setText("");
                     preencheTabela();
@@ -465,7 +503,16 @@ public class TelaVenda extends javax.swing.JDialog {
             if (ordem > 0) {
                 for (int i = 0; i < itensVenda.size(); i++) {
                     if (itensVenda.get(i).getOrdem().equals(ordem)) {
-                        itensVenda.get(i).setCancelado(true);
+                        ProdutoDAO pDAO = new ProdutoDAO();
+                        Produto p1 = pDAO.checkExists("id", itensVenda.get(i).getProduto().getId()).get(0);
+                        if (!p1.isServico()) {
+
+                            p1.setQtdEstoque(p1.getQtdEstoque() + itensVenda.get(i).getQuantidade());
+                            itensVenda.get(i).setCancelado(true);
+//                            ProdutoDAO pDAO = new ProdutoDAO();
+                            pDAO.update(p1);
+                            adicionaEstoque("CANCELAMENTO DE VENDA", itensVenda.get(i).getQuantidade(), 0, p1);
+                        }
                         break;
                     }
                 }
@@ -477,8 +524,41 @@ public class TelaVenda extends javax.swing.JDialog {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         preencheTabela();
+
         if (itensVenda.size() > 0) {
-            TelaFechaVenda.exibeFechamento(tipoPagamento(), valorTotal());
+            venda.setValorTotal(valorTotal());
+            venda.setDesconto(Double.parseDouble(lblDesconto1.getText().replace(",", ".")));
+            venda.setData(new Date());
+            venda = TelaFechaVenda.exibeFechamento(venda);
+            if (venda.getHora() != null) {
+
+                VendaDAO vDAO = new VendaDAO();
+                vDAO.add(venda);
+                if (venda.getVlVista() > 0) {
+                    LivroCaixa lc = new LivroCaixa();
+                    lc.setValorEntrada(venda.getVlVista());
+                    lc.setDescricao("VENDA Nº " + Util.decimalFormat().format(venda.getId()) + ", DO CLIENTE " + venda.getCliente().getNome());
+                    lc.setData(new Date());
+                    lc.setVenda(venda);
+
+                    LivroCaixaDAO lcDAO = new LivroCaixaDAO();
+                    lcDAO.add(lc);
+                }
+
+                for (ItemVenda itensVenda1 : itensVenda) {
+                    ItemVendaDAO ivDAO = new ItemVendaDAO();
+                    itensVenda1.setVenda(venda);
+                    ivDAO.add(itensVenda1);
+                }
+
+                venda = new Venda();
+                cbCliente.setSelectedIndex(0);
+                cbVendedor.setSelectedIndex(0);
+                cbTipoPagamento.setSelectedIndex(0);
+                itensVenda = new ArrayList<ItemVenda>();
+                preencheTabela();
+                JOptionPane.showMessageDialog(rootPane, "Venda Realizada Com Sucesso!");
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Informe os ítens da venda!");
         }
@@ -491,7 +571,52 @@ public class TelaVenda extends javax.swing.JDialog {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja cancelar a venda?", "Cancelar", JOptionPane.YES_NO_OPTION)
+                == JOptionPane.YES_OPTION) {
+            cancelarVenda();
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        cancelarVenda();
+
+    }//GEN-LAST:event_formWindowClosing
+
+    private void cancelarVenda() {
+        if (itensVenda.size() > 0) {
+            VendaDAO vDAO = new VendaDAO();
+            ItemVendaDAO ivDAO = new ItemVendaDAO();
+            ProdutoDAO pDAO = new ProdutoDAO();
+            venda.setCancelada(true);
+            vDAO.add(venda);
+            for (ItemVenda itensVenda1 : itensVenda) {
+                if (!itensVenda1.isCancelado()) {
+                    Produto p1 = pDAO.checkExists("id", itensVenda1.getProduto().getId()).get(0);
+                    p1.setQtdEstoque(p1.getQtdEstoque() + itensVenda1.getQuantidade());
+                    pDAO.update(p1);
+                    adicionaEstoque("CANCELAMENTO DE VENDA", itensVenda1.getQuantidade(), 0, p1);
+                }
+                itensVenda1.setCancelado(true);
+                itensVenda1.setVenda(venda);
+                ivDAO.add(itensVenda1);
+            }
+            
+
+            itensVenda = new ArrayList<ItemVenda>();
+            venda = new Venda();
+            preencheTabela();
+            cbCliente.setSelectedIndex(0);
+            cbTipoPagamento.setSelectedIndex(0);
+            cbVendedor.setSelectedIndex(0);
+
+        }
+    }
 
     private double valorTotal() {
         double parcial = 0, total = 0, desconto = 0;
@@ -505,7 +630,7 @@ public class TelaVenda extends javax.swing.JDialog {
         lblParcial.setText(String.valueOf(parcial));
         lblDesconto1.setText(String.valueOf(desconto));
         lblTotalFinal.setText(String.valueOf(total));
-        return total;
+        return parcial;
     }
 
     private void preencheTabela() {
@@ -519,8 +644,6 @@ public class TelaVenda extends javax.swing.JDialog {
         valorTotal();
         FormataTamanhoColunasJTable.packColumns(tb, 1);
     }
-    
-    
 
     /**
      * @param args the command line arguments
@@ -588,4 +711,19 @@ public class TelaVenda extends javax.swing.JDialog {
     private javax.swing.JTable tb;
     private javax.swing.JFormattedTextField tfQuantidade;
     // End of variables declaration//GEN-END:variables
+
+    private void adicionaEstoque(String desc, double qtdEntrada, double qtdSaida, Produto produto){
+        Estoque e = new Estoque();
+        EstoqueDAO eDAO = new EstoqueDAO();
+        
+        e.setData(new Date());
+        e.setHora(new Date());
+        e.setDescricao(desc);
+        e.setProduto(produto);
+        e.setQtdEntrada(qtdEntrada);
+        e.setQtdSaida(qtdSaida);
+        
+        eDAO.add(e);
+    }
+
 }

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportHistoricoItem" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3801dd9b-76c1-435f-9864-455ee0b056f9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sql" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select p.descricao descProduto,p.codigo as codigoProduto, p.qtdEstoque, g.descricao grupoPorduto, e.descricao descHistorico, e.data dataAlteracao, e.hora horaAlteracao, e.qtdEntrada, e.qtdSaida from estoque e
+inner join produto p on e.produto_id=p.id
+inner join grupoproduto g on g.id=p.grupoProduto_id
+where p.id=$P!{sql}
+order by e.id]]>
+	</queryString>
+	<field name="descProduto" class="java.lang.String"/>
+	<field name="codigoProduto" class="java.lang.String"/>
+	<field name="qtdEstoque" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="grupoPorduto" class="java.lang.String"/>
+	<field name="descHistorico" class="java.lang.String"/>
+	<field name="dataAlteracao" class="java.sql.Date"/>
+	<field name="horaAlteracao" class="java.sql.Time"/>
+	<field name="qtdEntrada" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtdSaida" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a7eb0a1f-ea2d-4b51-b4e3-c3119f798201" x="329" y="0" width="226" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Data/Hora Impressão: "+new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="98" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="39a8820c-dda5-4f49-ae72-ef8a51e4a562" x="0" y="0" width="555" height="35"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HISTÓRICO DE ALTERAÇÃO DE PRODUTO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="8d37b28b-7922-461f-9972-ba675bea3213" x="0" y="35" width="555" height="60"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="64" y="45" width="77" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoProduto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="10" y="45" width="54" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Código.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="218" y="45" width="337" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descProduto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="154" y="45" width="64" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Descrição.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="64" y="65" width="77" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qtdEstoque}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="10" y="65" width="54" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Saldo.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="218" y="65" width="337" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grupoPorduto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="154" y="65" width="64" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Grupo.:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="0" y="0" width="64" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="64" y="0" width="64" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="128" y="0" width="179" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição do Histórico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="503" y="0" width="52" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saída]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="438" y="0" width="53" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entrada]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="0" y="0" width="64" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataAlteracao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm">
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="64" y="0" width="64" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horaAlteracao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="128" y="0" width="299" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descHistorico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="491" y="0" width="64" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qtdSaida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="427" y="0" width="64" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qtdEntrada}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

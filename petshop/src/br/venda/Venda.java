@@ -35,8 +35,6 @@ public class Venda {
     @ManyToOne
     private Cliente cliente;
     
-    private double subtotal;
-    
     private double desconto;
     
     private double valorTotal;
@@ -44,7 +42,33 @@ public class Venda {
     private String tipoPagamento;
     
     private boolean cancelada;
+    
+    private double vlVista, vlPromissoria, vlCartao;
 
+    public double getVlVista() {
+        return vlVista;
+    }
+
+    public void setVlVista(double vlVista) {
+        this.vlVista = vlVista;
+    }
+
+    public double getVlPromissoria() {
+        return vlPromissoria;
+    }
+
+    public void setVlPromissoria(double vlPromissoria) {
+        this.vlPromissoria = vlPromissoria;
+    }
+
+    public double getVlCartao() {
+        return vlCartao;
+    }
+
+    public void setVlCartao(double vlCartao) {
+        this.vlCartao = vlCartao;
+    }
+    
     public boolean isCancelada() {
         return cancelada;
     }
@@ -93,14 +117,6 @@ public class Venda {
         this.cliente = cliente;
     }
 
-    public double getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
-    }
-
     public double getDesconto() {
         return desconto;
     }
@@ -132,7 +148,6 @@ public class Venda {
         hash = 23 * hash + Objects.hashCode(this.data);
         hash = 23 * hash + Objects.hashCode(this.vendedor);
         hash = 23 * hash + Objects.hashCode(this.cliente);
-        hash = 23 * hash + (int) (Double.doubleToLongBits(this.subtotal) ^ (Double.doubleToLongBits(this.subtotal) >>> 32));
         hash = 23 * hash + (int) (Double.doubleToLongBits(this.desconto) ^ (Double.doubleToLongBits(this.desconto) >>> 32));
         hash = 23 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
         hash = 23 * hash + Objects.hashCode(this.tipoPagamento);
@@ -160,9 +175,6 @@ public class Venda {
         if (!Objects.equals(this.cliente, other.cliente)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.subtotal) != Double.doubleToLongBits(other.subtotal)) {
-            return false;
-        }
         if (Double.doubleToLongBits(this.desconto) != Double.doubleToLongBits(other.desconto)) {
             return false;
         }
@@ -177,7 +189,7 @@ public class Venda {
 
     @Override
     public String toString() {
-        return "Venda{" + "id=" + id + ", data=" + data + ", vendedor=" + vendedor + ", cliente=" + cliente + ", subtotal=" + subtotal + ", desconto=" + desconto + ", valorTotal=" + valorTotal + ", tipoPagamento=" + tipoPagamento + '}';
+        return "Venda{" + "id=" + id + ", data=" + data + ", vendedor=" + vendedor + ", cliente=" + cliente + ", desconto=" + desconto + ", valorTotal=" + valorTotal + ", tipoPagamento=" + tipoPagamento + '}';
     }
     
 }

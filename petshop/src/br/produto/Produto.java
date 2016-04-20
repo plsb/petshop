@@ -145,30 +145,30 @@ public class Produto implements Comparable<Produto>{
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.grupoProduto, other.grupoProduto)) {
-            return false;
-        }
-        if (this.servico != other.servico) {
-            return false;
-        }
-        if (!Objects.equals(this.descricao, other.descricao)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.qtdEstoque) != Double.doubleToLongBits(other.qtdEstoque)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.precoVenda) != Double.doubleToLongBits(other.precoVenda)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.precoCusto) != Double.doubleToLongBits(other.precoCusto)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.estoqueMinimo) != Double.doubleToLongBits(other.estoqueMinimo)) {
-            return false;
-        }
-        if (!Objects.equals(this.descricaoUnidade, other.descricaoUnidade)) {
-            return false;
-        }
+//        if (!Objects.equals(this.grupoProduto, other.grupoProduto)) {
+//            return false;
+//        }
+//        if (this.servico != other.servico) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.descricao, other.descricao)) {
+//            return false;
+//        }
+//        if (Double.doubleToLongBits(this.qtdEstoque) != Double.doubleToLongBits(other.qtdEstoque)) {
+//            return false;
+//        }
+//        if (Double.doubleToLongBits(this.precoVenda) != Double.doubleToLongBits(other.precoVenda)) {
+//            return false;
+//        }
+//        if (Double.doubleToLongBits(this.precoCusto) != Double.doubleToLongBits(other.precoCusto)) {
+//            return false;
+//        }
+//        if (Double.doubleToLongBits(this.estoqueMinimo) != Double.doubleToLongBits(other.estoqueMinimo)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.descricaoUnidade, other.descricaoUnidade)) {
+//            return false;
+//        }
         return true;
     }
 

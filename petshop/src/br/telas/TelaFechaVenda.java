@@ -5,6 +5,8 @@
  */
 package br.telas;
 
+import br.venda.Venda;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,14 +15,12 @@ import javax.swing.JOptionPane;
  */
 public class TelaFechaVenda extends javax.swing.JDialog {
 
-    private static String tp;
-    private static double vt;
+    private static Venda venda;
 
-    public static boolean exibeFechamento(String tipoPagamento, double valorTotal) {
-        tp = tipoPagamento;
-        vt = valorTotal;
+    public static Venda exibeFechamento(Venda venda) {
+        TelaFechaVenda.venda = venda;
         new TelaFechaVenda().setVisible(true);
-        return true;
+        return TelaFechaVenda.venda;
     }
 
     /**
@@ -31,10 +31,11 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         setModal(true);
         setTitle("Fechamento de Venda");
         setLocationRelativeTo(null);
-        tfVt.setText(String.valueOf(vt).replace(".", ","));
+        double totalComDesconto = venda.getValorTotal()-venda.getDesconto();
+        tfVt.setText(String.valueOf(totalComDesconto).replace(".", ","));
         tfVt.setEditable(false);
         tfTroco.setEditable(false);
-        switch (tp) {
+        switch (venda.getTipoPagamento()) {
             case "VV":
                 tfCartao.setEnabled(false);
                 tfPromissoria.setEnabled(false);
@@ -85,6 +86,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -97,7 +99,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/valuetotal.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
 
-        tfVt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        tfVt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfVt.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jPanel1.add(tfVt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 170, 30));
 
@@ -107,6 +109,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/money (1).png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, -1));
 
+        tfDinheiro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfDinheiro.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         tfDinheiro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -121,12 +124,14 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/wallet.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
 
+        tfCartao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfCartao.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jPanel1.add(tfCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 170, 30));
 
         jLabel9.setText("Valor em Promissória.:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
 
+        tfPromissoria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfPromissoria.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jPanel1.add(tfPromissoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 170, 30));
 
@@ -145,6 +150,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 300, 10));
 
+        tfDinheiroRecebido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfDinheiroRecebido.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         tfDinheiroRecebido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +168,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
 
         tfTroco.setForeground(new java.awt.Color(255, 0, 0));
+        tfTroco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfTroco.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jPanel1.add(tfTroco, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 170, 30));
 
@@ -174,13 +181,22 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/business.png"))); // NOI18N
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 370));
+        jButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jButton1.setText("Finalizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 210, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 410));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfDinheiroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDinheiroFocusLost
-        if (tp.equals("VP") || tp.equals("VC")) {
+        if (venda.getTipoPagamento().equals("VP") || venda.getTipoPagamento().equals("VC")) {
             if (!tfDinheiro.equals("")) {
                 double dinheiro = Double.parseDouble(tfDinheiro.getText().replace(",", "."));
                 double valorTotal = Double.parseDouble(tfVt.getText().replace(",", "."));
@@ -189,10 +205,10 @@ public class TelaFechaVenda extends javax.swing.JDialog {
                     tfDinheiro.requestFocus();
                 }
                 double diferenca = valorTotal - dinheiro;
-                if (tp.equals("VP")) {
+                if (venda.getTipoPagamento().equals("VP")) {
                     tfPromissoria.setText(String.valueOf(diferenca).replace(".", ","));
                 }
-                if (tp.equals("VC")) {
+                if (venda.getTipoPagamento().equals("VC")) {
                     tfCartao.setText(String.valueOf(diferenca).replace(".", ","));
                 }
             }
@@ -218,6 +234,27 @@ public class TelaFechaVenda extends javax.swing.JDialog {
 
         }
     }//GEN-LAST:event_tfDinheiroRecebidoFocusLost
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            venda.setVlVista(Double.parseDouble(tfDinheiro.getText().replace(",", ".")));
+        } catch (Exception e) {
+            venda.setVlVista(0);
+        }
+            
+        try{
+            venda.setVlCartao(Double.parseDouble(tfCartao.getText().replace(",", ".")));
+        } catch (Exception e) {
+            venda.setVlCartao(0);
+        }
+        try{
+            venda.setVlPromissoria(Double.parseDouble(tfPromissoria.getText().replace(",", ".")));
+        } catch (Exception e) {
+            venda.setVlPromissoria(0);
+        }
+        venda.setHora(new Date());
+        setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,6 +292,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
