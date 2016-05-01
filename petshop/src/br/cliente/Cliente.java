@@ -34,7 +34,17 @@ public class Cliente implements Comparable<Cliente>{
     private String estado;
     
     private String nomeMae;
+    
+    private boolean ativo;
 
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+    
     public String getNomeMae() {
         return nomeMae;
     }
@@ -177,6 +187,10 @@ public class Cliente implements Comparable<Cliente>{
     @Override
     public String toString() {
         return nome;
+    }
+    
+    public String getAtivo(){
+        return ativo ? "Sim" : "Não";
     }
     
 }

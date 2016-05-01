@@ -7,6 +7,8 @@ package br.telas;
 
 import br.cliente.Cliente;
 import br.cliente.ClienteDAO;
+import br.contasreceber.ContasReceber;
+import br.contasreceber.ContasReceberDAO;
 import br.livro.LivroCaixa;
 import br.livro.LivroCaixaDAO;
 import br.produto.Estoque;
@@ -46,6 +48,7 @@ public class TelaVenda extends javax.swing.JDialog {
      */
     public TelaVenda() {
         initComponents();
+        setTitle("Venda");
         setLocationRelativeTo(null);
         setModal(true);
         preencheCliente();
@@ -54,13 +57,14 @@ public class TelaVenda extends javax.swing.JDialog {
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
         lblData.setText(dfdtData.format(new Date()));
         preencheTabela();
+        lblDebito.setVisible(false);
     }
 
     public void preencheVendedor() {
         cbVendedor.removeAllItems();
         cbVendedor.addItem("--");
         VendedorDAO vDAO = new VendedorDAO();
-        List<Vendedor> lista = vDAO.list();
+        List<Vendedor> lista = vDAO.checkExists("ativo", true);
         Collections.sort(lista);
         for (Vendedor v : lista) {
             cbVendedor.addItem(v);
@@ -71,7 +75,7 @@ public class TelaVenda extends javax.swing.JDialog {
         cbCliente.removeAllItems();
         cbCliente.addItem("--");
         ClienteDAO cDAO = new ClienteDAO();
-        List<Cliente> lista = cDAO.list();
+        List<Cliente> lista = cDAO.checkExists("ativo", true);
         Collections.sort(lista);
         for (Cliente c : lista) {
             cbCliente.addItem(c);
@@ -116,6 +120,7 @@ public class TelaVenda extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        lblDebito = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -158,9 +163,11 @@ public class TelaVenda extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel2.setText("Tipo Pagamento.: *");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 16, -1, -1));
 
         cbTipoPagamento.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         cbTipoPagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Venda à Vista", "Venda à Prazo", "Venda à Cartão" }));
@@ -169,18 +176,28 @@ public class TelaVenda extends javax.swing.JDialog {
                 cbTipoPagamentoFocusLost(evt);
             }
         });
+        jPanel2.add(cbTipoPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 13, 182, -1));
 
         cbVendedor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         cbVendedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Venda à Vista", "Venda à Prazo", "Venda à Cartão" }));
+        jPanel2.add(cbVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 41, 182, -1));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel3.setText("Vendedor.: *");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 44, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel1.setText("Cliente.: *");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 72, -1, -1));
 
         cbCliente.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         cbCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
+        cbCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbClienteFocusLost(evt);
+            }
+        });
+        jPanel2.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 69, 386, -1));
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
         btNovo.setToolTipText("Novo Cliente");
@@ -189,66 +206,17 @@ public class TelaVenda extends javax.swing.JDialog {
                 btNovoActionPerformed(evt);
             }
         });
+        jPanel2.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(531, 50, 43, -1));
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel4.setText("Data.: *");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 16, -1, -1));
 
         lblData.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         lblData.setText("Data.: *");
+        jPanel2.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 16, 125, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbTipoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(62, 62, 62)
-                        .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btNovo)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(cbTipoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(lblData))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(cbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 100));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/codbarras.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -334,6 +302,17 @@ public class TelaVenda extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 50, 40));
+
+        lblDebito.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        lblDebito.setForeground(new java.awt.Color(255, 0, 0));
+        lblDebito.setText("O Cliente Possui Débitos em atraso!");
+        lblDebito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblDebito.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDebitoMouseClicked(evt);
+            }
+        });
+        jPanel1.add(lblDebito, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 690, 530));
 
@@ -438,7 +417,7 @@ public class TelaVenda extends javax.swing.JDialog {
                     return;
                 }
                 if (verificaProdutoAdicionado()) {
-                    
+
                     return;
                 }
                 it.setOrdem(itensVenda.size() + 1);
@@ -544,6 +523,9 @@ public class TelaVenda extends javax.swing.JDialog {
                     LivroCaixaDAO lcDAO = new LivroCaixaDAO();
                     lcDAO.add(lc);
                 }
+                if (venda.getVlPromissoria() > 0) {
+                    TelaFechaVendaPromissoria.chamaTela(venda);
+                }
 
                 for (ItemVenda itensVenda1 : itensVenda) {
                     ItemVendaDAO ivDAO = new ItemVendaDAO();
@@ -555,6 +537,7 @@ public class TelaVenda extends javax.swing.JDialog {
                 cbCliente.setSelectedIndex(0);
                 cbVendedor.setSelectedIndex(0);
                 cbTipoPagamento.setSelectedIndex(0);
+                tfQuantidade.setText("1");
                 itensVenda = new ArrayList<ItemVenda>();
                 preencheTabela();
                 JOptionPane.showMessageDialog(rootPane, "Venda Realizada Com Sucesso!");
@@ -588,12 +571,32 @@ public class TelaVenda extends javax.swing.JDialog {
 
     }//GEN-LAST:event_formWindowClosing
 
+    private void cbClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbClienteFocusLost
+        ContasReceberDAO crDAO = new ContasReceberDAO();
+        if (cbCliente.getSelectedIndex() > 0) {
+            if (crDAO.listaContasClienteEmAtraso((Cliente) cbCliente.getSelectedItem()).size()>0) {
+                lblDebito.setVisible(true);
+            } else {
+                lblDebito.setVisible(false);
+            }
+
+        } else {
+            lblDebito.setVisible(false);
+        }
+    }//GEN-LAST:event_cbClienteFocusLost
+
+    private void lblDebitoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDebitoMouseClicked
+        TelaContaPromissoria.chamaTela((Cliente) cbCliente.getSelectedItem());
+    }//GEN-LAST:event_lblDebitoMouseClicked
+
     private void cancelarVenda() {
         if (itensVenda.size() > 0) {
             VendaDAO vDAO = new VendaDAO();
             ItemVendaDAO ivDAO = new ItemVendaDAO();
             ProdutoDAO pDAO = new ProdutoDAO();
             venda.setCancelada(true);
+            venda.setData(new Date());
+            venda.setHora(new Date());
             vDAO.add(venda);
             for (ItemVenda itensVenda1 : itensVenda) {
                 if (!itensVenda1.isCancelado()) {
@@ -606,7 +609,6 @@ public class TelaVenda extends javax.swing.JDialog {
                 itensVenda1.setVenda(venda);
                 ivDAO.add(itensVenda1);
             }
-            
 
             itensVenda = new ArrayList<ItemVenda>();
             venda = new Venda();
@@ -615,6 +617,8 @@ public class TelaVenda extends javax.swing.JDialog {
             cbTipoPagamento.setSelectedIndex(0);
             cbVendedor.setSelectedIndex(0);
 
+        } else {
+            setVisible(false);
         }
     }
 
@@ -627,9 +631,9 @@ public class TelaVenda extends javax.swing.JDialog {
             }
         }
         total = parcial - desconto;
-        lblParcial.setText(String.valueOf(parcial));
-        lblDesconto1.setText(String.valueOf(desconto));
-        lblTotalFinal.setText(String.valueOf(total));
+        lblParcial.setText(String.format("%.2f",parcial));
+        lblDesconto1.setText(String.format("%.2f",desconto));
+        lblTotalFinal.setText(String.format("%.2f",total));
         return parcial;
     }
 
@@ -643,6 +647,7 @@ public class TelaVenda extends javax.swing.JDialog {
         tb.setModel(iv);
         valorTotal();
         FormataTamanhoColunasJTable.packColumns(tb, 1);
+//        tb.setAutoCreateRowSorter(true);
     }
 
     /**
@@ -704,6 +709,7 @@ public class TelaVenda extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbTexto;
     private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblDebito;
     private javax.swing.JLabel lblDesconto1;
     private javax.swing.JLabel lblDescricaoProduto;
     private javax.swing.JLabel lblParcial;
@@ -712,17 +718,17 @@ public class TelaVenda extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField tfQuantidade;
     // End of variables declaration//GEN-END:variables
 
-    private void adicionaEstoque(String desc, double qtdEntrada, double qtdSaida, Produto produto){
+    private void adicionaEstoque(String desc, double qtdEntrada, double qtdSaida, Produto produto) {
         Estoque e = new Estoque();
         EstoqueDAO eDAO = new EstoqueDAO();
-        
+
         e.setData(new Date());
         e.setHora(new Date());
         e.setDescricao(desc);
         e.setProduto(produto);
         e.setQtdEntrada(qtdEntrada);
         e.setQtdSaida(qtdSaida);
-        
+
         eDAO.add(e);
     }
 

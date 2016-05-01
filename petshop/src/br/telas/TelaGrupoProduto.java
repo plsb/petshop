@@ -8,9 +8,22 @@ package br.telas;
 import br.grupo_produto.GrupoProduto;
 import br.grupo_produto.GrupoProdutoDAO;
 import br.grupo_produto.GrupoTableModel;
+import br.util.HibernateUtil;
 import br.util.Util;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -24,6 +37,7 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
     public TelaGrupoProduto() {
         initComponents();
         setModal(true);
+        setTitle("Adiciona/Edita Grupo de Produtos");
         setLocationRelativeTo(null);
 
     }
@@ -41,6 +55,8 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
     private void initComponents() {
 
         sexo = new javax.swing.ButtonGroup();
+        mpRelatorio = new javax.swing.JPopupMenu();
+        miRelatorioProdutoPorGrupo = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -53,6 +69,16 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
         btSalvar = new javax.swing.JButton();
         btNovo = new javax.swing.JButton();
         btPesquisar1 = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
+
+        miRelatorioProdutoPorGrupo.setText("Produtos Por Grupo");
+        miRelatorioProdutoPorGrupo.setEnabled(false);
+        miRelatorioProdutoPorGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRelatorioProdutoPorGrupoActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(miRelatorioProdutoPorGrupo);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -131,6 +157,14 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
         });
         jPanel1.add(btPesquisar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 43, 40));
 
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 40, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 430, 190));
 
         pack();
@@ -178,7 +212,7 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
         tfDesconto.setText("");
         tfNome.setText("");
         btDelete.setEnabled(false);
-        
+        miRelatorioProdutoPorGrupo.setEnabled(false);        
     }
     
     private void btPesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisar1ActionPerformed
@@ -189,11 +223,59 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
             gr = new GrupoProduto();
             gr = dao.checkExists("id",Integer.valueOf(String.valueOf(o))).get(0);
             tfNome.setText(gr.getDescricao());
-            tfDesconto.setText(String.valueOf(gr.getDescontoAVista()));
+            tfDesconto.setText(String.valueOf(gr.getDescontoAVista()).replace(".", ","));
             btDelete.setEnabled(true);
+            miRelatorioProdutoPorGrupo.setEnabled(true);
         }
         
     }//GEN-LAST:event_btPesquisar1ActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+
+        mpRelatorio.show(btnImprimir, btnImprimir.getWidth(), btnImprimir.getHeight());
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void miRelatorioProdutoPorGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatorioProdutoPorGrupoActionPerformed
+                JasperReport pathjrxml;
+            HashMap parametros = new HashMap();
+
+            String sql="", texto = "Por Grupo: "+gr.getDescricao();
+
+            
+            sql= " and g.id="+gr.getId()+" order by g.descricao, p.descricao";
+            
+            try {
+                parametros.put("sql", sql);
+            } catch (Exception e) {
+            }
+            parametros.put("texto", texto);
+
+            String caminho = Util.retornaCaminhoApp();
+//        String caminho = "";
+
+            Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
+            try {
+                JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
+                viewer.setSize(1200, 600);
+                viewer.setLocationRelativeTo(null);
+                viewer.setModal(true);
+                File file = new File(caminho+"relatorios/reportInvetarioEstoque.jrxml");
+                FileInputStream is = new FileInputStream(file);
+                pathjrxml = JasperCompileManager.compileReport(is);
+                JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
+                        connection);
+                JasperViewer jv = new JasperViewer(printReport, false);
+                viewer.getContentPane().add(jv.getContentPane());
+                viewer.setVisible(true);
+                //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
+
+                //jv.setVisible(true);
+            } catch (JRException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+    }//GEN-LAST:event_miRelatorioProdutoPorGrupoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,11 +319,14 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar1;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lbTexto;
+    private javax.swing.JMenuItem miRelatorioProdutoPorGrupo;
+    private javax.swing.JPopupMenu mpRelatorio;
     private javax.swing.ButtonGroup sexo;
     private javax.swing.JFormattedTextField tfDesconto;
     private javax.swing.JTextField tfNome;

@@ -28,10 +28,11 @@ public class TelaFechaVenda extends javax.swing.JDialog {
      */
     public TelaFechaVenda() {
         initComponents();
+        setTitle("Fecha Venda");
         setModal(true);
         setTitle("Fechamento de Venda");
         setLocationRelativeTo(null);
-        double totalComDesconto = venda.getValorTotal()-venda.getDesconto();
+        double totalComDesconto = venda.getValorTotal() - venda.getDesconto();
         tfVt.setText(String.valueOf(totalComDesconto).replace(".", ","));
         tfVt.setEditable(false);
         tfTroco.setEditable(false);
@@ -224,11 +225,11 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         if (!tfDinheiroRecebido.equals("")) {
             double dinheiro = Double.parseDouble(tfDinheiro.getText().replace(",", "."));
             double valorRecebido = Double.parseDouble(tfDinheiroRecebido.getText().replace(",", "."));
-            if ( dinheiro > valorRecebido) {
+            if (dinheiro > valorRecebido) {
                 JOptionPane.showMessageDialog(rootPane, "Valor Recebido deve Superar O Valor em Dinheiro!");
                 tfDinheiroRecebido.requestFocus();
             }
-            double diferenca = valorRecebido-dinheiro;
+            double diferenca = valorRecebido - dinheiro;
 
             tfTroco.setText(String.valueOf(diferenca).replace(".", ","));
 
@@ -236,24 +237,27 @@ public class TelaFechaVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_tfDinheiroRecebidoFocusLost
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            venda.setVlVista(Double.parseDouble(tfDinheiro.getText().replace(",", ".")));
-        } catch (Exception e) {
-            venda.setVlVista(0);
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Finalizar a venda?", "FINALIZAR", JOptionPane.YES_NO_OPTION, 
+                JOptionPane.INFORMATION_MESSAGE)==JOptionPane.YES_OPTION) {
+            try {
+                venda.setVlVista(Double.parseDouble(tfDinheiro.getText().replace(",", ".")));
+            } catch (Exception e) {
+                venda.setVlVista(0);
+            }
+
+            try {
+                venda.setVlCartao(Double.parseDouble(tfCartao.getText().replace(",", ".")));
+            } catch (Exception e) {
+                venda.setVlCartao(0);
+            }
+            try {
+                venda.setVlPromissoria(Double.parseDouble(tfPromissoria.getText().replace(",", ".")));
+            } catch (Exception e) {
+                venda.setVlPromissoria(0);
+            }
+            venda.setHora(new Date());
+            setVisible(false);
         }
-            
-        try{
-            venda.setVlCartao(Double.parseDouble(tfCartao.getText().replace(",", ".")));
-        } catch (Exception e) {
-            venda.setVlCartao(0);
-        }
-        try{
-            venda.setVlPromissoria(Double.parseDouble(tfPromissoria.getText().replace(",", ".")));
-        } catch (Exception e) {
-            venda.setVlPromissoria(0);
-        }
-        venda.setHora(new Date());
-        setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

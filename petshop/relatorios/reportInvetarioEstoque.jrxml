@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportInvetarioEstoque" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="1074f081-c95d-4f00-a22b-3923b34d22de">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="107"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="sql" class="java.lang.String"/>
 	<parameter name="texto" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select p.codigo,g.descricao descGrupo, p.descricao descProduto, p.precoVenda, p.precoCusto, p.qtdEstoque,(p.precoVenda*p.qtdEstoque) as vendaquant,(p.precoCusto*p.qtdEstoque) as custoquant   from produto p
+		<![CDATA[select p.codigo,g.descricao descGrupo, p.descricao descProduto, p.precoVenda, p.precoCusto, p.qtdEstoque,(p.precoVenda*p.qtdEstoque) as vendaquant,(p.precoCusto*p.qtdEstoque) as custoquant, p.descricaoUnidade   from produto p
 inner join grupoproduto g on g.id=p.grupoProduto_id
 where servico=false and p.qtdEstoque>0
 $P!{sql}]]>
@@ -27,6 +27,9 @@ $P!{sql}]]>
 	</field>
 	<field name="vendaquant" class="java.lang.Double"/>
 	<field name="custoquant" class="java.lang.Double"/>
+	<field name="descricaoUnidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<variable name="somacusto" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{custoquant}]]></variableExpression>
 	</variable>
@@ -85,14 +88,14 @@ $P!{sql}]]>
 				<text><![CDATA[Descrição Produto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="345" y="0" width="64" height="20"/>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="332" y="0" width="64" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grupo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="488" y="0" width="38" height="20"/>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="488" y="1" width="38" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -141,21 +144,21 @@ $P!{sql}]]>
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="98" y="0" width="247" height="20"/>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="98" y="0" width="234" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descProduto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="345" y="0" width="125" height="20"/>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="332" y="0" width="87" height="20"/>
 				<textElement textAlignment="Left">
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descGrupo}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="471" y="0" width="55" height="20"/>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="488" y="1" width="38" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="11"/>
 				</textElement>
@@ -188,6 +191,13 @@ $P!{sql}]]>
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{custoquant}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="450" y="1" width="38" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricaoUnidade}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

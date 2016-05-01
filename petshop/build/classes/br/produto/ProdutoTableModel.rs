@@ -1,2 +1,0 @@
-br.grupo_produto.GrupoTableModel
-br.grupo_produto.ProdutoTableModel

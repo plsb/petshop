@@ -26,6 +26,9 @@ order by e.id]]>
 	<field name="qtdSaida" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="saldo" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdEntrada}-$F{qtdSaida}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -120,32 +123,39 @@ order by e.id]]>
 				<text><![CDATA[Data]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="64" y="0" width="64" height="20"/>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="68" y="0" width="52" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Hora]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="128" y="0" width="179" height="20"/>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="122" y="0" width="179" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Descrição do Histórico]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="503" y="0" width="52" height="20"/>
-				<textElement>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="445" y="0" width="43" height="20"/>
+				<textElement textAlignment="Right">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Saída]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="438" y="0" width="53" height="20"/>
-				<textElement>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="392" y="0" width="53" height="20"/>
+				<textElement textAlignment="Right">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Entrada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="488" y="0" width="55" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -159,32 +169,39 @@ order by e.id]]>
 				<textFieldExpression><![CDATA[$F{dataAlteracao}]]></textFieldExpression>
 			</textField>
 			<textField pattern="HH.mm">
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="64" y="0" width="64" height="20"/>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="67" y="0" width="52" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{horaAlteracao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="128" y="0" width="299" height="20"/>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="122" y="0" width="273" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descHistorico}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="491" y="0" width="64" height="20"/>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="445" y="0" width="43" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{qtdSaida}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="427" y="0" width="64" height="20"/>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="399" y="0" width="46" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{qtdEntrada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="488" y="0" width="55" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{saldo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

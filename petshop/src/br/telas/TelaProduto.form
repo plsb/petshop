@@ -10,6 +10,14 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="imEstoqueMinimo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Estoque M&#xed;nimo"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="imEstoqueMinimoActionPerformed"/>
+          </Events>
+        </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="imHistoricoAlteracaoItem">
           <Properties>
             <Property name="text" type="java.lang.String" value="Hist&#xf3;rico de Altera&#xe7;&#xe3;o do &#xcd;tem"/>

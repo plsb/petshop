@@ -25,6 +25,7 @@ public class TelaCliente extends javax.swing.JDialog {
         initComponents();
         setModal(true);
         setLocationRelativeTo(null);
+        setTitle("Adiciona/Edita Cliente");
 
     }
 
@@ -68,6 +69,7 @@ public class TelaCliente extends javax.swing.JDialog {
         jLabel29 = new javax.swing.JLabel();
         tfNomeMae = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        cbAtivo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -219,6 +221,16 @@ public class TelaCliente extends javax.swing.JDialog {
         jLabel7.setText("Nome da Mãe.: *");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
 
+        cbAtivo.setBackground(new java.awt.Color(255, 255, 255));
+        cbAtivo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbAtivo.setText("Ativo?");
+        cbAtivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAtivoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbAtivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 430, 400));
 
         pack();
@@ -256,6 +268,7 @@ public class TelaCliente extends javax.swing.JDialog {
             cliente.setCidade(tfCidade.getText());
             cliente.setEstado(cbEstado.getSelectedItem().toString());
             cliente.setNomeMae(tfNomeMae.getText());
+            cliente.setAtivo(cbAtivo.isSelected());
             if(!Util.CPF(tfCPF.getText().replaceAll("\\D*", ""))){
                 JOptionPane.showMessageDialog(rootPane, "CPF Inválido!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return ;
@@ -285,6 +298,7 @@ public class TelaCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void limpaCampos(){
+        cbAtivo.setSelected(false);
         cliente = new Cliente();
         tfCPF.setText("");
         tfCelular.setText("");
@@ -314,6 +328,7 @@ public class TelaCliente extends javax.swing.JDialog {
             tfCidade.setText(cliente.getCidade());
             cbEstado.setSelectedItem(cliente.getEstado());
             tfNomeMae.setText(cliente.getNomeMae());
+            cbAtivo.setSelected(cliente.isAtivo());
             if (cliente.getSexo() == 'F') {
                 rbFeminino.setSelected(true);
             } else if (cliente.getSexo() == 'M') {
@@ -323,6 +338,10 @@ public class TelaCliente extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_btPesquisar1ActionPerformed
+
+    private void cbAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAtivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbAtivoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -365,6 +384,7 @@ public class TelaCliente extends javax.swing.JDialog {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar1;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JCheckBox cbAtivo;
     private javax.swing.JComboBox cbEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

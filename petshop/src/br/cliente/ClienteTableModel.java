@@ -26,7 +26,7 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class ClienteTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Código", "Nome", "CPF", "Endereço", "Cidade", "UF"};
+    private String[] nomeColunas = {"Código", "Nome", "CPF", "Endereço", "Cidade", "UF", "Ativo"};
     private List<Cliente> clientes;
 
     /**
@@ -86,6 +86,8 @@ public class ClienteTableModel extends AbstractTableModel {
                 return cliente.getCidade();
             case 5:
                 return cliente.getEstado();
+            case 6:
+                return cliente.getAtivo();
         }
         return null;
     }
@@ -111,6 +113,8 @@ public class ClienteTableModel extends AbstractTableModel {
                 return nomeColunas[5];
             case 5:
                 return nomeColunas[5];
+            case 6:
+                return nomeColunas[6];
 
         }
         return null;

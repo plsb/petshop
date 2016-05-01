@@ -5,6 +5,7 @@
  */
 package br.contasreceber;
 
+import br.cliente.Cliente;
 import br.venda.Venda;
 import java.util.Date;
 import java.util.Objects;
@@ -16,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class ContasReceber {
+public class ContasReceber implements Comparable<ContasReceber>{
     
     @Id
     @GeneratedValue
@@ -25,12 +26,82 @@ public class ContasReceber {
     @Temporal(TemporalType.DATE)
     private Date dataVencimento;
     
+    private String nrConta;
+    
     private double valor;
     
     @ManyToOne
     private Venda venda;
+    
+    @ManyToOne
+    private Cliente cliente;
+    
+    private int nrParcela;
+    
+    private Boolean paga;
+    
+    @Temporal(TemporalType.DATE)
+    private Date dataPagamento;
+    
+    private double valorPago;
 
-    public Integer getId() {
+    public String getNrConta() {
+        return nrConta;
+    }
+
+    public void setNrConta(String nrConta) {
+        this.nrConta = nrConta;
+    }
+
+    public Boolean getPaga() {
+        return paga;
+    }
+
+    public void setPaga(Boolean paga) {
+        this.paga = paga;
+    }
+    
+    public boolean isPaga() {
+        return paga;
+    }
+
+    public void setPaga(boolean paga) {
+        this.paga = paga;
+    }
+
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public double getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(double valorPago) {
+        this.valorPago = valorPago;
+    }
+    
+    public int getNrParcela() {
+        return nrParcela;
+    }
+
+    public void setNrParcela(int nrParcela) {
+        this.nrParcela = nrParcela;
+    }
+    
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
+     public Integer getId() {
         return id;
     }
 
@@ -99,6 +170,11 @@ public class ContasReceber {
     @Override
     public String toString() {
         return "Promissoria{" + "id=" + id + ", dataVencimento=" + dataVencimento + ", valor=" + valor + ", venda=" + venda + '}';
+    }
+
+    @Override
+    public int compareTo(ContasReceber o) {
+        return o.dataVencimento.compareTo(dataVencimento);
     }
     
 }

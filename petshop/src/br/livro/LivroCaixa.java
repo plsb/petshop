@@ -5,6 +5,7 @@
  */
 package br.livro;
 
+import br.contasreceber.ContasReceber;
 import br.venda.Venda;
 import java.util.Date;
 import java.util.Objects;
@@ -35,12 +36,26 @@ public class LivroCaixa implements Comparable<LivroCaixa>{
         return data;
     }
 
+    public ContasReceber getContaReceber() {
+        return contaReceber;
+    }
+
+    public void setContaReceber(ContasReceber contaReceber) {
+        this.contaReceber = contaReceber;
+    }
+    
+    
     public void setData(Date data) {
         this.data = data;
     }
     
     @ManyToOne
     private Venda venda;
+    
+    @ManyToOne
+    private ContasReceber contaReceber;
+    
+    
 
     public String getDescricao() {
         return descricao;

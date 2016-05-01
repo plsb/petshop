@@ -31,6 +31,7 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
 
         setModal(true);
         setLocationRelativeTo(null);
+        setTitle("Adiciona/Edita Caixa");
     }
 
     /**

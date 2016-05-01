@@ -26,6 +26,7 @@
         <mapping class="br.cliente.Cliente"/>
         <mapping class="br.produto.Produto"/>
         <mapping class="br.produto.Estoque"/>
+        <mapping class="br.empresa.Empresa"/>
         <mapping class="br.grupo_produto.GrupoProduto"/>
         <mapping class="br.vendedor.Vendedor"/>
         <mapping class="br.venda.Venda"/>

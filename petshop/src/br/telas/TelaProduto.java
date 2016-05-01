@@ -51,6 +51,7 @@ public class TelaProduto extends javax.swing.JDialog {
         setModal(true);
         setLocationRelativeTo(null);
         preencheGrupo();
+        setTitle("Adiciona/Edita Produto");
     }
 
     private void preencheGrupo() {
@@ -84,6 +85,7 @@ public class TelaProduto extends javax.swing.JDialog {
 
         sexo = new javax.swing.ButtonGroup();
         mpRelatorio = new javax.swing.JPopupMenu();
+        imEstoqueMinimo = new javax.swing.JMenuItem();
         imHistoricoAlteracaoItem = new javax.swing.JMenuItem();
         imRelacaoProdutos = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
@@ -113,6 +115,14 @@ public class TelaProduto extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         tfCodigo = new javax.swing.JTextField();
         btnImprimir = new javax.swing.JButton();
+
+        imEstoqueMinimo.setText("Estoque Mínimo");
+        imEstoqueMinimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imEstoqueMinimoActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(imEstoqueMinimo);
 
         imHistoricoAlteracaoItem.setText("Histórico de Alteração do Ítem");
         imHistoricoAlteracaoItem.setEnabled(false);
@@ -474,8 +484,8 @@ public class TelaProduto extends javax.swing.JDialog {
             } catch (Exception e) {
             }
 
-//            String caminho = Util.retornaCaminhoApp() + "/";
-        String caminho = "";
+            String caminho = Util.retornaCaminhoApp();
+//        String caminho = "";
 
             Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
             try {
@@ -517,8 +527,8 @@ public class TelaProduto extends javax.swing.JDialog {
             }
             parametros.put("texto", texto);
 
-//            String caminho = Util.retornaCaminhoApp() + "/";
-        String caminho = "";
+            String caminho = Util.retornaCaminhoApp();
+//        String caminho = "";
 
             Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
             try {
@@ -543,6 +553,38 @@ public class TelaProduto extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             }
     }//GEN-LAST:event_imRelacaoProdutosActionPerformed
+
+    private void imEstoqueMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imEstoqueMinimoActionPerformed
+                JasperReport pathjrxml;
+            HashMap parametros = new HashMap();
+
+            String caminho = Util.retornaCaminhoApp();
+//        String caminho = "";
+
+            Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
+            try {
+                JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
+                viewer.setSize(1200, 600);
+                viewer.setLocationRelativeTo(null);
+                viewer.setModal(true);
+                File file = new File(caminho+"relatorios/reportEstoqueMinimo.jrxml");
+                FileInputStream is = new FileInputStream(file);
+                pathjrxml = JasperCompileManager.compileReport(is);
+                JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
+                        connection);
+                JasperViewer jv = new JasperViewer(printReport, false);
+                viewer.getContentPane().add(jv.getContentPane());
+                viewer.setVisible(true);
+                //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
+
+                //jv.setVisible(true);
+            } catch (JRException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+
+    }//GEN-LAST:event_imEstoqueMinimoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -590,6 +632,7 @@ public class TelaProduto extends javax.swing.JDialog {
     private javax.swing.JComboBox cbGrupo;
     private javax.swing.JComboBox cbUnidade;
     private javax.swing.JCheckBox chbServico;
+    private javax.swing.JMenuItem imEstoqueMinimo;
     private javax.swing.JMenuItem imHistoricoAlteracaoItem;
     private javax.swing.JMenuItem imRelacaoProdutos;
     private javax.swing.JLabel jLabel1;

@@ -7,6 +7,8 @@ package br.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +20,12 @@ import java.util.logging.Logger;
 public class Teste {
 
     public static void main(String[] args) {
-        HibernateUtil.getSessionFactory().openSession();
+        Date dt = new Date();
+        SimpleDateFormat dfdtDataNascimento;
+        SimpleDateFormat s = new SimpleDateFormat("ddMMyy");
+        SimpleDateFormat s2 = new SimpleDateFormat("hhmm");
+
+        System.out.println(s.format(dt)+s2.format(dt));
+
     }
 }

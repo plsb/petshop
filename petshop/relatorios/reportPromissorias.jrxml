@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportPromissorias" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8539707e-d7cb-4baf-9261-30071e6ae38c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sql" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select cr.nrParcela, cr.id, cr.nrConta, cr.dataVencimento, cr.valor, c.nome, c.telefone, c.cidade, c.estado, c.cpf, v.data dataCompra, v.hora horaCompra from contasreceber cr
+inner join cliente c on c.id=cr.cliente_id
+inner join venda v on v.id=cr.venda_id
+where v.id=$P!{sql}
+order by cr.nrParcela]]>
+	</queryString>
+	<field name="nrParcela" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nrConta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataVencimento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataCompra" class="java.sql.Date"/>
+	<field name="horaCompra" class="java.sql.Time"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="225" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="d5e6d41f-d30d-4676-970f-289fe8923040" x="0" y="1" width="555" height="222"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="a7eb0a1f-ea2d-4b51-b4e3-c3119f798201" x="329" y="1" width="226" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Data/Hora Impressão: "+new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3f8bc9b2-8693-4534-ac25-3702adeb1cd0" x="325" y="21" width="226" height="20"/>
+				<textElement textAlignment="Right" rotation="None">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Data Vencimento: "+$F{dataVencimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3f8bc9b2-8693-4534-ac25-3702adeb1cd0" x="5" y="41" width="359" height="20"/>
+				<textElement textAlignment="Left" rotation="None">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Código: "+$F{nrConta}+" | Nr. Parcela: "+$F{nrParcela}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3f8bc9b2-8693-4534-ac25-3702adeb1cd0" x="5" y="88" width="373" height="20"/>
+				<textElement textAlignment="Left" rotation="None">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cliente: "+$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3f8bc9b2-8693-4534-ac25-3702adeb1cd0" x="5" y="128" width="295" height="20"/>
+				<textElement textAlignment="Left" rotation="None">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cidade: "+$F{cidade}+"-"+$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3f8bc9b2-8693-4534-ac25-3702adeb1cd0" x="5" y="108" width="295" height="20"/>
+				<textElement textAlignment="Left" rotation="None">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CPF: "+$F{cpf}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="25396a12-d6b7-4df0-98ef-0bdc60f54019" x="5" y="83" width="546" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="25396a12-d6b7-4df0-98ef-0bdc60f54019" x="5" y="179" width="546" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="3f8bc9b2-8693-4534-ac25-3702adeb1cd0" x="5" y="148" width="295" height="20"/>
+				<textElement textAlignment="Left" rotation="None">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Telefone: "+$F{telefone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3f8bc9b2-8693-4534-ac25-3702adeb1cd0" x="378" y="41" width="173" height="20"/>
+				<textElement textAlignment="Right" rotation="None">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Valor: "+$F{valor}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="25396a12-d6b7-4df0-98ef-0bdc60f54019" x="125" y="202" width="320" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="3f8bc9b2-8693-4534-ac25-3702adeb1cd0" x="9" y="203" width="546" height="20"/>
+				<textElement textAlignment="Center" rotation="None">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3f8bc9b2-8693-4534-ac25-3702adeb1cd0" x="5" y="21" width="295" height="20"/>
+				<textElement textAlignment="Left" rotation="None">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NOTA PROMISSÓRIA"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

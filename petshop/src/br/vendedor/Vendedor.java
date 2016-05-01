@@ -20,7 +20,17 @@ public class Vendedor implements Comparable<Vendedor>{
     private String nome;
     
     private double porcentagemComissao;
+    
+    private boolean ativo;
 
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -83,6 +93,10 @@ public class Vendedor implements Comparable<Vendedor>{
     @Override
     public int compareTo(Vendedor o) {
         return nome.compareTo(o.nome);
+    }
+    
+    public String getAtivo(){
+        return ativo ? "Sim" : "Não";
     }
     
 }
