@@ -36,6 +36,7 @@
         <mapping class="br.contaspagar.ContasPagar"/>
         <mapping class="br.livro.LivroCaixa"/>
         <mapping class="br.fornecedor.Fornecedor"/>
+        <mapping class="br.usuario.Usuario"/>
     </session-factory>
 </hibernate-configuration>
 
