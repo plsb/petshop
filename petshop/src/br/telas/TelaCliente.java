@@ -6,6 +6,7 @@
 package br.telas;
 
 import br.cliente.*;
+import br.util.UsuarioAtivo;
 import br.util.Util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -150,6 +151,11 @@ public class TelaCliente extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         tfCPF.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfCPFFocusLost(evt);
+            }
+        });
         jPanel1.add(tfCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 160, -1));
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -237,10 +243,12 @@ public class TelaCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        if(JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Cliente?", "", JOptionPane.YES_NO_OPTION, 
-                JOptionPane.INFORMATION_MESSAGE)==JOptionPane.YES_OPTION){
-            dao.remove(cliente);
-            limpaCampos();
+        if (Util.verificaPermissao("EXCLUIR_CLIENTE")) {
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Cliente?", "", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
+                dao.remove(cliente);
+                limpaCampos();
+            }
         }
     }//GEN-LAST:event_btDeleteActionPerformed
 
@@ -249,55 +257,58 @@ public class TelaCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (cliente == null) {
-            cliente = new Cliente();
-        }
-        if (Util.chkVazio(tfNome.getText(), tfTelefone.getText(), tfCPF.getText(),
-                cbEstado.getSelectedItem().toString(), tfCidade.getText(),
-                tfNomeMae.getText())) {
-            if(!rbMasculino.isSelected() && !rbFeminino.isSelected()){
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos com '*'! ");
-                return ;
-            }           
-            
-            cliente.setNome(tfNome.getText());
-            cliente.setEndereco(tfEndereco.getText());
-            cliente.setCelular(tfCelular.getText().replaceAll("\\D*", ""));
-            cliente.setTelefone(tfTelefone.getText().replaceAll("\\D*", ""));
-            cliente.setSexo((rbFeminino.isSelected()) ? 'F' : 'M');
-            cliente.setCidade(tfCidade.getText());
-            cliente.setEstado(cbEstado.getSelectedItem().toString());
-            cliente.setNomeMae(tfNomeMae.getText());
-            cliente.setAtivo(cbAtivo.isSelected());
-            if(!Util.CPF(tfCPF.getText().replaceAll("\\D*", ""))){
-                JOptionPane.showMessageDialog(rootPane, "CPF Inválido!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return ;
+        if (Util.verificaPermissao("CE_CLIENTE")) {
+
+            if (cliente == null) {
+                cliente = new Cliente();
             }
-            cliente.setCpf(tfCPF.getText().replaceAll("\\D*", ""));
-            
-            if(cliente.getId()==null){
-                if (dao.checkExists("cpf", cliente.getCpf()).size() > 0) {
-                    JOptionPane.showMessageDialog(rootPane, "CPF já informado!", "ERRO", JOptionPane.ERROR_MESSAGE);
-                    tfCPF.requestFocus();
+            if (Util.chkVazio(tfNome.getText(), tfTelefone.getText(), tfCPF.getText(),
+                    cbEstado.getSelectedItem().toString(), tfCidade.getText(),
+                    tfNomeMae.getText())) {
+                if (!rbMasculino.isSelected() && !rbFeminino.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos com '*'! ");
                     return;
                 }
-                
-                dao.add(cliente);
-                JOptionPane.showMessageDialog(rootPane, "Cliente Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                dao.update(cliente);
-                JOptionPane.showMessageDialog(rootPane, "Cliente Editado Com Sucesso!", "INFO",JOptionPane.INFORMATION_MESSAGE);
+
+                cliente.setNome(tfNome.getText());
+                cliente.setEndereco(tfEndereco.getText());
+                cliente.setCelular(tfCelular.getText().replaceAll("\\D*", ""));
+                cliente.setTelefone(tfTelefone.getText().replaceAll("\\D*", ""));
+                cliente.setSexo((rbFeminino.isSelected()) ? 'F' : 'M');
+                cliente.setCidade(tfCidade.getText());
+                cliente.setEstado(cbEstado.getSelectedItem().toString());
+                cliente.setNomeMae(tfNomeMae.getText());
+                cliente.setAtivo(cbAtivo.isSelected());
+                if (!Util.CPF(tfCPF.getText().replaceAll("\\D*", ""))) {
+                    JOptionPane.showMessageDialog(rootPane, "CPF Inválido!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                cliente.setCpf(tfCPF.getText().replaceAll("\\D*", ""));
+
+                if (cliente.getId() == null) {
+                    if (dao.checkExists("cpf", cliente.getCpf()).size() > 0) {
+                        JOptionPane.showMessageDialog(rootPane, "CPF já informado!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                        tfCPF.requestFocus();
+                        return;
+                    }
+
+                    dao.add(cliente);
+                    JOptionPane.showMessageDialog(rootPane, "Cliente Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    dao.update(cliente);
+                    JOptionPane.showMessageDialog(rootPane, "Cliente Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                }
+                limpaCampos();
             }
-            limpaCampos();
-        } 
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         limpaCampos();
-        
+
     }//GEN-LAST:event_btNovoActionPerformed
 
-    private void limpaCampos(){
+    private void limpaCampos() {
         cbAtivo.setSelected(false);
         cliente = new Cliente();
         tfCPF.setText("");
@@ -312,14 +323,14 @@ public class TelaCliente extends javax.swing.JDialog {
         rbMasculino.setSelected(false);
         tfNomeMae.setText("");
     }
-    
+
     private void btPesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisar1ActionPerformed
-        List<Cliente> lista = (!(tfNome.getText().equals("")) ? dao.checkExists("nome",tfNome.getText()) : dao.list());
+        List<Cliente> lista = (!(tfNome.getText().equals("")) ? dao.checkExists("nome", tfNome.getText()) : dao.list());
         ClienteTableModel stm = new ClienteTableModel(lista);
         Object o = TelaPesquisa.exibeTela(stm, "Cliente");
         if (o != null) {
             cliente = new Cliente();
-            cliente = dao.checkExists("id",Integer.valueOf(String.valueOf(o))).get(0);
+            cliente = dao.checkExists("id", Integer.valueOf(String.valueOf(o))).get(0);
             tfNome.setText(cliente.getNome());
             tfCPF.setText(cliente.getCpf());
             tfCelular.setText(cliente.getCelular());
@@ -336,12 +347,19 @@ public class TelaCliente extends javax.swing.JDialog {
             }
             btDelete.setEnabled(true);
         }
-        
+
     }//GEN-LAST:event_btPesquisar1ActionPerformed
 
     private void cbAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAtivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbAtivoActionPerformed
+
+    private void tfCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCPFFocusLost
+        if (!Util.CPF(tfCPF.getText().replaceAll("\\D*", ""))) {
+            JOptionPane.showMessageDialog(rootPane, "CPF Inválido!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            tfCPF.setText("");
+        }
+    }//GEN-LAST:event_tfCPFFocusLost
 
     /**
      * @param args the command line arguments

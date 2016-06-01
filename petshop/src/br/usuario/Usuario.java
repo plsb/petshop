@@ -1,10 +1,18 @@
 package br.usuario;
 
 import br.util.Util;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 public class Usuario implements Comparable<Usuario>{
@@ -20,6 +28,15 @@ public class Usuario implements Comparable<Usuario>{
     private String senha;
     
     private boolean administrador, ativo;
+    
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "usuario_permissao",
+            uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"usuario", "permissao"})},
+            joinColumns = @JoinColumn(name = "usuario"))
+    @Column(name = "permissao", length = 50)
+    private Set<String> permissao;// = new HashSet<String>();
 
     public Integer getId() {
         return id;
@@ -109,6 +126,14 @@ public class Usuario implements Comparable<Usuario>{
         return true;
     }
 
+    public Set<String> getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(Set<String> permissao) {
+        this.permissao = permissao;
+    }
+    
     @Override
     public int compareTo(Usuario o) {
         return nome.compareTo(o.nome);

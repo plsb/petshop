@@ -149,10 +149,12 @@ public class TelaVendedor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        if(JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Vendedor?", "", JOptionPane.YES_NO_OPTION, 
-                JOptionPane.INFORMATION_MESSAGE)==JOptionPane.YES_OPTION){
-            dao.remove(v);
-            limpaCampos();
+        if (Util.verificaPermissao("EXCLUIR_VENDEDOR")) {
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Vendedor?", "", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
+                dao.remove(v);
+                limpaCampos();
+            }
         }
     }//GEN-LAST:event_btDeleteActionPerformed
 
@@ -161,54 +163,55 @@ public class TelaVendedor extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (v == null) {
-            v = new Vendedor();
-        }
-        if (Util.chkVazio(tfNome.getText(), tfDesconto.getText())) {
-            
-            
-            v.setNome(tfNome.getText());
-            v.setPorcentagemComissao(Double.parseDouble(tfDesconto.getText().replaceFirst(",", ".")));
-            v.setAtivo(cbAtivo.isSelected());
-            if(v.getId()==null){
-                v.setAtivo(true);
-                dao.add(v);
-                JOptionPane.showMessageDialog(rootPane, "Vendedor Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                dao.update(v);
-                JOptionPane.showMessageDialog(rootPane, "Vendedor Editado Com Sucesso!", "INFO",JOptionPane.INFORMATION_MESSAGE);
+        if (Util.verificaPermissao("CE_VENDEDOR")) {
+            if (v == null) {
+                v = new Vendedor();
             }
-            limpaCampos();
-        } 
+            if (Util.chkVazio(tfNome.getText(), tfDesconto.getText())) {
+
+                v.setNome(tfNome.getText());
+                v.setPorcentagemComissao(Double.parseDouble(tfDesconto.getText().replaceFirst(",", ".")));
+                v.setAtivo(cbAtivo.isSelected());
+                if (v.getId() == null) {
+                    v.setAtivo(true);
+                    dao.add(v);
+                    JOptionPane.showMessageDialog(rootPane, "Vendedor Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    dao.update(v);
+                    JOptionPane.showMessageDialog(rootPane, "Vendedor Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                }
+                limpaCampos();
+            }
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         limpaCampos();
-        
+
     }//GEN-LAST:event_btNovoActionPerformed
 
-    private void limpaCampos(){
+    private void limpaCampos() {
         v = new Vendedor();
         tfDesconto.setText("");
         tfNome.setText("");
         btDelete.setEnabled(false);
         cbAtivo.setSelected(false);
-        
+
     }
-    
+
     private void btPesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisar1ActionPerformed
-        List<Vendedor> lista = (!(tfNome.getText().equals("")) ? dao.checkExists("nome",tfNome.getText()) : dao.list());
+        List<Vendedor> lista = (!(tfNome.getText().equals("")) ? dao.checkExists("nome", tfNome.getText()) : dao.list());
         VendedorTableModel stm = new VendedorTableModel(lista);
         Object o = TelaPesquisa.exibeTela(stm, "Vendedores");
         if (o != null) {
             v = new Vendedor();
-            v = dao.checkExists("id",Integer.valueOf(String.valueOf(o))).get(0);
+            v = dao.checkExists("id", Integer.valueOf(String.valueOf(o))).get(0);
             tfNome.setText(v.getNome());
             tfDesconto.setText(String.valueOf(v.getPorcentagemComissao()).replace(".", ","));
             cbAtivo.setSelected(v.isAtivo());
             btDelete.setEnabled(true);
         }
-        
+
     }//GEN-LAST:event_btPesquisar1ActionPerformed
 
     private void cbAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAtivoActionPerformed

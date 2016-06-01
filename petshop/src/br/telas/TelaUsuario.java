@@ -30,6 +30,7 @@ public class TelaUsuario extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setTitle("Adiciona/Edita Usuário");
         ckAtivo.setSelected(true);
+        limpaCampos();
 
     }
 
@@ -64,6 +65,7 @@ public class TelaUsuario extends javax.swing.JDialog {
         tfConfirmarSenha = new javax.swing.JPasswordField();
         tfSenha = new javax.swing.JPasswordField();
         ckAtivo = new javax.swing.JCheckBox();
+        lblPermissoes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -157,7 +159,7 @@ public class TelaUsuario extends javax.swing.JDialog {
                 ckAdministradorActionPerformed(evt);
             }
         });
-        jPanel1.add(ckAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, -1, -1));
+        jPanel1.add(ckAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, -1));
 
         tfConfirmarSenha.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jPanel1.add(tfConfirmarSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 230, -1));
@@ -174,6 +176,15 @@ public class TelaUsuario extends javax.swing.JDialog {
             }
         });
         jPanel1.add(ckAtivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
+
+        lblPermissoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/reporting.png"))); // NOI18N
+        lblPermissoes.setText("Permissões");
+        lblPermissoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPermissoesMouseClicked(evt);
+            }
+        });
+        jPanel1.add(lblPermissoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 430, 270));
 
@@ -242,6 +253,7 @@ public class TelaUsuario extends javax.swing.JDialog {
         tfConfirmarSenha.setText("");
         ckAtivo.setSelected(true);
         btDelete.setEnabled(false);
+        lblPermissoes.setVisible(false);
         
     }
     
@@ -258,6 +270,8 @@ public class TelaUsuario extends javax.swing.JDialog {
             ckAtivo.setSelected(usuario.isAtivo());
             
             btDelete.setEnabled(true);
+            lblPermissoes.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_btPesquisar1ActionPerformed
@@ -269,6 +283,10 @@ public class TelaUsuario extends javax.swing.JDialog {
     private void ckAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAtivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ckAtivoActionPerformed
+
+    private void lblPermissoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPermissoesMouseClicked
+        usuario = TelaPermissoes.chamaTela(usuario);
+    }//GEN-LAST:event_lblPermissoesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -321,6 +339,7 @@ public class TelaUsuario extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lbTexto;
+    private javax.swing.JLabel lblPermissoes;
     private javax.swing.ButtonGroup sexo;
     private javax.swing.JPasswordField tfConfirmarSenha;
     private javax.swing.JTextField tfLogin;

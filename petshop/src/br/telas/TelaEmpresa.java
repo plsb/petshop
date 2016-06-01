@@ -25,8 +25,8 @@ public class TelaEmpresa extends javax.swing.JDialog {
         setModal(true);
         setTitle("Adiciona/Edita Empresa");
         setLocationRelativeTo(null);
-        
-        if(dao.list().size()>0){
+
+        if (dao.list().size() > 0) {
             empresa = dao.list().get(0);
             tfRazaoSocial.setText(empresa.getRazaoSocial());
             tfNomeFantasia.setText(empresa.getNomeFantasia());
@@ -120,6 +120,11 @@ public class TelaEmpresa extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         tfTelefone.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfTelefoneFocusLost(evt);
+            }
+        });
         jPanel1.add(tfTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 160, -1));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -186,39 +191,49 @@ public class TelaEmpresa extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (empresa == null) {
-            empresa = new Empresa();
-        }
-        if (Util.chkVazio(tfRazaoSocial.getText(), tfNomeFantasia.getText(), tfTelefone.getText(), tfCNPJ.getText(),
-                cbEstado.getSelectedItem().toString(), tfCidade.getText(), tfEndereco.getText(),
-                tfIE.getText())) {
-                    
-            empresa.setRazaoSocial(tfRazaoSocial.getText());
-            empresa.setNomeFantasia(tfNomeFantasia.getText());
-            empresa.setEndereco(tfEndereco.getText());
-            empresa.setCidade(tfCidade.getText());
-            empresa.setEstado(cbEstado.getSelectedItem().toString());       
-            empresa.setTelefone(tfTelefone.getText().replaceAll("\\D*", ""));
-            empresa.setIe(tfIE.getText());
-            if(!Util.isCnpjValido(tfCNPJ.getText().replaceAll("\\D*", ""))){
-                JOptionPane.showMessageDialog(rootPane, "CNPJ Inválido!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return ;
+        if (Util.verificaPermissao("CE_EMPRESA")) {
+            if (empresa == null) {
+                empresa = new Empresa();
             }
-            empresa.setCnpj(tfCNPJ.getText().replaceAll("\\D*", ""));
-            
-            if(empresa.getId()==null){
-               
-                dao.add(empresa);
-                JOptionPane.showMessageDialog(rootPane, "Empresa Cadastrada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                dao.update(empresa);
-                JOptionPane.showMessageDialog(rootPane, "Empresa Editada Com Sucesso!", "INFO",JOptionPane.INFORMATION_MESSAGE);
-            }
+            if (Util.chkVazio(tfRazaoSocial.getText(), tfNomeFantasia.getText(), tfTelefone.getText(), tfCNPJ.getText(),
+                    cbEstado.getSelectedItem().toString(), tfCidade.getText(), tfEndereco.getText(),
+                    tfIE.getText())) {
+
+                empresa.setRazaoSocial(tfRazaoSocial.getText());
+                empresa.setNomeFantasia(tfNomeFantasia.getText());
+                empresa.setEndereco(tfEndereco.getText());
+                empresa.setCidade(tfCidade.getText());
+                empresa.setEstado(cbEstado.getSelectedItem().toString());
+                empresa.setTelefone(tfTelefone.getText().replaceAll("\\D*", ""));
+                empresa.setIe(tfIE.getText());
+                if (!Util.isCnpjValido(tfCNPJ.getText().replaceAll("\\D*", ""))) {
+                    JOptionPane.showMessageDialog(rootPane, "CNPJ Inválido!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                empresa.setCnpj(tfCNPJ.getText().replaceAll("\\D*", ""));
+
+                if (empresa.getId() == null) {
+
+                    dao.add(empresa);
+                    JOptionPane.showMessageDialog(rootPane, "Empresa Cadastrada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    dao.update(empresa);
+                    JOptionPane.showMessageDialog(rootPane, "Empresa Editada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                }
 //            limpaCampos();
-        } 
+            }
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
 
-    private void limpaCampos(){
+    private void tfTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTelefoneFocusLost
+        if (!Util.isCnpjValido(tfCNPJ.getText().replaceAll("\\D*", ""))) {
+            JOptionPane.showMessageDialog(rootPane, "CNPJ Inválido!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            tfCNPJ.setText("");
+        }
+
+    }//GEN-LAST:event_tfTelefoneFocusLost
+
+    private void limpaCampos() {
         empresa = new Empresa();
         tfCNPJ.setText("");
         tfEndereco.setText("");
@@ -229,7 +244,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
         cbEstado.setSelectedIndex(0);
         tfIE.setText("");
     }
-    
+
     /**
      * @param args the command line arguments
      */

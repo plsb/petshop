@@ -171,10 +171,12 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        if(JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Grupo de Produto?", "", JOptionPane.YES_NO_OPTION, 
-                JOptionPane.INFORMATION_MESSAGE)==JOptionPane.YES_OPTION){
-            dao.remove(gr);
-            limpaCampos();
+        if (Util.verificaPermissao("EXCLUIR_GRUPO_PRODUTO")) {
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Grupo de Produto?", "", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
+                dao.remove(gr);
+                limpaCampos();
+            }
         }
     }//GEN-LAST:event_btDeleteActionPerformed
 
@@ -183,51 +185,52 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (gr == null) {
-            gr = new GrupoProduto();
-        }
-        if (Util.chkVazio(tfNome.getText(), tfDesconto.getText())) {
-            
-            
-            gr.setDescricao(tfNome.getText());
-            gr.setDescontoAVista(Double.parseDouble(tfDesconto.getText().replaceFirst(",", ".")));
-            if(gr.getId()==null){
-                dao.add(gr);
-                JOptionPane.showMessageDialog(rootPane, "Grupo Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                dao.update(gr);
-                JOptionPane.showMessageDialog(rootPane, "Grupo Editado Com Sucesso!", "INFO",JOptionPane.INFORMATION_MESSAGE);
+        if (Util.verificaPermissao("CE_GRUPO_PRODUTO")) {
+            if (gr == null) {
+                gr = new GrupoProduto();
             }
-            limpaCampos();
-        } 
+            if (Util.chkVazio(tfNome.getText(), tfDesconto.getText())) {
+
+                gr.setDescricao(tfNome.getText());
+                gr.setDescontoAVista(Double.parseDouble(tfDesconto.getText().replaceFirst(",", ".")));
+                if (gr.getId() == null) {
+                    dao.add(gr);
+                    JOptionPane.showMessageDialog(rootPane, "Grupo Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    dao.update(gr);
+                    JOptionPane.showMessageDialog(rootPane, "Grupo Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                }
+                limpaCampos();
+            }
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         limpaCampos();
-        
+
     }//GEN-LAST:event_btNovoActionPerformed
 
-    private void limpaCampos(){
+    private void limpaCampos() {
         gr = new GrupoProduto();
         tfDesconto.setText("");
         tfNome.setText("");
         btDelete.setEnabled(false);
-        miRelatorioProdutoPorGrupo.setEnabled(false);        
+        miRelatorioProdutoPorGrupo.setEnabled(false);
     }
-    
+
     private void btPesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisar1ActionPerformed
-        List<GrupoProduto> lista = (!(tfNome.getText().equals("")) ? dao.checkExists("descricao",tfNome.getText()) : dao.list());
+        List<GrupoProduto> lista = (!(tfNome.getText().equals("")) ? dao.checkExists("descricao", tfNome.getText()) : dao.list());
         GrupoTableModel stm = new GrupoTableModel(lista);
         Object o = TelaPesquisa.exibeTela(stm, "Grupo de Produtos");
         if (o != null) {
             gr = new GrupoProduto();
-            gr = dao.checkExists("id",Integer.valueOf(String.valueOf(o))).get(0);
+            gr = dao.checkExists("id", Integer.valueOf(String.valueOf(o))).get(0);
             tfNome.setText(gr.getDescricao());
             tfDesconto.setText(String.valueOf(gr.getDescontoAVista()).replace(".", ","));
             btDelete.setEnabled(true);
             miRelatorioProdutoPorGrupo.setEnabled(true);
         }
-        
+
     }//GEN-LAST:event_btPesquisar1ActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
@@ -236,14 +239,14 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void miRelatorioProdutoPorGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatorioProdutoPorGrupoActionPerformed
-                JasperReport pathjrxml;
+        if (Util.verificaPermissao("REL_PRODU_GRUPO")) {
+            JasperReport pathjrxml;
             HashMap parametros = new HashMap();
 
-            String sql="", texto = "Por Grupo: "+gr.getDescricao();
+            String sql = "", texto = "Por Grupo: " + gr.getDescricao();
 
-            
-            sql= " and g.id="+gr.getId()+" order by g.descricao, p.descricao";
-            
+            sql = " and g.id=" + gr.getId() + " order by g.descricao, p.descricao";
+
             try {
                 parametros.put("sql", sql);
             } catch (Exception e) {
@@ -259,7 +262,7 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
                 viewer.setSize(1200, 600);
                 viewer.setLocationRelativeTo(null);
                 viewer.setModal(true);
-                File file = new File(caminho+"relatorios/reportInvetarioEstoque.jrxml");
+                File file = new File(caminho + "relatorios/reportInvetarioEstoque.jrxml");
                 FileInputStream is = new FileInputStream(file);
                 pathjrxml = JasperCompileManager.compileReport(is);
                 JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
@@ -275,6 +278,7 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             }
+        }
     }//GEN-LAST:event_miRelatorioProdutoPorGrupoActionPerformed
 
     /**

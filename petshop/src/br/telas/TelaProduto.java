@@ -303,10 +303,12 @@ public class TelaProduto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Produto?", "", JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
-            dao.remove(produto);
-            limpaCampos();
+        if (Util.verificaPermissao("EXCLUIR_PRODUTO")) {
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Produto?", "", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
+                dao.remove(produto);
+                limpaCampos();
+            }
         }
     }//GEN-LAST:event_btDeleteActionPerformed
 
@@ -329,74 +331,76 @@ public class TelaProduto extends javax.swing.JDialog {
     }
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (produto == null) {
-            produto = new Produto();
-        }
-        if (Util.chkVazio(tfDescricao.getText(), cbGrupo.getSelectedItem().toString(),
-                tfCodigo.getText(), tfPrecoVenda.getText())) {
-            if (!chbServico.isSelected()) {
-                if (!Util.chkVazio(tfEstoqueMinimo.getText(),
-                        tfQtdEstoque.getText(), cbUnidade.getSelectedItem().toString())) {
-                    return;
+        if (Util.verificaPermissao("CE_PRODUTO")) {
+            if (produto == null) {
+                produto = new Produto();
+            }
+            if (Util.chkVazio(tfDescricao.getText(), cbGrupo.getSelectedItem().toString(),
+                    tfCodigo.getText(), tfPrecoVenda.getText())) {
+                if (!chbServico.isSelected()) {
+                    if (!Util.chkVazio(tfEstoqueMinimo.getText(),
+                            tfQtdEstoque.getText(), cbUnidade.getSelectedItem().toString())) {
+                        return;
+                    }
+
+                }
+                produto.setDescricao(tfDescricao.getText());
+                produto.setCodigo(tfCodigo.getText());
+                produto.setGrupoProduto((GrupoProduto) cbGrupo.getSelectedItem());
+                produto.setServico(chbServico.isSelected());
+                if (!tfEstoqueMinimo.getText().equals("")) {
+                    produto.setEstoqueMinimo(Double.parseDouble(tfEstoqueMinimo.getText().replaceFirst(",", ".")));
+                } else {
+                    produto.setEstoqueMinimo(0);
+                }
+                if (!tfPrecoVenda.getText().equals("")) {
+                    produto.setPrecoVenda(Double.parseDouble(tfPrecoVenda.getText().replaceFirst(",", ".")));
+                } else {
+                    produto.setPrecoVenda(0);
+                }
+                if (!tfQtdEstoque.getText().equals("")) {
+                    produto.setQtdEstoque(Double.parseDouble(tfQtdEstoque.getText().replaceFirst(",", ".")));
+                } else {
+                    produto.setQtdEstoque(0);
+                }
+                if (!tfPrecoCompra.getText().equals("")) {
+                    produto.setPrecoCusto(Double.parseDouble(tfPrecoCompra.getText().replaceFirst(",", ".")));
+                } else {
+                    produto.setPrecoCusto(0);
+                }
+                if (cbUnidade.getSelectedIndex() != 0) {
+                    produto.setDescricaoUnidade(cbUnidade.getSelectedItem().toString());
+                } else {
+                    produto.setDescricaoUnidade("");
                 }
 
-            }
-            produto.setDescricao(tfDescricao.getText());
-            produto.setCodigo(tfCodigo.getText());
-            produto.setGrupoProduto((GrupoProduto) cbGrupo.getSelectedItem());
-            produto.setServico(chbServico.isSelected());
-            if (!tfEstoqueMinimo.getText().equals("")) {
-                produto.setEstoqueMinimo(Double.parseDouble(tfEstoqueMinimo.getText().replaceFirst(",", ".")));
-            } else {
-                produto.setEstoqueMinimo(0);
-            }
-            if (!tfPrecoVenda.getText().equals("")) {
-                produto.setPrecoVenda(Double.parseDouble(tfPrecoVenda.getText().replaceFirst(",", ".")));
-            } else {
-                produto.setPrecoVenda(0);
-            }
-            if (!tfQtdEstoque.getText().equals("")) {
-                produto.setQtdEstoque(Double.parseDouble(tfQtdEstoque.getText().replaceFirst(",", ".")));
-            } else {
-                produto.setQtdEstoque(0);
-            }
-            if (!tfPrecoCompra.getText().equals("")) {
-                produto.setPrecoCusto(Double.parseDouble(tfPrecoCompra.getText().replaceFirst(",", ".")));
-            } else {
-                produto.setPrecoCusto(0);
-            }
-            if (cbUnidade.getSelectedIndex() != 0) {
-                produto.setDescricaoUnidade(cbUnidade.getSelectedItem().toString());
-            } else {
-                produto.setDescricaoUnidade("");
-            }
-
-            if (produto.getId() == null) {
-                if (dao.checkExists("codigo", produto.getCodigo()).size() > 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Código/Referência já informado!", "ERRO", JOptionPane.ERROR_MESSAGE);
-                    tfCodigo.requestFocus();
-                    return;
+                if (produto.getId() == null) {
+                    if (dao.checkExists("codigo", produto.getCodigo()).size() > 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Código/Referência já informado!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                        tfCodigo.requestFocus();
+                        return;
+                    }
+                    if (produto.getQtdEstoque() <= 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Quantidade não pode ser menor ou igual a 0!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                        tfQtdEstoque.requestFocus();
+                        return;
+                    }
+                    dao.add(produto);
+                    adicionaEstoque("PRODUTO CADASTRADO", produto.getQtdEstoque(), 0, produto);
+                    JOptionPane.showMessageDialog(rootPane, "Produto Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    dao.update(produto);
+                    if (quantidade > produto.getQtdEstoque()) {
+                        double saida = quantidade - produto.getQtdEstoque();
+                        adicionaEstoque("PRODUTO EDITADO", 0, saida, produto);
+                    } else if (quantidade < produto.getQtdEstoque()) {
+                        double entrada = produto.getQtdEstoque() - quantidade;
+                        adicionaEstoque("PRODUTO EDITADO", entrada, 0, produto);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Produto Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
                 }
-                if (produto.getQtdEstoque() <= 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Quantidade não pode ser menor ou igual a 0!", "ERRO", JOptionPane.ERROR_MESSAGE);
-                    tfQtdEstoque.requestFocus();
-                    return;
-                }
-                dao.add(produto);
-                adicionaEstoque("PRODUTO CADASTRADO", produto.getQtdEstoque(), 0, produto);
-                JOptionPane.showMessageDialog(rootPane, "Produto Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                dao.update(produto);
-                if (quantidade > produto.getQtdEstoque()) {
-                    double saida = quantidade - produto.getQtdEstoque();
-                    adicionaEstoque("PRODUTO EDITADO", 0, saida, produto);
-                } else if (quantidade < produto.getQtdEstoque()) {
-                    double entrada = produto.getQtdEstoque() - quantidade;
-                    adicionaEstoque("PRODUTO EDITADO", entrada, 0, produto);
-                }
-                JOptionPane.showMessageDialog(rootPane, "Produto Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                limpaCampos();
             }
-            limpaCampos();
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -493,7 +497,7 @@ public class TelaProduto extends javax.swing.JDialog {
                 viewer.setSize(1000, 600);
                 viewer.setLocationRelativeTo(null);
                 viewer.setModal(true);
-                File file = new File(caminho+"relatorios/reportHistoricoItem.jrxml");
+                File file = new File(caminho + "relatorios/reportHistoricoItem.jrxml");
                 FileInputStream is = new FileInputStream(file);
                 pathjrxml = JasperCompileManager.compileReport(is);
                 JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
@@ -517,72 +521,72 @@ public class TelaProduto extends javax.swing.JDialog {
 
     private void imRelacaoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imRelacaoProdutosActionPerformed
         JasperReport pathjrxml;
-            HashMap parametros = new HashMap();
+        HashMap parametros = new HashMap();
 
-            String sql = " order by g.descricao, p.descricao", texto = "Geral";
+        String sql = " order by g.descricao, p.descricao", texto = "Geral";
 
-            try {
-                parametros.put("sql", sql);
-            } catch (Exception e) {
-            }
-            parametros.put("texto", texto);
+        try {
+            parametros.put("sql", sql);
+        } catch (Exception e) {
+        }
+        parametros.put("texto", texto);
 
-            String caminho = Util.retornaCaminhoApp();
+        String caminho = Util.retornaCaminhoApp();
 //        String caminho = "";
 
-            Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
-            try {
-                JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
-                viewer.setSize(1200, 600);
-                viewer.setLocationRelativeTo(null);
-                viewer.setModal(true);
-                File file = new File(caminho+"relatorios/reportInvetarioEstoque.jrxml");
-                FileInputStream is = new FileInputStream(file);
-                pathjrxml = JasperCompileManager.compileReport(is);
-                JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
-                        connection);
-                JasperViewer jv = new JasperViewer(printReport, false);
-                viewer.getContentPane().add(jv.getContentPane());
-                viewer.setVisible(true);
+        Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
+        try {
+            JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
+            viewer.setSize(1200, 600);
+            viewer.setLocationRelativeTo(null);
+            viewer.setModal(true);
+            File file = new File(caminho + "relatorios/reportInvetarioEstoque.jrxml");
+            FileInputStream is = new FileInputStream(file);
+            pathjrxml = JasperCompileManager.compileReport(is);
+            JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
+                    connection);
+            JasperViewer jv = new JasperViewer(printReport, false);
+            viewer.getContentPane().add(jv.getContentPane());
+            viewer.setVisible(true);
                 //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
 
-                //jv.setVisible(true);
-            } catch (JRException ex) {
-                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            }
+            //jv.setVisible(true);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
     }//GEN-LAST:event_imRelacaoProdutosActionPerformed
 
     private void imEstoqueMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imEstoqueMinimoActionPerformed
-                JasperReport pathjrxml;
-            HashMap parametros = new HashMap();
+        JasperReport pathjrxml;
+        HashMap parametros = new HashMap();
 
-            String caminho = Util.retornaCaminhoApp();
+        String caminho = Util.retornaCaminhoApp();
 //        String caminho = "";
 
-            Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
-            try {
-                JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
-                viewer.setSize(1200, 600);
-                viewer.setLocationRelativeTo(null);
-                viewer.setModal(true);
-                File file = new File(caminho+"relatorios/reportEstoqueMinimo.jrxml");
-                FileInputStream is = new FileInputStream(file);
-                pathjrxml = JasperCompileManager.compileReport(is);
-                JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
-                        connection);
-                JasperViewer jv = new JasperViewer(printReport, false);
-                viewer.getContentPane().add(jv.getContentPane());
-                viewer.setVisible(true);
+        Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
+        try {
+            JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
+            viewer.setSize(1200, 600);
+            viewer.setLocationRelativeTo(null);
+            viewer.setModal(true);
+            File file = new File(caminho + "relatorios/reportEstoqueMinimo.jrxml");
+            FileInputStream is = new FileInputStream(file);
+            pathjrxml = JasperCompileManager.compileReport(is);
+            JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
+                    connection);
+            JasperViewer jv = new JasperViewer(printReport, false);
+            viewer.getContentPane().add(jv.getContentPane());
+            viewer.setVisible(true);
                 //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
 
-                //jv.setVisible(true);
-            } catch (JRException ex) {
-                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            }
+            //jv.setVisible(true);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
 
     }//GEN-LAST:event_imEstoqueMinimoActionPerformed
 

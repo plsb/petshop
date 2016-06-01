@@ -114,7 +114,6 @@ public class Util {
     }
 
     /* @MD5 MÃ©todo de EncriptaÃ§Ã£o da Senha em um HASH Hexadecimal */
-
     public static String md5(String senha) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -128,7 +127,7 @@ public class Util {
 
     public static boolean chkVazio(String... campos) {
         for (String chk : campos) {
-            if (chk.isEmpty() || chk.equals("--") || chk.equals("  /  /    ")||chk.equals("   .   .   -  ")) {
+            if (chk.isEmpty() || chk.equals("--") || chk.equals("  /  /    ") || chk.equals("   .   .   -  ")) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos com '*'!");
                 return false;
             }
@@ -271,15 +270,15 @@ public class Util {
         String end = EnderecoDoJar.substring(0, EnderecoDoJar.length() - 11);
         return "";//end+"/";
     }
-    
-    public static ImageIcon redimensionar(JLabel jLabel, int xLargura, int yAltura){
-       
-        ImageIcon img = new ImageIcon (jLabel.getIcon().toString());  
+
+    public static ImageIcon redimensionar(JLabel jLabel, int xLargura, int yAltura) {
+
+        ImageIcon img = new ImageIcon(jLabel.getIcon().toString());
         img.setImage(img.getImage().getScaledInstance(xLargura, yAltura, 100));
-       
+
         return img;
     }
-    
+
     public static boolean isCnpjValido(String cnpj) {
         if (!cnpj.substring(0, 1).equals("")) {
             try {
@@ -323,16 +322,24 @@ public class Util {
                 cnpj_calc += (dig == 10 || dig == 11) ? "0" : Integer.toString(
                         dig);
                 return cnpj.equals(cnpj_calc);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 return false;
             }
-        }
-        else {
+        } else {
             return false;
         }
     }
 
+    public static boolean verificaPermissao(String permissao) {
+        if (UsuarioAtivo.getUsuario().getPermissao().size() > 0) {
+            if (UsuarioAtivo.getUsuario().getPermissao().contains(permissao)) {
+                return true;
+            }
 
+        }
+        JOptionPane.showMessageDialog(null, "O usuário não possui Permissão para a ação!");
+        return false;
+
+    }
 
 }
