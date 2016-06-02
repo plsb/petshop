@@ -6,7 +6,9 @@
 package br.venda;
 
 import br.cliente.Cliente;
+import br.usuario.Usuario;
 import br.vendedor.Vendedor;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -17,8 +19,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Venda {
+public class Venda implements Comparable<Venda>, Serializable{
     
+       
     @Id
     @GeneratedValue
     private Integer id;
@@ -31,6 +34,9 @@ public class Venda {
     
     @ManyToOne
     private Vendedor vendedor;
+    
+    @ManyToOne
+    private Usuario usuario;
     
     @ManyToOne
     private Cliente cliente;
@@ -187,9 +193,23 @@ public class Venda {
         return true;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
     @Override
     public String toString() {
         return "Venda{" + "id=" + id + ", data=" + data + ", vendedor=" + vendedor + ", cliente=" + cliente + ", desconto=" + desconto + ", valorTotal=" + valorTotal + ", tipoPagamento=" + tipoPagamento + '}';
     }
+
+    @Override
+    public int compareTo(Venda o) {
+        return id.compareTo(o.id);
+    }
+    private static final long serialVersionUID = -289875782100734286L;
     
 }

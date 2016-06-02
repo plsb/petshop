@@ -80,6 +80,11 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
         lblValor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -277,8 +282,27 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        ContasReceberDAO crDAO = new ContasReceberDAO();
+        List<ContasReceber> lista = crDAO.checkExists("venda", venda);
+        if(lista.size()>0){
+            setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Gere as parcelas!");
+        }
+        
     }//GEN-LAST:event_btSairActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        ContasReceberDAO crDAO = new ContasReceberDAO();
+        List<ContasReceber> lista = crDAO.checkExists("venda", venda);
+        if(lista.size()>0){
+            
+        } else {
+            repaint();
+            JOptionPane.showMessageDialog(rootPane, "Gere as parcelas!");
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     private void preencheTabela() {
         ContasReceberDAO crDAO = new ContasReceberDAO();

@@ -10,6 +10,7 @@ import br.util.GenericDAO;
 import br.util.HibernateUtil;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Hibernate;
@@ -48,6 +49,27 @@ public class ContasReceberDAO extends GenericDAO<ContasReceber>{
             getSessao().close();
         }
         return lista;
+    }
+    
+    public List<ContasReceber> listContasEntreDatas(Date dataIni, Date dataFim) {
+        List<ContasReceber> lista = null;
+        try {
+            this.setSessao(HibernateUtil.getSessionFactory().openSession());
+            setTransacao(getSessao().beginTransaction());
+            lista = this.getSessao().createCriteria(ContasReceber.class)
+                    .add(Restrictions.ge("data", dataIni))
+                    .add(Restrictions.le("data", dataFim)).list();
+            lista = new ArrayList(new HashSet(lista));
+        } catch (Throwable e) {
+            if (getTransacao().isActive()) {
+                getTransacao().rollback();
+            }
+//            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
+        } finally {
+            getSessao().close();
+        }
+        return lista;
+
     }
     
     

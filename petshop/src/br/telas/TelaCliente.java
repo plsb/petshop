@@ -243,7 +243,7 @@ public class TelaCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        if (Util.verificaPermissao("EXCLUIR_CLIENTE")) {
+        if (Util.verificaPermissao("EXCLUIR_CLIENTE",1)) {
             if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Cliente?", "", JOptionPane.YES_NO_OPTION,
                     JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
                 dao.remove(cliente);
@@ -257,7 +257,7 @@ public class TelaCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (Util.verificaPermissao("CE_CLIENTE")) {
+        if (Util.verificaPermissao("CE_CLIENTE",1)) {
 
             if (cliente == null) {
                 cliente = new Cliente();

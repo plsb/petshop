@@ -174,7 +174,7 @@ public class ContasReceber implements Comparable<ContasReceber>{
 
     @Override
     public int compareTo(ContasReceber o) {
-        return o.dataVencimento.compareTo(dataVencimento);
+        return o.id.compareTo(id);
     }
     
 }

@@ -11,14 +11,20 @@ import br.contasreceber.ContasReceber;
 import br.contasreceber.ContasReceberDAO;
 import br.livro.LivroCaixa;
 import br.livro.LivroCaixaDAO;
+import br.orcamento.ItemOrcamento;
+import br.orcamento.ItemOrcamentoDAO;
+import br.orcamento.Orcamento;
+import br.orcamento.OrcamentoDAO;
 import br.produto.Estoque;
 import br.produto.EstoqueDAO;
 import br.produto.ProdutoTableModel;
 import br.produto.Produto;
 import br.produto.ProdutoDAO;
 import br.util.FormataTamanhoColunasJTable;
+import br.util.UsuarioAtivo;
 import br.util.Util;
 import br.venda.ItemVenda;
+import br.venda.ItemVendaCellRenderer;
 import br.venda.ItemVendaDAO;
 import br.venda.ItemVendaTableModel;
 import br.venda.Venda;
@@ -26,11 +32,15 @@ import br.venda.VendaDAO;
 import br.vendedor.Vendedor;
 import br.vendedor.VendedorDAO;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,6 +52,7 @@ public class TelaVenda extends javax.swing.JDialog {
     private List<ItemVenda> itensVenda;
     private Produto produto;
     private Venda venda = new Venda();
+    private Orcamento orcamento;
 
     /**
      * Creates new form TelaVenda
@@ -58,6 +69,8 @@ public class TelaVenda extends javax.swing.JDialog {
         lblData.setText(dfdtData.format(new Date()));
         preencheTabela();
         lblDebito.setVisible(false);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
     }
 
     public void preencheVendedor() {
@@ -91,6 +104,7 @@ public class TelaVenda extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -103,7 +117,6 @@ public class TelaVenda extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         cbCliente = new javax.swing.JComboBox();
-        btNovo = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -121,8 +134,16 @@ public class TelaVenda extends javax.swing.JDialog {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         lblDebito = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jMenuItem2.setText("jMenuItem2");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -143,7 +164,6 @@ public class TelaVenda extends javax.swing.JDialog {
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 40));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tb.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -199,15 +219,6 @@ public class TelaVenda extends javax.swing.JDialog {
             }
         });
         jPanel2.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 69, 386, -1));
-
-        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
-        btNovo.setToolTipText("Novo Cliente");
-        btNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNovoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(531, 50, 43, -1));
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel4.setText("Data.: *");
@@ -317,14 +328,45 @@ public class TelaVenda extends javax.swing.JDialog {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 690, 530));
 
+        jMenu1.setMnemonic('o');
+        jMenu1.setText("Opções");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jMenuItem1.setMnemonic('c');
+        jMenuItem1.setText("Cadastro de Cliente");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+        jMenu1.add(jSeparator1);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMenuItem3.setMnemonic('i');
+        jMenuItem3.setText("Importar Orçamento");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem4.setText("Novo Orçamento");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        TelaCliente tc = new TelaCliente();
-        tc.setVisible(true);
-        preencheCliente();
-    }//GEN-LAST:event_btNovoActionPerformed
 
     private void preencheVenda() {
         if (venda == null) {
@@ -340,6 +382,7 @@ public class TelaVenda extends javax.swing.JDialog {
             venda.setVendedor((Vendedor) cbVendedor.getSelectedItem());
         }
         venda.setCancelada(false);
+        venda.setUsuario(UsuarioAtivo.getUsuario());
 
     }
 
@@ -347,12 +390,24 @@ public class TelaVenda extends javax.swing.JDialog {
         switch (cbTipoPagamento.getSelectedIndex()) {
             case 1:
 //                venda.setTipoPagamento("VV");
+                if (!Util.verificaPermissao("REALIZAR_VV", 1)) {
+                    cbTipoPagamento.setSelectedIndex(0);
+                    cbTipoPagamento.requestFocus();
+                }
                 return "VV";
             case 2:
 //                venda.setTipoPagamento("VP");
+                if (!Util.verificaPermissao("REALIZAR_VP", 1)) {
+                    cbTipoPagamento.setSelectedIndex(0);
+                    cbTipoPagamento.requestFocus();
+                }
                 return "VP";
             case 3:
 //                venda.setTipoPagamento("VC");
+                if (!Util.verificaPermissao("REALIZAR_VC", 1)) {
+                    cbTipoPagamento.setSelectedIndex(0);
+                    cbTipoPagamento.requestFocus();
+                }
                 return "VC";
         }
         return "";
@@ -427,6 +482,7 @@ public class TelaVenda extends javax.swing.JDialog {
                 itensVenda.add(it);
                 produto = null;
                 lblDescricaoProduto.setText("");
+                tfQuantidade.setText("");
 
             }
 
@@ -470,39 +526,46 @@ public class TelaVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_tfQuantidadeKeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (itensVenda.size() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Não existe ítens!");
-        } else {
-            Integer ordem = 0;
-            try {
-                ordem = Integer.parseInt(JOptionPane.showInputDialog("Informe a Ordem Que deseja Cancelar: "));
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro!");
-                return;
-            }
-            if (ordem > 0) {
-                for (int i = 0; i < itensVenda.size(); i++) {
-                    if (itensVenda.get(i).getOrdem().equals(ordem)) {
-                        ProdutoDAO pDAO = new ProdutoDAO();
-                        Produto p1 = pDAO.checkExists("id", itensVenda.get(i).getProduto().getId()).get(0);
-                        if (!p1.isServico()) {
+        if (Util.verificaPermissao("CANCEL_ITEM_VENDA", 1)) {
+            if (itensVenda.size() == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe ítens!");
+            } else {
+                Integer ordem = 0;
+                try {
+                    ordem = Integer.parseInt(JOptionPane.showInputDialog("Informe a Ordem Que deseja Cancelar: "));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro!");
+                    return;
+                }
+                if (ordem > 0) {
+                    for (int i = 0; i < itensVenda.size(); i++) {
+                        if (itensVenda.get(i).getOrdem().equals(ordem)) {
+                            ProdutoDAO pDAO = new ProdutoDAO();
+                            Produto p1 = pDAO.checkExists("id", itensVenda.get(i).getProduto().getId()).get(0);
+                            if (!p1.isServico()) {
 
-                            p1.setQtdEstoque(p1.getQtdEstoque() + itensVenda.get(i).getQuantidade());
-                            itensVenda.get(i).setCancelado(true);
+                                p1.setQtdEstoque(p1.getQtdEstoque() + itensVenda.get(i).getQuantidade());
+
 //                            ProdutoDAO pDAO = new ProdutoDAO();
-                            pDAO.update(p1);
-                            adicionaEstoque("CANCELAMENTO DE VENDA", itensVenda.get(i).getQuantidade(), 0, p1);
+                                pDAO.update(p1);
+                                adicionaEstoque("CANCELAMENTO DE VENDA", itensVenda.get(i).getQuantidade(), 0, p1);
+                            }
+                            itensVenda.get(i).setCancelado(true);
+                            break;
                         }
-                        break;
                     }
                 }
+                preencheTabela();
             }
-            preencheTabela();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        if (valorTotal() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Venda está com valor 0!");
+            return;
+        }
         preencheTabela();
 
         if (itensVenda.size() > 0) {
@@ -534,19 +597,26 @@ public class TelaVenda extends javax.swing.JDialog {
                     ivDAO.add(itensVenda1);
                 }
 
-                venda = new Venda();
-                cbCliente.setSelectedIndex(0);
-                cbVendedor.setSelectedIndex(0);
-                cbTipoPagamento.setSelectedIndex(0);
-                tfQuantidade.setText("1");
-                itensVenda = new ArrayList<ItemVenda>();
+                limpaCampos();
                 preencheTabela();
                 JOptionPane.showMessageDialog(rootPane, "Venda Realizada Com Sucesso!");
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Informe os ítens da venda!");
         }
+        limpaCampos();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void limpaCampos() {
+        tfQuantidade.setText("");
+        lblDebito.setVisible(false);
+        venda = new Venda();
+        cbCliente.setSelectedIndex(0);
+        cbVendedor.setSelectedIndex(0);
+        cbTipoPagamento.setSelectedIndex(0);
+        tfQuantidade.setText("1");
+        itensVenda = new ArrayList<ItemVenda>();
+    }
 
     private void cbTipoPagamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTipoPagamentoFocusLost
         // TODO add your handling code here:
@@ -555,9 +625,11 @@ public class TelaVenda extends javax.swing.JDialog {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(rootPane, "Deseja cancelar a venda?", "Cancelar", JOptionPane.YES_NO_OPTION)
-                == JOptionPane.YES_OPTION) {
-            cancelarVenda();
+        if (Util.verificaPermissao("CANCEL_VENDA", 1)) {
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja cancelar a venda?", "Cancelar", JOptionPane.YES_NO_OPTION)
+                    == JOptionPane.YES_OPTION) {
+                cancelarVenda();
+            }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -568,14 +640,24 @@ public class TelaVenda extends javax.swing.JDialog {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        cancelarVenda();
+        if (itensVenda.size() > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Cancele a Venda!");
+            repaint();
+        } else {
+            cancelarVenda();
+        }
 
     }//GEN-LAST:event_formWindowClosing
 
     private void cbClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbClienteFocusLost
         ContasReceberDAO crDAO = new ContasReceberDAO();
         if (cbCliente.getSelectedIndex() > 0) {
-            if (crDAO.listaContasClienteEmAtraso((Cliente) cbCliente.getSelectedItem()).size()>0) {
+            if (crDAO.listaContasClienteEmAtraso((Cliente) cbCliente.getSelectedItem()).size() > 0) {
+                if (!Util.verificaPermissao("PERMITIR_QUE_CLIENTES_EM_ATRASO_COMPREM", 0)) {
+                    JOptionPane.showMessageDialog(rootPane, "O Cliente está em atraso!\n"
+                            + "Você não possui permissão para vendê-lo.");
+                    cbCliente.requestFocus();
+                }
                 lblDebito.setVisible(true);
             } else {
                 lblDebito.setVisible(false);
@@ -588,7 +670,85 @@ public class TelaVenda extends javax.swing.JDialog {
 
     private void lblDebitoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDebitoMouseClicked
         TelaContaPromissoria.chamaTela((Cliente) cbCliente.getSelectedItem());
+        cbClienteFocusLost(null);
     }//GEN-LAST:event_lblDebitoMouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        if (Util.verificaPermissao("CE_CLIENTE", 1)) {
+            TelaCliente tc = new TelaCliente();
+            tc.setVisible(true);
+            preencheCliente();
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        orcamento = TelaListarOrcamento.chamatTela();
+        if (orcamento != null) {
+            if (itensVenda.size() > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Finalize a venda atual antes de importar o Orçamento!");
+                return;
+            }
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja importar o orçamento nº "
+                    + Util.decimalFormat(6).format(orcamento.getId()) + "?", "Importação",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                importarOrcamento(orcamento);
+                cbClienteFocusLost(null);
+            }
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void importarOrcamento(Orcamento o) {
+        limpaCampos();
+        switch (o.getTipoPagamento()) {
+            case "VV":
+                cbTipoPagamento.setSelectedIndex(1);
+                break;
+            case "VP":
+                cbTipoPagamento.setSelectedIndex(2);
+                break;
+            case "VC":
+                cbTipoPagamento.setSelectedIndex(3);
+        }
+
+        cbCliente.setSelectedItem(o.getCliente());
+        cbVendedor.setSelectedItem(o.getVendedor());
+
+        preencheVenda();
+        ItemOrcamentoDAO iODAO = new ItemOrcamentoDAO();
+        List<ItemOrcamento> lista = iODAO.checkExists("orcamento", o);
+        for (ItemOrcamento io : lista) {
+            ItemVenda iv = new ItemVenda();
+            produto = io.getProduto();
+            iv.setCancelado(false);
+            iv.setOrdem(io.getOrdem());
+            iv.setProduto(produto);
+            iv.setQuantidade(io.getQuantidade());
+            iv.setVenda(venda);
+            if (iv.getQuantidade() > iv.getProduto().getQtdEstoque() && !iv.getProduto().isServico()) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível importar o produto: "
+                        + "\n" + iv.getProduto().getDescricao() + ", quantidade insuficiente!");
+                tfQuantidade.requestFocus();
+
+            } else {
+                adicionaEstoque("SAÍDA EM VENDA", 0, iv.getQuantidade(), produto);
+                modificaQtdProduto(produto.getQtdEstoque() - iv.getQuantidade());
+                itensVenda.add(iv);
+            }
+        }
+        preencheTabela();
+
+        o.setImportado(true);
+        OrcamentoDAO oDAO = new OrcamentoDAO();
+        oDAO.update(o);
+
+    }
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        if (Util.verificaPermissao("INSERIR_ORCAMENTO", 1)) {
+            TelaOrcamento to = new TelaOrcamento();
+            to.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void cancelarVenda() {
         if (itensVenda.size() > 0) {
@@ -598,6 +758,8 @@ public class TelaVenda extends javax.swing.JDialog {
             venda.setCancelada(true);
             venda.setData(new Date());
             venda.setHora(new Date());
+            venda.setValorTotal(valorTotal());
+            venda.setDesconto(Double.parseDouble(lblDesconto1.getText().replace(",", ".")));
             vDAO.add(venda);
             for (ItemVenda itensVenda1 : itensVenda) {
                 if (!itensVenda1.isCancelado()) {
@@ -617,6 +779,7 @@ public class TelaVenda extends javax.swing.JDialog {
             cbCliente.setSelectedIndex(0);
             cbTipoPagamento.setSelectedIndex(0);
             cbVendedor.setSelectedIndex(0);
+            tfQuantidade.setText("");
 
         } else {
             setVisible(false);
@@ -632,9 +795,9 @@ public class TelaVenda extends javax.swing.JDialog {
             }
         }
         total = parcial - desconto;
-        lblParcial.setText(String.format("%.2f",parcial));
-        lblDesconto1.setText(String.format("%.2f",desconto));
-        lblTotalFinal.setText(String.format("%.2f",total));
+        lblParcial.setText(String.format("%.2f", parcial));
+        lblDesconto1.setText(String.format("%.2f", desconto));
+        lblTotalFinal.setText(String.format("%.2f", total));
         return parcial;
     }
 
@@ -646,6 +809,7 @@ public class TelaVenda extends javax.swing.JDialog {
 //        Collections.sort(itensVenda);
         ItemVendaTableModel iv = new ItemVendaTableModel(itensVenda);
         tb.setModel(iv);
+        tb.setDefaultRenderer(Object.class, new ItemVendaCellRenderer());
         valorTotal();
         FormataTamanhoColunasJTable.packColumns(tb, 1);
 //        tb.setAutoCreateRowSorter(true);
@@ -687,7 +851,6 @@ public class TelaVenda extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btNovo;
     private javax.swing.JComboBox cbCliente;
     private javax.swing.JComboBox cbTipoPagamento;
     private javax.swing.JComboBox cbVendedor;
@@ -704,10 +867,17 @@ public class TelaVenda extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lbTexto;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDebito;

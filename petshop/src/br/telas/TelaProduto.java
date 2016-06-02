@@ -303,7 +303,7 @@ public class TelaProduto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        if (Util.verificaPermissao("EXCLUIR_PRODUTO")) {
+        if (Util.verificaPermissao("EXCLUIR_PRODUTO", 1)) {
             if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Produto?", "", JOptionPane.YES_NO_OPTION,
                     JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
                 dao.remove(produto);
@@ -331,7 +331,7 @@ public class TelaProduto extends javax.swing.JDialog {
     }
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (Util.verificaPermissao("CE_PRODUTO")) {
+        if (Util.verificaPermissao("CE_PRODUTO", 1)) {
             if (produto == null) {
                 produto = new Produto();
             }

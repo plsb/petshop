@@ -24,11 +24,12 @@ import javax.swing.JOptionPane;
  */
 public class TelaContaPromissoria extends javax.swing.JDialog {
 
-   public static void chamaTela(Cliente c){
-       TelaContaPromissoria.cliente = c;
-       new TelaContaPromissoria().setVisible(true);
-   }
-   private static Cliente cliente=null;
+    public static void chamaTela(Cliente c) {
+        TelaContaPromissoria.cliente = c;
+        new TelaContaPromissoria().setVisible(true);
+    }
+    private static Cliente cliente = null;
+
     /**
      * Creates new form TelaContaPromissoria
      */
@@ -40,7 +41,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         preencheCliente();
         preencheTabela(new ArrayList<ContasReceber>());
         rbContasAbert.setSelected(true);
-        if(cliente!=null){
+        if (cliente != null) {
             cbCliente.setSelectedItem(cliente);
             cbCliente.setEnabled(false);
             rbContasAbert.setEnabled(false);
@@ -108,6 +109,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         });
         jPanel1.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 40, -1));
 
+        tbContas.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         tbContas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -212,10 +214,10 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         }
         if (rbContasAbert.isSelected()) {
             jLabel4.setText("Valor Débito.: ");
-            lblVencer1.setText(String.valueOf(valorDebito));
+            lblVencer1.setText(Util.acertarNumero(valorDebito));
         } else {
             jLabel4.setText("Valor Pago.: ");
-            lblVencer1.setText(String.valueOf(valorPago));
+            lblVencer1.setText(Util.acertarNumero(valorPago));
 
         }
         btReceber.setEnabled(rbContasAbert.isSelected());
@@ -226,7 +228,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
             btEdit.setEnabled(false);
             btRemover.setEnabled(false);
         }
-
+        tbContas.setAutoCreateRowSorter(true);
     }
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
@@ -240,26 +242,27 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void btReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReceberActionPerformed
-        int row = tbContas.getSelectedRow();
-        Object o;
-        if (row > -1) { //então tem ítem selecionado
-            o = tbContas.getValueAt(row, 0);
-            ContasReceberDAO crDAO = new ContasReceberDAO();
-            String s = String.valueOf(o);
-            ContasReceber cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
-            if (!cr.isPaga()) {
-                TelaContaPromissoriaRec.chamaTela(cr);
-                btPesquisarActionPerformed(evt);
+        if (Util.verificaPermissao("RECEBER_CONTA_RECEBER", 1)) {
+            int row = tbContas.getSelectedRow();
+            Object o;
+            if (row > -1) { //então tem ítem selecionado
+                o = tbContas.getValueAt(row, 0);
+                ContasReceberDAO crDAO = new ContasReceberDAO();
+                String s = String.valueOf(o);
+                ContasReceber cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
+                if (!cr.isPaga()) {
+                    TelaContaPromissoriaRec.chamaTela(cr);
+                    btPesquisarActionPerformed(evt);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
+                }
+
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
+                JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
+                        "ERRO", JOptionPane.ERROR_MESSAGE);
             }
 
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
-                    "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }//GEN-LAST:event_btReceberActionPerformed
 
     private void rbContasPagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbContasPagasActionPerformed
@@ -268,60 +271,64 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
     }//GEN-LAST:event_rbContasPagasActionPerformed
 
     private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
-        int row = tbContas.getSelectedRow();
-        Object o;
-        if (row > -1) { //então tem ítem selecionado
-            o = tbContas.getValueAt(row, 0);
-            ContasReceberDAO crDAO = new ContasReceberDAO();
-            String s = String.valueOf(o);
-            ContasReceber cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
-            if (!cr.isPaga()) {
-                TelaContaPromissoriaCad.chamaEdita(cr);
-                btPesquisarActionPerformed(evt);
+        if (Util.verificaPermissao("EDITAR_CONTA_RECEBER", 1)) {
+            int row = tbContas.getSelectedRow();
+            Object o;
+            if (row > -1) { //então tem ítem selecionado
+                o = tbContas.getValueAt(row, 0);
+                ContasReceberDAO crDAO = new ContasReceberDAO();
+                String s = String.valueOf(o);
+                ContasReceber cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
+                if (!cr.isPaga()) {
+                    TelaContaPromissoriaCad.chamaEdita(cr);
+                    btPesquisarActionPerformed(evt);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
+                }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
+                JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
+                        "ERRO", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
-                    "ERRO", JOptionPane.ERROR_MESSAGE);
+
         }
-
-
     }//GEN-LAST:event_btEditActionPerformed
 
     private void btNovo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovo3ActionPerformed
-        TelaContaPromissoriaCad tcpc = new TelaContaPromissoriaCad();
-        tcpc.setVisible(true);
-        btPesquisarActionPerformed(evt);
+        if (Util.verificaPermissao("ADICIONA_CONTA_RECEBER", 1)) {
+            TelaContaPromissoriaCad tcpc = new TelaContaPromissoriaCad();
+            tcpc.setVisible(true);
+            btPesquisarActionPerformed(evt);
+        }
     }//GEN-LAST:event_btNovo3ActionPerformed
 
     private void rbContasAbertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbContasAbertActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_rbContasAbertActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
-                int row = tbContas.getSelectedRow();
-        Object o;
-        if (row > -1) { //então tem ítem selecionado
-            o = tbContas.getValueAt(row, 0);
-            ContasReceberDAO crDAO = new ContasReceberDAO();
-            String s = String.valueOf(o);
-            ContasReceber cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
-            if (!cr.isPaga()) {
-                if(JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir a conta selecionada?", "EXCLUIR", 
-                        JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
-                    crDAO.remove(cr);
-                    btPesquisarActionPerformed(evt);
+        if (Util.verificaPermissao("EXCLUIR_CONTA_RECEBER", 1)) {
+            int row = tbContas.getSelectedRow();
+            Object o;
+            if (row > -1) { //então tem ítem selecionado
+                o = tbContas.getValueAt(row, 0);
+                ContasReceberDAO crDAO = new ContasReceberDAO();
+                String s = String.valueOf(o);
+                ContasReceber cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
+                if (!cr.isPaga()) {
+                    if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir a conta selecionada?", "EXCLUIR",
+                            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        crDAO.remove(cr);
+                        btPesquisarActionPerformed(evt);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
                 }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
+                JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
+                        "ERRO", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
-                    "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btRemoverActionPerformed
 
     /**

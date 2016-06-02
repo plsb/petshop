@@ -330,16 +330,27 @@ public class Util {
         }
     }
 
-    public static boolean verificaPermissao(String permissao) {
+    public static boolean verificaPermissao(String permissao, int mensagem) {
         if (UsuarioAtivo.getUsuario().getPermissao().size() > 0) {
             if (UsuarioAtivo.getUsuario().getPermissao().contains(permissao)) {
                 return true;
             }
 
         }
-        JOptionPane.showMessageDialog(null, "O usuário não possui Permissão para a ação!");
+        if (mensagem == 1) {
+            if(JOptionPane.showConfirmDialog(null, "Você não possui permissão, \ndeseja solicitar?", 
+                    "Solicitação de Permissão", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE)==
+                    JOptionPane.YES_OPTION){
+                
+            }
+        }
         return false;
 
+    }
+
+    public static String acertarNumero(double num) {
+        DecimalFormat formater = new DecimalFormat("0.00");
+        return formater.format(num);
     }
 
 }

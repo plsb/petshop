@@ -179,6 +179,7 @@ public class TelaUsuario extends javax.swing.JDialog {
 
         lblPermissoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/reporting.png"))); // NOI18N
         lblPermissoes.setText("Permissões");
+        lblPermissoes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPermissoes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPermissoesMouseClicked(evt);

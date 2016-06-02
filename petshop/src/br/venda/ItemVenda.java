@@ -6,6 +6,7 @@
 package br.venda;
 
 import br.produto.Produto;
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,8 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class ItemVenda implements Comparable<ItemVenda> {
+public class ItemVenda implements Comparable<ItemVenda>, Serializable {
 
+    
     public ItemVenda() {
         cancelado = false;
     }
@@ -153,5 +155,6 @@ public class ItemVenda implements Comparable<ItemVenda> {
 
         return 0;
     }
+    private static final long serialVersionUID = -8889175823235580473L;
 
 }

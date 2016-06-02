@@ -40,6 +40,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public void permissoes() {
         mmUsuario.setVisible(UsuarioAtivo.getUsuario().isAdministrador());
+        mmCliente.setVisible(Util.verificaPermissao("V_CLIENTE", 0));
+        mmEmpresa.setVisible(Util.verificaPermissao("V_EMPRESA", 0));
+        mmProduto.setVisible(Util.verificaPermissao("V_PRODUTO", 0));
+        mmGrupoProduto.setVisible(Util.verificaPermissao("V_GRUPO_PRODUTO", 0));
+        mmVendedor.setVisible(Util.verificaPermissao("V_VENDEDOR", 0));
+        mmCaixa.setVisible(Util.verificaPermissao("V_CAIXA", 0));
+        mmContaReceber.setVisible(Util.verificaPermissao("V_CONTA_RECEBER", 0));
+        mmVenda.setVisible(Util.verificaPermissao("V_VENDA", 0));
+        mmListarVendas.setVisible(Util.verificaPermissao("LISTAR_VENDAS", 0));
+        mmOrcamento.setVisible(Util.verificaPermissao("INSERIR_ORCAMENTO", 0));
+               
     }
 
     /**
@@ -54,106 +65,144 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         lblImage = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        mCadastro = new javax.swing.JMenu();
+        mmCliente = new javax.swing.JMenuItem();
+        mmEmpresa = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        mmProduto = new javax.swing.JMenuItem();
+        mmGrupoProduto = new javax.swing.JMenuItem();
         mmUsuario = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        mmVendedor = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        mmCaixa = new javax.swing.JMenuItem();
+        mmContaReceber = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        mmVenda = new javax.swing.JMenuItem();
+        mmListarVendas = new javax.swing.JMenuItem();
+        mmOrcamento = new javax.swing.JMenuItem();
 
         jMenuItem4.setText("jMenuItem4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 439));
+        getContentPane().add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 470));
 
-        jMenu1.setText("Cadastro");
+        mCadastro.setMnemonic('c');
+        mCadastro.setText("Cadastro");
 
-        jMenuItem1.setText("Cliente");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mmCliente.setMnemonic('l');
+        mmCliente.setText("Cliente");
+        mmCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mmClienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        mCadastro.add(mmCliente);
 
-        jMenuItem8.setText("Empresa");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        mmEmpresa.setMnemonic('e');
+        mmEmpresa.setText("Empresa");
+        mmEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                mmEmpresaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem8);
+        mCadastro.add(mmEmpresa);
 
+        jMenu2.setMnemonic('p');
         jMenu2.setText("Produto/Serviço");
 
-        jMenuItem2.setText("Cadastro");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        mmProduto.setText("Cadastro");
+        mmProduto.setToolTipText("a");
+        mmProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                mmProdutoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(mmProduto);
 
-        jMenuItem3.setText("Grupo de Produtos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        mmGrupoProduto.setMnemonic('g');
+        mmGrupoProduto.setText("Grupo de Produtos");
+        mmGrupoProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                mmGrupoProdutoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(mmGrupoProduto);
 
-        jMenu1.add(jMenu2);
+        mCadastro.add(jMenu2);
 
+        mmUsuario.setMnemonic('u');
         mmUsuario.setText("Usuário");
         mmUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mmUsuarioActionPerformed(evt);
             }
         });
-        jMenu1.add(mmUsuario);
+        mCadastro.add(mmUsuario);
 
-        jMenuItem7.setText("Vendedor");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        mmVendedor.setMnemonic('v');
+        mmVendedor.setText("Vendedor");
+        mmVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                mmVendedorActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem7);
+        mCadastro.add(mmVendedor);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(mCadastro);
 
+        jMenu3.setMnemonic('m');
         jMenu3.setText("Movimentação");
 
-        jMenuItem9.setText("Contas a Receber");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        mmCaixa.setMnemonic('x');
+        mmCaixa.setText("Caixa");
+        mmCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                mmCaixaActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem9);
+        jMenu3.add(mmCaixa);
 
-        jMenuItem6.setText("Caixa");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        mmContaReceber.setMnemonic('r');
+        mmContaReceber.setText("Contas a Receber");
+        mmContaReceber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                mmContaReceberActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem6);
+        jMenu3.add(mmContaReceber);
 
-        jMenuItem5.setText("Venda");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jMenu1.setMnemonic('v');
+        jMenu1.setText("Venda");
+
+        mmVenda.setMnemonic('n');
+        mmVenda.setText("Nova Venda");
+        mmVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                mmVendaActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem5);
+        jMenu1.add(mmVenda);
+
+        mmListarVendas.setMnemonic('l');
+        mmListarVendas.setText("Listar Vendas");
+        mmListarVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mmListarVendasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mmListarVendas);
+
+        mmOrcamento.setMnemonic('m');
+        mmOrcamento.setText("Orçamento");
+        mmOrcamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mmOrcamentoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mmOrcamento);
+
+        jMenu3.add(jMenu1);
 
         jMenuBar1.add(jMenu3);
 
@@ -162,58 +211,67 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mmClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmClienteActionPerformed
         // TODO add your handling code here:
         TelaCliente tc = new TelaCliente();
         tc.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mmClienteActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void mmProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmProdutoActionPerformed
         // TODO add your handling code here:
         TelaProduto tp = new TelaProduto();
         tp.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_mmProdutoActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void mmGrupoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmGrupoProdutoActionPerformed
         // TODO add your handling code here:
         TelaGrupoProduto tgp = new TelaGrupoProduto();
         tgp.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_mmGrupoProdutoActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
-        TelaVenda tv = new TelaVenda();
-        tv.setVisible(true);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void mmCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmCaixaActionPerformed
         // TODO add your handling code here:
         TelaCaixa tc = new TelaCaixa();
         tc.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_mmCaixaActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void mmVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmVendedorActionPerformed
         // TODO add your handling code here:
         TelaVendedor tv = new TelaVendedor();
         tv.setVisible(true);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_mmVendedorActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void mmEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmEmpresaActionPerformed
         // TODO add your handling code here:
         TelaEmpresa te = new TelaEmpresa();
         te.setVisible(true);
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_mmEmpresaActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+    private void mmContaReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmContaReceberActionPerformed
         // TODO add your handling code here:
         TelaContaPromissoria tc = new TelaContaPromissoria();
         tc.setVisible(true);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_mmContaReceberActionPerformed
 
     private void mmUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmUsuarioActionPerformed
         TelaUsuario tu = new TelaUsuario();
         tu.setVisible(true);
     }//GEN-LAST:event_mmUsuarioActionPerformed
+
+    private void mmVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmVendaActionPerformed
+        TelaVenda tv = new TelaVenda();
+        tv.setVisible(true);
+    }//GEN-LAST:event_mmVendaActionPerformed
+
+    private void mmListarVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmListarVendasActionPerformed
+        TelaListarVendas tlv = new TelaListarVendas();
+        tlv.setVisible(true);
+    }//GEN-LAST:event_mmListarVendasActionPerformed
+
+    private void mmOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmOrcamentoActionPerformed
+        TelaOrcamento to = new TelaOrcamento();
+        to.setVisible(true);
+    }//GEN-LAST:event_mmOrcamentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,16 +313,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JLabel lblImage;
+    private javax.swing.JMenu mCadastro;
+    private javax.swing.JMenuItem mmCaixa;
+    private javax.swing.JMenuItem mmCliente;
+    private javax.swing.JMenuItem mmContaReceber;
+    private javax.swing.JMenuItem mmEmpresa;
+    private javax.swing.JMenuItem mmGrupoProduto;
+    private javax.swing.JMenuItem mmListarVendas;
+    private javax.swing.JMenuItem mmOrcamento;
+    private javax.swing.JMenuItem mmProduto;
     private javax.swing.JMenuItem mmUsuario;
+    private javax.swing.JMenuItem mmVenda;
+    private javax.swing.JMenuItem mmVendedor;
     // End of variables declaration//GEN-END:variables
 }

@@ -191,7 +191,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (Util.verificaPermissao("CE_EMPRESA")) {
+        if (Util.verificaPermissao("CE_EMPRESA", 1)) {
             if (empresa == null) {
                 empresa = new Empresa();
             }

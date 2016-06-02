@@ -70,18 +70,23 @@ public class ItemVendaTableModel extends AbstractTableModel {
             case 3:
                 return p.getProduto().getTipo();
             case 4:
-                return p.getQuantidade();
+                return Util.acertarNumero(p.getQuantidade());
             case 5:
-                return p.getProduto().getPrecoVenda();
+                return Util.acertarNumero(p.getProduto().getPrecoVenda());
             case 6:
-                return p.getParcial();
+                return Util.acertarNumero(p.getParcial());
             case 7:
-                return p.getDesconto();
+                return Util.acertarNumero(p.getDesconto());
             case 8:
                 return p.getSubtotal();
 
         }
         return null;
+    }
+    
+     public ItemVenda getValueAt(int rowIndex) {
+        ItemVenda p = produtos.get(rowIndex);
+        return p;
     }
 
     /**

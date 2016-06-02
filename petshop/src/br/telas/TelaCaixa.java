@@ -64,9 +64,9 @@ public class TelaCaixa extends javax.swing.JDialog {
             saida += listalc.getValorSaida();
         }
         double saldo = entrada - saida;
-        tfEntradas1.setText(String.format("%.2f",entrada));
-        tfSaidas.setText(String.format("%.2f",saida));
-        tfSaldo.setText(String.format("%.2f",saldo));
+        tfEntradas1.setText(String.format("%.2f", entrada));
+        tfSaidas.setText(String.format("%.2f", saida));
+        tfSaldo.setText(String.format("%.2f", saldo));
     }
 
     /**
@@ -235,63 +235,66 @@ public class TelaCaixa extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        TelaAdicionaCaixa tac = new TelaAdicionaCaixa();
-        tac.setVisible(true);
-        preencheTabela(new Date());
+        if (Util.verificaPermissao("ADICIONA_CAIXA", 1)) {
+            TelaAdicionaCaixa tac = new TelaAdicionaCaixa();
+            tac.setVisible(true);
+            preencheTabela(new Date());
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-        if(tfData1.getText().equals("  /  /    ")){
-            JOptionPane.showMessageDialog(rootPane, "Informe a data!");
-            tfData1.requestFocus();
-            return ;
-        }
-        JasperReport pathjrxml;
-        HashMap parametros = new HashMap();
+        if (Util.verificaPermissao("IMPRIMIR_CAIXA", 1)) {
+            if (tfData1.getText().equals("  /  /    ")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data!");
+                tfData1.requestFocus();
+                return;
+            }
+            JasperReport pathjrxml;
+            HashMap parametros = new HashMap();
 
-        String sql = "";
+            String sql = "";
 
-        String dataInicial = "";
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            java.sql.Date data = new java.sql.Date(format.parse(tfData1.getText()).getTime());
-            dataInicial = String.valueOf(data);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+            String dataInicial = "";
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = new java.sql.Date(format.parse(tfData1.getText()).getTime());
+                dataInicial = String.valueOf(data);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-        sql = "'" + dataInicial + "'";
+            sql = "'" + dataInicial + "'";
 
-        try {
-            parametros.put("sql", sql);
-        } catch (Exception e) {
-        }
+            try {
+                parametros.put("sql", sql);
+            } catch (Exception e) {
+            }
 
-        String caminho = Util.retornaCaminhoApp();
+            String caminho = Util.retornaCaminhoApp();
 //        String caminho = "";
 
-        Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
-        try {
-            JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
-            viewer.setSize(1200, 600);
-            viewer.setLocationRelativeTo(null);
-            viewer.setModal(true);
-            File file = new File(caminho + "relatorios/reportLivroCaixa.jrxml");
-            FileInputStream is = new FileInputStream(file);
-            pathjrxml = JasperCompileManager.compileReport(is);
-            JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
-                    connection);
-            JasperViewer jv = new JasperViewer(printReport, false);
-            viewer.getContentPane().add(jv.getContentPane());
-            viewer.setVisible(true);
+            Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
+            try {
+                JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
+                viewer.setSize(1200, 600);
+                viewer.setLocationRelativeTo(null);
+                viewer.setModal(true);
+                File file = new File(caminho + "relatorios/reportLivroCaixa.jrxml");
+                FileInputStream is = new FileInputStream(file);
+                pathjrxml = JasperCompileManager.compileReport(is);
+                JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
+                        connection);
+                JasperViewer jv = new JasperViewer(printReport, false);
+                viewer.getContentPane().add(jv.getContentPane());
+                viewer.setVisible(true);
                 //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
 
-            //jv.setVisible(true);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                //jv.setVisible(true);
+            } catch (JRException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 

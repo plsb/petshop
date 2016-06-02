@@ -71,7 +71,7 @@ public class ProdutoTableModel extends AbstractTableModel {
             case 4:
                 return p.getTipo();
             case 5:
-                return p.getQtdEstoque();
+                return p.isServico() ? "" : p.getQtdEstoque();
             case 6:
                 return p.getPrecoVenda();
 

@@ -4,7 +4,9 @@
  */
 package br.util;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
@@ -43,8 +45,8 @@ public abstract class GenericDAO<T> {
            
         } catch (HibernateException e) {
             System.out.println(e.getMessage()+" | "+e.getCause());
-            JOptionPane.showMessageDialog(null, "Não foi possível inserir " + entity.getClass()
-                    + ". Erro: " + e.getMessage());
+//            JOptionPane.showMessageDialog(null, "Não foi possível inserir " + entity.getClass()
+//                    + ". Erro: " + e.getMessage());
             return false;
         } finally {
             
@@ -61,8 +63,8 @@ public abstract class GenericDAO<T> {
             this.getTransacao().commit();
             
         } catch (HibernateException e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível atualizar " + entity.getClass()
-                    + ". Erro: " + e.getMessage());
+//            JOptionPane.showMessageDialog(null, "Não foi possível atualizar " + entity.getClass()
+//                    + ". Erro: " + e.getMessage());
             return false;
         } finally {
             getSessao().close();
@@ -79,8 +81,8 @@ public abstract class GenericDAO<T> {
             this.getTransacao().commit();
             
         } catch (HibernateException e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível remover " + entity.getClass()
-                    + ". Erro: " + e.getMessage());
+//            JOptionPane.showMessageDialog(null, "Não foi possível remover " + entity.getClass()
+//                    + ". Erro: " + e.getMessage());
             return false;
         } finally {
             getSessao().close();
@@ -100,7 +102,7 @@ public abstract class GenericDAO<T> {
             if (getTransacao().isActive()) {
                 getTransacao().rollback();
             }
-            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
+//            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
         } finally {
             sessao.close();
         }
@@ -116,7 +118,7 @@ public abstract class GenericDAO<T> {
             lista = this.getSessao().createCriteria(classe).addOrder(Order.asc(orderBy)).list();
             
         } catch (Throwable e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
+//            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
             if (getTransacao().isActive()) {
                 getTransacao().rollback();
             }
@@ -138,7 +140,7 @@ public abstract class GenericDAO<T> {
             Object o = sessao.load(classe, chavePrimaria);
             return (T) o;
         } catch (HibernateException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar por chave primária" + e.getMessage());
+//            JOptionPane.showMessageDialog(null, "Erro ao carregar por chave primária" + e.getMessage());
         } finally {
             sessao.close();
         }
@@ -151,12 +153,33 @@ public abstract class GenericDAO<T> {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             lista = this.getSessao().createCriteria(classe).add(Restrictions.eq(campo, valor)).list();
-            
+            lista = new ArrayList(new HashSet(lista));
         } catch (Throwable e) {
             if (getTransacao().isActive()) {
                 getTransacao().rollback();
             }
-            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
+//            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
+        return lista;
+
+    }
+    
+    public List<T> checkExists(String campo1, Object valor1,
+            String campo2, Object valor2) {
+        List<T> lista = null;
+        try {
+            this.setSessao(HibernateUtil.getSessionFactory().openSession());
+            setTransacao(getSessao().beginTransaction());
+            lista = this.getSessao().createCriteria(classe).add(Restrictions.eq(campo1, valor1))
+                    .add(Restrictions.eq(campo2, valor2)).list();
+            lista = new ArrayList(new HashSet(lista));
+        } catch (Throwable e) {
+            if (getTransacao().isActive()) {
+                getTransacao().rollback();
+            }
+//            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
         } finally {
             sessao.close();
         }

@@ -149,7 +149,7 @@ public class TelaVendedor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        if (Util.verificaPermissao("EXCLUIR_VENDEDOR")) {
+        if (Util.verificaPermissao("EXCLUIR_VENDEDOR", 1)) {
             if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Vendedor?", "", JOptionPane.YES_NO_OPTION,
                     JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
                 dao.remove(v);
@@ -163,7 +163,7 @@ public class TelaVendedor extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (Util.verificaPermissao("CE_VENDEDOR")) {
+        if (Util.verificaPermissao("CE_VENDEDOR", 1)) {
             if (v == null) {
                 v = new Vendedor();
             }

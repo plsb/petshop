@@ -37,6 +37,8 @@
         <mapping class="br.livro.LivroCaixa"/>
         <mapping class="br.fornecedor.Fornecedor"/>
         <mapping class="br.usuario.Usuario"/>
+        <mapping class="br.orcamento.Orcamento"/>
+        <mapping class="br.orcamento.ItemOrcamento"/>
     </session-factory>
 </hibernate-configuration>
 
