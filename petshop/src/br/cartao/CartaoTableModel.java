@@ -78,13 +78,13 @@ public class CartaoTableModel extends AbstractTableModel {
             case 0:
                 return Util.decimalFormat().format(cartao.getId());
             case 1:
-                return cartao.getVenda().getData();
+                return cartao.getData();
             case 2:
                 return cartao.getTipo();
             case 3:
                 return cartao.getBandeira();
             case 4:
-                return cartao.getVenda().getCliente().getNome();
+                return cartao.getCliente().getNome();
             case 5:
                 return cartao.getQtdParcelas();
             case 6:

@@ -31,16 +31,11 @@ public class CartaoCreditoDAO extends GenericDAO<CartaoCredito> {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
 
-            VendaDAO vDAO = new VendaDAO();
-            List<Venda> vendas = vDAO.listVendaEntreDatas(dataIni, dataFim);
-            if (vendas.size() == 0) {
-                lista = new ArrayList<>();
-            } else {
+            lista = this.getSessao().createCriteria(CartaoCredito.class)
+                    .add(Restrictions.ge("data", dataIni))
+                    .add(Restrictions.le("data", dataFim)).list();
+            lista = new ArrayList(new HashSet<Object>(lista));
 
-                lista = this.getSessao().createCriteria(CartaoCredito.class)
-                        .add(Restrictions.in("venda", vendas)).list();
-                lista = new ArrayList(new HashSet<Object>(lista));
-            }
         } catch (Throwable e) {
             if (getTransacao().isActive()) {
                 getTransacao().rollback();

@@ -107,6 +107,8 @@ public class TelaPermissoes extends javax.swing.JDialog {
         EXCLUIR_CLIENTE12 = new javax.swing.JCheckBox();
         jPanel11 = new javax.swing.JPanel();
         jCheckBox8 = new javax.swing.JCheckBox();
+        CE_CLIENTE5 = new javax.swing.JCheckBox();
+        EXCLUIR_CLIENTE14 = new javax.swing.JCheckBox();
         jPanel12 = new javax.swing.JPanel();
         CE_CLIENTE3 = new javax.swing.JCheckBox();
         EXCLUIR_CLIENTE5 = new javax.swing.JCheckBox();
@@ -425,6 +427,24 @@ public class TelaPermissoes extends javax.swing.JDialog {
         jCheckBox8.setName("V_CARTAO"); // NOI18N
         jPanel11.add(jCheckBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
+        CE_CLIENTE5.setText("Adicionar Cartão");
+        CE_CLIENTE5.setName("ADICIONA_CONTA_CARTAO"); // NOI18N
+        CE_CLIENTE5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CE_CLIENTE5ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(CE_CLIENTE5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        EXCLUIR_CLIENTE14.setText("Excluir Cartão");
+        EXCLUIR_CLIENTE14.setName("EXCLUIR_CARTAO"); // NOI18N
+        EXCLUIR_CLIENTE14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EXCLUIR_CLIENTE14ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(EXCLUIR_CLIENTE14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
         jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 230, 140));
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Contas á Receber"));
@@ -620,6 +640,14 @@ public class TelaPermissoes extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_CE_CLIENTE4ActionPerformed
 
+    private void CE_CLIENTE5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CE_CLIENTE5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CE_CLIENTE5ActionPerformed
+
+    private void EXCLUIR_CLIENTE14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXCLUIR_CLIENTE14ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EXCLUIR_CLIENTE14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -660,6 +688,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox CE_CLIENTE1;
     private javax.swing.JCheckBox CE_CLIENTE3;
     private javax.swing.JCheckBox CE_CLIENTE4;
+    private javax.swing.JCheckBox CE_CLIENTE5;
     private javax.swing.JCheckBox CE_EMPRESA;
     private javax.swing.JCheckBox CE_GRUPO_PRODUTOS;
     private javax.swing.JCheckBox CE_PRODUTO;
@@ -670,6 +699,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox EXCLUIR_CLIENTE11;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE12;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE13;
+    private javax.swing.JCheckBox EXCLUIR_CLIENTE14;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE3;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE4;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE5;

@@ -624,7 +624,12 @@ public class TelaVenda extends javax.swing.JDialog {
             venda.setValorTotal(valorTotal());
             venda.setDesconto(Double.parseDouble(lblDesconto1.getText().replace(",", ".")));
             venda.setData(new Date());
-            venda = TelaFechaVenda.exibeFechamento(venda);
+            Venda venda2 = TelaFechaVenda.exibeFechamento(venda);
+            if (venda2 == null) {
+                return;
+            } else {
+                venda = venda2;
+            }
             if (venda.getHora() != null) {
 
                 VendaDAO vDAO = new VendaDAO();
@@ -643,7 +648,7 @@ public class TelaVenda extends javax.swing.JDialog {
                     TelaFechaVendaPromissoria.chamaTela(venda);
                 }
                 if (venda.getVlCartao() > 0) {
-                    TelaFechaVendaCartao tfvc = new TelaFechaVendaCartao(venda);
+                    TelaCartao tfvc = new TelaCartao(venda);
                     tfvc.setVisible(true);
                 }
 
@@ -702,7 +707,7 @@ public class TelaVenda extends javax.swing.JDialog {
             } else {
                 cancelarVenda();
             }
-        } else{
+        } else {
             dispose();
         }
 

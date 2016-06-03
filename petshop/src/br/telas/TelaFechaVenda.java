@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 public class TelaFechaVenda extends javax.swing.JDialog {
 
     private static Venda venda;
+    
+    private boolean vendaNull=true;
 
     public static Venda exibeFechamento(Venda venda) {
         TelaFechaVenda.venda = venda;
@@ -102,6 +104,11 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         tfDesconto = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -296,6 +303,8 @@ public class TelaFechaVenda extends javax.swing.JDialog {
                 venda.setVlPromissoria(0);
             }
             venda.setHora(new Date());
+            vendaNull=false;
+                   
             setVisible(false);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -313,6 +322,12 @@ public class TelaFechaVenda extends javax.swing.JDialog {
             
         }
     }//GEN-LAST:event_tfDescontoFocusLost
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(vendaNull){
+            venda = null;
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

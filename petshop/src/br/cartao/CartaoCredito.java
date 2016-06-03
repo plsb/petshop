@@ -5,12 +5,17 @@
  */
 package br.cartao;
 
+import br.cliente.Cliente;
 import br.venda.Venda;
+import com.sun.security.ntlm.Client;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class CartaoCredito implements Comparable<CartaoCredito>{
@@ -27,6 +32,12 @@ public class CartaoCredito implements Comparable<CartaoCredito>{
     
     @ManyToOne
     private Venda venda;
+    
+    @ManyToOne
+    private Cliente cliente;
+    
+    @Temporal(TemporalType.DATE)
+    private Date data;
     
     private double valor;
 
@@ -129,6 +140,21 @@ public class CartaoCredito implements Comparable<CartaoCredito>{
         } 
         return "Crédito";
     }
-    
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
     
 }

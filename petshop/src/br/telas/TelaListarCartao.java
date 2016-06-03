@@ -37,7 +37,6 @@ import javax.swing.JOptionPane;
  */
 public class TelaListarCartao extends javax.swing.JDialog {
 
-    
     /**
      * Creates new form TelaListarVendas
      */
@@ -60,12 +59,12 @@ public class TelaListarCartao extends javax.swing.JDialog {
         tb.setModel(vtm);
         FormataTamanhoColunasJTable.packColumns(tb, 1);
         tb.setAutoCreateRowSorter(true);
-        
-        double valor =0;
+
+        double valor = 0;
         for (CartaoCredito lista1 : lista) {
-            valor+=lista1.getValor();
+            valor += lista1.getValor();
         }
-        
+
         lblValor.setText(Util.acertarNumero(valor));
     }
 
@@ -90,6 +89,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         lblValor = new javax.swing.JLabel();
         btSair = new javax.swing.JButton();
+        btNovo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -158,7 +158,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
                 btExcluirActionPerformed(evt);
             }
         });
-        jPanel1.add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 350, 70, 50));
+        jPanel1.add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 70, 50));
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel5.setText("Valor Total.: ");
@@ -177,6 +177,15 @@ public class TelaListarCartao extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 350, 70, 50));
+
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
+        btNovo.setToolTipText("Excluir");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 350, 70, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 410));
 
@@ -213,29 +222,39 @@ public class TelaListarCartao extends javax.swing.JDialog {
 
 
     private void tbKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbKeyPressed
-    
+
     }//GEN-LAST:event_tbKeyPressed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        int i = tb.getSelectedRow();
-        if(i>=0){
-            CartaoTableModel ctm = (CartaoTableModel) tb.getModel();
-            CartaoCredito c = ctm.getValueAt(i);
-            if(JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir?", "Excluir", JOptionPane.YES_NO_OPTION)
-                    ==JOptionPane.YES_OPTION){
-                CartaoCreditoDAO ccDAO = new CartaoCreditoDAO();
-                ccDAO.remove(c);
-                btPesquisarActionPerformed(null);
+        if (Util.verificaPermissao("EXCLUIR_CARTAO", 1)) {
+            int i = tb.getSelectedRow();
+            if (i >= 0) {
+                CartaoTableModel ctm = (CartaoTableModel) tb.getModel();
+                CartaoCredito c = ctm.getValueAt(i);
+                if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir?", "Excluir", JOptionPane.YES_NO_OPTION)
+                        == JOptionPane.YES_OPTION) {
+                    CartaoCreditoDAO ccDAO = new CartaoCreditoDAO();
+                    ccDAO.remove(c);
+                    btPesquisarActionPerformed(null);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione o ítem!");
             }
-                    
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o ítem!");
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btSairActionPerformed
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        if (Util.verificaPermissao("ADICIONA_CONTA_CARTAO", 1)) {
+            TelaCartao tc = new TelaCartao();
+            tc.setVisible(true);
+            btPesquisarActionPerformed(null);
+        }
+    }//GEN-LAST:event_btNovoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,6 +296,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btSair;
     private javax.swing.JLabel jLabel3;
