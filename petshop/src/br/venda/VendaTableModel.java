@@ -12,8 +12,8 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class VendaTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Id", "Data", "Hora", "Tipo Pagamento", "Cliente", 
-        "Vendedor", "Parcial", "Desconto", "Total"};
+    private String[] nomeColunas = {"Id", "Data", "Hora", "Tipo Pagamento", "Cliente",
+        "Vendedor", "Parcial", "Desconto", "Total", "Vl. Dinh.", "Vl. Prom.", "Vl. Cartão"};
     private List<Venda> vendas;
 
     /**
@@ -78,21 +78,27 @@ public class VendaTableModel extends AbstractTableModel {
             case 7:
                 return v.getDesconto();
             case 8:
-                return v.getValorTotal()-v.getDesconto();
+                return v.getValorTotal() - v.getDesconto();
+            case 9:
+                return v.getVlVista();
+            case 10:
+                return v.getVlPromissoria();
+            case 11:
+                return v.getVlCartao();
 
         }
         return null;
     }
-    
+
     public Venda getValueAt(int rowIndex) {
         Venda v = vendas.get(rowIndex);
         return v;
     }
-    
-    private String tipoPagamento(Venda v){
-        if(v.getTipoPagamento().equals("VV")){
+
+    private String tipoPagamento(Venda v) {
+        if (v.getTipoPagamento().equals("VV")) {
             return "Venda à Vista";
-        } else if(v.getTipoPagamento().equals("VP")){
+        } else if (v.getTipoPagamento().equals("VP")) {
             return "Venda à Prazo";
         } else {
             return "Venda à Cartão";
@@ -126,6 +132,12 @@ public class VendaTableModel extends AbstractTableModel {
                 return nomeColunas[7];
             case 8:
                 return nomeColunas[8];
+            case 9:
+                return nomeColunas[9];
+            case 10:
+                return nomeColunas[10];
+            case 11:
+                return nomeColunas[11];
 
         }
         return null;

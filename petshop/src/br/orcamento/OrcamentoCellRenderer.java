@@ -20,14 +20,14 @@ public class OrcamentoCellRenderer extends DefaultTableCellRenderer{
         OrcamentoTableModel vtm = (OrcamentoTableModel) table.getModel();       
         Orcamento o = vtm.getValueAt(row);
         if(o.isImportado()){
-            setBackground(Color.GREEN);
+            setForeground(Color.GREEN);
         } else {
-            setBackground(null);
+            setForeground(null);
         }
-        
-        if(isSelected){
-            setBackground(Color.BLUE);
-        }
+//        
+//        if(isSelected){
+//            setBackground(Color.BLUE);
+//        }
         
         return this;
     }

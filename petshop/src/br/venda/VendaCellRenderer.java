@@ -19,14 +19,14 @@ public class VendaCellRenderer extends DefaultTableCellRenderer{
         VendaTableModel vtm = (VendaTableModel) table.getModel();       
         Venda v = vtm.getValueAt(row);
         if(v.isCancelada()){
-            setBackground(Color.RED);
+            setForeground(Color.RED);
         } else {
-            setBackground(null);
+            setForeground(null);
         }
-        
-        if(isSelected){
-            setBackground(Color.BLUE);
-        }
+//        
+//        if(isSelected){
+//            setBackground(Color.BLUE);
+//        }
         
         return this;
     }

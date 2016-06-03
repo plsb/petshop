@@ -26,6 +26,7 @@ public class TelaVendedor extends javax.swing.JDialog {
         setModal(true);
         setLocationRelativeTo(null);
         setTitle("Adiciona/Edita Vendedor");
+        limpaCampos();
 
     }
 
@@ -195,7 +196,7 @@ public class TelaVendedor extends javax.swing.JDialog {
         tfDesconto.setText("");
         tfNome.setText("");
         btDelete.setEnabled(false);
-        cbAtivo.setSelected(false);
+        cbAtivo.setSelected(true);
 
     }
 

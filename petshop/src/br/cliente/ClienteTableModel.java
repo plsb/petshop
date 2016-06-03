@@ -110,7 +110,7 @@ public class ClienteTableModel extends AbstractTableModel {
             case 3:
                 return nomeColunas[3];
             case 4:
-                return nomeColunas[5];
+                return nomeColunas[4];
             case 5:
                 return nomeColunas[5];
             case 6:

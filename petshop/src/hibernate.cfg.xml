@@ -39,6 +39,7 @@
         <mapping class="br.usuario.Usuario"/>
         <mapping class="br.orcamento.Orcamento"/>
         <mapping class="br.orcamento.ItemOrcamento"/>
+        <mapping class="br.auditoria.Auditoria"/>
     </session-factory>
 </hibernate-configuration>
 

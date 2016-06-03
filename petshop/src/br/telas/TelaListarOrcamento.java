@@ -87,6 +87,7 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         tfDataFim = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
+        btSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -159,7 +160,7 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
                 btImportarActionPerformed(evt);
             }
         });
-        jPanel1.add(btImportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 350, 70, 50));
+        jPanel1.add(btImportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 70, 50));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel3.setText("Data Fim");
@@ -176,6 +177,15 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel4.setText("Data Inicio");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel2.png"))); // NOI18N
+        btSair.setToolTipText("Visualizar Venda");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 350, 70, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 410));
 
@@ -228,6 +238,10 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tbKeyPressed
 
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btSairActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -267,6 +281,7 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btImportar;
     private javax.swing.JButton btPesquisar;
+    private javax.swing.JButton btSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

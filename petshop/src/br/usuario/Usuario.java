@@ -22,6 +22,11 @@ public class Usuario implements Comparable<Usuario>{
     private Integer id;
     
     private String nome;
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", administrador=" + administrador + ", ativo=" + ativo + ", permissao=" + permissao + '}';
+    }
     
     private String login;
     

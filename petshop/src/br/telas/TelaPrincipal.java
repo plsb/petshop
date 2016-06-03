@@ -50,7 +50,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mmVenda.setVisible(Util.verificaPermissao("V_VENDA", 0));
         mmListarVendas.setVisible(Util.verificaPermissao("LISTAR_VENDAS", 0));
         mmOrcamento.setVisible(Util.verificaPermissao("INSERIR_ORCAMENTO", 0));
-               
+        mmCartao.setVisible(Util.verificaPermissao("V_CARTAO", 0));                     
     }
 
     /**
@@ -75,6 +75,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mmVendedor = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         mmCaixa = new javax.swing.JMenuItem();
+        mmCartao = new javax.swing.JMenuItem();
         mmContaReceber = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         mmVenda = new javax.swing.JMenuItem();
@@ -162,6 +163,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(mmCaixa);
+
+        mmCartao.setText("Cartão de Crédito/Débito");
+        mmCartao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mmCartaoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mmCartao);
 
         mmContaReceber.setMnemonic('r');
         mmContaReceber.setText("Contas a Receber");
@@ -273,6 +282,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         to.setVisible(true);
     }//GEN-LAST:event_mmOrcamentoActionPerformed
 
+    private void mmCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmCartaoActionPerformed
+        TelaListarCartao tlc = new TelaListarCartao();
+        tlc.setVisible(true);
+    }//GEN-LAST:event_mmCartaoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -317,6 +331,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblImage;
     private javax.swing.JMenu mCadastro;
     private javax.swing.JMenuItem mmCaixa;
+    private javax.swing.JMenuItem mmCartao;
     private javax.swing.JMenuItem mmCliente;
     private javax.swing.JMenuItem mmContaReceber;
     private javax.swing.JMenuItem mmEmpresa;

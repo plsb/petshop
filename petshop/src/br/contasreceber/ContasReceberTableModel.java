@@ -94,6 +94,12 @@ public class ContasReceberTableModel extends AbstractTableModel {
         }
         return null;
     }
+    
+    public ContasReceber getValueAt(int rowIndex) {
+        ContasReceber conta = contas.get(rowIndex);
+        
+        return conta;
+    }
 
     /**
      * Método sobrescrito.

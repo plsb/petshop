@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class CartaoCredito {
+public class CartaoCredito implements Comparable<CartaoCredito>{
     
     @Id
     @GeneratedValue
@@ -23,10 +23,12 @@ public class CartaoCredito {
     
     private int qtdParcelas;
     
-    private String creditoDebito;
+    private boolean debito;
     
     @ManyToOne
     private Venda venda;
+    
+    private double valor;
 
     public Integer getId() {
         return id;
@@ -52,13 +54,6 @@ public class CartaoCredito {
         this.qtdParcelas = qtdParcelas;
     }
 
-    public String getCreditoDebito() {
-        return creditoDebito;
-    }
-
-    public void setCreditoDebito(String creditoDebito) {
-        this.creditoDebito = creditoDebito;
-    }
 
     public Venda getVenda() {
         return venda;
@@ -74,7 +69,6 @@ public class CartaoCredito {
         hash = 53 * hash + Objects.hashCode(this.id);
         hash = 53 * hash + Objects.hashCode(this.bandeira);
         hash = 53 * hash + this.qtdParcelas;
-        hash = 53 * hash + Objects.hashCode(this.creditoDebito);
         hash = 53 * hash + Objects.hashCode(this.venda);
         return hash;
     }
@@ -97,18 +91,44 @@ public class CartaoCredito {
         if (this.qtdParcelas != other.qtdParcelas) {
             return false;
         }
-        if (!Objects.equals(this.creditoDebito, other.creditoDebito)) {
-            return false;
-        }
         if (!Objects.equals(this.venda, other.venda)) {
             return false;
         }
         return true;
     }
 
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public boolean isDebito() {
+        return debito;
+    }
+
+    public void setDebito(boolean debito) {
+        this.debito = debito;
+    }
+
     @Override
     public String toString() {
-        return "CartaoCredito{" + "id=" + id + ", bandeira=" + bandeira + ", qtdParcelas=" + qtdParcelas + ", creditoDebito=" + creditoDebito + ", venda=" + venda + '}';
+        return "CartaoCredito{" + "id=" + id + ", bandeira=" + bandeira + ", qtdParcelas=" + qtdParcelas + ", debito=" + debito + ", venda=" + venda + ", valor=" + valor + '}';
     }
+
+    @Override
+    public int compareTo(CartaoCredito o) {
+        return o.id.compareTo(id);
+    }
+    
+    public String getTipo(){
+        if(isDebito()){
+            return "Débito";
+        } 
+        return "Crédito";
+    }
+    
     
 }

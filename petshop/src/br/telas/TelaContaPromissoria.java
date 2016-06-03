@@ -7,11 +7,13 @@ package br.telas;
 
 import br.cliente.Cliente;
 import br.cliente.ClienteDAO;
+import br.contasreceber.ContaReceberCellRenderer;
 import br.contasreceber.ContasReceber;
 import br.contasreceber.ContasReceberDAO;
 import br.contasreceber.ContasReceberTableModel;
 import br.util.FormataTamanhoColunasJTable;
 import br.util.Util;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -84,6 +86,11 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         btEdit = new javax.swing.JButton();
         btNovo3 = new javax.swing.JButton();
         btRemover = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -121,6 +128,11 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbContas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbContasKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbContas);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 660, 190));
@@ -131,12 +143,12 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel4.setText("Valor Débito.: ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
         lblVencer1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         lblVencer1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblVencer1.setText("0,00");
-        jPanel1.add(lblVencer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 80, -1));
+        jPanel1.add(lblVencer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 80, -1));
 
         btReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/valuetotal.png"))); // NOI18N
         btReceber.setToolTipText("Receber Conta");
@@ -145,7 +157,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 btReceberActionPerformed(evt);
             }
         });
-        jPanel1.add(btReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 290, 43, -1));
+        jPanel1.add(btReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 290, 43, -1));
 
         btContas.add(rbContasAbert);
         rbContasAbert.setText("Contas em Aberto");
@@ -192,7 +204,56 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         });
         jPanel1.add(btRemover, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 43, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 360));
+        jPanel3.setBackground(new java.awt.Color(255, 0, 0));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 20, 20));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setText("Contas em Atraso");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, 20));
+
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setText("Contas à Vencer");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, -1, 20));
+
+        jPanel4.setBackground(new java.awt.Color(51, 255, 0));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 20, 20));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/close.png"))); // NOI18N
+        jButton1.setToolTipText("Sair");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 40, 40));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 340));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -229,6 +290,9 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
             btRemover.setEnabled(false);
         }
         tbContas.setAutoCreateRowSorter(true);
+        tbContas.setDefaultRenderer(Object.class, 
+                new ContaReceberCellRenderer());
+                
     }
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
@@ -331,6 +395,16 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btRemoverActionPerformed
 
+    private void tbContasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbContasKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btReceberActionPerformed(null);
+        }
+    }//GEN-LAST:event_tbContasKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -374,9 +448,14 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
     private javax.swing.JButton btReceber;
     private javax.swing.JButton btRemover;
     private javax.swing.JComboBox cbCliente;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblVencer1;
     private javax.swing.JRadioButton rbContasAbert;

@@ -22,6 +22,11 @@ import javax.persistence.ManyToOne;
 @Entity
 public class ItemOrcamento implements Comparable<ItemOrcamento>, Serializable {
 
+    @Override
+    public String toString() {
+        return "ItemOrcamento{" + "id=" + id + ", orcamento=" + orcamento + ", produto=" + produto + ", quantidade=" + quantidade + ", ordem=" + ordem + '}';
+    }
+
     @Id
     @GeneratedValue
     private Integer id;

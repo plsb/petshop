@@ -208,7 +208,7 @@ public class Venda implements Comparable<Venda>, Serializable{
 
     @Override
     public int compareTo(Venda o) {
-        return id.compareTo(o.id);
+        return o.id.compareTo(id);
     }
     private static final long serialVersionUID = -289875782100734286L;
     

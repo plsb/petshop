@@ -106,8 +106,6 @@ public class TelaPermissoes extends javax.swing.JDialog {
         EXCLUIR_CLIENTE11 = new javax.swing.JCheckBox();
         EXCLUIR_CLIENTE12 = new javax.swing.JCheckBox();
         jPanel11 = new javax.swing.JPanel();
-        CE_CLIENTE2 = new javax.swing.JCheckBox();
-        EXCLUIR_CLIENTE2 = new javax.swing.JCheckBox();
         jCheckBox8 = new javax.swing.JCheckBox();
         jPanel12 = new javax.swing.JPanel();
         CE_CLIENTE3 = new javax.swing.JCheckBox();
@@ -115,6 +113,10 @@ public class TelaPermissoes extends javax.swing.JDialog {
         jCheckBox9 = new javax.swing.JCheckBox();
         EXCLUIR_CLIENTE6 = new javax.swing.JCheckBox();
         EXCLUIR_CLIENTE7 = new javax.swing.JCheckBox();
+        jPanel13 = new javax.swing.JPanel();
+        CE_CLIENTE4 = new javax.swing.JCheckBox();
+        EXCLUIR_CLIENTE13 = new javax.swing.JCheckBox();
+        jCheckBox10 = new javax.swing.JCheckBox();
         lbTexto = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         btSalvar = new javax.swing.JButton();
@@ -416,27 +418,14 @@ public class TelaPermissoes extends javax.swing.JDialog {
 
         jPanel3.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 240, 260));
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Caixa"));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Cartão Crédito/Débito"));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        CE_CLIENTE2.setText("Adicionar Caixa");
-        CE_CLIENTE2.setName("ADICIONA_CAIXA"); // NOI18N
-        CE_CLIENTE2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CE_CLIENTE2ActionPerformed(evt);
-            }
-        });
-        jPanel11.add(CE_CLIENTE2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
-
-        EXCLUIR_CLIENTE2.setText("Imprimir Caixa");
-        EXCLUIR_CLIENTE2.setName("IMPRIMIR_CAIXA"); // NOI18N
-        jPanel11.add(EXCLUIR_CLIENTE2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
-
         jCheckBox8.setText("Visualizar");
-        jCheckBox8.setName("V_CAIXA"); // NOI18N
+        jCheckBox8.setName("V_CARTAO"); // NOI18N
         jPanel11.add(jCheckBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 230, 210));
+        jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 230, 140));
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Contas á Receber"));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -466,7 +455,29 @@ public class TelaPermissoes extends javax.swing.JDialog {
         EXCLUIR_CLIENTE7.setName("EXCLUIR_CONTA_RECEBER"); // NOI18N
         jPanel12.add(EXCLUIR_CLIENTE7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
-        jPanel3.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 230, 210));
+        jPanel3.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 230, 140));
+
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Caixa"));
+        jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        CE_CLIENTE4.setText("Adicionar Caixa");
+        CE_CLIENTE4.setName("ADICIONA_CAIXA"); // NOI18N
+        CE_CLIENTE4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CE_CLIENTE4ActionPerformed(evt);
+            }
+        });
+        jPanel13.add(CE_CLIENTE4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        EXCLUIR_CLIENTE13.setText("Imprimir Caixa");
+        EXCLUIR_CLIENTE13.setName("IMPRIMIR_CAIXA"); // NOI18N
+        jPanel13.add(EXCLUIR_CLIENTE13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        jCheckBox10.setText("Visualizar");
+        jCheckBox10.setName("V_CAIXA"); // NOI18N
+        jPanel13.add(jCheckBox10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 230, 140));
 
         jTabbedPane1.addTab("Movimentações", jPanel3);
 
@@ -541,6 +552,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
         listaComponentes.addAll(converteArrayListaComponentes(jPanel10.getComponents()));
         listaComponentes.addAll(converteArrayListaComponentes(jPanel11.getComponents()));
         listaComponentes.addAll(converteArrayListaComponentes(jPanel12.getComponents()));
+        listaComponentes.addAll(converteArrayListaComponentes(jPanel13.getComponents()));
         return listaComponentes;
     }
     
@@ -580,10 +592,6 @@ public class TelaPermissoes extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_CE_CLIENTE1ActionPerformed
 
-    private void CE_CLIENTE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CE_CLIENTE2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CE_CLIENTE2ActionPerformed
-
     private void CE_CLIENTE3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CE_CLIENTE3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CE_CLIENTE3ActionPerformed
@@ -607,6 +615,10 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private void EXCLUIR_CLIENTE12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXCLUIR_CLIENTE12ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EXCLUIR_CLIENTE12ActionPerformed
+
+    private void CE_CLIENTE4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CE_CLIENTE4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CE_CLIENTE4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -646,8 +658,8 @@ public class TelaPermissoes extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox CE_CLIENTE;
     private javax.swing.JCheckBox CE_CLIENTE1;
-    private javax.swing.JCheckBox CE_CLIENTE2;
     private javax.swing.JCheckBox CE_CLIENTE3;
+    private javax.swing.JCheckBox CE_CLIENTE4;
     private javax.swing.JCheckBox CE_EMPRESA;
     private javax.swing.JCheckBox CE_GRUPO_PRODUTOS;
     private javax.swing.JCheckBox CE_PRODUTO;
@@ -657,7 +669,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox EXCLUIR_CLIENTE10;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE11;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE12;
-    private javax.swing.JCheckBox EXCLUIR_CLIENTE2;
+    private javax.swing.JCheckBox EXCLUIR_CLIENTE13;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE3;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE4;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE5;
@@ -671,6 +683,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox10;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
@@ -683,6 +696,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;

@@ -5,6 +5,8 @@
  */
 package br.telas;
 
+import br.cartao.CartaoCredito;
+import br.cartao.CartaoCreditoDAO;
 import br.contasreceber.ContasReceber;
 import br.contasreceber.ContasReceberDAO;
 import br.livro.LivroCaixa;
@@ -15,19 +17,21 @@ import br.venda.Venda;
 import br.venda.VendaCellRenderer;
 import br.venda.VendaDAO;
 import br.venda.VendaTableModel;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Pedro Saraiva
  */
-public class TelaListarVendas extends javax.swing.JDialog {
+public class TelaListarVendas extends JDialog {
 
     /**
      * Creates new form TelaListarVendas
@@ -42,11 +46,12 @@ public class TelaListarVendas extends javax.swing.JDialog {
         tfDataFim.setText(dfdtData.format(new Date()));
         btPesquisarActionPerformed(null);
         setTitle("Listar Vendas");
+
     }
-    
+
     VendaDAO dao = new VendaDAO();
-    
-    private void preencheTabela(List<Venda> lista){
+
+    private void preencheTabela(List<Venda> lista) {
         VendaTableModel vtm = new VendaTableModel(lista);
         tb.setModel(vtm);
         tb.setDefaultRenderer(Object.class, new VendaCellRenderer());
@@ -70,7 +75,7 @@ public class TelaListarVendas extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         btPesquisar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        btSair = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         tfDataFim = new javax.swing.JFormattedTextField();
@@ -83,11 +88,25 @@ public class TelaListarVendas extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         lblPrazo = new javax.swing.JLabel();
         lblCartao = new javax.swing.JLabel();
+        btVIsualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel1KeyPressed(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tb.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -102,6 +121,11 @@ public class TelaListarVendas extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tb.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tb);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 740, 250));
@@ -143,23 +167,23 @@ public class TelaListarVendas extends javax.swing.JDialog {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 20, 20));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/view.png"))); // NOI18N
-        jButton5.setToolTipText("Visualizar Venda");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel2.png"))); // NOI18N
+        btSair.setToolTipText("Visualizar Venda");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btSairActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 70, 50));
+        jPanel1.add(btSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 350, 70, 50));
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/delete.png"))); // NOI18N
         jButton6.setToolTipText("Cancelar Venda");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 350, 70, 50));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 70, 50));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel3.setText("Data Fim");
@@ -213,6 +237,15 @@ public class TelaListarVendas extends javax.swing.JDialog {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 240, 90));
 
+        btVIsualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/view.png"))); // NOI18N
+        btVIsualizar.setToolTipText("Visualizar Venda");
+        btVIsualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVIsualizarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btVIsualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 350, 70, 50));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 410));
 
         pack();
@@ -220,7 +253,7 @@ public class TelaListarVendas extends javax.swing.JDialog {
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         if (!tfDataInicio.getText().equals("  /  /    ") && !tfDataFim.getText().equals("  /  /    ")) {
-            java.util.Date dataIni=null, dataFim=null;
+            java.util.Date dataIni = null, dataFim = null;
             try {
                 DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
                 dataIni = new java.util.Date(fmt.parse(tfDataInicio.getText()).getTime());
@@ -233,7 +266,7 @@ public class TelaListarVendas extends javax.swing.JDialog {
             } catch (ParseException ex) {
                 System.out.println(ex.getMessage());
             }
-            if(dataIni==null && dataFim ==null){
+            if (dataIni == null && dataFim == null) {
                 preencheTabela(new ArrayList<Venda>());
             } else {
                 List<Venda> listaVenda = dao.listVendaEntreDatas(dataIni, dataFim);
@@ -246,11 +279,11 @@ public class TelaListarVendas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
 
-    private void preencheTotais(List<Venda> lista){
-        double tvv=0, tvp=0, tvc=0;
-        int qtdVCanceladas=0;
-        for(Venda v : lista){
-            if(v.isCancelada()){
+    private void preencheTotais(List<Venda> lista) {
+        double tvv = 0, tvp = 0, tvc = 0;
+        int qtdVCanceladas = 0;
+        for (Venda v : lista) {
+            if (v.isCancelada()) {
                 qtdVCanceladas++;
             } else {
                 tvv += v.getVlVista();
@@ -261,50 +294,93 @@ public class TelaListarVendas extends javax.swing.JDialog {
         lblCartao.setText(Util.acertarNumero(tvc));
         lblPrazo.setText(Util.acertarNumero(tvp));
         lblVista.setText(Util.acertarNumero(tvv));
-        
+
     }
-    
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        
-    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btSairActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        if(Util.verificaPermissao("CANCEL_VENDA", 1)){
+        if (Util.verificaPermissao("CANCEL_VENDA", 1)) {
             int i = tb.getSelectedRow();
-            if(i>=0){
+            if (i >= 0) {
                 VendaTableModel vtm = (VendaTableModel) tb.getModel();
                 Venda v = vtm.getValueAt(i);
                 VendaDAO dao = new VendaDAO();
-                if(v.isCancelada()){
+                if (v.isCancelada()) {
                     JOptionPane.showMessageDialog(rootPane, "Venda Já Está Cancelada!");
                 } else {
-                    if(JOptionPane.showConfirmDialog(rootPane, "Deseja Cancelar a Venda: "+
-                            Util.decimalFormat().format(v.getId())+"?", 
-                            "", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION){
+                    if (JOptionPane.showConfirmDialog(rootPane, "Deseja Cancelar a Venda: "
+                            + Util.decimalFormat().format(v.getId()) + "?",
+                            "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                         v.setCancelada(true);
                         dao.update(v);
-                        
+
                         LivroCaixaDAO lDAO = new LivroCaixaDAO();
                         List<LivroCaixa> listCaixa = lDAO.checkExists("venda", v);
                         for (LivroCaixa c : listCaixa) {
                             lDAO.remove(c);
                         }
-                        
+
                         ContasReceberDAO crDAO = new ContasReceberDAO();
                         List<ContasReceber> listCR = crDAO.checkExists("venda", v);
-                        for(ContasReceber cr : listCR){
+                        for (ContasReceber cr : listCR) {
                             crDAO.remove(cr);
                         }
+
+                        CartaoCreditoDAO ccdDAO = new CartaoCreditoDAO();
+                        List<CartaoCredito> listCCD = ccdDAO.checkExists("venda", v);
+                        for (CartaoCredito ccd : listCCD) {
+                            ccdDAO.remove(ccd);
+                        }
                         btPesquisarActionPerformed(evt);
-                        
+
                     }
                 }
-                    
+
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Selecione uma Venda!");
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void tbKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btVIsualizarActionPerformed(null);
+        }
+    }//GEN-LAST:event_tbKeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_formKeyPressed
+
+    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
+
+    }//GEN-LAST:event_jPanel1KeyPressed
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+
+    }//GEN-LAST:event_formKeyReleased
+
+    private void btVIsualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVIsualizarActionPerformed
+        if (Util.verificaPermissao("V_VENDA", 1)) {
+            int i = tb.getSelectedRow();
+            if (i >= 0) {
+                VendaTableModel vtm = (VendaTableModel) tb.getModel();
+                Venda v = vtm.getValueAt(i);
+                if (!v.isCancelada()) {
+                    TelaVenda tv = new TelaVenda(v);
+                    tv.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Venda está Cancelada!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione a Linha!");
+            }
+        }
+    }//GEN-LAST:event_btVIsualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,7 +419,8 @@ public class TelaListarVendas extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btSair;
+    private javax.swing.JButton btVIsualizar;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

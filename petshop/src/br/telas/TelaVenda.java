@@ -31,6 +31,7 @@ import br.venda.Venda;
 import br.venda.VendaDAO;
 import br.vendedor.Vendedor;
 import br.vendedor.VendedorDAO;
+import com.lowagie.text.pdf.AcroFields;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -71,6 +72,52 @@ public class TelaVenda extends javax.swing.JDialog {
         lblDebito.setVisible(false);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
+    }
+
+    private boolean podeFechar = false;
+
+    public TelaVenda(Venda v) {
+        initComponents();
+        setTitle("Venda");
+        setLocationRelativeTo(null);
+        setModal(true);
+        preencheCliente();
+        preencheVendedor();
+        cbCliente.setSelectedItem(v.getCliente());
+        cbVendedor.setSelectedItem(v.getVendedor());
+        SimpleDateFormat dfdtData;
+        dfdtData = new SimpleDateFormat("dd/MM/yyyy");
+        lblData.setText(dfdtData.format(v.getData()));
+        preencheTabela();
+        lblDebito.setVisible(false);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        if (v.getTipoPagamento().equals("VV")) {
+            cbTipoPagamento.setSelectedIndex(1);
+        } else if (v.getTipoPagamento().equals("VP")) {
+            cbTipoPagamento.setSelectedIndex(2);
+        }
+        if (v.getTipoPagamento().equals("VC")) {
+            cbTipoPagamento.setSelectedIndex(3);
+        }
+
+        ItemVendaDAO ivDAO = new ItemVendaDAO();
+        itensVenda = ivDAO.checkExists("venda", v);
+
+        preencheTabela();
+        cbCliente.setEnabled(false);
+        cbTipoPagamento.setEnabled(false);
+        cbVendedor.setEnabled(false);
+        jButton3.setEnabled(false);
+        jButton2.setEnabled(false);
+        jButton1.setEnabled(false);
+        jButton4.setEnabled(false);
+        jButton5.setEnabled(false);
+        tfQuantidade.setEnabled(false);
+        tb.setEnabled(false);
+        jMenu1.setVisible(false);
+
+        podeFechar = true;
     }
 
     public void preencheVendedor() {
@@ -151,6 +198,11 @@ public class TelaVenda extends javax.swing.JDialog {
             }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -266,7 +318,7 @@ public class TelaVenda extends javax.swing.JDialog {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 50, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 50, 40));
 
         lblParcial.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         lblParcial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -295,7 +347,7 @@ public class TelaVenda extends javax.swing.JDialog {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 50, 40));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 50, 40));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/money.png"))); // NOI18N
         jButton4.setToolTipText("Finalizar Venda");
@@ -306,7 +358,7 @@ public class TelaVenda extends javax.swing.JDialog {
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 480, 50, 40));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/delete.png"))); // NOI18N
         jButton5.setToolTipText("Cancelar Venda");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -590,6 +642,10 @@ public class TelaVenda extends javax.swing.JDialog {
                 if (venda.getVlPromissoria() > 0) {
                     TelaFechaVendaPromissoria.chamaTela(venda);
                 }
+                if (venda.getVlCartao() > 0) {
+                    TelaFechaVendaCartao tfvc = new TelaFechaVendaCartao(venda);
+                    tfvc.setVisible(true);
+                }
 
                 for (ItemVenda itensVenda1 : itensVenda) {
                     ItemVendaDAO ivDAO = new ItemVendaDAO();
@@ -614,7 +670,6 @@ public class TelaVenda extends javax.swing.JDialog {
         cbCliente.setSelectedIndex(0);
         cbVendedor.setSelectedIndex(0);
         cbTipoPagamento.setSelectedIndex(0);
-        tfQuantidade.setText("1");
         itensVenda = new ArrayList<ItemVenda>();
     }
 
@@ -640,11 +695,15 @@ public class TelaVenda extends javax.swing.JDialog {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        if (itensVenda.size() > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Cancele a Venda!");
-            repaint();
-        } else {
-            cancelarVenda();
+        if (!podeFechar) {
+            if (itensVenda.size() > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cancele a Venda!");
+                repaint();
+            } else {
+                cancelarVenda();
+            }
+        } else{
+            dispose();
         }
 
     }//GEN-LAST:event_formWindowClosing
@@ -749,6 +808,10 @@ public class TelaVenda extends javax.swing.JDialog {
             to.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+//        JOptionPane.showMessageDialog(rootPane, "87");
+    }//GEN-LAST:event_formKeyPressed
 
     private void cancelarVenda() {
         if (itensVenda.size() > 0) {

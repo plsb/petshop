@@ -169,7 +169,7 @@ public class ContasReceber implements Comparable<ContasReceber>{
 
     @Override
     public String toString() {
-        return "Promissoria{" + "id=" + id + ", dataVencimento=" + dataVencimento + ", valor=" + valor + ", venda=" + venda + '}';
+        return "ContasReceber{" + "id=" + id + ", dataVencimento=" + dataVencimento + ", valor=" + valor + ", venda=" + venda + '}';
     }
 
     @Override

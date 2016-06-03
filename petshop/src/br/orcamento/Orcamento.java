@@ -25,6 +25,11 @@ public class Orcamento implements Comparable<Orcamento>, Serializable{
     @Id
     @GeneratedValue
     private Integer id;
+
+    @Override
+    public String toString() {
+        return "Orcamento{" + "id=" + id + ", data=" + data + ", cliente=" + cliente + ", vendedor=" + vendedor + ", desconto=" + desconto + ", valorTotal=" + valorTotal + ", tipoPagamento=" + tipoPagamento + ", importado=" + importado + '}';
+    }
     
     @Temporal(TemporalType.DATE)
     private Date data;
