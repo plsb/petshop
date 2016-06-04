@@ -203,7 +203,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.add(mmListarVendas);
 
         mmOrcamento.setMnemonic('m');
-        mmOrcamento.setText("Orçamento");
+        mmOrcamento.setText("Orçamentos");
         mmOrcamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mmOrcamentoActionPerformed(evt);
@@ -278,7 +278,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mmListarVendasActionPerformed
 
     private void mmOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmOrcamentoActionPerformed
-        TelaOrcamento to = new TelaOrcamento();
+        TelaListarOrcamento to = new TelaListarOrcamento("");
         to.setVisible(true);
     }//GEN-LAST:event_mmOrcamentoActionPerformed
 

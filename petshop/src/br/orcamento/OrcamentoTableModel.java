@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class OrcamentoTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Id", "Data", "Tipo Pagamento", "Cliente", 
+    private String[] nomeColunas = {"Id", "Data", "Validade", "Tipo Pagamento", "Cliente",
         "Vendedor", "Parcial", "Desconto", "Total"};
     private List<Orcamento> orcamentos;
 
@@ -64,31 +64,33 @@ public class OrcamentoTableModel extends AbstractTableModel {
             case 1:
                 return o.getData();
             case 2:
-                return tipoPagamento(o);
+                return o.getDataValidade();
             case 3:
-                return o.getCliente().getNome();
+                return tipoPagamento(o);
             case 4:
-                return o.getVendedor().getNome();
+                return o.getCliente().getNome();
             case 5:
-                return o.getValorTotal();
+                return o.getVendedor().getNome();
             case 6:
-                return o.getDesconto();
+                return o.getValorTotal();
             case 7:
-                return o.getValorTotal()-o.getDesconto();
+                return o.getDesconto();
+            case 8:
+                return o.getValorTotal() - o.getDesconto();
 
         }
         return null;
     }
-    
+
     public Orcamento getValueAt(int rowIndex) {
         Orcamento o = orcamentos.get(rowIndex);
         return o;
     }
-    
-    private String tipoPagamento(Orcamento v){
-        if(v.getTipoPagamento().equals("VV")){
+
+    private String tipoPagamento(Orcamento v) {
+        if (v.getTipoPagamento().equals("VV")) {
             return "Venda à Vista";
-        } else if(v.getTipoPagamento().equals("VP")){
+        } else if (v.getTipoPagamento().equals("VP")) {
             return "Venda à Prazo";
         } else {
             return "Venda à Cartão";
@@ -120,6 +122,8 @@ public class OrcamentoTableModel extends AbstractTableModel {
                 return nomeColunas[6];
             case 7:
                 return nomeColunas[7];
+            case 8:
+                return nomeColunas[8];
         }
         return null;
     }

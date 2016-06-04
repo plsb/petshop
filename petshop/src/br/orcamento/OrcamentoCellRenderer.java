@@ -3,6 +3,8 @@
 import br.venda.*;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -19,7 +21,14 @@ public class OrcamentoCellRenderer extends DefaultTableCellRenderer{
         OrcamentoDAO dao = new OrcamentoDAO();
         OrcamentoTableModel vtm = (OrcamentoTableModel) table.getModel();       
         Orcamento o = vtm.getValueAt(row);
-        if(o.isImportado()){
+        
+        Calendar c = Calendar.getInstance();
+        c.setTime(o.getDataValidade());
+        c.add(Calendar.DATE, 1);
+        
+        if(new Date().after(c.getTime()) && !o.isImportado()){
+            setForeground(Color.RED);
+        } else if(o.isImportado()){
             setForeground(Color.GREEN);
         } else {
             setForeground(null);

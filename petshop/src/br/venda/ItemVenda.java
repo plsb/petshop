@@ -32,10 +32,22 @@ public class ItemVenda implements Comparable<ItemVenda>, Serializable {
     private Produto produto;
 
     private double quantidade;
+    
+    private double valorUni;
+        
+    private double descontoProduto;
 
     private Integer ordem;
 
-    private boolean cancelado;
+    private boolean cancelado;  
+
+    public double getDescontoProduto() {
+        return descontoProduto;
+    }
+
+    public void setDescontoProduto(double descontoProduto) {
+        this.descontoProduto = descontoProduto;
+    }
 
     public Integer getOrdem() {
         return ordem;
@@ -122,11 +134,19 @@ public class ItemVenda implements Comparable<ItemVenda>, Serializable {
 
     public double getParcial() {
         if (cancelado != true) {
-            return quantidade * produto.getPrecoVenda();
+            return quantidade * getValorUni();
         }
         return 0;
     }
 
+    public double getValorUni() {
+        return valorUni;
+    }
+
+    public void setValorUni(double valorUni) {
+        this.valorUni = valorUni;
+    }
+    
     public double getDesconto() {
         double desconto = 0;
         if (venda.getTipoPagamento().equals("VV") && cancelado != true) {

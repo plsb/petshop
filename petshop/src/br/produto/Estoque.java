@@ -5,6 +5,7 @@
  */
 package br.produto;
 
+import br.usuario.Usuario;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -39,7 +40,18 @@ public class Estoque {
     
     @ManyToOne
     private Produto produto;
+    
+    @ManyToOne
+    private Usuario usuario;
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
     public int getId() {
         return id;
     }

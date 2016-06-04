@@ -87,7 +87,7 @@ public class Vendedor implements Comparable<Vendedor>{
 
     @Override
     public String toString() {
-        return "Vendedor{" + "id=" + id + ", nome=" + nome + ", porcentagemComissao=" + porcentagemComissao + ", ativo=" + ativo + '}';
+        return nome;
     }
 
     

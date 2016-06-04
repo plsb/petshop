@@ -24,7 +24,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -33,13 +35,28 @@ import javax.swing.JOptionPane;
  * @author Pedro Saraiva
  */
 public class TelaListarOrcamento extends javax.swing.JDialog {
-
+    
     private static Orcamento orcamento;
-
+    
     public static Orcamento chamatTela() {
         orcamento = null;
         new TelaListarOrcamento().setVisible(true);
         return orcamento;
+    }
+    
+    public TelaListarOrcamento(String s) {
+        initComponents();
+        setModal(true);
+        setLocationRelativeTo(null);
+        SimpleDateFormat dfdtData;
+        dfdtData = new SimpleDateFormat("dd/MM/yyyy");
+        tfDataInicio.setText(dfdtData.format(new Date()));
+        tfDataFim.setText(dfdtData.format(new Date()));
+        btPesquisarActionPerformed(null);
+        setTitle("Listar Orçamentos");
+        btImportar.setVisible(false);
+        btNovo.setVisible(true);
+        btImprimir.setVisible(true);
     }
 
     /**
@@ -55,10 +72,13 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         tfDataFim.setText(dfdtData.format(new Date()));
         btPesquisarActionPerformed(null);
         setTitle("Listar Orçamentos");
+        btImportar.setVisible(true);
+        btNovo.setVisible(false);
+        btImprimir.setVisible(false);
     }
-
+    
     OrcamentoDAO dao = new OrcamentoDAO();
-
+    
     private void preencheTabela(List<Orcamento> lista) {
         OrcamentoTableModel vtm = new OrcamentoTableModel(lista);
         tb.setModel(vtm);
@@ -88,6 +108,10 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         tfDataFim = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         btSair = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btNovo = new javax.swing.JButton();
+        btImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -154,7 +178,7 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 20, 20));
 
         btImportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/import.png"))); // NOI18N
-        btImportar.setToolTipText("Visualizar Venda");
+        btImportar.setToolTipText("Importar");
         btImportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btImportarActionPerformed(evt);
@@ -179,13 +203,50 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel2.png"))); // NOI18N
-        btSair.setToolTipText("Visualizar Venda");
+        btSair.setToolTipText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSairActionPerformed(evt);
             }
         });
         jPanel1.add(btSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 350, 70, 50));
+
+        jPanel4.setBackground(new java.awt.Color(255, 0, 0));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 20, 20));
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel2.setText("Orçamentos Vencidos");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, 20));
+
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
+        btNovo.setToolTipText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 350, -1, 50));
+
+        btImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 350, -1, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 410));
 
@@ -212,20 +273,31 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
             } else {
                 List<Orcamento> listaOrcamento = dao.listOrcamentoEntreDatas(dataIni, dataFim);
                 preencheTabela(listaOrcamento);
-
+                
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(rootPane, "Informe a Data Inicio e Fim!");
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
-
+    
 
     private void btImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImportarActionPerformed
         int row = tb.getSelectedRow();
         if (row >= 0) {
             OrcamentoTableModel vtm = (OrcamentoTableModel) tb.getModel();
             orcamento = vtm.getValueAt(row);
+            
+            Calendar c = Calendar.getInstance();
+            c.setTime(orcamento.getDataValidade());
+            c.add(Calendar.DATE, 1);
+            
+            if (new Date().after(c.getTime()) && !orcamento.isImportado()) {
+                if (JOptionPane.showConfirmDialog(rootPane, "Orçamento Vencido, deseja importar mesmo assim?",
+                        "", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+                    return;
+                }                
+            }            
             dispose();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Selecione o Orçamento");
@@ -234,13 +306,35 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
 
     private void tbKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            btImportarActionPerformed(null);
+            if (btImportar.isVisible()) {
+                btImportarActionPerformed(null);
+            } else {
+                btImprimirActionPerformed(null);
+            }
         }
     }//GEN-LAST:event_tbKeyPressed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        TelaOrcamento to = new TelaOrcamento();
+        to.setVisible(true);
+        btPesquisarActionPerformed(null);
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
+        int i = tb.getSelectedRow();
+        if (i >= 0) {
+            OrcamentoTableModel otm = (OrcamentoTableModel) tb.getModel();
+            Orcamento o = otm.getValueAt(i);
+            HashMap parametros = new HashMap();
+            parametros.put("sql", o.getId());
+            Util.imprimir("relatorios/reportOrcamento.jrxml", parametros);
+            
+        }
+    }//GEN-LAST:event_btImprimirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,13 +374,17 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btImportar;
+    private javax.swing.JButton btImprimir;
+    private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btSair;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tb;
     private javax.swing.JFormattedTextField tfDataFim;

@@ -34,6 +34,9 @@ public class Orcamento implements Comparable<Orcamento>, Serializable{
     @Temporal(TemporalType.DATE)
     private Date data;
     
+    @Temporal(TemporalType.DATE)
+    private Date dataValidade;
+    
     @ManyToOne
     private Cliente cliente;
     
@@ -48,6 +51,25 @@ public class Orcamento implements Comparable<Orcamento>, Serializable{
     
     private boolean importado;
 
+    
+    
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getDataValidade() {
+        return dataValidade;
+    }
+
+    public void setDataValidade(Date dataValidade) {
+        this.dataValidade = dataValidade;
+    }
+
+    
     public boolean isImportado() {
         return importado;
     }
@@ -55,10 +77,7 @@ public class Orcamento implements Comparable<Orcamento>, Serializable{
     public void setImportado(boolean importado) {
         this.importado = importado;
     }
-    
-    public int getId() {
-        return id;
-    }
+
 
     public void setId(int id) {
         this.id = id;

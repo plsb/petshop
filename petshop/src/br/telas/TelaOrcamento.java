@@ -35,10 +35,14 @@ import br.vendedor.VendedorDAO;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -61,12 +65,8 @@ public class TelaOrcamento extends javax.swing.JDialog {
         setTitle("Orçamento");
         setLocationRelativeTo(null);
         setModal(true);
-        preencheCliente();
-        preencheVendedor();
-        SimpleDateFormat dfdtData;
-        dfdtData = new SimpleDateFormat("dd/MM/yyyy");
-        lblData.setText(dfdtData.format(new Date()));
-        preencheTabela();
+
+        limpaCampos();
 
     }
 
@@ -115,21 +115,23 @@ public class TelaOrcamento extends javax.swing.JDialog {
         cbCliente = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblDataVencimento = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         lblDescricaoProduto = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         tfQuantidade = new javax.swing.JFormattedTextField();
         jButton2 = new javax.swing.JButton();
-        lblParcial = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        lblTotalFinal = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        lblDesconto1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblTotalFinal = new javax.swing.JLabel();
+        lblDesconto1 = new javax.swing.JLabel();
+        lblParcial = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -146,10 +148,11 @@ public class TelaOrcamento extends javax.swing.JDialog {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.setBackground(new java.awt.Color(255, 204, 0));
+        jPanel4.setBackground(new java.awt.Color(51, 153, 0));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbTexto.setFont(new java.awt.Font("Verdana", 1, 30)); // NOI18N
+        lbTexto.setForeground(new java.awt.Color(255, 255, 255));
         lbTexto.setText("Orçamento");
         jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 40));
 
@@ -222,7 +225,15 @@ public class TelaOrcamento extends javax.swing.JDialog {
 
         lblData.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         lblData.setText("Data.: *");
-        jPanel2.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 16, 125, -1));
+        jPanel2.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 125, -1));
+
+        jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel7.setText("Validade.: *");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, -1, -1));
+
+        lblDataVencimento.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblDataVencimento.setText("Data.: *");
+        jPanel2.add(lblDataVencimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 125, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 100));
         jPanel2.getAccessibleContext().setAccessibleParent(jPanel2);
@@ -265,26 +276,6 @@ public class TelaOrcamento extends javax.swing.JDialog {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 50, 40));
 
-        lblParcial.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        lblParcial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanel1.add(lblParcial, new org.netbeans.lib.awtextra.AbsoluteConstraints(581, 390, 90, 20));
-
-        jLabel8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel8.setText("Total:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 430, -1, 20));
-
-        lblTotalFinal.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        lblTotalFinal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanel1.add(lblTotalFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 430, 90, 20));
-
-        jLabel9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel9.setText("Desc.:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 410, -1, 20));
-
-        lblDesconto1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        lblDesconto1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanel1.add(lblDesconto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 410, 90, 20));
-
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/delete (1).png"))); // NOI18N
         jButton3.setToolTipText("Cancelar Produto");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -301,7 +292,7 @@ public class TelaOrcamento extends javax.swing.JDialog {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 50, 40));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 480, 50, 40));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/delete.png"))); // NOI18N
         jButton5.setToolTipText("Cancelar Orçamento");
@@ -312,14 +303,31 @@ public class TelaOrcamento extends javax.swing.JDialog {
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 50, 40));
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel2.png"))); // NOI18N
-        jButton6.setToolTipText("Sair");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 480, 50, 40));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel9.setText("Desc.:");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, 20));
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel8.setText("Total:");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 20));
+
+        lblTotalFinal.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        lblTotalFinal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanel3.add(lblTotalFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 90, 20));
+
+        lblDesconto1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        lblDesconto1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanel3.add(lblDesconto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 90, 20));
+
+        lblParcial.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        lblParcial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanel3.add(lblParcial, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 90, 20));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 160, 80));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 690, 530));
 
@@ -432,6 +440,7 @@ public class TelaOrcamento extends javax.swing.JDialog {
                 it.setQuantidade(Double.parseDouble(tfQuantidade.getText().replace(",", ".")));
                 it.setProduto(produto);
                 it.setOrcamento(orcamento);
+                it.setValorUni(produto.getPrecoVenda());
                 if (it.getQuantidade() > it.getProduto().getQtdEstoque() && !it.getProduto().isServico()) {
                     JOptionPane.showMessageDialog(rootPane, "Quantidade Insuficiente!");
                     tfQuantidade.requestFocus();
@@ -524,6 +533,16 @@ public class TelaOrcamento extends javax.swing.JDialog {
             orcamento.setDesconto(Double.parseDouble(lblDesconto1.getText().replace(",", ".")));
             orcamento.setData(new Date());
 
+            String dataString = lblDataVencimento.getText();
+            try {
+                DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+                java.util.Date data;
+                data = new java.util.Date(fmt.parse(dataString).getTime());
+                orcamento.setDataValidade(data);
+            } catch (ParseException ex) {
+                System.out.println(ex.getMessage());
+            }
+
             OrcamentoDAO oDAO = new OrcamentoDAO();
             oDAO.add(orcamento);
             for (ItemOrcamento itensOrc : itensOrcamento) {
@@ -532,9 +551,16 @@ public class TelaOrcamento extends javax.swing.JDialog {
                 ioDAO.add(itensOrc);
             }
 
-            JOptionPane.showMessageDialog(rootPane, "Orçamento "
-                    + Util.decimalFormat(6).format(orcamento.getId()) + " Adicionado Com Sucesso!");
+            if (JOptionPane.showConfirmDialog(rootPane, "Orçamento Realizado Com Sucesso!\nDeseja Imprimir?",
+                    "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                HashMap parametros = new HashMap();
+                parametros.put("sql", orcamento.getId());
+                Util.imprimir("relatorios/reportOrcamento.jrxml", parametros);
+
+            }
+
             limpaCampos();
+            dispose();
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "Informe os ítens do Orçamento!");
@@ -542,6 +568,8 @@ public class TelaOrcamento extends javax.swing.JDialog {
 
         limpaCampos();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private int qtdDias = -1;
 
     private void limpaCampos() {
         tfQuantidade.setText("");
@@ -552,7 +580,26 @@ public class TelaOrcamento extends javax.swing.JDialog {
         tfQuantidade.setText("1");
         itensOrcamento = new ArrayList<ItemOrcamento>();
         preencheTabela();
+        preencheCliente();
+        preencheVendedor();
+        SimpleDateFormat dfdtData;
+        dfdtData = new SimpleDateFormat("dd/MM/yyyy");
+        lblData.setText(dfdtData.format(new Date()));
+        if (qtdDias == -1) {
+            do {
+                try {
+                    qtdDias = Integer.parseInt(JOptionPane.showInputDialog("Inform a quantidade de dias de validade do Orçamento: "));
+                } catch (Exception e) {
+                    qtdDias = -1;
+                }
+            } while (qtdDias == -1);
+        }
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, qtdDias);
 
+        Date dataValidade = c.getTime();
+        lblDataVencimento.setText(dfdtData.format(dataValidade));
     }
 
     private void cbTipoPagamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTipoPagamentoFocusLost
@@ -600,12 +647,8 @@ public class TelaOrcamento extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        dispose();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void cancelarOrcamento() {
-        limpaCampos();
+//        limpaCampos();
         dispose();
     }
 
@@ -685,13 +728,13 @@ public class TelaOrcamento extends javax.swing.JDialog {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
@@ -699,10 +742,12 @@ public class TelaOrcamento extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbTexto;
     private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblDataVencimento;
     private javax.swing.JLabel lblDesconto1;
     private javax.swing.JLabel lblDescricaoProduto;
     private javax.swing.JLabel lblParcial;

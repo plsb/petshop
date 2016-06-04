@@ -69,8 +69,6 @@ public class TelaPesquisa extends javax.swing.JDialog {
         tbPesquisa = new javax.swing.JTable();
         btSelecionar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
 
         setTitle("Tela de Pesquisa");
         setResizable(false);
@@ -81,11 +79,10 @@ public class TelaPesquisa extends javax.swing.JDialog {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbTexto.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        lbTexto.setForeground(new java.awt.Color(255, 255, 255));
         lbTexto.setText("Pesquisa");
         jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, 130, 40));
 
@@ -109,7 +106,6 @@ public class TelaPesquisa extends javax.swing.JDialog {
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 70));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbPesquisa.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -130,6 +126,9 @@ public class TelaPesquisa extends javax.swing.JDialog {
             }
         });
         tbPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbPesquisaKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tbPesquisaKeyReleased(evt);
             }
@@ -138,14 +137,14 @@ public class TelaPesquisa extends javax.swing.JDialog {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 560, 240));
 
-        btSelecionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/pataverde.png"))); // NOI18N
+        btSelecionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/import.png"))); // NOI18N
         btSelecionar.setToolTipText("Selecionar");
         btSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSelecionarActionPerformed(evt);
             }
         });
-        jPanel1.add(btSelecionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 278, 43, -1));
+        jPanel1.add(btSelecionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 278, 43, 40));
 
         btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/close.png"))); // NOI18N
         btCancelar.setToolTipText("Sair");
@@ -156,30 +155,62 @@ public class TelaPesquisa extends javax.swing.JDialog {
         });
         jPanel1.add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(507, 278, 43, 41));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/planoFundo.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, -1, 130));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/planoFundo.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 560, 210));
-
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 560, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void procuraTable(String nome) {
-        for (int linha = 0; linha < tbPesquisa.getRowCount(); linha++) {
-            String nomeTabela = String.valueOf(tbPesquisa.getValueAt(linha, 1));
-            if (nomeTabela.toLowerCase().startsWith(nome.toLowerCase())) {
-                tbPesquisa.setRowSelectionInterval(linha, linha);
-                JViewport viewport = (JViewport) tbPesquisa.getParent();
-                Rectangle rect = tbPesquisa.getCellRect(linha, 1, true);
-                Point pt = viewport.getViewPosition();
-                rect.setLocation(rect.x - pt.x, rect.y - pt.y);
-                viewport.scrollRectToVisible(rect);
-                break;
+    private boolean soContemNumeros(String texto) {
+        if (texto == null) {
+            return false;
+        }
+        for (char letra : texto.toCharArray()) {
+            if (letra < '0' || letra > '9') {
+                return false;
             }
         }
+        return true;
+
+    }
+
+    private void procuraTable(String nome) {
+        boolean parar = false;
+        int col = 1;
+        do {
+
+            for (int linha = 0; linha < tbPesquisa.getRowCount(); linha++) {
+                String nomeTabela = String.valueOf(tbPesquisa.getValueAt(linha, col));
+                if (soContemNumeros(nomeTabela)) {
+
+                    if (nomeTabela.toLowerCase().equalsIgnoreCase(nome.toLowerCase())) {       //startsWith(nome.toLowerCase())) {
+                        tbPesquisa.setRowSelectionInterval(linha, linha);
+                        JViewport viewport = (JViewport) tbPesquisa.getParent();
+                        Rectangle rect = tbPesquisa.getCellRect(linha, 1, true);
+                        Point pt = viewport.getViewPosition();
+                        rect.setLocation(rect.x - pt.x, rect.y - pt.y);
+                        viewport.scrollRectToVisible(rect);
+                        parar = true;
+                        break;
+                    }
+                } else {
+                    if (nomeTabela.toLowerCase().startsWith(nome.toLowerCase())) {
+                        tbPesquisa.setRowSelectionInterval(linha, linha);
+                        JViewport viewport = (JViewport) tbPesquisa.getParent();
+                        Rectangle rect = tbPesquisa.getCellRect(linha, 1, true);
+                        Point pt = viewport.getViewPosition();
+                        rect.setLocation(rect.x - pt.x, rect.y - pt.y);
+                        viewport.scrollRectToVisible(rect);
+                        parar = true;
+                        break;
+                    }
+                }
+            }
+            if (col == (tbPesquisa.getColumnCount() - 1)) {
+                parar = true;
+            } else {
+                col++;
+            }
+        } while (!parar);
     }
     private void btSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarActionPerformed
         int row = tbPesquisa.getSelectedRow();
@@ -204,9 +235,7 @@ public class TelaPesquisa extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void tbPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbPesquisaKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            btSelecionarActionPerformed(null);
-        }
+
     }//GEN-LAST:event_tbPesquisaKeyReleased
 
     private void tfPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisarKeyReleased
@@ -226,10 +255,16 @@ public class TelaPesquisa extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             btProcurarActionPerformed(null);
+            tbPesquisa.requestFocus();
         }
     }//GEN-LAST:event_tfPesquisarKeyPressed
 
-    
+    private void tbPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbPesquisaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btSelecionarActionPerformed(null);
+        }
+    }//GEN-LAST:event_tbPesquisaKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -269,8 +304,6 @@ public class TelaPesquisa extends javax.swing.JDialog {
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btProcurar;
     private javax.swing.JButton btSelecionar;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;

@@ -11,8 +11,14 @@ import br.contasreceber.ContasReceber;
 import br.contasreceber.ContasReceberDAO;
 import br.livro.LivroCaixa;
 import br.livro.LivroCaixaDAO;
+import br.produto.Estoque;
+import br.produto.EstoqueDAO;
+import br.produto.Produto;
+import br.produto.ProdutoDAO;
 import br.util.FormataTamanhoColunasJTable;
 import br.util.Util;
+import br.venda.ItemVenda;
+import br.venda.ItemVendaDAO;
 import br.venda.Venda;
 import br.venda.VendaCellRenderer;
 import br.venda.VendaDAO;
@@ -23,6 +29,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -88,7 +95,8 @@ public class TelaListarVendas extends JDialog {
         jLabel8 = new javax.swing.JLabel();
         lblPrazo = new javax.swing.JLabel();
         lblCartao = new javax.swing.JLabel();
-        btVIsualizar = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        btImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -237,14 +245,22 @@ public class TelaListarVendas extends JDialog {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 240, 90));
 
-        btVIsualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/view.png"))); // NOI18N
-        btVIsualizar.setToolTipText("Visualizar Venda");
-        btVIsualizar.addActionListener(new java.awt.event.ActionListener() {
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/delete.png"))); // NOI18N
+        jButton7.setToolTipText("Cancelar Venda");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btVIsualizarActionPerformed(evt);
+                jButton7ActionPerformed(evt);
             }
         });
-        jPanel1.add(btVIsualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 350, 70, 50));
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 70, 50));
+
+        btImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, -1, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 410));
 
@@ -317,18 +333,37 @@ public class TelaListarVendas extends JDialog {
                         v.setCancelada(true);
                         dao.update(v);
 
+                        //cancela itens, retornando suas quantidades ao estoque
+                        ProdutoDAO pDAO = new ProdutoDAO();
+                        ItemVendaDAO ivDAO = new ItemVendaDAO();
+                        List<ItemVenda> itensVenda = ivDAO.checkExists("venda", v);
+                        for (ItemVenda itensVenda1 : itensVenda) {
+                            if (!itensVenda1.isCancelado()) {
+                                Produto p1 = pDAO.checkExists("id", itensVenda1.getProduto().getId()).get(0);
+                                p1.setQtdEstoque(p1.getQtdEstoque() + itensVenda1.getQuantidade());
+                                pDAO.update(p1);
+                                Util.adicionaEstoque("CANCELAMENTO DE VENDA", itensVenda1.getQuantidade(), 0, p1);
+                            }
+                            itensVenda1.setCancelado(true);
+                            itensVenda1.setVenda(v);
+                            ivDAO.add(itensVenda1);
+                        }
+
+                        //cancela livro de caixa relacionado a venda
                         LivroCaixaDAO lDAO = new LivroCaixaDAO();
                         List<LivroCaixa> listCaixa = lDAO.checkExists("venda", v);
                         for (LivroCaixa c : listCaixa) {
                             lDAO.remove(c);
                         }
 
+                        //cancela contas a receber relacionadas a venda
                         ContasReceberDAO crDAO = new ContasReceberDAO();
                         List<ContasReceber> listCR = crDAO.checkExists("venda", v);
                         for (ContasReceber cr : listCR) {
                             crDAO.remove(cr);
                         }
 
+                        //cancela cartão de credito relacionado a venda
                         CartaoCreditoDAO ccdDAO = new CartaoCreditoDAO();
                         List<CartaoCredito> listCCD = ccdDAO.checkExists("venda", v);
                         for (CartaoCredito ccd : listCCD) {
@@ -345,9 +380,10 @@ public class TelaListarVendas extends JDialog {
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+
     private void tbKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            btVIsualizarActionPerformed(null);
+            btImprimirActionPerformed(null);
         }
     }//GEN-LAST:event_tbKeyPressed
 
@@ -364,23 +400,28 @@ public class TelaListarVendas extends JDialog {
 
     }//GEN-LAST:event_formKeyReleased
 
-    private void btVIsualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVIsualizarActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
         if (Util.verificaPermissao("V_VENDA", 1)) {
             int i = tb.getSelectedRow();
             if (i >= 0) {
                 VendaTableModel vtm = (VendaTableModel) tb.getModel();
                 Venda v = vtm.getValueAt(i);
-                if (!v.isCancelada()) {
-                    TelaVenda tv = new TelaVenda(v);
-                    tv.setVisible(true);
+                VendaDAO dao = new VendaDAO();
+                if (v.isCancelada()) {
+                    JOptionPane.showMessageDialog(rootPane, "Venda Está Cancelada!");
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Venda está Cancelada!");
+                    HashMap parametros = new HashMap();
+                    parametros.put("sql", v.getId());
+                    Util.imprimir("relatorios/reportVenda.jrxml", parametros);
                 }
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione a Linha!");
+
             }
         }
-    }//GEN-LAST:event_btVIsualizarActionPerformed
+    }//GEN-LAST:event_btImprimirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -418,10 +459,11 @@ public class TelaListarVendas extends JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btImprimir;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btSair;
-    private javax.swing.JButton btVIsualizar;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -73,7 +73,7 @@ public class ItemOrcamentoTableModel extends AbstractTableModel {
             case 4:
                 return Util.acertarNumero(p.getQuantidade());
             case 5:
-                return Util.acertarNumero(p.getProduto().getPrecoVenda());
+                return Util.acertarNumero(p.getValorUni());
             case 6:
                 return Util.acertarNumero(p.getParcial());
             case 7:

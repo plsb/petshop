@@ -5,12 +5,19 @@
  */
 package br.util;
 
+import br.produto.Estoque;
+import br.produto.EstoqueDAO;
+import br.produto.Produto;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -18,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -31,6 +39,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -351,6 +365,52 @@ public class Util {
     public static String acertarNumero(double num) {
         DecimalFormat formater = new DecimalFormat("0.00");
         return formater.format(num);
+    }
+    
+    public static void adicionaEstoque(String desc, double qtdEntrada, double qtdSaida, Produto produto) {
+        Estoque e = new Estoque();
+        EstoqueDAO eDAO = new EstoqueDAO();
+
+        e.setData(new Date());
+        e.setHora(new Date());
+        e.setDescricao(desc);
+        e.setProduto(produto);
+        e.setQtdEntrada(qtdEntrada);
+        e.setQtdSaida(qtdSaida);
+        e.setUsuario(UsuarioAtivo.getUsuario());
+
+        eDAO.add(e);
+    }
+    
+    public static void imprimir(String caminhoRelatorio, HashMap parametros){
+                JasperReport pathjrxml;
+        
+        String caminho = Util.retornaCaminhoApp();
+//        String caminho = "";
+
+        Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
+        try {
+            JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
+            viewer.setSize(1200, 600);
+            viewer.setLocationRelativeTo(null);
+            viewer.setModal(true);
+            File file = new File(caminho + caminhoRelatorio);
+            FileInputStream is = new FileInputStream(file);
+            pathjrxml = JasperCompileManager.compileReport(is);
+            JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
+                    connection);
+            JasperViewer jv = new JasperViewer(printReport, false);
+            viewer.getContentPane().add(jv.getContentPane());
+            viewer.setVisible(true);
+                //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
+
+            //jv.setVisible(true);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
     }
 
 }

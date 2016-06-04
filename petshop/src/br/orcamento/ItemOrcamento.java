@@ -38,9 +38,19 @@ public class ItemOrcamento implements Comparable<ItemOrcamento>, Serializable {
     private Produto produto;
 
     private double quantidade;
+    
+    private double valorUni;
 
     private Integer ordem;
 
+    public double getValorUni() {
+        return valorUni;
+    }
+
+    public void setValorUni(double valorUni) {
+        this.valorUni = valorUni;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -135,7 +145,7 @@ public class ItemOrcamento implements Comparable<ItemOrcamento>, Serializable {
     private static final long serialVersionUID = 7983345259045910410L;
 
     public double getParcial() {
-        return quantidade * produto.getPrecoVenda();
+        return quantidade * getValorUni();
     }
 
     public double getDesconto() {

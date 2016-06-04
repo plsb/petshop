@@ -3,6 +3,7 @@
 import br.venda.*;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -22,7 +23,7 @@ public class ContaReceberCellRenderer extends DefaultTableCellRenderer{
         ContasReceber cr = vtm.getValueAt(row);
         Date d = new Date();
         Date vencimento = cr.getDataVencimento();
-        
+                
         if(d.after(vencimento) && !cr.isPaga()){
             setForeground(Color.RED);
         } else if(d.before(vencimento) && !cr.isPaga()) {

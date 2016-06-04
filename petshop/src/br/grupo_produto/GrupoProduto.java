@@ -77,7 +77,7 @@ public class GrupoProduto implements Comparable<GrupoProduto>{
 
     @Override
     public String toString() {
-        return "GrupoProduto{" + "id=" + id + ", descricao=" + descricao + ", descontoAVista=" + descontoAVista + '}';
+        return descricao;
     }
 
     @Override

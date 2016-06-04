@@ -15,6 +15,7 @@ import br.produto.Produto;
 import br.produto.ProdutoDAO;
 import br.util.HibernateUtil;
 import br.util.LoadPropriedade;
+import br.util.UsuarioAtivo;
 import br.util.Util;
 import java.io.File;
 import java.io.FileInputStream;
@@ -316,19 +317,7 @@ public class TelaProduto extends javax.swing.JDialog {
         setVisible(false);
     }//GEN-LAST:event_btCancelarActionPerformed
 
-    private void adicionaEstoque(String desc, double qtdEntrada, double qtdSaida, Produto produto) {
-        Estoque e = new Estoque();
-        EstoqueDAO eDAO = new EstoqueDAO();
-
-        e.setData(new Date());
-        e.setHora(new Date());
-        e.setDescricao(desc);
-        e.setProduto(produto);
-        e.setQtdEntrada(qtdEntrada);
-        e.setQtdSaida(qtdSaida);
-
-        eDAO.add(e);
-    }
+    
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (Util.verificaPermissao("CE_PRODUTO", 1)) {
@@ -386,16 +375,16 @@ public class TelaProduto extends javax.swing.JDialog {
                         return;
                     }
                     dao.add(produto);
-                    adicionaEstoque("PRODUTO CADASTRADO", produto.getQtdEstoque(), 0, produto);
+                    Util.adicionaEstoque("PRODUTO CADASTRADO", produto.getQtdEstoque(), 0, produto);
                     JOptionPane.showMessageDialog(rootPane, "Produto Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     dao.update(produto);
                     if (quantidade > produto.getQtdEstoque()) {
                         double saida = quantidade - produto.getQtdEstoque();
-                        adicionaEstoque("PRODUTO EDITADO", 0, saida, produto);
+                        Util.adicionaEstoque("PRODUTO EDITADO", 0, saida, produto);
                     } else if (quantidade < produto.getQtdEstoque()) {
                         double entrada = produto.getQtdEstoque() - quantidade;
-                        adicionaEstoque("PRODUTO EDITADO", entrada, 0, produto);
+                        Util.adicionaEstoque("PRODUTO EDITADO", entrada, 0, produto);
                     }
                     JOptionPane.showMessageDialog(rootPane, "Produto Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
                 }

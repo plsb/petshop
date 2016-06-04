@@ -8,6 +8,7 @@ package br.telas;
 import br.contasreceber.ContasReceber;
 import br.contasreceber.ContasReceberDAO;
 import br.contasreceber.ContasReceberTableModel;
+import br.util.FormataTamanhoColunasJTable;
 import br.util.HibernateUtil;
 import br.util.Util;
 import br.venda.Venda;
@@ -138,6 +139,7 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
         tfQtParcelas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         btGerar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        btGerar.setMnemonic('g');
         btGerar.setText("Gerar");
         btGerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,6 +311,7 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
         List<ContasReceber> lista = crDAO.checkExists("venda", venda);
         ContasReceberTableModel crtm = new ContasReceberTableModel(lista);
         tb.setModel(crtm);
+        FormataTamanhoColunasJTable.packColumns(tb, 1);
     }
 
     /**
