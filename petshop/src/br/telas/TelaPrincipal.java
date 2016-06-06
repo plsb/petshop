@@ -90,7 +90,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         mCadastro.setMnemonic('c');
         mCadastro.setText("Cadastro");
+        mCadastro.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
 
+        mmCliente.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmCliente.setMnemonic('l');
         mmCliente.setText("Cliente");
         mmCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +102,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         mCadastro.add(mmCliente);
 
+        mmEmpresa.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmEmpresa.setMnemonic('e');
         mmEmpresa.setText("Empresa");
         mmEmpresa.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +114,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setMnemonic('p');
         jMenu2.setText("Produto/Serviço");
+        jMenu2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
 
+        mmProduto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmProduto.setText("Cadastro");
         mmProduto.setToolTipText("a");
         mmProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +126,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(mmProduto);
 
+        mmGrupoProduto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmGrupoProduto.setMnemonic('g');
         mmGrupoProduto.setText("Grupo de Produtos");
         mmGrupoProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +138,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         mCadastro.add(jMenu2);
 
+        mmUsuario.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmUsuario.setMnemonic('u');
         mmUsuario.setText("Usuário");
         mmUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -141,6 +148,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         mCadastro.add(mmUsuario);
 
+        mmVendedor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmVendedor.setMnemonic('v');
         mmVendedor.setText("Vendedor");
         mmVendedor.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +162,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu3.setMnemonic('m');
         jMenu3.setText("Movimentação");
+        jMenu3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
 
+        mmCaixa.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmCaixa.setMnemonic('x');
         mmCaixa.setText("Caixa");
         mmCaixa.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +174,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(mmCaixa);
 
+        mmCartao.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmCartao.setText("Cartão de Crédito/Débito");
         mmCartao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,6 +183,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(mmCartao);
 
+        mmContaReceber.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmContaReceber.setMnemonic('r');
         mmContaReceber.setText("Contas a Receber");
         mmContaReceber.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +195,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setMnemonic('v');
         jMenu1.setText("Venda");
+        jMenu1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
 
+        mmVenda.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmVenda.setMnemonic('n');
         mmVenda.setText("Nova Venda");
         mmVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -193,6 +207,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(mmVenda);
 
+        mmListarVendas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmListarVendas.setMnemonic('l');
         mmListarVendas.setText("Listar Vendas");
         mmListarVendas.addActionListener(new java.awt.event.ActionListener() {
@@ -202,6 +217,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(mmListarVendas);
 
+        mmOrcamento.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmOrcamento.setMnemonic('m');
         mmOrcamento.setText("Orçamentos");
         mmOrcamento.addActionListener(new java.awt.event.ActionListener() {

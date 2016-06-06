@@ -27,7 +27,7 @@ public class ContaReceberCellRenderer extends DefaultTableCellRenderer{
         if(d.after(vencimento) && !cr.isPaga()){
             setForeground(Color.RED);
         } else if(d.before(vencimento) && !cr.isPaga()) {
-            setForeground(Color.GREEN);
+            setForeground(Color.BLUE);
         } else {
             setForeground(Color.BLACK);
         }

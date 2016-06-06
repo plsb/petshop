@@ -113,6 +113,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         jLabel5.setText("Total com Desconto.:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
 
@@ -121,9 +122,10 @@ public class TelaFechaVenda extends javax.swing.JDialog {
 
         tfVtComDesconto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfVtComDesconto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        tfVtComDesconto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        tfVtComDesconto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         jPanel1.add(tfVtComDesconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 170, 30));
 
+        jLabel7.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         jLabel7.setText("Valor em Dinheiro.:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
 
@@ -132,7 +134,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
 
         tfDinheiro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfDinheiro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        tfDinheiro.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        tfDinheiro.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         tfDinheiro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfDinheiroFocusLost(evt);
@@ -140,6 +142,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         });
         jPanel1.add(tfDinheiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 170, 30));
 
+        jLabel8.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         jLabel8.setText("Valor em Cartão.:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
@@ -148,15 +151,16 @@ public class TelaFechaVenda extends javax.swing.JDialog {
 
         tfCartao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfCartao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        tfCartao.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        tfCartao.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         jPanel1.add(tfCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 170, 30));
 
+        jLabel9.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         jLabel9.setText("Valor em Promissória.:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, -1, -1));
 
         tfPromissoria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfPromissoria.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        tfPromissoria.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        tfPromissoria.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         jPanel1.add(tfPromissoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 170, 30));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -176,7 +180,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
 
         tfDinheiroRecebido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfDinheiroRecebido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        tfDinheiroRecebido.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        tfDinheiroRecebido.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         tfDinheiroRecebido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfDinheiroRecebidoActionPerformed(evt);
@@ -189,15 +193,17 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         });
         jPanel1.add(tfDinheiroRecebido, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 170, 30));
 
+        jLabel10.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         jLabel10.setText("Valor Recebido em Dinheiro.:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
 
         tfTroco.setForeground(new java.awt.Color(255, 0, 0));
         tfTroco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfTroco.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        tfTroco.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        tfTroco.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         jPanel1.add(tfTroco, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 170, 30));
 
+        jLabel11.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         jLabel11.setText("Valor Troco.:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
 
@@ -207,7 +213,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/business.png"))); // NOI18N
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 18)); // NOI18N
         jButton1.setMnemonic('f');
         jButton1.setText("Finalizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -217,20 +223,22 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, 210, -1));
 
+        jLabel13.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         jLabel13.setText("Total.:");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, -1, -1));
 
         tfVtSemDesconto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfVtSemDesconto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        tfVtSemDesconto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        tfVtSemDesconto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         jPanel1.add(tfVtSemDesconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 170, 30));
 
+        jLabel14.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         jLabel14.setText("Desconto.:");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
 
         tfDesconto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfDesconto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        tfDesconto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        tfDesconto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         tfDesconto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfDescontoFocusLost(evt);

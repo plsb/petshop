@@ -16,6 +16,7 @@ import br.livro.LivroCaixa;
 import br.livro.LivroCaixaDAO;
 import br.util.HibernateUtil;
 import br.util.Util;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -85,7 +86,7 @@ public class TelaContaPromissoriaRec extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(0, 153, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbTexto.setFont(new java.awt.Font("Verdana", 1, 30)); // NOI18N
+        lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 30)); // NOI18N
         lbTexto.setText("Receber Conta");
         jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 40));
 
@@ -103,12 +104,22 @@ public class TelaContaPromissoriaRec extends javax.swing.JDialog {
         });
         jPanel1.add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 43, 41));
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Valor Recebido.: *");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         tfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        tfValor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfValor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        tfValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfValorActionPerformed(evt);
+            }
+        });
+        tfValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfValorKeyPressed(evt);
+            }
+        });
         jPanel1.add(tfValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 180, -1));
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/pataverde.png"))); // NOI18N
@@ -120,27 +131,27 @@ public class TelaContaPromissoriaRec extends javax.swing.JDialog {
         });
         jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, 43, -1));
 
-        lblCliente.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblCliente.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblCliente.setText("Cliente.: *");
         jPanel1.add(lblCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        lblDataVencimento.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblDataVencimento.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblDataVencimento.setText("Data Vencimento.: *");
         jPanel1.add(lblDataVencimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel5.setText("Cliente.: ");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel6.setText("Data Vencimento.: ");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        lblValor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblValor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblValor.setText("Data Vencimento.: *");
         jPanel1.add(lblValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel7.setText("Valor.:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
@@ -195,6 +206,16 @@ public class TelaContaPromissoriaRec extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Informe o Valor à receber!");
         }
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void tfValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfValorActionPerformed
+        
+    }//GEN-LAST:event_tfValorActionPerformed
+
+    private void tfValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            btSalvarActionPerformed(null);
+        }
+    }//GEN-LAST:event_tfValorKeyPressed
 
     /**
      * @param args the command line arguments

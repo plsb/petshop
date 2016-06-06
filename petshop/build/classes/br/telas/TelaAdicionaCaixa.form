@@ -43,7 +43,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o.: *"/>
           </Properties>
@@ -56,7 +56,7 @@
         <Component class="javax.swing.JTextField" name="tfDescricao">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
           </Properties>
           <Constraints>
@@ -68,7 +68,7 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Valor.: "/>
           </Properties>
@@ -84,7 +84,7 @@
               <Format format="#0.00" subtype="-1" type="0"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
           </Properties>
           <Constraints>
@@ -99,7 +99,7 @@
               <Format format="##/##/####" subtype="-1" type="5"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
           </Properties>
           <Constraints>
@@ -111,7 +111,7 @@
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Data.:"/>
           </Properties>
@@ -126,6 +126,9 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup1"/>
             </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bitstream Vera Sans Mono" size="11" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Entrada"/>
           </Properties>
           <Constraints>
@@ -139,11 +142,14 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup1"/>
             </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bitstream Vera Sans Mono" size="11" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Sa&#xed;da"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="80" y="130" width="-1" height="-1"/>
+              <AbsoluteConstraints x="100" y="130" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>

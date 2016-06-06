@@ -26,6 +26,9 @@ public class ContasReceber implements Comparable<ContasReceber>{
     @Temporal(TemporalType.DATE)
     private Date dataVencimento;
     
+    @Temporal(TemporalType.DATE)
+    private Date dataCadastro;
+    
     private String nrConta;
     
     private double valor;
@@ -175,6 +178,14 @@ public class ContasReceber implements Comparable<ContasReceber>{
     @Override
     public int compareTo(ContasReceber o) {
         return o.id.compareTo(id);
+    }
+
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
     
 }

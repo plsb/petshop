@@ -13,10 +13,16 @@
           <Properties>
             <Property name="mnemonic" type="int" value="99"/>
             <Property name="text" type="java.lang.String" value="Cadastro"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mmCliente">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="108"/>
                 <Property name="text" type="java.lang.String" value="Cliente"/>
               </Properties>
@@ -26,6 +32,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mmEmpresa">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="101"/>
                 <Property name="text" type="java.lang.String" value="Empresa"/>
               </Properties>
@@ -37,10 +46,16 @@
               <Properties>
                 <Property name="mnemonic" type="int" value="112"/>
                 <Property name="text" type="java.lang.String" value="Produto/Servi&#xe7;o"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                </Property>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mmProduto">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Cadastro"/>
                     <Property name="toolTipText" type="java.lang.String" value="a"/>
                   </Properties>
@@ -50,6 +65,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mmGrupoProduto">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                    </Property>
                     <Property name="mnemonic" type="int" value="103"/>
                     <Property name="text" type="java.lang.String" value="Grupo de Produtos"/>
                   </Properties>
@@ -61,6 +79,9 @@
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="mmUsuario">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="117"/>
                 <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
               </Properties>
@@ -70,6 +91,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mmVendedor">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="118"/>
                 <Property name="text" type="java.lang.String" value="Vendedor"/>
               </Properties>
@@ -83,10 +107,16 @@
           <Properties>
             <Property name="mnemonic" type="int" value="109"/>
             <Property name="text" type="java.lang.String" value="Movimenta&#xe7;&#xe3;o"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mmCaixa">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="120"/>
                 <Property name="text" type="java.lang.String" value="Caixa"/>
               </Properties>
@@ -96,6 +126,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mmCartao">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cart&#xe3;o de Cr&#xe9;dito/D&#xe9;bito"/>
               </Properties>
               <Events>
@@ -104,6 +137,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mmContaReceber">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="114"/>
                 <Property name="text" type="java.lang.String" value="Contas a Receber"/>
               </Properties>
@@ -115,10 +151,16 @@
               <Properties>
                 <Property name="mnemonic" type="int" value="118"/>
                 <Property name="text" type="java.lang.String" value="Venda"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                </Property>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mmVenda">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                    </Property>
                     <Property name="mnemonic" type="int" value="110"/>
                     <Property name="text" type="java.lang.String" value="Nova Venda"/>
                   </Properties>
@@ -128,6 +170,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mmListarVendas">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                    </Property>
                     <Property name="mnemonic" type="int" value="108"/>
                     <Property name="text" type="java.lang.String" value="Listar Vendas"/>
                   </Properties>
@@ -137,6 +182,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mmOrcamento">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
+                    </Property>
                     <Property name="mnemonic" type="int" value="109"/>
                     <Property name="text" type="java.lang.String" value="Or&#xe7;amentos"/>
                   </Properties>

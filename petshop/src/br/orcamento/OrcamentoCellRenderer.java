@@ -29,7 +29,7 @@ public class OrcamentoCellRenderer extends DefaultTableCellRenderer{
         if(new Date().after(c.getTime()) && !o.isImportado()){
             setForeground(Color.RED);
         } else if(o.isImportado()){
-            setForeground(Color.GREEN);
+            setForeground(Color.BLUE);
         } else {
             setForeground(null);
         }

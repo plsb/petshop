@@ -61,19 +61,19 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Descrição.: *");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        tfDescricao.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfDescricao.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel1.add(tfDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 380, -1));
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Valor.: ");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         tfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        tfValor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfValor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel1.add(tfValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 160, -1));
 
         try {
@@ -81,20 +81,22 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfData.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfData.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel1.add(tfData, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 160, -1));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Data.:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
 
         buttonGroup1.add(rbEntrada);
+        rbEntrada.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         rbEntrada.setText("Entrada");
         jPanel1.add(rbEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         buttonGroup1.add(rbSaida);
+        rbSaida.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         rbSaida.setText("Saída");
-        jPanel1.add(rbSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
+        jPanel1.add(rbSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, -1, -1));
 
         btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/close.png"))); // NOI18N
         btCancelar.setToolTipText("Sair");

@@ -88,7 +88,6 @@ public class TelaListarVendas extends JDialog {
         tfDataFim = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblVista = new javax.swing.JLabel();
@@ -117,7 +116,7 @@ public class TelaListarVendas extends JDialog {
         });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tb.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tb.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         tb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -143,10 +142,10 @@ public class TelaListarVendas extends JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfDataInicio.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfDataInicio.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel1.add(tfDataInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, -1));
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Vendas Canceladas");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, 20));
 
@@ -193,7 +192,7 @@ public class TelaListarVendas extends JDialog {
         });
         jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 70, 50));
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Data Fim");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
 
@@ -202,43 +201,39 @@ public class TelaListarVendas extends JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfDataFim.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfDataFim.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel1.add(tfDataFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 150, -1));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Data Inicio");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Totais"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel2.setText("Vendas à  Vista.:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 20));
-
-        jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel5.setText("Vendas à  Prazo.:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, 20));
 
-        jLabel6.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel6.setText("Vendas à  Cartão.:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, 20));
 
-        lblVista.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblVista.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblVista.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblVista.setText("R$ 0,00");
         jPanel2.add(lblVista, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 90, 20));
 
-        jLabel8.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel8.setText("Vendas à  Vista.:");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 20));
 
-        lblPrazo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblPrazo.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblPrazo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPrazo.setText("R$ 0,00");
         jPanel2.add(lblPrazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 90, 20));
 
-        lblCartao.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblCartao.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblCartao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCartao.setText("R$ 0,00");
         jPanel2.add(lblCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 90, 20));
@@ -465,7 +460,6 @@ public class TelaListarVendas extends JDialog {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

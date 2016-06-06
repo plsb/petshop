@@ -97,7 +97,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tb.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tb.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         tb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -123,7 +123,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfDataInicio.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfDataInicio.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel1.add(tfDataInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, -1));
 
         btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/find.png"))); // NOI18N
@@ -135,7 +135,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
         });
         jPanel1.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 40, -1));
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Data Fim");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
 
@@ -144,10 +144,10 @@ public class TelaListarCartao extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfDataFim.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfDataFim.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel1.add(tfDataFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 150, -1));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Data Inicio");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
@@ -160,11 +160,11 @@ public class TelaListarCartao extends javax.swing.JDialog {
         });
         jPanel1.add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 70, 50));
 
-        jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel5.setText("Valor Total.: ");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
 
-        lblValor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblValor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblValor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblValor.setText("0,00");
         jPanel1.add(lblValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 80, -1));

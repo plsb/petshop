@@ -120,10 +120,11 @@ public class TelaCartao extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cartão de"));
+        jPanel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
 
         rbDebito.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rbDebito);
-        rbDebito.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        rbDebito.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         rbDebito.setText("Débito");
         rbDebito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,7 +139,7 @@ public class TelaCartao extends javax.swing.JDialog {
 
         rbCredito.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rbCredito);
-        rbCredito.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        rbCredito.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         rbCredito.setText("Crédito");
         rbCredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,7 +160,7 @@ public class TelaCartao extends javax.swing.JDialog {
                 .addComponent(rbDebito)
                 .addGap(18, 18, 18)
                 .addComponent(rbCredito)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,11 +174,11 @@ public class TelaCartao extends javax.swing.JDialog {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 170, 60));
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Qtd Parcelas:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
-        cbQtParcelas.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbQtParcelas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         cbQtParcelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10" }));
         cbQtParcelas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -209,7 +210,7 @@ public class TelaCartao extends javax.swing.JDialog {
         });
         jPanel1.add(cbQtParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 160, -1));
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Bandeira: *");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, -1, -1));
 
@@ -218,14 +219,14 @@ public class TelaCartao extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfData.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfData.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel1.add(tfData, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 130, -1));
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Valor:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, -1, -1));
 
-        cbBandeira1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbBandeira1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         cbBandeira1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "ELO", "Hiper", "Master", "Visa" }));
         cbBandeira1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,11 +238,11 @@ public class TelaCartao extends javax.swing.JDialog {
         lblValorQtd.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jPanel1.add(lblValorQtd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 160, 20));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Data:*");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
-        cbCliente.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbCliente.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         cbCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "ELO", "Hiper", "Master", "Visa" }));
         cbCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,12 +251,12 @@ public class TelaCartao extends javax.swing.JDialog {
         });
         jPanel1.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 280, -1));
 
-        jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel5.setText("Cliente: *");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         tfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        tfValor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfValor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         tfValor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfValorFocusLost(evt);
@@ -277,8 +278,8 @@ public class TelaCartao extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(0, 153, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbTexto.setFont(new java.awt.Font("Verdana", 1, 30)); // NOI18N
-        lbTexto.setText("Fecha Venda -Cartão ");
+        lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 30)); // NOI18N
+        lbTexto.setText("Cartão Crédito/Débito");
         jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 40));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 40));

@@ -10,6 +10,7 @@ import br.util.UsuarioAtivo;
 import br.util.Util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -43,6 +44,8 @@ public class TelaCliente extends javax.swing.JDialog {
     private void initComponents() {
 
         sexo = new javax.swing.ButtonGroup();
+        mpRelatorio = new javax.swing.JPopupMenu();
+        miRelatHitoricoCliente = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -71,6 +74,16 @@ public class TelaCliente extends javax.swing.JDialog {
         tfNomeMae = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         cbAtivo = new javax.swing.JCheckBox();
+        btnImprimir = new javax.swing.JButton();
+
+        miRelatHitoricoCliente.setText("Histórico Cliente");
+        miRelatHitoricoCliente.setEnabled(false);
+        miRelatHitoricoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRelatHitoricoClienteActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(miRelatHitoricoCliente);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -237,13 +250,21 @@ public class TelaCliente extends javax.swing.JDialog {
         });
         jPanel1.add(cbAtivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
 
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 40, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 430, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        if (Util.verificaPermissao("EXCLUIR_CLIENTE",1)) {
+        if (Util.verificaPermissao("EXCLUIR_CLIENTE", 1)) {
             if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Cliente?", "", JOptionPane.YES_NO_OPTION,
                     JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
                 dao.remove(cliente);
@@ -257,7 +278,7 @@ public class TelaCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (Util.verificaPermissao("CE_CLIENTE",1)) {
+        if (Util.verificaPermissao("CE_CLIENTE", 1)) {
 
             if (cliente == null) {
                 cliente = new Cliente();
@@ -322,6 +343,7 @@ public class TelaCliente extends javax.swing.JDialog {
         rbFeminino.setSelected(false);
         rbMasculino.setSelected(false);
         tfNomeMae.setText("");
+        miRelatHitoricoCliente.setEnabled(false);
     }
 
     private void btPesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisar1ActionPerformed
@@ -346,6 +368,7 @@ public class TelaCliente extends javax.swing.JDialog {
                 rbMasculino.setSelected(true);
             }
             btDelete.setEnabled(true);
+            miRelatHitoricoCliente.setEnabled(true);
         }
 
     }//GEN-LAST:event_btPesquisar1ActionPerformed
@@ -360,6 +383,20 @@ public class TelaCliente extends javax.swing.JDialog {
             tfCPF.setText("");
         }
     }//GEN-LAST:event_tfCPFFocusLost
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+
+        mpRelatorio.show(btnImprimir, btnImprimir.getWidth(), btnImprimir.getHeight());
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void miRelatHitoricoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatHitoricoClienteActionPerformed
+        if (Util.verificaPermissao("RELA_HIST_CLIENTE", 1)) {
+
+            HashMap parametros = new HashMap();
+            parametros.put("sql", cliente.getId());
+            Util.imprimir("relatorios/reportHistoricoCliente.jrxml", parametros);
+        }
+    }//GEN-LAST:event_miRelatHitoricoClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -402,6 +439,7 @@ public class TelaCliente extends javax.swing.JDialog {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar1;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JCheckBox cbAtivo;
     private javax.swing.JComboBox cbEstado;
     private javax.swing.JLabel jLabel1;
@@ -416,6 +454,8 @@ public class TelaCliente extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lbTexto;
+    private javax.swing.JMenuItem miRelatHitoricoCliente;
+    private javax.swing.JPopupMenu mpRelatorio;
     private javax.swing.JRadioButton rbFeminino;
     private javax.swing.JRadioButton rbMasculino;
     private javax.swing.ButtonGroup sexo;

@@ -152,7 +152,6 @@ public class TelaVenda extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -189,8 +188,8 @@ public class TelaVenda extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-
-        jMenuItem2.setText("jMenuItem2");
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -212,9 +211,9 @@ public class TelaVenda extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(0, 153, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbTexto.setFont(new java.awt.Font("Verdana", 1, 30)); // NOI18N
+        lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 36)); // NOI18N
         lbTexto.setForeground(new java.awt.Color(255, 255, 255));
-        lbTexto.setText("Vendas");
+        lbTexto.setText("VENDA");
         jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 40));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 40));
@@ -241,11 +240,11 @@ public class TelaVenda extends javax.swing.JDialog {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Tipo Pagamento.: *");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 16, -1, -1));
 
-        cbTipoPagamento.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbTipoPagamento.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         cbTipoPagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Venda à Vista", "Venda à Prazo", "Venda à Cartão" }));
         cbTipoPagamento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -254,19 +253,19 @@ public class TelaVenda extends javax.swing.JDialog {
         });
         jPanel2.add(cbTipoPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 13, 182, -1));
 
-        cbVendedor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbVendedor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         cbVendedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Venda à Vista", "Venda à Prazo", "Venda à Cartão" }));
         jPanel2.add(cbVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 41, 182, -1));
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Vendedor.: *");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 44, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Cliente.: *");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 72, -1, -1));
 
-        cbCliente.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbCliente.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         cbCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
         cbCliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -275,11 +274,11 @@ public class TelaVenda extends javax.swing.JDialog {
         });
         jPanel2.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 69, 386, -1));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Data.: *");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 16, -1, -1));
 
-        lblData.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblData.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblData.setText("Data.: *");
         jPanel2.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 16, 125, -1));
 
@@ -293,20 +292,20 @@ public class TelaVenda extends javax.swing.JDialog {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 121, -1, 55));
 
-        jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel5.setText("Quantidade.: *");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, 20));
 
-        lblDescricaoProduto.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblDescricaoProduto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblDescricaoProduto.setText(" ");
         jPanel1.add(lblDescricaoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 260, 20));
 
-        jLabel6.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel6.setText("Descrição.: *");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 121, -1, 20));
 
         tfQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        tfQuantidade.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfQuantidade.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         tfQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tfQuantidadeKeyPressed(evt);
@@ -350,7 +349,7 @@ public class TelaVenda extends javax.swing.JDialog {
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 50, 40));
 
-        lblDebito.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        lblDebito.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 18)); // NOI18N
         lblDebito.setForeground(new java.awt.Color(255, 0, 0));
         lblDebito.setText("O Cliente Possui Débitos em atraso!");
         lblDebito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -365,23 +364,23 @@ public class TelaVenda extends javax.swing.JDialog {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         jLabel9.setText("Desc.:");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, 20));
 
-        jLabel8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         jLabel8.setText("Total:");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 20));
 
-        lblTotalFinal.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        lblTotalFinal.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         lblTotalFinal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jPanel3.add(lblTotalFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 90, 20));
 
-        lblDesconto1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        lblDesconto1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         lblDesconto1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jPanel3.add(lblDesconto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 90, 20));
 
-        lblParcial.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        lblParcial.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         lblParcial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jPanel3.add(lblParcial, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 90, 20));
 
@@ -391,8 +390,10 @@ public class TelaVenda extends javax.swing.JDialog {
 
         jMenu1.setMnemonic('o');
         jMenu1.setText("Opções");
+        jMenu1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jMenuItem1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jMenuItem1.setMnemonic('c');
         jMenuItem1.setText("Cadastro de Cliente");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -404,6 +405,7 @@ public class TelaVenda extends javax.swing.JDialog {
         jMenu1.add(jSeparator1);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMenuItem3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jMenuItem3.setMnemonic('i');
         jMenuItem3.setText("Importar Orçamento");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -414,6 +416,7 @@ public class TelaVenda extends javax.swing.JDialog {
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jMenuItem4.setText("Novo Orçamento");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -421,6 +424,17 @@ public class TelaVenda extends javax.swing.JDialog {
             }
         });
         jMenu1.add(jMenuItem4);
+        jMenu1.add(jSeparator2);
+
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
+        jMenuItem6.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jMenuItem6.setText("Pesquisar Produto");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
 
         jMenuBar1.add(jMenu1);
 
@@ -838,6 +852,12 @@ public class TelaVenda extends javax.swing.JDialog {
 //        JOptionPane.showMessageDialog(rootPane, "87");
     }//GEN-LAST:event_formKeyPressed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        ProdutoDAO pDAO = new ProdutoDAO();
+        ProdutoTableModel ptm = new ProdutoTableModel(pDAO.list());
+        TelaPesquisa.exibeTela(ptm, "Consulta de Produto");
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     private void cancelarVenda() {
         if (itensVenda.size() > 0) {
             VendaDAO vDAO = new VendaDAO();
@@ -958,15 +978,16 @@ public class TelaVenda extends javax.swing.JDialog {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lbTexto;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDebito;

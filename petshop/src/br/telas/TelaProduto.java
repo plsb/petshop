@@ -17,6 +17,8 @@ import br.util.HibernateUtil;
 import br.util.LoadPropriedade;
 import br.util.UsuarioAtivo;
 import br.util.Util;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

@@ -117,7 +117,7 @@ public class TelaCaixa extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(0, 153, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbTexto.setFont(new java.awt.Font("Verdana", 1, 30)); // NOI18N
+        lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 30)); // NOI18N
         lbTexto.setText("Caixa");
         jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 40));
 
@@ -125,6 +125,7 @@ public class TelaCaixa extends javax.swing.JDialog {
 
         jScrollPane1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
+        tb.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         tb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -140,25 +141,25 @@ public class TelaCaixa extends javax.swing.JDialog {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 570, 230));
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Saldo.:");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, -1, -1));
 
         tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfSaldo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfSaldo.setEnabled(false);
-        tfSaldo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfSaldo.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel2.add(tfSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, 110, -1));
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Data.:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Entradas.:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Saídas.:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, -1, -1));
 
@@ -167,19 +168,19 @@ public class TelaCaixa extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfData1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfData1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel2.add(tfData1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 150, -1));
 
         tfEntradas1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfEntradas1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfEntradas1.setEnabled(false);
-        tfEntradas1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfEntradas1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel2.add(tfEntradas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 110, -1));
 
         tfSaidas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfSaidas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfSaidas.setEnabled(false);
-        tfSaidas.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfSaidas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel2.add(tfSaidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 360, 110, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/find.png"))); // NOI18N

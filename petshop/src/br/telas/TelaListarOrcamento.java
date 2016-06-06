@@ -119,7 +119,7 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tb.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tb.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         tb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -145,10 +145,10 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfDataInicio.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfDataInicio.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel1.add(tfDataInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, -1));
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Orçamentos Importados");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, 20));
 
@@ -161,7 +161,7 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         });
         jPanel1.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 40, -1));
 
-        jPanel3.setBackground(new java.awt.Color(51, 255, 0));
+        jPanel3.setBackground(new java.awt.Color(0, 0, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -186,7 +186,7 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         });
         jPanel1.add(btImportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 70, 50));
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Data Fim");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
 
@@ -195,10 +195,10 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfDataFim.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfDataFim.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel1.add(tfDataFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 150, -1));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Data Inicio");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
@@ -227,7 +227,7 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 20, 20));
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Orçamentos Vencidos");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, 20));
 

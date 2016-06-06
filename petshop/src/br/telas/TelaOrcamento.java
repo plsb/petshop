@@ -9,6 +9,8 @@ import br.cliente.Cliente;
 import br.cliente.ClienteDAO;
 import br.contasreceber.ContasReceber;
 import br.contasreceber.ContasReceberDAO;
+import br.empresa.Empresa;
+import br.empresa.EmpresaDAO;
 import br.livro.LivroCaixa;
 import br.livro.LivroCaixaDAO;
 import br.orcamento.ItemOrcamento;
@@ -57,6 +59,22 @@ public class TelaOrcamento extends javax.swing.JDialog {
     private Produto produto;
     private Orcamento orcamento = new Orcamento();
 
+    private void preencheEmpresa(){
+        EmpresaDAO eDAO = new EmpresaDAO();
+        List<Empresa> eList = eDAO.list();
+        if(eList.size()>0){
+            Empresa e = eList.get(0);
+            lblCidade.setText(e.getCidade()+"-"+e.getEstado());
+            lblRazaoSocial.setText(e.getRazaoSocial());
+            lblRua.setText(e.getEndereco());
+            lblTelefone.setText(e.getTelefone());
+        } else {
+            lblCidade.setText("");
+            lblRazaoSocial.setText("");
+            lblRua.setText("");
+            lblTelefone.setText("");
+        }
+    }
     /**
      * Creates new form TelaVenda
      */
@@ -65,7 +83,7 @@ public class TelaOrcamento extends javax.swing.JDialog {
         setTitle("Orçamento");
         setLocationRelativeTo(null);
         setModal(true);
-
+        preencheEmpresa();
         limpaCampos();
 
     }
@@ -132,6 +150,11 @@ public class TelaOrcamento extends javax.swing.JDialog {
         lblTotalFinal = new javax.swing.JLabel();
         lblDesconto1 = new javax.swing.JLabel();
         lblParcial = new javax.swing.JLabel();
+        lblCidade = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        lblRazaoSocial = new javax.swing.JLabel();
+        lblTelefone = new javax.swing.JLabel();
+        lblRua = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -151,16 +174,16 @@ public class TelaOrcamento extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(51, 153, 0));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbTexto.setFont(new java.awt.Font("Verdana", 1, 30)); // NOI18N
+        lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 36)); // NOI18N
         lbTexto.setForeground(new java.awt.Color(255, 255, 255));
-        lbTexto.setText("Orçamento");
+        lbTexto.setText("ORÇAMENTO");
         jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 40));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 40));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tb.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tb.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         tb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -185,11 +208,11 @@ public class TelaOrcamento extends javax.swing.JDialog {
         });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Tipo Pagamento.: *");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 16, -1, -1));
 
-        cbTipoPagamento.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbTipoPagamento.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         cbTipoPagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Venda à Vista", "Venda à Prazo", "Venda à Cartão" }));
         cbTipoPagamento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -198,19 +221,19 @@ public class TelaOrcamento extends javax.swing.JDialog {
         });
         jPanel2.add(cbTipoPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 13, 182, -1));
 
-        cbVendedor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbVendedor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         cbVendedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Venda à Vista", "Venda à Prazo", "Venda à Cartão" }));
         jPanel2.add(cbVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 41, 182, -1));
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Vendedor.: *");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 44, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Cliente.: *");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 72, -1, -1));
 
-        cbCliente.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbCliente.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         cbCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
         cbCliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -219,19 +242,19 @@ public class TelaOrcamento extends javax.swing.JDialog {
         });
         jPanel2.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 69, 386, -1));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Data.: *");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 16, -1, -1));
 
-        lblData.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblData.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblData.setText("Data.: *");
-        jPanel2.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 125, -1));
+        jPanel2.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 125, 20));
 
-        jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel7.setText("Validade.: *");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, -1, -1));
 
-        lblDataVencimento.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblDataVencimento.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblDataVencimento.setText("Data.: *");
         jPanel2.add(lblDataVencimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 125, -1));
 
@@ -246,20 +269,20 @@ public class TelaOrcamento extends javax.swing.JDialog {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 121, -1, 55));
 
-        jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel5.setText("Quantidade.: *");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, 20));
 
-        lblDescricaoProduto.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblDescricaoProduto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblDescricaoProduto.setText(" ");
         jPanel1.add(lblDescricaoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 260, 20));
 
-        jLabel6.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel6.setText("Descrição.: *");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 121, -1, 20));
 
         tfQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        tfQuantidade.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfQuantidade.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         tfQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tfQuantidadeKeyPressed(evt);
@@ -307,34 +330,61 @@ public class TelaOrcamento extends javax.swing.JDialog {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel9.setText("Desc.:");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, 20));
 
-        jLabel8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel8.setText("Total:");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 20));
 
-        lblTotalFinal.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        lblTotalFinal.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblTotalFinal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jPanel3.add(lblTotalFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 90, 20));
 
-        lblDesconto1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        lblDesconto1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblDesconto1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jPanel3.add(lblDesconto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 90, 20));
 
-        lblParcial.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        lblParcial.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblParcial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jPanel3.add(lblParcial, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 90, 20));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 160, 80));
 
+        lblCidade.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        lblCidade.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCidade.setText("ORÇAMENTO NÃO E VÁLIDO COMO GARANTIA DE MERCADORIA");
+        jPanel1.add(lblCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 490, -1));
+
+        jLabel11.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 16)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("ORÇAMENTO NÃO E VÁLIDO COMO GARANTIA DE MERCADORIA");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 500, 560, -1));
+
+        lblRazaoSocial.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        lblRazaoSocial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblRazaoSocial.setText("ORÇAMENTO NÃO E VÁLIDO COMO GARANTIA DE MERCADORIA");
+        jPanel1.add(lblRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 490, -1));
+
+        lblTelefone.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        lblTelefone.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTelefone.setText("ORÇAMENTO NÃO E VÁLIDO COMO GARANTIA DE MERCADORIA");
+        jPanel1.add(lblTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 490, -1));
+
+        lblRua.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        lblRua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblRua.setText("ORÇAMENTO NÃO E VÁLIDO COMO GARANTIA DE MERCADORIA");
+        jPanel1.add(lblRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 490, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 690, 530));
 
         jMenu1.setMnemonic('p');
         jMenu1.setText("Opções");
+        jMenu1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jMenuItem1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jMenuItem1.setMnemonic('c');
         jMenuItem1.setText("Cadastrar Cliente");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -729,6 +779,7 @@ public class TelaOrcamento extends javax.swing.JDialog {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -746,11 +797,15 @@ public class TelaOrcamento extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbTexto;
+    private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDataVencimento;
     private javax.swing.JLabel lblDesconto1;
     private javax.swing.JLabel lblDescricaoProduto;
     private javax.swing.JLabel lblParcial;
+    private javax.swing.JLabel lblRazaoSocial;
+    private javax.swing.JLabel lblRua;
+    private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTotalFinal;
     private javax.swing.JTable tb;
     private javax.swing.JFormattedTextField tfQuantidade;

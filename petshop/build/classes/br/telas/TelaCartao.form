@@ -75,6 +75,9 @@
                 <TitledBorder title="Cart&#xe3;o de"/>
               </Border>
             </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bitstream Vera Sans Mono" size="11" style="0"/>
+            </Property>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -89,7 +92,7 @@
                       <Component id="rbDebito" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="rbCredito" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -116,7 +119,7 @@
                   <ComponentRef name="buttonGroup1"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Verdana" size="12" style="0"/>
+                  <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="D&#xe9;bito"/>
               </Properties>
@@ -134,7 +137,7 @@
                   <ComponentRef name="buttonGroup1"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Verdana" size="12" style="0"/>
+                  <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cr&#xe9;dito"/>
               </Properties>
@@ -148,7 +151,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Qtd Parcelas:"/>
           </Properties>
@@ -161,7 +164,7 @@
         <Component class="javax.swing.JComboBox" name="cbQtParcelas">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="11">
@@ -196,7 +199,7 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Bandeira: *"/>
           </Properties>
@@ -212,7 +215,7 @@
               <Format format="##/##/####" subtype="-1" type="5"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
           </Properties>
           <Constraints>
@@ -224,7 +227,7 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Valor:"/>
           </Properties>
@@ -237,7 +240,7 @@
         <Component class="javax.swing.JComboBox" name="cbBandeira1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="5">
@@ -273,7 +276,7 @@
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Data:*"/>
           </Properties>
@@ -286,7 +289,7 @@
         <Component class="javax.swing.JComboBox" name="cbCliente">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="5">
@@ -310,7 +313,7 @@
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cliente: *"/>
           </Properties>
@@ -326,7 +329,7 @@
               <Format format="#0.00" subtype="-1" type="0"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="12" style="0"/>
+              <Font name="Bitstream Vera Sans Mono" size="12" style="0"/>
             </Property>
           </Properties>
           <Events>
@@ -375,9 +378,9 @@
         <Component class="javax.swing.JLabel" name="lbTexto">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="30" style="1"/>
+              <Font name="Bitstream Vera Sans Mono" size="30" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fecha Venda -Cart&#xe3;o "/>
+            <Property name="text" type="java.lang.String" value="Cart&#xe3;o Cr&#xe9;dito/D&#xe9;bito"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

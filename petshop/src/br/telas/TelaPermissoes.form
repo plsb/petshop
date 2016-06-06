@@ -145,6 +145,7 @@
                                   <Component id="CE_VENDEDOR" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="EXCLUIR_VENDEDOR" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jCheckBox5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="EXCLUIR_VENDEDOR1" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -158,7 +159,9 @@
                               <Component id="CE_VENDEDOR" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="EXCLUIR_VENDEDOR" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="47" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="EXCLUIR_VENDEDOR1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="24" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -183,6 +186,12 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Visualizar"/>
                         <Property name="name" type="java.lang.String" value="V_VENDEDOR" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="EXCLUIR_VENDEDOR1">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Comiss&#xe3;o"/>
+                        <Property name="name" type="java.lang.String" value="REL_COMISSAO" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -267,9 +276,12 @@
                               </Group>
                               <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="EXCLUIR_CLIENTE2" min="-2" pref="150" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -282,7 +294,9 @@
                               <Component id="CE_CLIENTE" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="EXCLUIR_CLIENTE" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="EXCLUIR_CLIENTE2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -307,6 +321,12 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Visualizar"/>
                         <Property name="name" type="java.lang.String" value="V_CLIENTE" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="EXCLUIR_CLIENTE2">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Relat. Hist&#xf3;rico Cliente"/>
+                        <Property name="name" type="java.lang.String" value="RELA_HIST_CLIENTE" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>

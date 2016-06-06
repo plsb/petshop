@@ -90,6 +90,7 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tb.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         tb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -124,21 +125,23 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         tfQtdDias.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        tfQtdDias.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         tfQtdDias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfQtdDiasActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Qtd Dias.: *");
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Qtd Parcelas.: *");
 
         tfQtParcelas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        tfQtParcelas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
 
-        btGerar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        btGerar.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         btGerar.setMnemonic('g');
         btGerar.setText("Gerar");
         btGerar.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +167,7 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
                         .addComponent(jLabel1)
                         .addGap(35, 35, 35)
                         .addComponent(tfQtdDias, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +186,7 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 530, 80));
 
-        lblValor.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        lblValor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 18)); // NOI18N
         lblValor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblValor.setText("jLabel3");
         jPanel1.add(lblValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 350, -1));
@@ -217,6 +220,7 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
                 cr.setVenda(venda);
                 cr.setCliente(venda.getCliente());
                 cr.setPaga(false);
+                cr.setDataCadastro(new Date());
 //                cr.setNrConta(Util.decimalFormat().format(cr.getCliente().getId()+cr.getId()));
 
                 Calendar c = Calendar.getInstance();

@@ -9,6 +9,9 @@ import br.util.Util;
 import br.vendedor.Vendedor;
 import br.vendedor.VendedorDAO;
 import br.vendedor.VendedorTableModel;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -43,6 +46,8 @@ public class TelaVendedor extends javax.swing.JDialog {
     private void initComponents() {
 
         sexo = new javax.swing.ButtonGroup();
+        mpRelatorio = new javax.swing.JPopupMenu();
+        miComissao = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -56,6 +61,16 @@ public class TelaVendedor extends javax.swing.JDialog {
         btNovo = new javax.swing.JButton();
         btPesquisar1 = new javax.swing.JButton();
         cbAtivo = new javax.swing.JCheckBox();
+        btnImprimir = new javax.swing.JButton();
+
+        miComissao.setText("Comissão de Vendedor");
+        miComissao.setEnabled(false);
+        miComissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miComissaoActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(miComissao);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -144,6 +159,14 @@ public class TelaVendedor extends javax.swing.JDialog {
         });
         jPanel1.add(cbAtivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, -1, -1));
 
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 40, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 430, 190));
 
         pack();
@@ -197,6 +220,7 @@ public class TelaVendedor extends javax.swing.JDialog {
         tfNome.setText("");
         btDelete.setEnabled(false);
         cbAtivo.setSelected(true);
+        miComissao.setEnabled(false);
 
     }
 
@@ -211,6 +235,7 @@ public class TelaVendedor extends javax.swing.JDialog {
             tfDesconto.setText(String.valueOf(v.getPorcentagemComissao()).replace(".", ","));
             cbAtivo.setSelected(v.isAtivo());
             btDelete.setEnabled(true);
+            miComissao.setEnabled(true);
         }
 
     }//GEN-LAST:event_btPesquisar1ActionPerformed
@@ -218,6 +243,45 @@ public class TelaVendedor extends javax.swing.JDialog {
     private void cbAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAtivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbAtivoActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        mpRelatorio.show(btnImprimir, btnImprimir.getWidth(), btnImprimir.getHeight());
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void miComissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miComissaoActionPerformed
+        if (Util.verificaPermissao("REL_COMISSAO", 1)) {
+            HashMap<String, String> map = TelaEscolhaData.chamaTela();
+            if (map != null) {
+                String dataInicial = "", dataFinal = "";
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = new java.sql.Date(format.parse(map.get("dtIni")).getTime());
+                    dataInicial = String.valueOf(data);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = new java.sql.Date(format.parse(map.get("dtFim")).getTime());
+                    dataFinal = String.valueOf(data);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                HashMap parametros = new HashMap();
+                String sql = String.valueOf(v.getId())
+                        + " and v.data between '" + dataInicial + "' and '"
+                        + dataFinal + "'";
+                parametros.put("dtInicial", dataInicial);
+                parametros.put("dtFinal", dataFinal);
+                parametros.put("sql", sql);
+                Util.imprimir("relatorios/reportVendedor.jrxml", parametros);
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível gerar o relatório!");
+            }
+        }
+    }//GEN-LAST:event_miComissaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,12 +327,15 @@ public class TelaVendedor extends javax.swing.JDialog {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar1;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JCheckBox cbAtivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lbTexto;
+    private javax.swing.JMenuItem miComissao;
+    private javax.swing.JPopupMenu mpRelatorio;
     private javax.swing.ButtonGroup sexo;
     private javax.swing.JFormattedTextField tfDesconto;
     private javax.swing.JTextField tfNome;

@@ -82,11 +82,11 @@ public class TelaPesquisa extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbTexto.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 18)); // NOI18N
         lbTexto.setText("Pesquisa");
         jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, 130, 40));
 
-        tfPesquisar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfPesquisar.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         tfPesquisar.setToolTipText("Informe o que Deseja pesquisar");
         tfPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -108,7 +108,7 @@ public class TelaPesquisa extends javax.swing.JDialog {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tbPesquisa.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tbPesquisa.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         tbPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

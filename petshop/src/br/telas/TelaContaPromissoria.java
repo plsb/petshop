@@ -98,7 +98,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbCliente.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbCliente.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         cbCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
         cbCliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -116,7 +116,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         });
         jPanel1.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 40, -1));
 
-        tbContas.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tbContas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         tbContas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -137,15 +137,15 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 660, 190));
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Cliente.: *");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Valor Débito.: ");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
-        lblVencer1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblVencer1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblVencer1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblVencer1.setText("0,00");
         jPanel1.add(lblVencer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 80, -1));
@@ -160,6 +160,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         jPanel1.add(btReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 290, 43, -1));
 
         btContas.add(rbContasAbert);
+        rbContasAbert.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         rbContasAbert.setText("Contas em Aberto");
         rbContasAbert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,13 +170,14 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         jPanel1.add(rbContasAbert, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
 
         btContas.add(rbContasPagas);
+        rbContasPagas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         rbContasPagas.setText("Contas Pagas");
         rbContasPagas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbContasPagasActionPerformed(evt);
             }
         });
-        jPanel1.add(rbContasPagas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, -1, -1));
+        jPanel1.add(rbContasPagas, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
 
         btEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/pen.png"))); // NOI18N
         btEdit.setToolTipText("Editar Conta");
@@ -220,15 +222,15 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 20, 20));
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Contas em Atraso");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, 20));
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Contas à Vencer");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, -1, 20));
 
-        jPanel4.setBackground(new java.awt.Color(51, 255, 0));
+        jPanel4.setBackground(new java.awt.Color(0, 51, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
