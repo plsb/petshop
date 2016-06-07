@@ -309,6 +309,11 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
 
     private void btReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReceberActionPerformed
         if (Util.verificaPermissao("RECEBER_CONTA_RECEBER", 1)) {
+            if(!Util.verificaCaixaAberto()){
+                JOptionPane.showMessageDialog(rootPane, "Caixa Fechado!");
+                return ;
+            }
+            
             int row = tbContas.getSelectedRow();
             Object o;
             if (row > -1) { //então tem ítem selecionado

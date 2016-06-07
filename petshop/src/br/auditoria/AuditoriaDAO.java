@@ -6,7 +6,7 @@
 package br.auditoria;
 
 import br.util.GenericDAO;
-import br.util.UsuarioAtivo;
+import br.util.Ativo;
 import java.util.Date;
 
 /**
@@ -23,7 +23,7 @@ public class AuditoriaDAO extends GenericDAO<Auditoria>{
         Auditoria a = new Auditoria();
         a.setData(new Date());
         a.setHora(new Date());
-        a.setUser(UsuarioAtivo.getUsuario());
+        a.setUser(Ativo.getUsuario());
         a.setDescricao(descricao);
         a.setClasse(classe);
         

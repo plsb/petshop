@@ -21,7 +21,7 @@ import br.produto.ProdutoTableModel;
 import br.produto.Produto;
 import br.produto.ProdutoDAO;
 import br.util.FormataTamanhoColunasJTable;
-import br.util.UsuarioAtivo;
+import br.util.Ativo;
 import br.util.Util;
 import br.venda.ItemVenda;
 import br.venda.ItemVendaCellRenderer;
@@ -457,7 +457,7 @@ public class TelaVenda extends javax.swing.JDialog {
             venda.setVendedor((Vendedor) cbVendedor.getSelectedItem());
         }
         venda.setCancelada(false);
-        venda.setUsuario(UsuarioAtivo.getUsuario());
+        venda.setUsuario(Ativo.getUsuario());
 
     }
 
@@ -662,8 +662,9 @@ public class TelaVenda extends javax.swing.JDialog {
                 if (venda.getVlVista() > 0) {
                     LivroCaixa lc = new LivroCaixa();
                     lc.setValorEntrada(venda.getVlVista());
-                    lc.setDescricao("VENDA Nº " + Util.decimalFormat().format(venda.getId()) + ", DO CLIENTE " + venda.getCliente().getNome());
+                    lc.setDescricao("VENDA Nº " + Util.decimalFormat().format(venda.getId()) + ", de " + venda.getCliente().getNome());
                     lc.setData(new Date());
+                    lc.setCaixa(Ativo.getCaixa());
                     lc.setVenda(venda);
 
                     LivroCaixaDAO lcDAO = new LivroCaixaDAO();

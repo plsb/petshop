@@ -104,7 +104,7 @@ public class TelaPesquisa extends javax.swing.JDialog {
         });
         jPanel4.add(btProcurar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, 40, 30));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 70));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 70));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -135,7 +135,7 @@ public class TelaPesquisa extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tbPesquisa);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 560, 240));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 590, 240));
 
         btSelecionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/import.png"))); // NOI18N
         btSelecionar.setToolTipText("Selecionar");
@@ -144,7 +144,7 @@ public class TelaPesquisa extends javax.swing.JDialog {
                 btSelecionarActionPerformed(evt);
             }
         });
-        jPanel1.add(btSelecionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 278, 43, 40));
+        jPanel1.add(btSelecionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 43, 40));
 
         btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/close.png"))); // NOI18N
         btCancelar.setToolTipText("Sair");
@@ -153,9 +153,9 @@ public class TelaPesquisa extends javax.swing.JDialog {
                 btCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(507, 278, 43, 41));
+        jPanel1.add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 43, 41));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 560, 330));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 590, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -24,6 +24,7 @@
         <property name="hibernate.c3p0.min_size">5</property>   
         <!-- fim configuration pool via c3p0-->                          
         <mapping class="br.cliente.Cliente"/>
+        <mapping class="br.livro.Caixa"/>
         <mapping class="br.produto.Produto"/>
         <mapping class="br.produto.Estoque"/>
         <mapping class="br.empresa.Empresa"/>

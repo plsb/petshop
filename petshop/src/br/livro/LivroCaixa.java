@@ -31,6 +31,9 @@ public class LivroCaixa implements Comparable<LivroCaixa>{
     
     @Temporal(TemporalType.DATE)
     private Date data;
+    
+    @ManyToOne
+    private Caixa caixa;
 
     public Date getData() {
         return data;
@@ -97,6 +100,14 @@ public class LivroCaixa implements Comparable<LivroCaixa>{
         this.valorSaida = valorSaida;
     }
 
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;

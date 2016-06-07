@@ -14,6 +14,7 @@ import br.grupo_produto.GrupoProdutoDAO;
 import br.grupo_produto.GrupoTableModel;
 import br.livro.LivroCaixa;
 import br.livro.LivroCaixaDAO;
+import br.util.Ativo;
 import br.util.HibernateUtil;
 import br.util.Util;
 import java.awt.event.KeyEvent;
@@ -178,9 +179,10 @@ public class TelaContaPromissoriaRec extends javax.swing.JDialog {
                 
                 LivroCaixa lc = new LivroCaixa();
                 lc.setData(new Date());
-                lc.setDescricao("CONTA À RECEBER Nº"+cr.getNrConta()+", CLIENTE: "+cr.getCliente().getNome());
+                lc.setDescricao("CONTA À RECEBER Nº"+cr.getNrConta()+", de "+cr.getCliente().getNome());
                 lc.setValorEntrada(valoraReceber);
                 lc.setContaReceber(cr);
+                lc.setCaixa(Ativo.getCaixa());
                 LivroCaixaDAO lcDAO = new LivroCaixaDAO();
                 lcDAO.add(lc);
                 

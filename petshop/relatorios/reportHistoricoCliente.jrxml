@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportHistoricoCliente" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="339d61c4-fae1-44c8-ad45-325d37204ed8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sql" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Pedro Saraiva\\Documents\\GitHub\\petshop\\petshop\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select v.id, v.data,
+case v.tipoPagamento
+when 'VV' then 'Venda à Vista'
+when 'VP' then 'Venda à Prazo'
+when 'VC' then 'Venda à Cartão'
+end tipoPagamento, v.valorTotal,
+case v.cancelada
+when true then 'Cancelada'
+when false then ''
+end cancelada,
+c.nome nomeCliente, c.celular, c.cpf, c.endereco, c.telefone, c.cidade, c.estado, c.id idCliente, v.desconto, v.valorTotal-v.desconto as valorCDesconto
+ from venda v
+inner join cliente c on c.id=v.cliente_id
+where c.id=$P!{sql}
+order by v.id desc]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoPagamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorTotal" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cancelada" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeCliente" class="java.lang.String"/>
+	<field name="celular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idCliente" class="java.lang.Integer"/>
+	<field name="desconto" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorCDesconto" class="java.lang.Double"/>
+	<variable name="total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cancelada}.equals("Cancelada")?0:$F{valorCDesconto}]]></variableExpression>
+	</variable>
+	<variable name="canceladas" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cancelada}.equals("Cancelada")?$F{valorCDesconto}:0]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="45ecf8c6-8fb5-404b-a963-33674eabe892" x="4" y="19" width="551" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bitstream Vera Sans Mono" size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[HISTÓRICO DO CLIENTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a7eb0a1f-ea2d-4b51-b4e3-c3119f798201" x="330" y="1" width="226" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Data/Hora Impressão: "+new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="103" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="e3614f45-1618-41e3-818f-bf4bf0c9f3bd" x="0" y="0" width="555" height="103"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="10" y="10" width="83" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="93" y="10" width="287" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="93" y="30" width="287" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="10" y="30" width="83" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="93" y="50" width="257" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cidade}+" - "+$F{estado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="10" y="50" width="83" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="10" y="70" width="83" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="93" y="70" width="126" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefone}==null?"":$F{telefone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="230" y="70" width="83" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Celular:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="313" y="70" width="126" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{celular}==null? "":$F{celular}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="380" y="10" width="35" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cpf:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="415" y="10" width="126" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="10" y="28" width="73" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="84" y="28" width="53" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="151" y="27" width="133" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="320" y="28" width="35" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="5" y="47" width="552" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="0" y="6" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VENDAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="361" y="28" width="35" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Desc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="397" y="28" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Vl C.Desc.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="10" y="0" width="73" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="151" y="0" width="133" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoPagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="83" y="0" width="54" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="487" y="0" width="68" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cancelada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="284" y="0" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="355" y="0" width="41" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{desconto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="396" y="1" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorCDesconto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="95" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="0f66c0c5-730a-4bff-a4b2-8db3d46a91d6" x="-1" y="52" width="555" height="42"/>
+				<subreportParameter name="idcliente">
+					<subreportParameterExpression><![CDATA[$F{idCliente}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportHistoricoCliente_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="396" y="3" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="2" y="2" width="552" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="397" y="23" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{canceladas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="320" y="3" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="245" y="23" width="146" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Total Canceladas:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

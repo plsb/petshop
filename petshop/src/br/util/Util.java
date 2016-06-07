@@ -5,6 +5,8 @@
  */
 package br.util;
 
+import br.livro.Caixa;
+import br.livro.CaixaDAO;
 import br.produto.Estoque;
 import br.produto.EstoqueDAO;
 import br.produto.Produto;
@@ -345,17 +347,17 @@ public class Util {
     }
 
     public static boolean verificaPermissao(String permissao, int mensagem) {
-        if (UsuarioAtivo.getUsuario().getPermissao().size() > 0) {
-            if (UsuarioAtivo.getUsuario().getPermissao().contains(permissao)) {
+        if (Ativo.getUsuario().getPermissao().size() > 0) {
+            if (Ativo.getUsuario().getPermissao().contains(permissao)) {
                 return true;
             }
 
         }
         if (mensagem == 1) {
-            if(JOptionPane.showConfirmDialog(null, "Você não possui permissão, \ndeseja solicitar?", 
-                    "Solicitação de Permissão", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE)==
-                    JOptionPane.YES_OPTION){
-                
+            if (JOptionPane.showConfirmDialog(null, "Você não possui permissão, \ndeseja solicitar?",
+                    "Solicitação de Permissão", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE)
+                    == JOptionPane.YES_OPTION) {
+
             }
         }
         return false;
@@ -366,7 +368,7 @@ public class Util {
         DecimalFormat formater = new DecimalFormat("0.00");
         return formater.format(num);
     }
-    
+
     public static void adicionaEstoque(String desc, double qtdEntrada, double qtdSaida, Produto produto) {
         Estoque e = new Estoque();
         EstoqueDAO eDAO = new EstoqueDAO();
@@ -377,14 +379,14 @@ public class Util {
         e.setProduto(produto);
         e.setQtdEntrada(qtdEntrada);
         e.setQtdSaida(qtdSaida);
-        e.setUsuario(UsuarioAtivo.getUsuario());
+        e.setUsuario(Ativo.getUsuario());
 
         eDAO.add(e);
     }
-    
-    public static void imprimir(String caminhoRelatorio, HashMap parametros){
-                JasperReport pathjrxml;
-        
+
+    public static void imprimir(String caminhoRelatorio, HashMap parametros) {
+        JasperReport pathjrxml;
+
         String caminho = Util.retornaCaminhoApp();
 //        String caminho = "";
 
@@ -411,6 +413,14 @@ public class Util {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
+    }
+
+    //retorna se o caixa está aberto para o usuário
+    public static boolean verificaCaixaAberto() {
+        if(Ativo.getCaixa()!=null){
+            return true;
+        }
+        return false;
     }
 
 }

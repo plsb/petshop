@@ -8,6 +8,7 @@ package br.telas;
 import br.livro.LivroCaixa;
 import br.livro.LivroCaixaDAO;
 import br.livro.LivroCaixaTableModel;
+import br.util.Ativo;
 import br.util.FormataTamanhoColunasJTable;
 import br.util.HibernateUtil;
 import br.util.Util;
@@ -46,6 +47,7 @@ public class TelaCaixa extends javax.swing.JDialog {
 
         preencheTabela(new Date());
         setTitle("Caixa");
+
     }
 
     public void preencheTabela(Date data) {
@@ -54,7 +56,7 @@ public class TelaCaixa extends javax.swing.JDialog {
         tfData1.setText(dfdtData.format(data));
 
         LivroCaixaDAO lcDAO = new LivroCaixaDAO();
-        List<LivroCaixa> lista = lcDAO.checkExists("data", data);
+        List<LivroCaixa> lista = lcDAO.listCaixaPorUsuario(data);
         LivroCaixaTableModel lctm = new LivroCaixaTableModel(lista);
         tb.setModel(lctm);
         FormataTamanhoColunasJTable.packColumns(tb, 1);
@@ -67,6 +69,12 @@ public class TelaCaixa extends javax.swing.JDialog {
         tfEntradas1.setText(String.format("%.2f", entrada));
         tfSaidas.setText(String.format("%.2f", saida));
         tfSaldo.setText(String.format("%.2f", saldo));
+
+        if (Util.verificaCaixaAberto()) {
+            lbTexto.setText("Caixa " + Ativo.getCaixa().getNrCaixa() + " Aberto");
+        } else {
+            lbTexto.setText("Caixa Fechado");
+        }
     }
 
     /**
@@ -92,9 +100,13 @@ public class TelaCaixa extends javax.swing.JDialog {
         tfData1 = new javax.swing.JFormattedTextField();
         tfEntradas1 = new javax.swing.JFormattedTextField();
         tfSaidas = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
+        btPesquisar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,9 +131,9 @@ public class TelaCaixa extends javax.swing.JDialog {
 
         lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 30)); // NOI18N
         lbTexto.setText("Caixa");
-        jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 40));
+        jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 40));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 40));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 40));
 
         jScrollPane1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
@@ -168,6 +180,7 @@ public class TelaCaixa extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfData1.setEnabled(false);
         tfData1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel2.add(tfData1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 150, -1));
 
@@ -183,14 +196,15 @@ public class TelaCaixa extends javax.swing.JDialog {
         tfSaidas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel2.add(tfSaidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 360, 110, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/find.png"))); // NOI18N
-        jButton1.setToolTipText("Pesquisar Data");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/find.png"))); // NOI18N
+        btPesquisar.setToolTipText("Pesquisar Data");
+        btPesquisar.setEnabled(false);
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btPesquisarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, -1));
+        jPanel2.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/interface (5).png"))); // NOI18N
         jButton2.setToolTipText("Adicionar");
@@ -212,10 +226,37 @@ public class TelaCaixa extends javax.swing.JDialog {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 440));
 
+        jMenu1.setText("Opções");
+        jMenu1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jMenuItem1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jMenuItem1.setText("Abrir Caixa");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMenuItem2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jMenuItem2.setText("Fechar Caixa");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         // TODO add your handling code here:
         if (tfData1.equals("  /  /    ")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a Data!");
@@ -232,11 +273,17 @@ public class TelaCaixa extends javax.swing.JDialog {
                 System.out.println(ex.getMessage());
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if (Util.verificaPermissao("ADICIONA_CAIXA", 1)) {
+
+            if (!Util.verificaCaixaAberto()) {
+                JOptionPane.showMessageDialog(rootPane, "Caixa Fechado!");
+                return;
+            }
+
             TelaAdicionaCaixa tac = new TelaAdicionaCaixa();
             tac.setVisible(true);
             preencheTabela(new Date());
@@ -299,6 +346,43 @@ public class TelaCaixa extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        if (Util.verificaPermissao("ADICIONA_CAIXA", 1)) {
+            if (Util.verificaCaixaAberto()) {
+                JOptionPane.showMessageDialog(rootPane, "Caixa está Aberto!");
+            } else {
+                TelaAbrirCaixa tac = new TelaAbrirCaixa();
+                tac.setVisible(true);
+                if (Util.verificaCaixaAberto()) {
+                    lbTexto.setText("Caixa " + Ativo.getCaixa().getNrCaixa() + " Aberto");
+
+                } else {
+                    lbTexto.setText("Caixa Fechado");
+                }
+
+            }
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        if (Util.verificaPermissao("ADICIONA_CAIXA", 1)) {
+            if (!Util.verificaCaixaAberto()) {
+                JOptionPane.showMessageDialog(rootPane, "Caixa está Fechado!");
+            } else {
+                TelaFechaCaixa tfc = new TelaFechaCaixa();
+                tfc.setVisible(true);
+                
+                if (Util.verificaCaixaAberto()) {
+                    lbTexto.setText("Caixa " + Ativo.getCaixa().getNrCaixa() + " Aberto");
+
+                } else {
+                    lbTexto.setText("Caixa Fechado");
+                }
+                btPesquisarActionPerformed(evt);
+            }
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -335,13 +419,17 @@ public class TelaCaixa extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btPesquisar;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

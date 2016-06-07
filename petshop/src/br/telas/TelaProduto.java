@@ -15,7 +15,7 @@ import br.produto.Produto;
 import br.produto.ProdutoDAO;
 import br.util.HibernateUtil;
 import br.util.LoadPropriedade;
-import br.util.UsuarioAtivo;
+import br.util.Ativo;
 import br.util.Util;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
@@ -91,6 +91,7 @@ public class TelaProduto extends javax.swing.JDialog {
         imEstoqueMinimo = new javax.swing.JMenuItem();
         imHistoricoAlteracaoItem = new javax.swing.JMenuItem();
         imRelacaoProdutos = new javax.swing.JMenuItem();
+        imCurvaABC = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -143,6 +144,14 @@ public class TelaProduto extends javax.swing.JDialog {
             }
         });
         mpRelatorio.add(imRelacaoProdutos);
+
+        imCurvaABC.setText("Curva ABC");
+        imCurvaABC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imCurvaABCActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(imCurvaABC);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -581,6 +590,37 @@ public class TelaProduto extends javax.swing.JDialog {
 
     }//GEN-LAST:event_imEstoqueMinimoActionPerformed
 
+    private void imCurvaABCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imCurvaABCActionPerformed
+        if(Util.verificaPermissao("REL_CURVA_ABC", 1)){
+            HashMap<String, String> map = TelaEscolhaData.chamaTela();
+            if (map != null) {
+                String dataInicial = "", dataFinal = "";
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = new java.sql.Date(format.parse(map.get("dtIni")).getTime());
+                    dataInicial = String.valueOf(data);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = new java.sql.Date(format.parse(map.get("dtFim")).getTime());
+                    dataFinal = String.valueOf(data);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                HashMap parametros = new HashMap();
+                parametros.put("dtInicial", "'"+dataInicial+"'");
+                parametros.put("dtFinal", "'"+dataFinal+"'");
+                Util.imprimir("relatorios/reportCurvaABCEstoque.jrxml", parametros);
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível gerar o relatório!");
+            }
+        }
+    }//GEN-LAST:event_imCurvaABCActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -627,6 +667,7 @@ public class TelaProduto extends javax.swing.JDialog {
     private javax.swing.JComboBox cbGrupo;
     private javax.swing.JComboBox cbUnidade;
     private javax.swing.JCheckBox chbServico;
+    private javax.swing.JMenuItem imCurvaABC;
     private javax.swing.JMenuItem imEstoqueMinimo;
     private javax.swing.JMenuItem imHistoricoAlteracaoItem;
     private javax.swing.JMenuItem imRelacaoProdutos;

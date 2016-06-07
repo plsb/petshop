@@ -5,10 +5,14 @@
  */
 package br.telas;
 
+import br.livro.Caixa;
+import br.livro.CaixaDAO;
 import br.usuario.Usuario;
 import br.usuario.UsuarioDAO;
-import br.util.UsuarioAtivo;
+import br.util.Ativo;
 import br.util.Util;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -126,7 +130,13 @@ public class TelaLogin extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Usuário Inativo!");
             return;
         }
-        UsuarioAtivo.setUsuario(u);
+        Ativo.setUsuario(u);
+        
+        CaixaDAO cDAO = new CaixaDAO();
+        List<Caixa> listaCaixa = cDAO.listCaixaAbertoUsuario(u, new Date());
+        if(listaCaixa.size()>0){
+            Ativo.setCaixa(listaCaixa.get(0));
+        }
         encerraApp = false;
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

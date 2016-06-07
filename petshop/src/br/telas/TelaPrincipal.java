@@ -5,7 +5,7 @@
  */
 package br.telas;
 
-import br.util.UsuarioAtivo;
+import br.util.Ativo;
 import br.util.Util;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -24,7 +24,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tl.setVisible(true);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Tela Principal - Usuário: " + UsuarioAtivo.getUsuario().getNome());
+        setTitle("Tela Principal - Usuário: " + Ativo.getUsuario().getNome());
         String enderecoDoJar = Util.retornaCaminhoApp() + "logo.jpg";
         try {
             ImageIcon logo = new ImageIcon(enderecoDoJar);
@@ -39,7 +39,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     public void permissoes() {
-        mmUsuario.setVisible(UsuarioAtivo.getUsuario().isAdministrador());
+        mmUsuario.setVisible(Ativo.getUsuario().isAdministrador());
         mmCliente.setVisible(Util.verificaPermissao("V_CLIENTE", 0));
         mmEmpresa.setVisible(Util.verificaPermissao("V_EMPRESA", 0));
         mmProduto.setVisible(Util.verificaPermissao("V_PRODUTO", 0));
@@ -50,7 +50,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mmVenda.setVisible(Util.verificaPermissao("V_VENDA", 0));
         mmListarVendas.setVisible(Util.verificaPermissao("LISTAR_VENDAS", 0));
         mmOrcamento.setVisible(Util.verificaPermissao("INSERIR_ORCAMENTO", 0));
-        mmCartao.setVisible(Util.verificaPermissao("V_CARTAO", 0));                     
+        mmCartao.setVisible(Util.verificaPermissao("V_CARTAO", 0));
     }
 
     /**
@@ -284,6 +284,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mmUsuarioActionPerformed
 
     private void mmVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmVendaActionPerformed
+        if (!Util.verificaCaixaAberto()) {
+            JOptionPane.showMessageDialog(rootPane, "Caixa Fechado!");
+            return;
+        }
+
         TelaVenda tv = new TelaVenda();
         tv.setVisible(true);
     }//GEN-LAST:event_mmVendaActionPerformed

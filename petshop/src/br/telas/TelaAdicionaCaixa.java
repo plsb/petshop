@@ -7,6 +7,7 @@ package br.telas;
 
 import br.livro.LivroCaixa;
 import br.livro.LivroCaixaDAO;
+import br.util.Ativo;
 import br.util.Util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -134,6 +135,7 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
             LivroCaixa lc = new LivroCaixa();
             lc.setData(new Date());
             lc.setDescricao(tfDescricao.getText());
+            lc.setCaixa(Ativo.getCaixa());
             double valor = 0;
             try {
                 valor = Double.parseDouble(tfValor.getText().replaceAll(",", "."));
@@ -141,6 +143,12 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "ERRO no valor!");
                 return;
             }
+            if(valor<=0){
+                JOptionPane.showMessageDialog(rootPane, "O Valor Inicial deve ser Maior que 0!");
+                tfValor.requestFocus();
+                return ;
+            }
+            
             if (rbEntrada.isSelected()) {
 
                 lc.setValorEntrada(valor);

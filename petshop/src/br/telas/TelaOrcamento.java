@@ -24,7 +24,7 @@ import br.produto.ProdutoTableModel;
 import br.produto.Produto;
 import br.produto.ProdutoDAO;
 import br.util.FormataTamanhoColunasJTable;
-import br.util.UsuarioAtivo;
+import br.util.Ativo;
 import br.util.Util;
 import br.venda.ItemVenda;
 import br.venda.ItemVendaCellRenderer;

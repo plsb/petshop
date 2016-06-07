@@ -233,7 +233,7 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
                 cr.setValor(Double.valueOf(df.format(valor).replace(",", ".")));
                 cr.setNrParcela(i + 1);
 
-                cr.setNrConta(cr.getCliente().getId() + data.format(dt) + hora.format(dt) + "-" + cr.getNrParcela());
+                cr.setNrConta(cr.getCliente().getId() + venda.getId() + data.format(dt) + "-" + cr.getNrParcela());
 
                 crDAO.add(cr);
 

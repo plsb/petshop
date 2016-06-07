@@ -6,8 +6,9 @@
 package br.telas;
 
 import br.cliente.*;
-import br.util.UsuarioAtivo;
+import br.util.Ativo;
 import br.util.Util;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -46,6 +47,7 @@ public class TelaCliente extends javax.swing.JDialog {
         sexo = new javax.swing.ButtonGroup();
         mpRelatorio = new javax.swing.JPopupMenu();
         miRelatHitoricoCliente = new javax.swing.JMenuItem();
+        miRelatCurvaABC = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -84,6 +86,14 @@ public class TelaCliente extends javax.swing.JDialog {
             }
         });
         mpRelatorio.add(miRelatHitoricoCliente);
+
+        miRelatCurvaABC.setText("Curva ABC");
+        miRelatCurvaABC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRelatCurvaABCActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(miRelatCurvaABC);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -398,6 +408,38 @@ public class TelaCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_miRelatHitoricoClienteActionPerformed
 
+    private void miRelatCurvaABCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatCurvaABCActionPerformed
+        if (Util.verificaPermissao("RELA_CURVA_ABC_CLIENTE", 1)) {
+            HashMap<String, String> map = TelaEscolhaData.chamaTela();
+            if (map != null) {
+                String dataInicial = "", dataFinal = "";
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = new java.sql.Date(format.parse(map.get("dtIni")).getTime());
+                    dataInicial = String.valueOf(data);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = new java.sql.Date(format.parse(map.get("dtFim")).getTime());
+                    dataFinal = String.valueOf(data);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                HashMap parametros = new HashMap();
+                parametros.put("dtInicial", "'" + dataInicial + "'");
+                parametros.put("dtFinal", "'" + dataFinal + "'");
+                Util.imprimir("relatorios/reportCurvaABCCliente.jrxml", parametros);
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível gerar o relatório!");
+            }
+        }
+
+    }//GEN-LAST:event_miRelatCurvaABCActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -454,6 +496,7 @@ public class TelaCliente extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lbTexto;
+    private javax.swing.JMenuItem miRelatCurvaABC;
     private javax.swing.JMenuItem miRelatHitoricoCliente;
     private javax.swing.JPopupMenu mpRelatorio;
     private javax.swing.JRadioButton rbFeminino;
