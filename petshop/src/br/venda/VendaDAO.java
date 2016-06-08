@@ -5,6 +5,7 @@
  */
 package br.venda;
 
+import br.util.Ativo;
 import br.util.GenericDAO;
 import br.util.HibernateUtil;
 import java.util.ArrayList;
@@ -31,6 +32,28 @@ public class VendaDAO extends GenericDAO<Venda>{
             lista = this.getSessao().createCriteria(Venda.class)
                     .add(Restrictions.ge("data", dataIni))
                     .add(Restrictions.le("data", dataFim)).list();
+            lista = new ArrayList(new HashSet(lista));
+        } catch (Throwable e) {
+            if (getTransacao().isActive()) {
+                getTransacao().rollback();
+            }
+//            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
+        } finally {
+            getSessao().close();
+        }
+        return lista;
+
+    }
+    
+    public List<Venda> listVendaEntreDatasPorUsuario(Date dataIni, Date dataFim) {
+        List<Venda> lista = null;
+        try {
+            this.setSessao(HibernateUtil.getSessionFactory().openSession());
+            setTransacao(getSessao().beginTransaction());
+            lista = this.getSessao().createCriteria(Venda.class)
+                    .add(Restrictions.ge("data", dataIni))
+                    .add(Restrictions.le("data", dataFim))
+                    .add(Restrictions.le("usuario", Ativo.getUsuario())).list();
             lista = new ArrayList(new HashSet(lista));
         } catch (Throwable e) {
             if (getTransacao().isActive()) {

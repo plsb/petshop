@@ -649,6 +649,7 @@ public class TelaVenda extends javax.swing.JDialog {
             venda.setValorTotal(valorTotal());
             venda.setDesconto(Double.parseDouble(lblDesconto1.getText().replace(",", ".")));
             venda.setData(new Date());
+            venda.setCaixa(Ativo.getCaixa());
             Venda venda2 = TelaFechaVenda.exibeFechamento(venda);
             if (venda2 == null) {
                 return;

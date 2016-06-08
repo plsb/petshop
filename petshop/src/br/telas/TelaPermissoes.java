@@ -78,6 +78,9 @@ public class TelaPermissoes extends javax.swing.JDialog {
         EXCLUIR_PRODUTO = new javax.swing.JCheckBox();
         jCheckBox6 = new javax.swing.JCheckBox();
         EXCLUIR_PRODUTO1 = new javax.swing.JCheckBox();
+        EXCLUIR_PRODUTO2 = new javax.swing.JCheckBox();
+        EXCLUIR_PRODUTO3 = new javax.swing.JCheckBox();
+        EXCLUIR_PRODUTO4 = new javax.swing.JCheckBox();
         jPanel6 = new javax.swing.JPanel();
         CE_VENDEDOR = new javax.swing.JCheckBox();
         EXCLUIR_VENDEDOR = new javax.swing.JCheckBox();
@@ -109,6 +112,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
         EXCLUIR_CLIENTE10 = new javax.swing.JCheckBox();
         EXCLUIR_CLIENTE11 = new javax.swing.JCheckBox();
         EXCLUIR_CLIENTE12 = new javax.swing.JCheckBox();
+        EXCLUIR_CLIENTE16 = new javax.swing.JCheckBox();
         jPanel11 = new javax.swing.JPanel();
         jCheckBox8 = new javax.swing.JCheckBox();
         CE_CLIENTE5 = new javax.swing.JCheckBox();
@@ -155,6 +159,15 @@ public class TelaPermissoes extends javax.swing.JDialog {
         EXCLUIR_PRODUTO1.setText("Relat. Curva ABC");
         EXCLUIR_PRODUTO1.setName("REL_CURVA_ABC"); // NOI18N
 
+        EXCLUIR_PRODUTO2.setText("Relat. Estoque Minimo");
+        EXCLUIR_PRODUTO2.setName("REL_EST_MIN"); // NOI18N
+
+        EXCLUIR_PRODUTO3.setText("Relat. Histórico de Produto");
+        EXCLUIR_PRODUTO3.setName("REL_HIST_PRODUTO"); // NOI18N
+
+        EXCLUIR_PRODUTO4.setText("Relat. Relação de Produtos");
+        EXCLUIR_PRODUTO4.setName("REL_RELA_PRODUTOS"); // NOI18N
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -164,7 +177,10 @@ public class TelaPermissoes extends javax.swing.JDialog {
                     .addComponent(CE_PRODUTO)
                     .addComponent(EXCLUIR_PRODUTO)
                     .addComponent(jCheckBox6)
-                    .addComponent(EXCLUIR_PRODUTO1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EXCLUIR_PRODUTO1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EXCLUIR_PRODUTO2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EXCLUIR_PRODUTO3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EXCLUIR_PRODUTO4, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -177,10 +193,16 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addComponent(EXCLUIR_PRODUTO)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EXCLUIR_PRODUTO1)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(EXCLUIR_PRODUTO2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(EXCLUIR_PRODUTO3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(EXCLUIR_PRODUTO4)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 230, 140));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 230, 290));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Vendedor"));
 
@@ -385,14 +407,14 @@ public class TelaPermissoes extends javax.swing.JDialog {
         });
         jPanel10.add(CE_CLIENTE1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        EXCLUIR_CLIENTE1.setText("Inserir Orçamento");
-        EXCLUIR_CLIENTE1.setName("INSERIR_ORCAMENTO"); // NOI18N
+        EXCLUIR_CLIENTE1.setText("Visualizar Vendas Realizadas Pelo Usuário");
+        EXCLUIR_CLIENTE1.setName("VISUAL_APENAS_VENDAS_REAL_PELO_USU"); // NOI18N
         EXCLUIR_CLIENTE1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EXCLUIR_CLIENTE1ActionPerformed(evt);
             }
         });
-        jPanel10.add(EXCLUIR_CLIENTE1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+        jPanel10.add(EXCLUIR_CLIENTE1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
         jCheckBox7.setText("Visualizar");
         jCheckBox7.setName("V_VENDA"); // NOI18N
@@ -446,7 +468,16 @@ public class TelaPermissoes extends javax.swing.JDialog {
         });
         jPanel10.add(EXCLUIR_CLIENTE12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
-        jPanel3.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 240, 260));
+        EXCLUIR_CLIENTE16.setText("Inserir Orçamento");
+        EXCLUIR_CLIENTE16.setName("INSERIR_ORCAMENTO"); // NOI18N
+        EXCLUIR_CLIENTE16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EXCLUIR_CLIENTE16ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(EXCLUIR_CLIENTE16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+
+        jPanel3.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 240, 280));
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Cartão Crédito/Débito"));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -676,6 +707,10 @@ public class TelaPermissoes extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_EXCLUIR_CLIENTE14ActionPerformed
 
+    private void EXCLUIR_CLIENTE16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXCLUIR_CLIENTE16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EXCLUIR_CLIENTE16ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -729,6 +764,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox EXCLUIR_CLIENTE13;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE14;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE15;
+    private javax.swing.JCheckBox EXCLUIR_CLIENTE16;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE2;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE3;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE4;
@@ -740,6 +776,9 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox EXCLUIR_GRUPO_PRODUTO;
     private javax.swing.JCheckBox EXCLUIR_PRODUTO;
     private javax.swing.JCheckBox EXCLUIR_PRODUTO1;
+    private javax.swing.JCheckBox EXCLUIR_PRODUTO2;
+    private javax.swing.JCheckBox EXCLUIR_PRODUTO3;
+    private javax.swing.JCheckBox EXCLUIR_PRODUTO4;
     private javax.swing.JCheckBox EXCLUIR_VENDEDOR;
     private javax.swing.JCheckBox EXCLUIR_VENDEDOR1;
     private javax.swing.JButton btCancelar;

@@ -6,6 +6,7 @@
 package br.venda;
 
 import br.cliente.Cliente;
+import br.livro.Caixa;
 import br.usuario.Usuario;
 import br.vendedor.Vendedor;
 import java.io.Serializable;
@@ -50,7 +51,18 @@ public class Venda implements Comparable<Venda>, Serializable{
     private boolean cancelada;
     
     private double vlVista, vlPromissoria, vlCartao;
+    
+    @ManyToOne
+    private Caixa caixa;
 
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
+    }
+    
     public double getVlVista() {
         return vlVista;
     }

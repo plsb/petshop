@@ -9,8 +9,7 @@
 		<![CDATA[select p.codigo,g.descricao descGrupo, p.descricao descProduto, p.precoVenda, p.precoCusto, p.qtdEstoque,(p.precoVenda*p.qtdEstoque) as vendaquant,(p.precoCusto*p.qtdEstoque) as custoquant, p.descricaoUnidade   from produto p
 inner join grupoproduto g on g.id=p.grupoProduto_id
 where servico=false and p.qtdEstoque>0
-$P!{sql}
-]]>
+$P!{sql}]]>
 	</queryString>
 	<field name="codigo" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -59,14 +58,14 @@ $P!{sql}
 			<staticText>
 				<reportElement uuid="39a8820c-dda5-4f49-ae72-ef8a51e4a562" x="4" y="0" width="798" height="35"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="20" isBold="true"/>
+					<font fontName="Bitstream Vera Sans Mono" size="20" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[RELAÇÃO DE PRODUTOS]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="cc8a85ba-55ac-4840-aefa-e6d546021873" x="0" y="24" width="798" height="25"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="16" isItalic="true"/>
+					<font fontName="Bitstream Vera Sans Mono" size="16" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{texto}]]></textFieldExpression>
 			</textField>
@@ -77,56 +76,56 @@ $P!{sql}
 			<staticText>
 				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="21" y="0" width="43" height="20"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="98" y="0" width="113" height="20"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Descrição Produto]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="332" y="0" width="64" height="20"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grupo]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="488" y="1" width="38" height="20"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Qtd.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="538" y="0" width="43" height="20"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Venda]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="642" y="0" width="78" height="20"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Venda X Qtd]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="720" y="0" width="82" height="20"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Compra X Qtd]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="582" y="0" width="56" height="20"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Compra]]></text>
 			</staticText>
@@ -140,100 +139,94 @@ $P!{sql}
 			<textField pattern="dd/MM/yyyy">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="0" y="0" width="88" height="20"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="98" y="0" width="234" height="20"/>
 				<textElement>
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descProduto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="332" y="0" width="87" height="20"/>
 				<textElement textAlignment="Left">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descGrupo}]]></textFieldExpression>
 			</textField>
-			<textField pattern="">
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="488" y="1" width="38" height="20"/>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="477" y="1" width="49" height="20"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{qtdEstoque}]]></textFieldExpression>
 			</textField>
-			<textField pattern="">
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="526" y="0" width="55" height="20"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{precoVenda}]]></textFieldExpression>
 			</textField>
-			<textField pattern="" isBlankWhenNull="true">
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="582" y="0" width="55" height="20"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{precoCusto}]]></textFieldExpression>
 			</textField>
-			<textField pattern="" isBlankWhenNull="true">
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="638" y="0" width="82" height="20"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{vendaquant}]]></textFieldExpression>
 			</textField>
-			<textField pattern="" isBlankWhenNull="true">
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="720" y="0" width="82" height="20"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{custoquant}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="450" y="1" width="38" height="20"/>
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="439" y="1" width="38" height="20"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descricaoUnidade}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="27" splitType="Stretch">
-			<textField pattern="" isBlankWhenNull="true">
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="720" y="4" width="82" height="20"/>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="720" y="2" width="82" height="20"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{somacusto}]]></textFieldExpression>
 			</textField>
-			<textField pattern="" isBlankWhenNull="true">
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="637" y="4" width="82" height="20"/>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="637" y="2" width="82" height="20"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{somavenda}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="befd6795-b1b4-44d7-8cc4-bb52fd651aaf" x="3" y="2" width="798" height="1"/>
+				<reportElement uuid="befd6795-b1b4-44d7-8cc4-bb52fd651aaf" x="0" y="0" width="798" height="1"/>
 			</line>
-			<textField pattern="" isBlankWhenNull="true">
-				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="454" y="4" width="72" height="20"/>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="454" y="2" width="72" height="20"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{somaquantidade}]]></textFieldExpression>
 			</textField>
 		</band>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
 	</summary>
 </jasperReport>

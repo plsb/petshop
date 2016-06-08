@@ -328,7 +328,6 @@ public class TelaProduto extends javax.swing.JDialog {
         setVisible(false);
     }//GEN-LAST:event_btCancelarActionPerformed
 
-    
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (Util.verificaPermissao("CE_PRODUTO", 1)) {
@@ -475,18 +474,63 @@ public class TelaProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void imHistoricoAlteracaoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imHistoricoAlteracaoItemActionPerformed
-        if (!produto.isServico()) {
+        if (Util.verificaPermissao("REL_HIST_PRODUTO", 1)) {
+            if (!produto.isServico()) {
+                JasperReport pathjrxml;
+                HashMap parametros = new HashMap();
+
+                String sql = "", texto = "";
+
+                sql += String.valueOf(produto.getId());
+
+                try {
+                    parametros.put("sql", sql);
+                } catch (Exception e) {
+                }
+
+                String caminho = Util.retornaCaminhoApp();
+//        String caminho = "";
+
+                Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
+                try {
+                    JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
+                    viewer.setSize(1000, 600);
+                    viewer.setLocationRelativeTo(null);
+                    viewer.setModal(true);
+                    File file = new File(caminho + "relatorios/reportHistoricoItem.jrxml");
+                    FileInputStream is = new FileInputStream(file);
+                    pathjrxml = JasperCompileManager.compileReport(is);
+                    JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
+                            connection);
+                    JasperViewer jv = new JasperViewer(printReport, false);
+                    viewer.getContentPane().add(jv.getContentPane());
+                    viewer.setVisible(true);
+                //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
+
+                    //jv.setVisible(true);
+                } catch (JRException ex) {
+                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                } catch (FileNotFoundException ex) {
+                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                }
+            } else {
+                JOptionPane.showMessageDialog(tfPrecoCompra, "Serviço não possui histórico!");
+            }
+        }
+    }//GEN-LAST:event_imHistoricoAlteracaoItemActionPerformed
+
+    private void imRelacaoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imRelacaoProdutosActionPerformed
+        if (Util.verificaPermissao("REL_RELA_PRODUTOS", 1)) {
             JasperReport pathjrxml;
             HashMap parametros = new HashMap();
 
-            String sql = "", texto = "";
-
-            sql += String.valueOf(produto.getId());
+            String sql = " order by g.descricao, p.descricao", texto = "Geral";
 
             try {
                 parametros.put("sql", sql);
             } catch (Exception e) {
             }
+            parametros.put("texto", texto);
 
             String caminho = Util.retornaCaminhoApp();
 //        String caminho = "";
@@ -494,10 +538,10 @@ public class TelaProduto extends javax.swing.JDialog {
             Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
             try {
                 JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
-                viewer.setSize(1000, 600);
+                viewer.setSize(1200, 600);
                 viewer.setLocationRelativeTo(null);
                 viewer.setModal(true);
-                File file = new File(caminho + "relatorios/reportHistoricoItem.jrxml");
+                File file = new File(caminho + "relatorios/reportInvetarioEstoque.jrxml");
                 FileInputStream is = new FileInputStream(file);
                 pathjrxml = JasperCompileManager.compileReport(is);
                 JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
@@ -513,85 +557,44 @@ public class TelaProduto extends javax.swing.JDialog {
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             }
-        } else {
-            JOptionPane.showMessageDialog(tfPrecoCompra, "Serviço não possui histórico!");
-        }
-
-    }//GEN-LAST:event_imHistoricoAlteracaoItemActionPerformed
-
-    private void imRelacaoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imRelacaoProdutosActionPerformed
-        JasperReport pathjrxml;
-        HashMap parametros = new HashMap();
-
-        String sql = " order by g.descricao, p.descricao", texto = "Geral";
-
-        try {
-            parametros.put("sql", sql);
-        } catch (Exception e) {
-        }
-        parametros.put("texto", texto);
-
-        String caminho = Util.retornaCaminhoApp();
-//        String caminho = "";
-
-        Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
-        try {
-            JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
-            viewer.setSize(1200, 600);
-            viewer.setLocationRelativeTo(null);
-            viewer.setModal(true);
-            File file = new File(caminho + "relatorios/reportInvetarioEstoque.jrxml");
-            FileInputStream is = new FileInputStream(file);
-            pathjrxml = JasperCompileManager.compileReport(is);
-            JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
-                    connection);
-            JasperViewer jv = new JasperViewer(printReport, false);
-            viewer.getContentPane().add(jv.getContentPane());
-            viewer.setVisible(true);
-                //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
-
-            //jv.setVisible(true);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }//GEN-LAST:event_imRelacaoProdutosActionPerformed
 
     private void imEstoqueMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imEstoqueMinimoActionPerformed
-        JasperReport pathjrxml;
-        HashMap parametros = new HashMap();
+        if (Util.verificaPermissao("REL_EST_MIN", 1)) {
+            JasperReport pathjrxml;
+            HashMap parametros = new HashMap();
 
-        String caminho = Util.retornaCaminhoApp();
+            String caminho = Util.retornaCaminhoApp();
 //        String caminho = "";
 
-        Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
-        try {
-            JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
-            viewer.setSize(1200, 600);
-            viewer.setLocationRelativeTo(null);
-            viewer.setModal(true);
-            File file = new File(caminho + "relatorios/reportEstoqueMinimo.jrxml");
-            FileInputStream is = new FileInputStream(file);
-            pathjrxml = JasperCompileManager.compileReport(is);
-            JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
-                    connection);
-            JasperViewer jv = new JasperViewer(printReport, false);
-            viewer.getContentPane().add(jv.getContentPane());
-            viewer.setVisible(true);
+            Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
+            try {
+                JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
+                viewer.setSize(1200, 600);
+                viewer.setLocationRelativeTo(null);
+                viewer.setModal(true);
+                File file = new File(caminho + "relatorios/reportEstoqueMinimo.jrxml");
+                FileInputStream is = new FileInputStream(file);
+                pathjrxml = JasperCompileManager.compileReport(is);
+                JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
+                        connection);
+                JasperViewer jv = new JasperViewer(printReport, false);
+                viewer.getContentPane().add(jv.getContentPane());
+                viewer.setVisible(true);
                 //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
 
-            //jv.setVisible(true);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                //jv.setVisible(true);
+            } catch (JRException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
         }
-
     }//GEN-LAST:event_imEstoqueMinimoActionPerformed
 
     private void imCurvaABCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imCurvaABCActionPerformed
-        if(Util.verificaPermissao("REL_CURVA_ABC", 1)){
+        if (Util.verificaPermissao("REL_CURVA_ABC", 1)) {
             HashMap<String, String> map = TelaEscolhaData.chamaTela();
             if (map != null) {
                 String dataInicial = "", dataFinal = "";
@@ -611,8 +614,8 @@ public class TelaProduto extends javax.swing.JDialog {
                 }
 
                 HashMap parametros = new HashMap();
-                parametros.put("dtInicial", "'"+dataInicial+"'");
-                parametros.put("dtFinal", "'"+dataFinal+"'");
+                parametros.put("dtInicial", "'" + dataInicial + "'");
+                parametros.put("dtFinal", "'" + dataFinal + "'");
                 Util.imprimir("relatorios/reportCurvaABCEstoque.jrxml", parametros);
 
             } else {

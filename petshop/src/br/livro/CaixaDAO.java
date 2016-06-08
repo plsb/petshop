@@ -47,6 +47,8 @@ public class CaixaDAO extends GenericDAO<Caixa>{
 
     }
     
+    
+    
     public List<Caixa> listCaixaAberto(String nrCaixa) {
         List<Caixa> lista = null;
         try {           

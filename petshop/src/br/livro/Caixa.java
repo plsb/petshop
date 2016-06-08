@@ -41,7 +41,7 @@ public class Caixa implements Serializable, Comparable<Caixa>{
     private Usuario user;
     
     private boolean aberto;
-
+    
     public Date getHoraAbriu() {
         return horaAbriu;
     }

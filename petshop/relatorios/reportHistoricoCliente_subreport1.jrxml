@@ -135,7 +135,7 @@ order by c.dataVencimento desc]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nrConta}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="363" y="-1" width="71" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
@@ -161,14 +161,14 @@ order by c.dataVencimento desc]]>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportHistoricoCliente_subreport1_subreport1.jasper"]]></subreportExpression>
 			</subreport>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="43ff9ed5-b469-456c-9e09-03de44fa9f97" x="334" y="3" width="100" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPago}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="43ff9ed5-b469-456c-9e09-03de44fa9f97" x="334" y="23" width="100" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="10"/>

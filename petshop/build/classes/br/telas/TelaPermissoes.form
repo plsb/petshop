@@ -69,7 +69,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="470" y="10" width="230" height="140"/>
+                      <AbsoluteConstraints x="470" y="10" width="230" height="290"/>
                     </Constraint>
                   </Constraints>
 
@@ -82,6 +82,9 @@
                                   <Component id="EXCLUIR_PRODUTO" min="-2" max="-2" attributes="0"/>
                                   <Component id="jCheckBox6" min="-2" max="-2" attributes="0"/>
                                   <Component id="EXCLUIR_PRODUTO1" alignment="0" min="-2" pref="202" max="-2" attributes="0"/>
+                                  <Component id="EXCLUIR_PRODUTO2" min="-2" pref="202" max="-2" attributes="0"/>
+                                  <Component id="EXCLUIR_PRODUTO3" min="-2" pref="202" max="-2" attributes="0"/>
+                                  <Component id="EXCLUIR_PRODUTO4" min="-2" pref="202" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -97,7 +100,13 @@
                               <Component id="EXCLUIR_PRODUTO" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="EXCLUIR_PRODUTO1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="25" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="EXCLUIR_PRODUTO2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="EXCLUIR_PRODUTO3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="EXCLUIR_PRODUTO4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="103" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -128,6 +137,24 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Relat. Curva ABC"/>
                         <Property name="name" type="java.lang.String" value="REL_CURVA_ABC" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="EXCLUIR_PRODUTO2">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Relat. Estoque Minimo"/>
+                        <Property name="name" type="java.lang.String" value="REL_EST_MIN" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="EXCLUIR_PRODUTO3">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Relat. Hist&#xf3;rico de Produto"/>
+                        <Property name="name" type="java.lang.String" value="REL_HIST_PRODUTO" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="EXCLUIR_PRODUTO4">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Relat. Rela&#xe7;&#xe3;o de Produtos"/>
+                        <Property name="name" type="java.lang.String" value="REL_RELA_PRODUTOS" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -449,7 +476,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="470" y="10" width="240" height="260"/>
+                      <AbsoluteConstraints x="470" y="10" width="240" height="280"/>
                     </Constraint>
                   </Constraints>
 
@@ -473,15 +500,15 @@
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="EXCLUIR_CLIENTE1">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Inserir Or&#xe7;amento"/>
-                        <Property name="name" type="java.lang.String" value="INSERIR_ORCAMENTO" noResource="true"/>
+                        <Property name="text" type="java.lang.String" value="Visualizar Vendas Realizadas Pelo Usu&#xe1;rio"/>
+                        <Property name="name" type="java.lang.String" value="VISUAL_APENAS_VENDAS_REAL_PELO_USU" noResource="true"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EXCLUIR_CLIENTE1ActionPerformed"/>
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="10" y="200" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="10" y="220" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -582,6 +609,20 @@
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                           <AbsoluteConstraints x="10" y="180" width="-1" height="-1"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="EXCLUIR_CLIENTE16">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Inserir Or&#xe7;amento"/>
+                        <Property name="name" type="java.lang.String" value="INSERIR_ORCAMENTO" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EXCLUIR_CLIENTE16ActionPerformed"/>
+                      </Events>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="10" y="200" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>

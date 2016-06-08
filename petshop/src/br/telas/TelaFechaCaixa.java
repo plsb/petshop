@@ -7,8 +7,10 @@ package br.telas;
 
 import br.livro.Caixa;
 import br.livro.CaixaDAO;
+import br.livro.LivroCaixaDAO;
 import br.util.Ativo;
 import br.util.Util;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,6 +79,11 @@ public class TelaFechaCaixa extends javax.swing.JDialog {
         tfValorRetirada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfValorRetirada.setToolTipText("Digite aqui o valor que será retirado do caixa");
         tfValorRetirada.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        tfValorRetirada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfValorRetiradaFocusLost(evt);
+            }
+        });
         tfValorRetirada.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tfValorRetiradaKeyPressed(evt);
@@ -119,6 +126,11 @@ public class TelaFechaCaixa extends javax.swing.JDialog {
         tfValorAtual.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfValorAtual.setToolTipText("Digite aqui o valor que fica no caixa");
         tfValorAtual.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        tfValorAtual.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfValorAtualFocusLost(evt);
+            }
+        });
         tfValorAtual.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tfValorAtualKeyPressed(evt);
@@ -163,6 +175,38 @@ public class TelaFechaCaixa extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void calculaSaldo() {
+        double valorRetirada = 0, valorAtual = 0;
+        try {
+            valorRetirada = Double.parseDouble(tfValorRetirada.getText().replaceAll(",", "."));
+        } catch (Exception e) {
+            valorRetirada = 0;
+        }
+        try {
+            valorAtual = Double.parseDouble(tfValorAtual.getText().replaceAll(",", "."));
+        } catch (Exception e) {
+            valorAtual = 0;
+        }
+
+        double saldo = 0;
+        LivroCaixaDAO lDAO = new LivroCaixaDAO();
+        double s2 = lDAO.valorSaldoCaixa(Ativo.getCaixa());
+        if (caixaAnterior != null) {
+            saldo = ((valorAtual + valorRetirada) - caixaAnterior.getValorFicaCaixa())-s2;
+        } else {
+            saldo = (valorAtual + valorRetirada) - s2;
+        }
+        
+        if(saldo==0){
+            lblSaldo.setText("Saldo: " + Util.acertarNumero(saldo));
+            lblSaldo.setForeground(Color.BLUE);
+        } else {
+            lblSaldo.setText("Saldo: " + Util.acertarNumero(saldo));
+            lblSaldo.setForeground(Color.RED);
+        }
+        
+    }
+
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
         if (Util.chkVazio(tfValorRetirada.getText(), tfValorAtual.getText())) {
             double valorRetirada = 0, valorAtual = 0;
@@ -192,15 +236,7 @@ public class TelaFechaCaixa extends javax.swing.JDialog {
             c.setHoraFechou(new Date());
             c.setRetirada(valorRetirada);
             c.setValorFicaCaixa(valorAtual);
-            double saldo = 0;
-            if (caixaAnterior != null) {
-                saldo = (valorAtual + valorRetirada) - caixaAnterior.getValorFicaCaixa();
-            } else {
-                saldo = (valorAtual + valorRetirada);
-            }
-
-            lblSaldo.setText("Saldo: " + Util.acertarNumero(saldo));
-
+            
             if (JOptionPane.showConfirmDialog(rootPane, "Deseja Fechar o Caixa Nº "
                     + c.getNrCaixa(), "", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
                 return;
@@ -215,18 +251,24 @@ public class TelaFechaCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_btConfirmarActionPerformed
 
     private void tfValorRetiradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorRetiradaKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            btConfirmarActionPerformed(null);
-        }
+        calculaSaldo();
     }//GEN-LAST:event_tfValorRetiradaKeyPressed
 
     private void tfValorAtualKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorAtualKeyPressed
-        // TODO add your handling code here:
+        calculaSaldo();
     }//GEN-LAST:event_tfValorAtualKeyPressed
 
     private void tfCaixaAnteriorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCaixaAnteriorKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCaixaAnteriorKeyPressed
+
+    private void tfValorAtualFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorAtualFocusLost
+        calculaSaldo();
+    }//GEN-LAST:event_tfValorAtualFocusLost
+
+    private void tfValorRetiradaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorRetiradaFocusLost
+        calculaSaldo();
+    }//GEN-LAST:event_tfValorRetiradaFocusLost
 
     /**
      * @param args the command line arguments

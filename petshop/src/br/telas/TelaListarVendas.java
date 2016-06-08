@@ -280,7 +280,13 @@ public class TelaListarVendas extends JDialog {
             if (dataIni == null && dataFim == null) {
                 preencheTabela(new ArrayList<Venda>());
             } else {
-                List<Venda> listaVenda = dao.listVendaEntreDatas(dataIni, dataFim);
+                List<Venda> listaVenda = new ArrayList<>();
+                if(Util.verificaPermissao("VISUAL_APENAS_VENDAS_REAL_PELO_USU", 0)){
+                    listaVenda = dao.listVendaEntreDatasPorUsuario(dataIni, dataFim);
+                } else {
+                    listaVenda = dao.listVendaEntreDatas(dataIni, dataFim);
+                }
+                
                 preencheTabela(listaVenda);
                 preencheTotais(listaVenda);
             }

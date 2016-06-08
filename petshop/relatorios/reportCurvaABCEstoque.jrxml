@@ -22,8 +22,7 @@ inner join produto p on p.id=iv.produto_id
 inner join venda v on v.id=iv.venda_id
 where p.servico=false and v.data between $P!{dtInicial} and $P!{dtFinal}
 group by p.id
-order by 4 desc;
-]]>
+order by 4 desc;]]>
 	</queryString>
 	<field name="codigo" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -92,9 +91,6 @@ order by 4 desc;
 			</textField>
 		</band>
 	</title>
-	<pageHeader>
-		<band height="13" splitType="Stretch"/>
-	</pageHeader>
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<staticText>
@@ -197,13 +193,4 @@ order by 4 desc;
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

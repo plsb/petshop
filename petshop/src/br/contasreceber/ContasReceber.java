@@ -47,7 +47,7 @@ public class ContasReceber implements Comparable<ContasReceber>{
     private Date dataPagamento;
     
     private double valorPago;
-
+    
     public String getNrConta() {
         return nrConta;
     }

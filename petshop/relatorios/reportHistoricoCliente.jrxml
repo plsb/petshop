@@ -267,21 +267,21 @@ order by v.id desc]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cancelada}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="284" y="0" width="71" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valorTotal}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="355" y="0" width="41" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{desconto}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="396" y="1" width="71" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
@@ -300,7 +300,7 @@ order by v.id desc]]>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportHistoricoCliente_subreport1.jasper"]]></subreportExpression>
 			</subreport>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="396" y="3" width="71" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
@@ -310,7 +310,7 @@ order by v.id desc]]>
 			<line>
 				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="2" y="2" width="552" height="1"/>
 			</line>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="397" y="23" width="71" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>

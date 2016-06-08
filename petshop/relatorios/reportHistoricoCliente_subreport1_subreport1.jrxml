@@ -136,7 +136,7 @@ where cc.cliente_id=$P{idcliente}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="418" y="0" width="71" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
@@ -147,7 +147,7 @@ where cc.cliente_id=$P{idcliente}]]>
 	</detail>
 	<summary>
 		<band height="42" splitType="Stretch">
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="650f1208-4d0f-448d-9b73-0874c73412aa" x="389" y="5" width="100" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="10"/>

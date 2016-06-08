@@ -32,8 +32,9 @@ public class TelaAbrirCaixa extends javax.swing.JDialog {
         setModal(true);
         setLocationRelativeTo(null);
         setTitle("Abrir Caixa");
-        
+
         CaixaDAO dao = new CaixaDAO();
+
     }
 
     /**
@@ -108,31 +109,58 @@ public class TelaAbrirCaixa extends javax.swing.JDialog {
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
         if (Util.chkVazio(cbNrCaixa.getSelectedItem().toString())) {
             /*double valor = 0;
-            try {
-                valor = Double.parseDouble(tfValorInicial.getText().replaceAll(",", "."));
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO no valor!");
-                return;
-            }
-            if (valor <= 0) {
-                JOptionPane.showMessageDialog(rootPane, "O Valor Inicial deve ser Maior que 0!");
-                tfValorInicial.requestFocus();
-                return;
-            }*/
-            
-            Caixa c = new Caixa();
-            CaixaDAO cDAO = new CaixaDAO();
-            String numeroC = (String)cbNrCaixa.getSelectedItem();
-            if(cDAO.listCaixaAberto(numeroC).size()>0){
-                Caixa caixa = cDAO.listCaixaAberto(numeroC).get(0);
-                JOptionPane.showMessageDialog(rootPane, "Caixa de Nº "+
-                        numeroC+",\nfoi aberto pelo usuário: "+
-                        caixa.getUser().getNome()+
-                        "\ne ainda não foi encerrado!");
-                return ;
-            }
-            
+             try {
+             valor = Double.parseDouble(tfValorInicial.getText().replaceAll(",", "."));
+             } catch (Exception e) {
+             JOptionPane.showMessageDialog(rootPane, "ERRO no valor!");
+             return;
+             }
+             if (valor <= 0) {
+             JOptionPane.showMessageDialog(rootPane, "O Valor Inicial deve ser Maior que 0!");
+             tfValorInicial.requestFocus();
+             return;
+             }*/
 
+            
+            CaixaDAO cDAO = new CaixaDAO();
+            String numeroC = (String) cbNrCaixa.getSelectedItem();
+            if (cDAO.listCaixaAberto(numeroC).size() > 0) {
+                Caixa caixa = cDAO.listCaixaAberto(numeroC).get(0);
+                JOptionPane.showMessageDialog(rootPane, "Caixa de Nº "
+                        + numeroC + ",\nfoi aberto pelo usuário: "
+                        + caixa.getUser().getNome()
+                        + "\ne ainda não foi encerrado!");
+                return;
+            }
+
+            if (cDAO.checkExists("nrCaixa", numeroC).size() == 0) {
+                double vlInicial = 0;
+                do {
+                    try {
+                        vlInicial = Double.
+                                parseDouble(JOptionPane.showInputDialog("Primeira Abertura do Caixa "
+                                                + numeroC + ", Informe um valor Inicial: "));
+                    } catch (Exception e) {
+                        vlInicial = -1;
+                    }
+
+                } while (vlInicial == -1);
+                Caixa cInicial = new Caixa();
+                cInicial.setAberto(false);
+                cInicial.setDataAbriu(new Date());
+                cInicial.setDataFechou(new Date());
+                cInicial.setHoraAbriu(new Date());
+                cInicial.setHoraFechou(new Date());
+                cInicial.setNrCaixa(numeroC);
+                cInicial.setRetirada(0);
+                cInicial.setUser(Ativo.getUsuario());
+                cInicial.setValorFicaCaixa(vlInicial);
+
+                cDAO.add(cInicial);
+
+            }
+
+            Caixa c = new Caixa();
             c.setAberto(true);
             c.setDataAbriu(new Date());
             c.setHoraAbriu(new Date());
@@ -141,7 +169,7 @@ public class TelaAbrirCaixa extends javax.swing.JDialog {
 
             cDAO.add(c);
             dispose();
-            
+
             Ativo.setCaixa(c);
 
         }
