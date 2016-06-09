@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportCartaoCredito" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="de3e8840-b682-45db-af1a-8d8b9a8e9d4f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dtInicial" class="java.lang.String"/>
+	<parameter name="dtFim" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT cc.bandeira, cc.data, cc.qtdParcelas, cc.valor, c.nome,
+case debito
+when true then 'Débito'
+when false then 'Crédito'
+end tipo FROM cartaocredito cc
+inner join cliente c on c.id=cc.cliente_id
+where cc.data between $P!{dtInicial} and $P!{dtFim}
+order by cc.data, c.nome, cc.bandeira]]>
+	</queryString>
+	<field name="bandeira" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtdParcelas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo" class="java.lang.String"/>
+	<variable name="total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="87">
+			<textField>
+				<reportElement uuid="a7eb0a1f-ea2d-4b51-b4e3-c3119f798201" x="326" y="0" width="226" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Data/Hora Impressão: "+new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="3" y="23" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bitstream Vera Sans Mono" size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CARTÕES DE CRÉDITO/DÉBITO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="327" y="63" width="93" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dt. Final:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="421" y="63" width="101" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dtFim}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="421" y="43" width="101" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dtInicial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="325" y="43" width="96" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dt. Inicial:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="178" y="2" width="74" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bandeira]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="255" y="2" width="88" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="511" y="1" width="35" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="4" y="21" width="549" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="339" y="1" width="69" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="408" y="2" width="57" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Parcelas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="4" y="1" width="74" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="257" y="0" width="73" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="177" y="0" width="77" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bandeira}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="421" y="0" width="44" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qtdParcelas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="475" y="0" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="339" y="1" width="69" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="4" y="0" width="173" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="650f1208-4d0f-448d-9b73-0874c73412aa" x="446" y="3" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="3" y="2" width="549" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
