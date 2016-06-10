@@ -481,9 +481,6 @@ public class TelaVenda extends javax.swing.JDialog {
         if (venda == null) {
             venda = new Venda();
         }
-        if (cbCliente.getSelectedIndex() > 0) {
-            venda.setCliente((Cliente) cbCliente.getSelectedItem());
-        }
         if (cbVendedor.getSelectedIndex() > 0) {
             venda.setVendedor((Vendedor) cbVendedor.getSelectedItem());
         }
@@ -773,6 +770,9 @@ public class TelaVenda extends javax.swing.JDialog {
                     itensVenda1.setDescontoProduto(
                             Double.parseDouble(
                                     Util.acertarNumero(itensVenda1.getDesconto()).replaceFirst(",", ".")));
+                    itensVenda1.setValorTotalComDesconto(itensVenda1.getParcial()
+                            - itensVenda1.getDescontoProduto());
+
                     ivDAO.add(itensVenda1);
                 }
 
@@ -844,10 +844,10 @@ public class TelaVenda extends javax.swing.JDialog {
         ContasReceberDAO crDAO = new ContasReceberDAO();
         if (cbCliente.getSelectedIndex() > 0) {
             if (crDAO.listaContasClienteEmAtraso((Cliente) cbCliente.getSelectedItem()).size() > 0) {
-                if (!Util.verificaPermissao("PERMITIR_QUE_CLIENTES_EM_ATRASO_COMPREM", 0)) {
+                if (!Util.verificaPermissao("PERMITIR_QUE_CLIENTES_EM_ATRASO_COMPREM", 1)) {
                     JOptionPane.showMessageDialog(rootPane, "O Cliente está em atraso!\n"
                             + "Você não possui permissão para vendê-lo.");
-                    cbCliente.requestFocus();
+                    cbCliente.setSelectedIndex(0);
                 }
                 lblDebito.setVisible(true);
             } else {
@@ -857,6 +857,13 @@ public class TelaVenda extends javax.swing.JDialog {
         } else {
             lblDebito.setVisible(false);
         }
+        if (venda == null) {
+            venda = new Venda();
+        }
+        if (cbCliente.getSelectedIndex() > 0) {
+            venda.setCliente((Cliente) cbCliente.getSelectedItem());
+        }
+
     }//GEN-LAST:event_cbClienteFocusLost
 
     private void lblDebitoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDebitoMouseClicked

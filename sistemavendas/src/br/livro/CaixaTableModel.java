@@ -1,4 +1,4 @@
-package br.cartao;
+package br.livro;
 
 import br.caixageral.*;
 import br.cliente.*;
@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class CaixaTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Código", "Situação", "Data", "Nº Caixa", "Usuário"};
+    private String[] nomeColunas = {"Código", "Situação", "Data Aberto", "Hora Aberto", "Nº Caixa", "Usuário"};
     private List<Caixa> cg;
 
     /**
@@ -72,8 +72,10 @@ public class CaixaTableModel extends AbstractTableModel {
             case 2:
                 return caixa.getDataAbriu();
             case 3:
-                return caixa.getNrCaixa();
+                return caixa.getHoraAbriu();
             case 4:
+                return caixa.getNrCaixa();
+            case 5:
                 return caixa.getUser().getNome();
 
         }
@@ -104,6 +106,8 @@ public class CaixaTableModel extends AbstractTableModel {
                 return nomeColunas[3];
             case 4:
                 return nomeColunas[4];
+            case 5:
+                return nomeColunas[5];
 
         }
         return null;

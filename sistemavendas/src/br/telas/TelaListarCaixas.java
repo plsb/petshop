@@ -5,7 +5,7 @@
  */
 package br.telas;
 
-import br.cartao.CaixaTableModel;
+import br.livro.CaixaTableModel;
 import br.livro.Caixa;
 import br.livro.CaixaDAO;
 import br.util.FormataTamanhoColunasJTable;
@@ -37,7 +37,7 @@ public class TelaListarCaixas extends javax.swing.JDialog {
         tfDataInicio.setText(dfdtData.format(new Date()));
         tfDataFim.setText(dfdtData.format(new Date()));
         btPesquisarActionPerformed(null);
-        setTitle("Listar Vendas");
+        setTitle("Listar Caixas");
         btPesquisarActionPerformed(null);
     }
 
@@ -91,7 +91,7 @@ public class TelaListarCaixas extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tb);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 610, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 460, 240));
 
         try {
             tfDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -132,7 +132,7 @@ public class TelaListarCaixas extends javax.swing.JDialog {
                 btImprimirActionPerformed(evt);
             }
         });
-        jPanel1.add(btImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, 50));
+        jPanel1.add(btImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, -1, 50));
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel2.png"))); // NOI18N
         btSair.setToolTipText("Visualizar Venda");
@@ -141,9 +141,9 @@ public class TelaListarCaixas extends javax.swing.JDialog {
                 btSairActionPerformed(evt);
             }
         });
-        jPanel1.add(btSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 340, 70, 50));
+        jPanel1.add(btSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 340, 70, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 400));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

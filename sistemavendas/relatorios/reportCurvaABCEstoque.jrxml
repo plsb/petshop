@@ -9,12 +9,12 @@
 		<![CDATA[select
 	p.codigo,
 	p.descricao,
-	avg(iv.valorUni) valorUni,
+	sum(valorTotalComDesconto)/sum(iv.quantidade) valorUni,
 	sum(iv.quantidade) quant,
-	avg(iv.valorUni)*sum(iv.quantidade) quantXvalor,
+	sum(valorTotalComDesconto) quantXvalor,
 
-((avg(iv.valorUni)*sum(iv.quantidade))*100)/
-	((select (sum(quantidade)*avg(valorUni)) from itemvenda
+	(sum(valorTotalComDesconto)*100)/
+	((select sum(valorTotalComDesconto) from itemvenda
 			inner join produto on produto.id=itemvenda.produto_id
 			inner join venda on venda.id=itemvenda.venda_id
 			where venda.data between $P!{dtInicial} and $P!{dtFinal} and venda.cancelada=false

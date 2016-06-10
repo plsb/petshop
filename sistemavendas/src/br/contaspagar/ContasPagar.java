@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class ContasPagar {
+public class ContasPagar implements Comparable<ContasPagar>{
     
     @Id
     @GeneratedValue
@@ -29,12 +29,53 @@ public class ContasPagar {
     private Date dataConta;
     
     @Temporal(TemporalType.DATE)
+    private Date dataPagamento;
+    
+    private String nrConta;
+    
+    private int nrParcela;
+    
+    @Temporal(TemporalType.DATE)
     private Date dataVencimento;
     
     private double valor;
     
     private double valorPago;
+    
+    private boolean paga;
 
+    public boolean isPaga() {
+        return paga;
+    }
+
+    public void setPaga(boolean paga) {
+        this.paga = paga;
+    }
+    
+    public int getNrParcela() {
+        return nrParcela;
+    }
+
+    public void setNrParcela(int nrParcela) {
+        this.nrParcela = nrParcela;
+    }
+    
+    public String getNrConta() {
+        return nrConta;
+    }
+
+    public void setNrConta(String nrConta) {
+        this.nrConta = nrConta;
+    }
+    
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -128,6 +169,11 @@ public class ContasPagar {
     @Override
     public String toString() {
         return "ContasPagar{" + "id=" + id + ", fornecedor=" + fornecedor + ", dataConta=" + dataConta + ", dataVencimento=" + dataVencimento + ", valor=" + valor + ", valorPago=" + valorPago + '}';
+    }
+
+    @Override
+    public int compareTo(ContasPagar o) {
+        return id.compareTo(o.id);
     }
     
 }

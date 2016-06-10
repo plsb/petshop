@@ -37,11 +37,21 @@ public class ItemVenda implements Comparable<ItemVenda>, Serializable {
     private double valorUni;
         
     private double descontoProduto;
+    
+    private double valorTotalComDesconto;
 
     private Integer ordem;
 
     private boolean cancelado;  
 
+    public double getValorTotalComDesconto() {
+        return valorTotalComDesconto;
+    }
+
+    public void setValorTotalComDesconto(double valorTotalComDesconto) {
+        this.valorTotalComDesconto = valorTotalComDesconto;
+    }
+    
     public double getDescontoProduto() {
         return descontoProduto;
     }

@@ -458,4 +458,18 @@ public class Util {
         return soma > 9 ? 0 : soma;
     }
 
+    public static Date verificaData(String data) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false);
+        Date date =null;
+        try {
+            date = sdf.parse(data);
+            return date;
+            // se passou pra cá, é porque a data é válida
+        } catch (ParseException e) {
+            return date;
+        }
+        
+    }
+
 }

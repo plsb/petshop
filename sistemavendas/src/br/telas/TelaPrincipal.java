@@ -55,6 +55,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mmContaBancaria.setVisible(Util.verificaPermissao("V_CONTA_BANCARIA", 0));
         mmCaixaGeral.setVisible(Util.verificaPermissao("CAIXA_GERAL", 0));
         mmListarCaixas.setVisible(Util.verificaPermissao("LISTAR_CAIXAS", 0));
+        mmListarCaixas.setVisible(Util.verificaPermissao("CONTAS_PAGAR", 0));
     }
 
     /**
@@ -88,6 +89,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mmOrcamento = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         mmCaixaGeral = new javax.swing.JMenuItem();
+        mmContasPagar = new javax.swing.JMenuItem();
         mmListarCaixas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -273,6 +275,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu4.add(mmCaixaGeral);
 
+        mmContasPagar.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        mmContasPagar.setMnemonic('p');
+        mmContasPagar.setText("Contas Pagar");
+        mmContasPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mmContasPagarActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mmContasPagar);
+
         mmListarCaixas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         mmListarCaixas.setMnemonic('l');
         mmListarCaixas.setText("Listar Caixas");
@@ -382,6 +394,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tlc.setVisible(true);
     }//GEN-LAST:event_mmListarCaixasActionPerformed
 
+    private void mmContasPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmContasPagarActionPerformed
+        TelaContaPagar tcp = new TelaContaPagar();
+        tcp.setVisible(true);
+    }//GEN-LAST:event_mmContasPagarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -431,6 +448,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mmCliente;
     private javax.swing.JMenuItem mmContaBancaria;
     private javax.swing.JMenuItem mmContaReceber;
+    private javax.swing.JMenuItem mmContasPagar;
     private javax.swing.JMenuItem mmEmpresa;
     private javax.swing.JMenuItem mmFornecedor;
     private javax.swing.JMenuItem mmGrupoProduto;

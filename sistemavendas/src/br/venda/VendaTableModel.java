@@ -13,7 +13,8 @@ import javax.swing.table.AbstractTableModel;
 public class VendaTableModel extends AbstractTableModel {
 
     private String[] nomeColunas = {"Id", "Data", "Hora", "Tipo Pagamento", "Cliente",
-        "Vendedor", "Parcial", "Desconto", "Total", "Vl. Dinh.", "Vl. Prom.", "Vl. Cartão", "Realizou Venda"};
+        "Vendedor", "Parcial", "Desconto", "Total", "Vl. Dinh.", "Vl. Prom.", "Vl. Cartão", "Realizou Venda", "Caixa Nº",
+    "Sit. Caixa"};
     private List<Venda> vendas;
 
     /**
@@ -87,6 +88,10 @@ public class VendaTableModel extends AbstractTableModel {
                 return v.getVlCartao();
             case 12:
                 return v.getUsuario().getNome();
+            case 13:
+                return v.getCaixa().getNrCaixa();
+            case 14:
+                return v.getCaixa().situacao();
 
         }
         return null;
@@ -142,6 +147,10 @@ public class VendaTableModel extends AbstractTableModel {
                 return nomeColunas[11];
             case 12:
                 return nomeColunas[12];
+            case 13:
+                return nomeColunas[13];
+            case 14:
+                return nomeColunas[14];
 
         }
         return null;

@@ -142,6 +142,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
         jPanel16 = new javax.swing.JPanel();
         jCheckBox13 = new javax.swing.JCheckBox();
         jCheckBox14 = new javax.swing.JCheckBox();
+        jCheckBox15 = new javax.swing.JCheckBox();
         lbTexto = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         btSalvar = new javax.swing.JButton();
@@ -675,13 +676,17 @@ public class TelaPermissoes extends javax.swing.JDialog {
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Geral"));
         jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jCheckBox13.setText("Listar Caixas");
-        jCheckBox13.setName("LISTAR_CAIXAS"); // NOI18N
-        jPanel16.add(jCheckBox13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        jCheckBox13.setText("Contas à Pagar");
+        jCheckBox13.setName("CONTAS_PAGAR"); // NOI18N
+        jPanel16.add(jCheckBox13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jCheckBox14.setText("Caixa Geral");
         jCheckBox14.setName("CAIXA_GERAL"); // NOI18N
         jPanel16.add(jCheckBox14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        jCheckBox15.setText("Listar Caixas");
+        jCheckBox15.setName("LISTAR_CAIXAS"); // NOI18N
+        jPanel16.add(jCheckBox15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -953,6 +958,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox jCheckBox12;
     private javax.swing.JCheckBox jCheckBox13;
     private javax.swing.JCheckBox jCheckBox14;
+    private javax.swing.JCheckBox jCheckBox15;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;

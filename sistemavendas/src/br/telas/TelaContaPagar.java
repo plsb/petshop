@@ -1,16 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.telas;
 
 import br.cliente.Cliente;
 import br.cliente.ClienteDAO;
+import br.contaspagar.ContaPagarCellRenderer;
+import br.contaspagar.ContasPagar;
+import br.contaspagar.ContasPagarDAO;
+import br.contaspagar.ContasPagarTableModel;
 import br.contasreceber.ContaReceberCellRenderer;
 import br.contasreceber.ContasReceber;
 import br.contasreceber.ContasReceberDAO;
 import br.contasreceber.ContasReceberTableModel;
+import br.fornecedor.Fornecedor;
+import br.fornecedor.FornecedorDAO;
 import br.util.FormataTamanhoColunasJTable;
 import br.util.Util;
 import java.awt.event.KeyEvent;
@@ -26,50 +28,46 @@ import javax.swing.JOptionPane;
  *
  * @author Pedro Saraiva
  */
-public class TelaContaPromissoria extends javax.swing.JDialog {
-    
-    public static void chamaTela(Cliente c) {
-        TelaContaPromissoria.cliente = c;
-        new TelaContaPromissoria().setVisible(true);
+public class TelaContaPagar extends javax.swing.JDialog {
+
+    public static void chamaTela(Fornecedor f) {
+        TelaContaPagar.f = f;
+        new TelaContaPagar().setVisible(true);
     }
-    private static Cliente cliente = null;
-    
-    public TelaContaPromissoria() {
+    private static Fornecedor f = null;
+
+    /**
+     * Creates new form TelaContaPromissoria
+     */
+    public TelaContaPagar() {
         initComponents();
-        setTitle("Contas à Receber");
+        setTitle("Contas à Pagar");
         setModal(true);
         setLocationRelativeTo(null);
-        preencheCliente();
-        preencheTabela(new ArrayList<ContasReceber>());
+        preencheForne();
+        preencheTabela(new ArrayList<ContasPagar>());
         rbContasAbert.setSelected(true);
+        if (f != null) {
+            cbFornecedor.setSelectedItem(f);
+            cbFornecedor.setEnabled(false);
+            rbContasAbert.setEnabled(false);
+            rbContasPagas.setEnabled(false);
+            btPesquisarActionPerformed(null);
+        }
         SimpleDateFormat dfdtData;
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
         tfDataInicio.setText(dfdtData.format(new Date()));
         tfDataFim.setText(dfdtData.format(new Date()));
-        if (cliente != null) {
-            cbCliente.setSelectedItem(cliente);
-            cbCliente.setEnabled(false);
-            rbContasAbert.setEnabled(false);
-            rbContasPagas.setEnabled(false);
-            btPesquisarActionPerformed(null);
-            
-            ContasReceberDAO dao = new ContasReceberDAO();
-            List<ContasReceber> lista = dao.checkExists("cliente", cliente);
-            if (lista.size() > 0) {
-                tfDataInicio.setText(dfdtData.format(lista.get(lista.size()-1).getDataVencimento()));
-            }
-        }
-        
         btPesquisarActionPerformed(null);
-        
+
     }
-    
-    public void preencheCliente() {
-        ClienteDAO cDAO = new ClienteDAO();
-        List<Cliente> cList = cDAO.list();
-        Collections.sort(cList);
-        for (Cliente c : cList) {
-            cbCliente.addItem(c);
+
+    public void preencheForne() {
+        FornecedorDAO fDAO = new FornecedorDAO();
+        List<Fornecedor> fList = fDAO.list();
+        Collections.sort(fList);
+        for (Fornecedor forn : fList) {
+            cbFornecedor.addItem(forn);
         }
     }
 
@@ -102,7 +100,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         rbContasAbert = new javax.swing.JRadioButton();
         btPesquisar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        cbCliente = new javax.swing.JComboBox();
+        cbFornecedor = new javax.swing.JComboBox();
         tfDataInicio = new javax.swing.JFormattedTextField();
         tfDataFim = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -133,16 +131,16 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tbContas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 660, 210));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 660, 190));
 
         jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Valor Débito.: ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
 
         lblVencer1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         lblVencer1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblVencer1.setText("0,00");
-        jPanel1.add(lblVencer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 80, -1));
+        jPanel1.add(lblVencer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 80, -1));
 
         btReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/valuetotal.png"))); // NOI18N
         btReceber.setToolTipText("Receber Conta");
@@ -151,7 +149,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 btReceberActionPerformed(evt);
             }
         });
-        jPanel1.add(btReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 330, 43, -1));
+        jPanel1.add(btReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 310, 43, -1));
 
         btEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/pen.png"))); // NOI18N
         btEdit.setToolTipText("Editar Conta");
@@ -160,7 +158,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 btEditActionPerformed(evt);
             }
         });
-        jPanel1.add(btEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 43, -1));
+        jPanel1.add(btEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, 43, -1));
 
         btNovo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
         btNovo3.setToolTipText("Nova Conta");
@@ -169,7 +167,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 btNovo3ActionPerformed(evt);
             }
         });
-        jPanel1.add(btNovo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 43, -1));
+        jPanel1.add(btNovo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 43, -1));
 
         btRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/delete.png"))); // NOI18N
         btRemover.setToolTipText("Excluir Conta");
@@ -178,7 +176,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 btRemoverActionPerformed(evt);
             }
         });
-        jPanel1.add(btRemover, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, 43, -1));
+        jPanel1.add(btRemover, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 43, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 0, 0));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -194,15 +192,15 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
             .addGap(0, 18, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 20, 20));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 20, 20));
 
         jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Contas em Atraso");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, 20));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, 20));
 
         jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Contas à Vencer");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, -1, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, 20));
 
         jPanel4.setBackground(new java.awt.Color(0, 51, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -218,7 +216,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
             .addGap(0, 18, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 20, 20));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 20, 20));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/close.png"))); // NOI18N
         jButton1.setToolTipText("Sair");
@@ -227,12 +225,11 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, 40, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, 40, 40));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btContas.add(rbContasPagas);
         rbContasPagas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         rbContasPagas.setText("Contas Pagas");
         rbContasPagas.addActionListener(new java.awt.event.ActionListener() {
@@ -242,7 +239,6 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         });
         jPanel2.add(rbContasPagas, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, -1, -1));
 
-        btContas.add(rbContasAbert);
         rbContasAbert.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         rbContasAbert.setText("Contas em Aberto");
         rbContasAbert.addActionListener(new java.awt.event.ActionListener() {
@@ -262,17 +258,17 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         jPanel2.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 40, 40, -1));
 
         jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel2.setText("Cliente.: ");
+        jLabel2.setText("Fornecedor.:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        cbCliente.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        cbCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
-        cbCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+        cbFornecedor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        cbFornecedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
+        cbFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                cbClienteFocusLost(evt);
+                cbFornecedorFocusLost(evt);
             }
         });
-        jPanel2.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 340, -1));
+        jPanel2.add(cbFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 340, -1));
 
         try {
             tfDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -300,23 +296,19 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 80));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 380));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbClienteFocusLost
-
-    }//GEN-LAST:event_cbClienteFocusLost
-    
-    private void preencheTabela(List<ContasReceber> contas) {
+    private void preencheTabela(List<ContasPagar> contas) {
         Collections.sort(contas);
-        ContasReceberTableModel crtm = new ContasReceberTableModel(contas);
+        ContasPagarTableModel crtm = new ContasPagarTableModel(contas);
         tbContas.setModel(crtm);
         FormataTamanhoColunasJTable.packColumns(tbContas, 1);
         tbContas.setAutoCreateRowSorter(true);
         double valorDebito = 0, valorPago = 0;
-        for (ContasReceber conta : contas) {
+        for (ContasPagar conta : contas) {
             valorDebito += conta.getValor();
             valorPago += conta.getValorPago();
         }
@@ -326,7 +318,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         } else {
             jLabel4.setText("Valor Pago.: ");
             lblVencer1.setText(Util.acertarNumero(valorPago));
-            
+
         }
         btReceber.setEnabled(rbContasAbert.isSelected());
         btEdit.setEnabled(rbContasAbert.isSelected());
@@ -337,55 +329,16 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
             btRemover.setEnabled(false);
         }
         tbContas.setAutoCreateRowSorter(true);
-        tbContas.setDefaultRenderer(Object.class,
-                new ContaReceberCellRenderer());
-        
+        tbContas.setDefaultRenderer(Object.class, 
+                new ContaPagarCellRenderer());
+                
     }
-
-    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        if (!tfDataInicio.getText().equals("  /  /    ")
-                && !tfDataFim.getText().equals("  /  /    ")) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            sdf.setLenient(false);
-            String dataString = tfDataInicio.getText();
-            Date iniDate = null, endDate = null;
-            
-            try {
-                Date data = sdf.parse(dataString);
-                iniDate = data;
-                // se passou pra cá, é porque a data é válida
-            } catch (ParseException e) {
-                // se cair aqui, a data é inválida
-                JOptionPane.showMessageDialog(rootPane, "Data Inicial Incorreta!");
-                return;
-            }
-            
-            dataString = tfDataFim.getText();
-            try {
-                Date data = sdf.parse(dataString);
-                endDate = data;
-                // se passou pra cá, é porque a data é válida
-            } catch (ParseException e) {
-                // se cair aqui, a data é inválida
-                JOptionPane.showMessageDialog(rootPane, "Data Fim Incorreta!");
-                return;
-            }
-            
-            ContasReceberDAO crDAO = new ContasReceberDAO();
-            preencheTabela(crDAO.listaContasCliente(
-                    cbCliente.getSelectedIndex() == 0 ? null : (Cliente) cbCliente.getSelectedItem(),
-                    rbContasPagas.isSelected(), iniDate, endDate));
-            
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Informe as Datas!");
-        }
-    }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void btReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReceberActionPerformed
         if (Util.verificaPermissao("RECEBER_CONTA_RECEBER", 1)) {
-            if (!Util.verificaCaixaAberto()) {
+            if(!Util.verificaCaixaAberto()){
                 JOptionPane.showMessageDialog(rootPane, "Caixa Fechado!");
-                return;
+                return ;
             }
             
             int row = tbContas.getSelectedRow();
@@ -401,19 +354,14 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
                 }
-                
+
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
                         "ERRO", JOptionPane.ERROR_MESSAGE);
             }
-            
+
         }
     }//GEN-LAST:event_btReceberActionPerformed
-
-    private void rbContasPagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbContasPagasActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_rbContasPagasActionPerformed
 
     private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
         if (Util.verificaPermissao("EDITAR_CONTA_RECEBER", 1)) {
@@ -434,22 +382,15 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
                         "ERRO", JOptionPane.ERROR_MESSAGE);
             }
-            
+
         }
     }//GEN-LAST:event_btEditActionPerformed
 
     private void btNovo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovo3ActionPerformed
-        if (Util.verificaPermissao("ADICIONA_CONTA_RECEBER", 1)) {
             TelaContaPromissoriaCad tcpc = new TelaContaPromissoriaCad();
             tcpc.setVisible(true);
             btPesquisarActionPerformed(evt);
-        }
     }//GEN-LAST:event_btNovo3ActionPerformed
-
-    private void rbContasAbertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbContasAbertActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_rbContasAbertActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
         if (Util.verificaPermissao("EXCLUIR_CONTA_RECEBER", 1)) {
@@ -486,6 +427,48 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void rbContasPagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbContasPagasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbContasPagasActionPerformed
+
+    private void rbContasAbertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbContasAbertActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbContasAbertActionPerformed
+
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        if (!tfDataInicio.getText().equals("  /  /    ")
+            && !tfDataFim.getText().equals("  /  /    ")) {
+            
+            Date iniDate=null, endDate=null;
+            
+            iniDate = Util.verificaData(tfDataInicio.getText());
+
+            if(iniDate==null){
+                JOptionPane.showMessageDialog(rootPane, "Data Inicial Incorreta!");
+                return;
+            }
+
+            endDate = Util.verificaData(tfDataFim.getText());
+            if(endDate==null){
+                JOptionPane.showMessageDialog(rootPane, "Data Fim Incorreta!");
+                return;
+            }
+
+            ContasPagarDAO crDAO = new ContasPagarDAO();
+            preencheTabela(crDAO.listaContasFornecedor(
+                cbFornecedor.getSelectedIndex()==0?null:(Fornecedor) cbFornecedor.getSelectedItem(),
+                rbContasPagas.isSelected()
+                ,iniDate, endDate));
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Informe as Datas!");
+        }
+    }//GEN-LAST:event_btPesquisarActionPerformed
+
+    private void cbFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbFornecedorFocusLost
+
+    }//GEN-LAST:event_cbFornecedorFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -503,20 +486,21 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaContaPromissoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaContaPagar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaContaPromissoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaContaPagar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaContaPromissoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaContaPagar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaContaPromissoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaContaPagar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaContaPromissoria().setVisible(true);
+                new TelaContaPagar().setVisible(true);
             }
         });
     }
@@ -528,7 +512,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btReceber;
     private javax.swing.JButton btRemover;
-    private javax.swing.JComboBox cbCliente;
+    private javax.swing.JComboBox cbFornecedor;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -548,5 +532,4 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField tfDataFim;
     private javax.swing.JFormattedTextField tfDataInicio;
     // End of variables declaration//GEN-END:variables
-
 }

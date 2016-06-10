@@ -291,9 +291,9 @@ order by v.id desc]]>
 		</band>
 	</detail>
 	<summary>
-		<band height="95" splitType="Stretch">
+		<band height="124" splitType="Stretch">
 			<subreport>
-				<reportElement uuid="0f66c0c5-730a-4bff-a4b2-8db3d46a91d6" x="-1" y="52" width="555" height="42"/>
+				<reportElement uuid="0f66c0c5-730a-4bff-a4b2-8db3d46a91d6" x="1" y="82" width="555" height="42"/>
 				<subreportParameter name="idcliente">
 					<subreportParameterExpression><![CDATA[$F{idCliente}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -331,6 +331,12 @@ order by v.id desc]]>
 				</textElement>
 				<text><![CDATA[Total Canceladas:]]></text>
 			</staticText>
+			<line>
+				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="3" y="65" width="552" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
 		</band>
 	</summary>
 </jasperReport>

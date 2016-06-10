@@ -1032,12 +1032,12 @@
                   <SubComponents>
                     <Component class="javax.swing.JCheckBox" name="jCheckBox13">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Listar Caixas"/>
-                        <Property name="name" type="java.lang.String" value="LISTAR_CAIXAS" noResource="true"/>
+                        <Property name="text" type="java.lang.String" value="Contas &#xe0; Pagar"/>
+                        <Property name="name" type="java.lang.String" value="CONTAS_PAGAR" noResource="true"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="10" y="40" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="10" y="60" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -1049,6 +1049,17 @@
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                           <AbsoluteConstraints x="10" y="20" width="-1" height="-1"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="jCheckBox15">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Listar Caixas"/>
+                        <Property name="name" type="java.lang.String" value="LISTAR_CAIXAS" noResource="true"/>
+                      </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="10" y="40" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>

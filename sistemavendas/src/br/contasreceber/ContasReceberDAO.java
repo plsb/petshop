@@ -20,37 +20,60 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author Pedro Saraiva
  */
-public class ContasReceberDAO extends GenericDAO<ContasReceber>{
+public class ContasReceberDAO extends GenericDAO<ContasReceber> {
 
     public ContasReceberDAO() {
         super(ContasReceber.class);
     }
-    
-    public List<ContasReceber> listaContasClienteEmAtraso(Cliente c){
+
+    public List<ContasReceber> listaContasClienteEmAtraso(Cliente c) {
         List<ContasReceber> lista = new ArrayList<>();
         try {
             setSessao(HibernateUtil.getSessionFactory().openSession());
             lista = getSessao().createCriteria(ContasReceber.class).add(Restrictions.eq("cliente", c)
-                ).add(Restrictions.le("dataVencimento", new Date()))
+            ).add(Restrictions.le("dataVencimento", new Date()))
                     .add(Restrictions.eq("paga", false)).list();
         } catch (Exception e) {
             getSessao().close();
         }
         return lista;
     }
-    
-    public List<ContasReceber> listaContasCliente(Cliente c, boolean paga){
+
+    public List<ContasReceber> listaContasCliente(Cliente c, boolean paga) {
         List<ContasReceber> lista = new ArrayList<>();
         try {
             setSessao(HibernateUtil.getSessionFactory().openSession());
             lista = getSessao().createCriteria(ContasReceber.class).add(Restrictions.eq("cliente", c)
-                ).add(Restrictions.eq("paga", paga)).list();
+            ).add(Restrictions.eq("paga", paga)).list();
         } catch (Exception e) {
             getSessao().close();
         }
         return lista;
     }
-    
+
+    public List<ContasReceber> listaContasCliente(Cliente c, boolean paga, Date iniDate, Date endDate) {
+        List<ContasReceber> lista = new ArrayList<>();
+        try {
+            setSessao(HibernateUtil.getSessionFactory().openSession());
+            if (c != null) {
+                lista = getSessao().createCriteria(ContasReceber.class)
+                        .add(Restrictions.eq("cliente", c)).
+                        add(Restrictions.eq("paga", paga))
+                        .add(Restrictions.ge("dataVencimento", iniDate))
+                        .add(Restrictions.le("dataVencimento", endDate)).list();
+            } else {
+                lista = getSessao().createCriteria(ContasReceber.class)
+                        .add(Restrictions.eq("paga", paga))
+                        .add(Restrictions.ge("dataVencimento", iniDate))
+                        .add(Restrictions.le("dataVencimento", endDate)).list();
+            }
+
+        } catch (Exception e) {
+            getSessao().close();
+        }
+        return lista;
+    }
+
     public List<ContasReceber> listContasEntreDatas(Date dataIni, Date dataFim) {
         List<ContasReceber> lista = null;
         try {
@@ -71,6 +94,5 @@ public class ContasReceberDAO extends GenericDAO<ContasReceber>{
         return lista;
 
     }
-    
-    
+
 }

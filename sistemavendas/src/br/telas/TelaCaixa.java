@@ -7,6 +7,7 @@ package br.telas;
 
 import br.caixageral.CaixaGeral;
 import br.caixageral.CaixaGeralDAO;
+import br.empresa.EmpresaDAO;
 import br.livro.LivroCaixa;
 import br.livro.LivroCaixaDAO;
 import br.livro.LivroCaixaTableModel;
@@ -49,6 +50,12 @@ public class TelaCaixa extends javax.swing.JDialog {
 
         preencheTabela(new Date());
         setTitle("Caixa");
+        
+        EmpresaDAO eDAO = new EmpresaDAO();
+        
+        if(eDAO.list().size()==0){
+            JOptionPane.showMessageDialog(rootPane, "Cadastre a Empresa!");
+        }
 
     }
 
