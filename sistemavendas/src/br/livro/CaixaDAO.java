@@ -8,6 +8,7 @@ package br.livro;
 import br.usuario.Usuario;
 import br.util.GenericDAO;
 import br.util.HibernateUtil;
+import br.venda.Venda;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -17,17 +18,16 @@ import java.util.List;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-public class CaixaDAO extends GenericDAO<Caixa>{
+public class CaixaDAO extends GenericDAO<Caixa> {
 
     public CaixaDAO() {
         super(Caixa.class);
     }
-    
-    
+
     public List<Caixa> listCaixaAbertoUsuario(Usuario usuario, Date data) {
         List<Caixa> lista = null;
-        try {           
-                        
+        try {
+
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             lista = this.getSessao().createCriteria(Caixa.class).
@@ -46,13 +46,11 @@ public class CaixaDAO extends GenericDAO<Caixa>{
         return lista;
 
     }
-    
-    
-    
+
     public List<Caixa> listCaixaAberto(String nrCaixa) {
         List<Caixa> lista = null;
-        try {           
-                        
+        try {
+
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             lista = this.getSessao().createCriteria(Caixa.class).
@@ -71,19 +69,19 @@ public class CaixaDAO extends GenericDAO<Caixa>{
         return lista;
 
     }
-    
+
     public Caixa listCaixaAnterior(Caixa c) {
         List<Caixa> lista = null;
         Caixa caixa = null;
-        try {           
-                        
+        try {
+
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             lista = this.getSessao().createCriteria(Caixa.class).
                     add(Restrictions.eq("nrCaixa", c.getNrCaixa())).list();
             lista = new ArrayList(new HashSet(lista));
             Collections.sort(lista);
-            if(lista.size()>1){
+            if (lista.size() > 1) {
                 caixa = lista.get(1);
             }
         } catch (Throwable e) {
@@ -98,5 +96,27 @@ public class CaixaDAO extends GenericDAO<Caixa>{
         return caixa;
 
     }
-    
+
+    public List<Caixa> listCaixaEntreDatas(Date dataIni, Date dataFim) {
+        List<Caixa> lista = null;
+        try {
+            this.setSessao(HibernateUtil.getSessionFactory().openSession());
+            setTransacao(getSessao().beginTransaction());
+            lista = this.getSessao().createCriteria(Caixa.class)
+                    .add(Restrictions.ge("dataAbriu", dataIni))
+                    .add(Restrictions.le("dataAbriu", dataFim))
+                    .add(Restrictions.ge("retirada", new Double(0))).list();
+            lista = new ArrayList(new HashSet(lista));
+        } catch (Throwable e) {
+            if (getTransacao().isActive()) {
+                getTransacao().rollback();
+            }
+//            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
+        } finally {
+            getSessao().close();
+        }
+        return lista;
+
+    }
+
 }

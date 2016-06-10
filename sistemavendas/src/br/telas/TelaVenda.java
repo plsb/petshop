@@ -152,7 +152,8 @@ public class TelaVenda extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        lbTexto = new javax.swing.JLabel();
+        lblPreco = new javax.swing.JLabel();
+        lblTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb = new javax.swing.JTable();
@@ -213,10 +214,15 @@ public class TelaVenda extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(0, 153, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 36)); // NOI18N
-        lbTexto.setForeground(new java.awt.Color(255, 255, 255));
-        lbTexto.setText("VENDA");
-        jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 40));
+        lblPreco.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 24)); // NOI18N
+        lblPreco.setForeground(new java.awt.Color(255, 255, 255));
+        lblPreco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanel4.add(lblPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 180, 40));
+
+        lblTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 30)); // NOI18N
+        lblTexto.setForeground(new java.awt.Color(255, 255, 255));
+        lblTexto.setText("VENDA");
+        jPanel4.add(lblTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 40));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 40));
 
@@ -243,12 +249,20 @@ public class TelaVenda extends javax.swing.JDialog {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel2.setText("Tipo Pagamento.: *");
+        jLabel2.setText("Tipo Pagamento.: ");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 16, -1, -1));
 
         cbTipoPagamento.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         cbTipoPagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Venda à Vista", "Venda à Prazo", "Venda à Cartão" }));
+        cbTipoPagamento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbTipoPagamentoItemStateChanged(evt);
+            }
+        });
         cbTipoPagamento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbTipoPagamentoFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 cbTipoPagamentoFocusLost(evt);
             }
@@ -257,14 +271,19 @@ public class TelaVenda extends javax.swing.JDialog {
 
         cbVendedor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
         cbVendedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Venda à Vista", "Venda à Prazo", "Venda à Cartão" }));
+        cbVendedor.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbVendedorItemStateChanged(evt);
+            }
+        });
         jPanel2.add(cbVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 41, 182, -1));
 
         jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel3.setText("Vendedor.: *");
+        jLabel3.setText("Vendedor.: ");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 44, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel1.setText("Cliente.: *");
+        jLabel1.setText("Cliente.: ");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 72, -1, -1));
 
         cbCliente.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14)); // NOI18N
@@ -277,7 +296,7 @@ public class TelaVenda extends javax.swing.JDialog {
         jPanel2.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 69, 386, -1));
 
         jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel4.setText("Data.: *");
+        jLabel4.setText("Data.: ");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 16, -1, -1));
 
         lblData.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
@@ -291,7 +310,7 @@ public class TelaVenda extends javax.swing.JDialog {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 100));
 
         jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel5.setText("Código.: *");
+        jLabel5.setText("Código.: ");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, -1, 20));
 
         lblDescricaoProduto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
@@ -299,7 +318,7 @@ public class TelaVenda extends javax.swing.JDialog {
         jPanel1.add(lblDescricaoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 330, 20));
 
         jLabel6.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel6.setText("Descrição.: *");
+        jLabel6.setText("Descrição.: ");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, 20));
 
         tfCodigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
@@ -385,7 +404,7 @@ public class TelaVenda extends javax.swing.JDialog {
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 160, 80));
 
         jLabel7.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel7.setText("Qtd.: *");
+        jLabel7.setText("Qtd.: ");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, -1, 20));
 
         tfQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
@@ -462,9 +481,6 @@ public class TelaVenda extends javax.swing.JDialog {
         if (venda == null) {
             venda = new Venda();
         }
-        if (cbTipoPagamento.getSelectedIndex() > 0) {
-            venda.setTipoPagamento(tipoPagamento());
-        }
         if (cbCliente.getSelectedIndex() > 0) {
             venda.setCliente((Cliente) cbCliente.getSelectedItem());
         }
@@ -474,6 +490,15 @@ public class TelaVenda extends javax.swing.JDialog {
         venda.setCancelada(false);
         venda.setUsuario(Ativo.getUsuario());
 
+    }
+
+    public void preencheTipoPagamento() {
+        if (venda == null) {
+            venda = new Venda();
+        }
+        if (cbTipoPagamento.getSelectedIndex() > 0) {
+            venda.setTipoPagamento(tipoPagamento());
+        }
     }
 
     private String tipoPagamento() {
@@ -538,11 +563,15 @@ public class TelaVenda extends javax.swing.JDialog {
                     return;
                 }
                 it.setOrdem(itensVenda.size() + 1);
-                Util.adicionaEstoque("SAÍDA EM VENDA", 0, it.getQuantidade(), produto);
+                Util.adicionaEstoque("SAÍDA EM VENDA Nº "
+                        + Util.decimalFormat().format(venda.getId())
+                        + " de " + venda.getCliente().getNome(), 0, it.getQuantidade(), produto);
                 modificaQtdProduto(produto.getQtdEstoque() - it.getQuantidade());
                 itensVenda.add(it);
                 produto = null;
                 lblDescricaoProduto.setText("");
+                lblTexto.setText("VENDA");
+                lblPreco.setText("");
                 tfQuantidade.setText("");
                 tfQuantidade.setEnabled(false);
                 tfCodigo.setText("");
@@ -571,7 +600,9 @@ public class TelaVenda extends javax.swing.JDialog {
                     double qtd = itensVenda.get(i).getQuantidade();
                     double nvQtd = Double.parseDouble(tfQuantidade.getText().replace(",", "."));
                     itensVenda.get(i).setQuantidade(qtd + nvQtd);
-                    Util.adicionaEstoque("SAÍDA EM VENDA", 0, nvQtd, produto);
+                    Util.adicionaEstoque("SAÍDA EM VENDA Nº "
+                            + Util.decimalFormat().format(venda.getId())
+                            + " de " + venda.getCliente().getNome(), 0, nvQtd, produto);
                     modificaQtdProduto(produto.getQtdEstoque() - nvQtd);
                     produto = null;
                     lblDescricaoProduto.setText("");
@@ -589,7 +620,7 @@ public class TelaVenda extends javax.swing.JDialog {
 
     private void tfCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCodigoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            
+
             if (cbTipoPagamento.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o Tipo de Pagamento!");
                 cbTipoPagamento.requestFocus();
@@ -605,6 +636,7 @@ public class TelaVenda extends javax.swing.JDialog {
                 cbCliente.requestFocus();
                 return;
             }
+
             preencheVenda();
 
             List<Produto> listProduto = new ArrayList<>();
@@ -626,6 +658,8 @@ public class TelaVenda extends javax.swing.JDialog {
                 tfQuantidade.setText("1");
                 produto = listProduto.get(0);
                 lblDescricaoProduto.setText(produto.getDescricao());
+                lblTexto.setText(produto.getDescricao());
+                lblPreco.setText(" R$ " + Util.acertarNumero(produto.getPrecoVenda()));
                 tfQuantidade.requestFocus();
                 tfCodigo.setText(produto.getCodigo());
             } else {
@@ -672,7 +706,9 @@ public class TelaVenda extends javax.swing.JDialog {
 
 //                            ProdutoDAO pDAO = new ProdutoDAO();
                                 pDAO.update(p1);
-                                Util.adicionaEstoque("CANCELAMENTO DE VENDA", itensVenda.get(i).getQuantidade(), 0, p1);
+                                Util.adicionaEstoque("CANCELAMENTO DE VENDA Nº "
+                                        + Util.decimalFormat().format(venda.getId())
+                                        + " de " + venda.getCliente().getNome(), itensVenda.get(i).getQuantidade(), 0, p1);
                             }
                             itensVenda.get(i).setCancelado(true);
                             break;
@@ -769,8 +805,9 @@ public class TelaVenda extends javax.swing.JDialog {
     }
 
     private void cbTipoPagamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTipoPagamentoFocusLost
-        // TODO add your handling code here:
         preencheTabela();
+        preencheTipoPagamento();
+
     }//GEN-LAST:event_cbTipoPagamentoFocusLost
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -885,7 +922,9 @@ public class TelaVenda extends javax.swing.JDialog {
                 tfCodigo.requestFocus();
 
             } else {
-                Util.adicionaEstoque("SAÍDA EM VENDA", 0, iv.getQuantidade(), produto);
+                Util.adicionaEstoque("SAÍDA EM VENDA Nº "
+                        + Util.decimalFormat().format(venda.getId())
+                        + " de " + venda.getCliente().getNome(), 0, iv.getQuantidade(), produto);
                 modificaQtdProduto(produto.getQtdEstoque() - iv.getQuantidade());
                 itensVenda.add(iv);
             }
@@ -917,11 +956,23 @@ public class TelaVenda extends javax.swing.JDialog {
 
     private void tfQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfQuantidadeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            jButton2ActionPerformed(null);            
+            jButton2ActionPerformed(null);
         }
 
 
     }//GEN-LAST:event_tfQuantidadeKeyPressed
+
+    private void cbTipoPagamentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTipoPagamentoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoPagamentoFocusGained
+
+    private void cbTipoPagamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoPagamentoItemStateChanged
+
+    }//GEN-LAST:event_cbTipoPagamentoItemStateChanged
+
+    private void cbVendedorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbVendedorItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbVendedorItemStateChanged
 
     private void cancelarVenda() {
         if (itensVenda.size() > 0) {
@@ -939,7 +990,9 @@ public class TelaVenda extends javax.swing.JDialog {
                     Produto p1 = pDAO.checkExists("id", itensVenda1.getProduto().getId()).get(0);
                     p1.setQtdEstoque(p1.getQtdEstoque() + itensVenda1.getQuantidade());
                     pDAO.update(p1);
-                    Util.adicionaEstoque("CANCELAMENTO DE VENDA", itensVenda1.getQuantidade(), 0, p1);
+                    Util.adicionaEstoque("CANCELAMENTO DE VENDA Nº "
+                            + Util.decimalFormat().format(venda.getId())
+                            + " de " + venda.getCliente().getNome(), itensVenda1.getQuantidade(), 0, p1);
                 }
                 itensVenda1.setCancelado(true);
                 itensVenda1.setVenda(venda);
@@ -953,6 +1006,8 @@ public class TelaVenda extends javax.swing.JDialog {
             cbTipoPagamento.setSelectedIndex(0);
             cbVendedor.setSelectedIndex(0);
             tfCodigo.setText("");
+            lblTexto.setText("VENDA");
+            lblPreco.setText("");
 
         } else {
             setVisible(false);
@@ -978,7 +1033,7 @@ public class TelaVenda extends javax.swing.JDialog {
         if (itensVenda == null) {
             itensVenda = new ArrayList<>();
         }
-        preencheVenda();
+
 //        Collections.sort(itensVenda);
         ItemVendaTableModel iv = new ItemVendaTableModel(itensVenda);
         tb.setModel(iv);
@@ -1054,13 +1109,14 @@ public class TelaVenda extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JLabel lbTexto;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDebito;
     private javax.swing.JLabel lblDesconto1;
     private javax.swing.JLabel lblDescricaoProduto;
     private javax.swing.JLabel lblNrVenda;
     private javax.swing.JLabel lblParcial;
+    private javax.swing.JLabel lblPreco;
+    private javax.swing.JLabel lblTexto;
     private javax.swing.JLabel lblTotalFinal;
     private javax.swing.JTable tb;
     private javax.swing.JFormattedTextField tfCodigo;

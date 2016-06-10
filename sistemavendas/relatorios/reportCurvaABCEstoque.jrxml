@@ -9,18 +9,20 @@
 		<![CDATA[select
 	p.codigo,
 	p.descricao,
-	iv.valorUni,
+	avg(iv.valorUni) valorUni,
 	sum(iv.quantidade) quant,
-	iv.valorUni*sum(iv.quantidade) quantXvalor,
-	((iv.valorUni*sum(iv.quantidade))*100)/
+	avg(iv.valorUni)*sum(iv.quantidade) quantXvalor,
 
-	(select sum(quantidade*valorUni) from itemvenda inner join produto on produto.id=itemvenda.produto_id and produto.servico=false
-			inner join venda on venda.id=itemvenda.venda_id and venda.data between $P!{dtInicial} and $P!{dtFinal}) porc
-
+((avg(iv.valorUni)*sum(iv.quantidade))*100)/
+	((select (sum(quantidade)*avg(valorUni)) from itemvenda
+			inner join produto on produto.id=itemvenda.produto_id
+			inner join venda on venda.id=itemvenda.venda_id
+			where venda.data between $P!{dtInicial} and $P!{dtFinal} and venda.cancelada=false
+			and produto.servico=false and venda.data is not null )) porc
 	from itemvenda iv
 inner join produto p on p.id=iv.produto_id
 inner join venda v on v.id=iv.venda_id
-where p.servico=false and v.data between $P!{dtInicial} and $P!{dtFinal} and v.cancelada=false
+where v.data between $P!{dtInicial} and $P!{dtFinal} and v.cancelada=false and p.servico=false and v.data is not null
 group by p.id
 order by 5 desc;]]>
 	</queryString>
@@ -112,7 +114,7 @@ order by 5 desc;]]>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Vl. Un.]]></text>
+				<text><![CDATA[Vl. Médio]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="002e1e3d-e526-4c50-a0bb-3cdb04efe372" x="313" y="1" width="29" height="20"/>
@@ -170,13 +172,6 @@ order by 5 desc;]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quantXvalor}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00;-###0.00">
-				<reportElement uuid="2d2e9710-65e7-4a59-b22e-92aa35688fbd" x="420" y="2" width="53" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Bitstream Vera Sans Mono"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{porc}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement uuid="d1d305fa-a5c6-4b67-ae4e-f8d341d15ad4" x="2" y="2" width="83" height="20"/>
 				<textElement>
@@ -191,6 +186,16 @@ order by 5 desc;]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{descCurva}]]></textFieldExpression>
 			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="2d2e9710-65e7-4a59-b22e-92aa35688fbd" x="420" y="1" width="53" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{porc}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
+	<summary>
+		<band height="50"/>
+	</summary>
 </jasperReport>

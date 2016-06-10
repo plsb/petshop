@@ -343,7 +343,9 @@ public class TelaListarVendas extends JDialog {
                                 Produto p1 = pDAO.checkExists("id", itensVenda1.getProduto().getId()).get(0);
                                 p1.setQtdEstoque(p1.getQtdEstoque() + itensVenda1.getQuantidade());
                                 pDAO.update(p1);
-                                Util.adicionaEstoque("CANCELAMENTO DE VENDA", itensVenda1.getQuantidade(), 0, p1);
+                                Util.adicionaEstoque("CANCELAMENTO DE VENDA Nº "+
+                                        Util.decimalFormat().format(v.getId())+" de "+
+                                        v.getCliente().getNome(), itensVenda1.getQuantidade(), 0, p1);
                             }
                             itensVenda1.setCancelado(true);
                             itensVenda1.setVenda(v);

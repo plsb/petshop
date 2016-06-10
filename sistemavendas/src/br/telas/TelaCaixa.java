@@ -104,7 +104,7 @@ public class TelaCaixa extends javax.swing.JDialog {
         tfSaidas = new javax.swing.JFormattedTextField();
         btPesquisar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -127,7 +127,6 @@ public class TelaCaixa extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -135,8 +134,6 @@ public class TelaCaixa extends javax.swing.JDialog {
         lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 30)); // NOI18N
         lbTexto.setText("Caixa");
         jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 40));
-
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 40));
 
         jScrollPane1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
@@ -154,29 +151,22 @@ public class TelaCaixa extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tb);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 570, 230));
-
         jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Saldo.:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, -1, -1));
 
         tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfSaldo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfSaldo.setEnabled(false);
         tfSaldo.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jPanel2.add(tfSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, 110, -1));
 
         jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Data.:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Entradas.:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Saídas.:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, -1, -1));
 
         try {
             tfData1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -185,19 +175,16 @@ public class TelaCaixa extends javax.swing.JDialog {
         }
         tfData1.setEnabled(false);
         tfData1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jPanel2.add(tfData1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 150, -1));
 
         tfEntradas1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfEntradas1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfEntradas1.setEnabled(false);
         tfEntradas1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jPanel2.add(tfEntradas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 110, -1));
 
         tfSaidas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfSaidas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfSaidas.setEnabled(false);
         tfSaidas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jPanel2.add(tfSaidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 360, 110, -1));
 
         btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/find.png"))); // NOI18N
         btPesquisar.setToolTipText("Pesquisar Data");
@@ -207,7 +194,6 @@ public class TelaCaixa extends javax.swing.JDialog {
                 btPesquisarActionPerformed(evt);
             }
         });
-        jPanel2.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/interface (5).png"))); // NOI18N
         jButton2.setToolTipText("Adicionar");
@@ -216,16 +202,77 @@ public class TelaCaixa extends javax.swing.JDialog {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 70, -1));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/printlarge.png"))); // NOI18N
-        jButton3.setToolTipText("Imprimir");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel2.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 70, -1));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(tfData1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2))
+                        .addGap(10, 10, 10)
+                        .addComponent(btPesquisar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton1)
+                        .addGap(235, 235, 235)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfEntradas1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfData1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(btPesquisar))
+                .addGap(7, 7, 7)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel4)
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(tfEntradas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(tfSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+        );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 440));
 
@@ -303,62 +350,6 @@ public class TelaCaixa extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (Util.verificaPermissao("IMPRIMIR_CAIXA", 1)) {
-            if (tfData1.getText().equals("  /  /    ")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data!");
-                tfData1.requestFocus();
-                return;
-            }
-            JasperReport pathjrxml;
-            HashMap parametros = new HashMap();
-
-            String sql = "";
-
-            String dataInicial = "";
-            try {
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                java.sql.Date data = new java.sql.Date(format.parse(tfData1.getText()).getTime());
-                dataInicial = String.valueOf(data);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            sql = "'" + dataInicial + "'";
-
-            try {
-                parametros.put("sql", sql);
-            } catch (Exception e) {
-            }
-
-            String caminho = Util.retornaCaminhoApp();
-//        String caminho = "";
-
-            Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
-            try {
-                JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
-                viewer.setSize(1200, 600);
-                viewer.setLocationRelativeTo(null);
-                viewer.setModal(true);
-                File file = new File(caminho + "relatorios/reportLivroCaixa.jrxml");
-                FileInputStream is = new FileInputStream(file);
-                pathjrxml = JasperCompileManager.compileReport(is);
-                JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parametros,
-                        connection);
-                JasperViewer jv = new JasperViewer(printReport, false);
-                viewer.getContentPane().add(jv.getContentPane());
-                viewer.setVisible(true);
-                //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
-
-                //jv.setVisible(true);
-            } catch (JRException ex) {
-                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            }
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         if (Util.verificaPermissao("ADICIONA_CAIXA", 1)) {
             if (Util.verificaCaixaAberto()) {
@@ -420,20 +411,19 @@ public class TelaCaixa extends javax.swing.JDialog {
                     lc.setDescricao("SANGRIA");
                     lc.setValorSaida(valor);
                     lc.setValorEntrada(0);
-                    
+
                     lcDAO.add(lc);
                     btPesquisarActionPerformed(evt);
-                    
+
                     //adiciona sangria como entrada no caixa geral
                     CaixaGeral cg = new CaixaGeral();
                     CaixaGeralDAO cgDAO = new CaixaGeralDAO();
                     cg.setData(new Date());
-                    cg.setDescricao("SANGRIA DO CAIXA "+Ativo.getCaixa().getNrCaixa()+" de "+
-                            Ativo.getUsuario().getNome());
+                    cg.setDescricao("SANGRIA DO CAIXA " + Ativo.getCaixa().getNrCaixa() + " de "
+                            + Ativo.getUsuario().getNome());
                     cg.setValorEntrada(valor);
                     cg.setValorSaida(0);
                     cgDAO.add(cg);
-                    
 
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Valor da Sangria deve ser superior ao valor do Caixa!");
@@ -444,6 +434,28 @@ public class TelaCaixa extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Caixa Fechado!");
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (Util.verificaPermissao("EXCLUIR_CAIXA", 1)) {
+            
+            int i = tb.getSelectedRow();
+            if (i > 0) {
+
+                if (JOptionPane.showConfirmDialog(rootPane, "Deseja excluir o Ítem Selecionado?",
+                        "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    LivroCaixaTableModel cgtm = (LivroCaixaTableModel) tb.getModel();
+                    LivroCaixa cg = cgtm.getValueAt(i);
+                    LivroCaixaDAO dao = new LivroCaixaDAO();
+                    dao.remove(cg);
+                    btPesquisarActionPerformed(null);
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione uma Linha!");
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -482,8 +494,8 @@ public class TelaCaixa extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

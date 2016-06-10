@@ -133,6 +133,7 @@ public class TelaAbrirCaixa extends javax.swing.JDialog {
                 return;
             }
 
+            //adiciona primeiro caixa
             if (cDAO.checkExists("nrCaixa", numeroC).size() == 0) {
                 double vlInicial = 0;
                 do {
@@ -152,7 +153,7 @@ public class TelaAbrirCaixa extends javax.swing.JDialog {
                 cInicial.setHoraAbriu(new Date());
                 cInicial.setHoraFechou(new Date());
                 cInicial.setNrCaixa(numeroC);
-                cInicial.setRetirada(0);
+                cInicial.setRetirada(-1);
                 cInicial.setUser(Ativo.getUsuario());
                 cInicial.setValorFicaCaixa(vlInicial);
 

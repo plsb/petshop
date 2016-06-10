@@ -137,6 +137,11 @@ public class TelaPermissoes extends javax.swing.JDialog {
         EXCLUIR_CLIENTE15 = new javax.swing.JCheckBox();
         CE_CLIENTE6 = new javax.swing.JCheckBox();
         EXCLUIR_CLIENTE18 = new javax.swing.JCheckBox();
+        EXCLUIR_CLIENTE20 = new javax.swing.JCheckBox();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
+        jCheckBox13 = new javax.swing.JCheckBox();
+        jCheckBox14 = new javax.swing.JCheckBox();
         lbTexto = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         btSalvar = new javax.swing.JButton();
@@ -594,7 +599,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
         });
         jPanel11.add(EXCLUIR_CLIENTE14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
-        jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 230, 140));
+        jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 230, 140));
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Contas á Receber"));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -642,9 +647,9 @@ public class TelaPermissoes extends javax.swing.JDialog {
         jCheckBox10.setName("V_CAIXA"); // NOI18N
         jPanel13.add(jCheckBox10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        EXCLUIR_CLIENTE15.setText("Realizar Sangria");
-        EXCLUIR_CLIENTE15.setName("REALIZAR_SANGRIA"); // NOI18N
-        jPanel13.add(EXCLUIR_CLIENTE15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        EXCLUIR_CLIENTE15.setText("Excluir Caixa");
+        EXCLUIR_CLIENTE15.setName("EXCLUIR_CAIXA"); // NOI18N
+        jPanel13.add(EXCLUIR_CLIENTE15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         CE_CLIENTE6.setText("Abrir/Adicionar Caixa");
         CE_CLIENTE6.setName("ADICIONA_CAIXA"); // NOI18N
@@ -659,9 +664,43 @@ public class TelaPermissoes extends javax.swing.JDialog {
         EXCLUIR_CLIENTE18.setName("IMPRIMIR_CAIXA"); // NOI18N
         jPanel13.add(EXCLUIR_CLIENTE18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
-        jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 230, 140));
+        EXCLUIR_CLIENTE20.setText("Realizar Sangria");
+        EXCLUIR_CLIENTE20.setName("REALIZAR_SANGRIA"); // NOI18N
+        jPanel13.add(EXCLUIR_CLIENTE20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+
+        jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 230, 280));
 
         jTabbedPane1.addTab("Movimentações", jPanel3);
+
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Geral"));
+        jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jCheckBox13.setText("Listar Caixas");
+        jCheckBox13.setName("LISTAR_CAIXAS"); // NOI18N
+        jPanel16.add(jCheckBox13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        jCheckBox14.setText("Caixa Geral");
+        jCheckBox14.setName("CAIXA_GERAL"); // NOI18N
+        jPanel16.add(jCheckBox14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(383, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Geral", jPanel4);
 
         jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 720, 360));
 
@@ -737,6 +776,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
         listaComponentes.addAll(converteArrayListaComponentes(jPanel13.getComponents()));
         listaComponentes.addAll(converteArrayListaComponentes(jPanel14.getComponents()));
         listaComponentes.addAll(converteArrayListaComponentes(jPanel15.getComponents()));        
+        listaComponentes.addAll(converteArrayListaComponentes(jPanel16.getComponents()));        
         return listaComponentes;
     }
     
@@ -889,6 +929,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox EXCLUIR_CLIENTE18;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE19;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE2;
+    private javax.swing.JCheckBox EXCLUIR_CLIENTE20;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE3;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE4;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE5;
@@ -910,6 +951,8 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox jCheckBox10;
     private javax.swing.JCheckBox jCheckBox11;
     private javax.swing.JCheckBox jCheckBox12;
+    private javax.swing.JCheckBox jCheckBox13;
+    private javax.swing.JCheckBox jCheckBox14;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
@@ -925,8 +968,10 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;

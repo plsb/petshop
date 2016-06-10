@@ -10,7 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class CaixaGeral {
+public class CaixaGeral implements Comparable<CaixaGeral>{
     
     @Id
     @GeneratedValue
@@ -24,7 +24,8 @@ public class CaixaGeral {
     
     @Temporal(TemporalType.DATE)
     private Date data;
-
+    
+    
     public Integer getId() {
         return id;
     }
@@ -90,6 +91,11 @@ public class CaixaGeral {
     @Override
     public String toString() {
         return "CaixaGeral{" + "id=" + id + ", descricao=" + descricao + ", valorEntrada=" + valorEntrada + ", valorSaida=" + valorSaida + ", data=" + data + '}';
+    }
+
+    @Override
+    public int compareTo(CaixaGeral o) {
+        return id.compareTo(o.id);
     }
     
 }

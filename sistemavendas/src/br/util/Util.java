@@ -10,6 +10,8 @@ import br.livro.CaixaDAO;
 import br.produto.Estoque;
 import br.produto.EstoqueDAO;
 import br.produto.Produto;
+import br.telas.TelaVerificaPermissao;
+import br.usuario.Usuario;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -362,6 +364,12 @@ public class Util {
             if (JOptionPane.showConfirmDialog(null, "Você não possui permissão, \ndeseja solicitar?",
                     "Solicitação de Permissão", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE)
                     == JOptionPane.YES_OPTION) {
+                Usuario usuRetorno = TelaVerificaPermissao.chamaTela();
+                if (usuRetorno != null) {
+                    if (usuRetorno.getPermissao().contains(permissao)) {
+                        return true;
+                    }
+                }
 
             }
         }

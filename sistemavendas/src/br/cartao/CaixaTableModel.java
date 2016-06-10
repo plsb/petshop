@@ -1,18 +1,8 @@
-/* Este arquivo é parte do OSBiblio.
- * Copyright (C) 2014 (Pedro Saraiva, Túlio Vidal, Luís Henrique, Adriano Lima, Oziel Pereira,
- * Marcos Ellys, Francisco Júnior, Fátima Pinheiro, Darly Vinicio).
- *
- * OSBiblio é um software livre; você pode redistribuí-lo e/ou  modificá-lo dentro dos termos da 
- * Licença Pública Geral GNU como publicada pela Fundação do Software Livre (FSF); na versão 2 da Licença,
- * ou (na sua opinião) qualquer versão.
- *
- * Este programa é distribuído na esperança de que possa ser útil, mas SEM NENHUMA GARANTIA; sem uma garantia 
- * implícita de ADEQUAÇÃO a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU
- * para maiores detalhes.
- */
-package br.livro;
+package br.cartao;
 
-import br.grupo_produto.*;
+import br.caixageral.*;
+import br.cliente.*;
+import br.livro.Caixa;
 import br.util.Util;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,10 +15,10 @@ import javax.swing.table.AbstractTableModel;
  * @author Francisco Junior
  */
 @SuppressWarnings("serial")
-public class LivroCaixaTableModel extends AbstractTableModel {
+public class CaixaTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Código",  "Entrada", "Saída", "Descrição"};
-    private List<LivroCaixa> livro;
+    private String[] nomeColunas = {"Código", "Situação", "Data", "Nº Caixa", "Usuário"};
+    private List<Caixa> cg;
 
     /**
      * Construtor sobrecarregado.
@@ -36,11 +26,11 @@ public class LivroCaixaTableModel extends AbstractTableModel {
      * @param lista List(Autor).
      */
     // construtor que adiciona a lista passada pelo método ao alunos  
-    public LivroCaixaTableModel(List<LivroCaixa> lista) {
-        livro = new ArrayList(new HashSet(lista));
+    public CaixaTableModel(List<Caixa> lista) {
+        cg = new ArrayList(new HashSet(lista));
 //        this.leitores.clear();
 //        this.leitores.addAll(lista);
-        Collections.sort(livro);
+        Collections.sort(cg);
         super.fireTableDataChanged();
     }
 
@@ -51,7 +41,7 @@ public class LivroCaixaTableModel extends AbstractTableModel {
      */
     @Override
     public int getRowCount() {
-        return livro.size();
+        return cg.size();
     }
 
     /**
@@ -73,25 +63,26 @@ public class LivroCaixaTableModel extends AbstractTableModel {
      */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        LivroCaixa l = livro.get(rowIndex);
+        Caixa caixa = cg.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return Util.decimalFormat().format(l.getId());
-
+                return Util.decimalFormat().format(caixa.getId());
             case 1:
-                return l.getValorEntrada();
+                return caixa.situacao();
             case 2:
-                return l.getValorSaida();
+                return caixa.getDataAbriu();
             case 3:
-                return l.getDescricao();
+                return caixa.getNrCaixa();
+            case 4:
+                return caixa.getUser().getNome();
 
         }
         return null;
     }
-    
-    public LivroCaixa getValueAt(int rowIndex) {
-        LivroCaixa l = livro.get(rowIndex);
-        return l;
+
+    public Caixa getValueAt(int rowIndex) {
+        Caixa caixa = cg.get(rowIndex);
+        return caixa;
     }
 
     /**
@@ -111,6 +102,8 @@ public class LivroCaixaTableModel extends AbstractTableModel {
                 return nomeColunas[2];
             case 3:
                 return nomeColunas[3];
+            case 4:
+                return nomeColunas[4];
 
         }
         return null;

@@ -11,7 +11,7 @@
 	c.cpf,
 	sum(v.valorTotal) valorTotal,
 	(sum(v.valorTotal)*100)/
-	(select sum(valorTotal) from venda where data between $P!{dtInicial} and $P!{dtFinal}) as porc
+	(select sum(valorTotal) from venda where data between $P!{dtInicial} and $P!{dtFinal} and cancelada=false) as porc
 FROM venda v
 inner join cliente c on c.id=v.cliente_id
 where v.data between $P!{dtInicial} and $P!{dtFinal} and v.cancelada=false

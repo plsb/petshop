@@ -42,6 +42,15 @@ public class Caixa implements Serializable, Comparable<Caixa>{
     
     private boolean aberto;
     
+    public String situacao(){
+        if(!aberto){
+            return "Fechado";
+        } else {
+            return "Aberto";
+        }
+    }
+
+    
     public Date getHoraAbriu() {
         return horaAbriu;
     }

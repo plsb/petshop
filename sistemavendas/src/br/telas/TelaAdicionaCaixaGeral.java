@@ -5,10 +5,14 @@
  */
 package br.telas;
 
+import br.caixageral.CaixaGeral;
+import br.caixageral.CaixaGeralDAO;
 import br.livro.LivroCaixa;
 import br.livro.LivroCaixaDAO;
 import br.util.Ativo;
 import br.util.Util;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -17,22 +21,22 @@ import javax.swing.JOptionPane;
  *
  * @author Pedro Saraiva
  */
-public class TelaAdicionaCaixa extends javax.swing.JDialog {
+public class TelaAdicionaCaixaGeral extends javax.swing.JDialog {
 
     /**
      * Creates new form TelaAdicionaCaixa
      */
-    public TelaAdicionaCaixa() {
+    public TelaAdicionaCaixaGeral() {
         initComponents();
         SimpleDateFormat dfdtData;
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
         tfData.setText(dfdtData.format(new Date()));
-        tfData.setEnabled(false);
+//        tfData.setEnabled(false);
         tfDescricao.requestFocus();
 
         setModal(true);
         setLocationRelativeTo(null);
-        setTitle("Adiciona/Edita Caixa");
+        setTitle("Adiciona/Edita Caixa Geral");
     }
 
     /**
@@ -132,10 +136,25 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Informe se é uma Entrada ou Saída!");
                 return;
             }
-            LivroCaixa lc = new LivroCaixa();
+            CaixaGeral lc = new CaixaGeral();
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            sdf.setLenient(false);
+            String dataString = tfData.getText();
+
+            try {
+                Date data = sdf.parse(dataString);
+                lc.setData(data);
+  // se passou pra cá, é porque a data é válida
+            } catch (ParseException e) {
+                // se cair aqui, a data é inválida
+                JOptionPane.showMessageDialog(rootPane, "Data Incorreta!");
+                return;
+            }
+
+
             lc.setData(new Date());
             lc.setDescricao(tfDescricao.getText());
-            lc.setCaixa(Ativo.getCaixa());
             double valor = 0;
             try {
                 valor = Double.parseDouble(tfValor.getText().replaceAll(",", "."));
@@ -143,19 +162,19 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "ERRO no valor!");
                 return;
             }
-            if(valor<=0){
+            if (valor <= 0) {
                 JOptionPane.showMessageDialog(rootPane, "O Valor Inicial deve ser Maior que 0!");
                 tfValor.requestFocus();
-                return ;
+                return;
             }
-            
+
             if (rbEntrada.isSelected()) {
 
                 lc.setValorEntrada(valor);
             } else {
                 lc.setValorSaida(valor);
             }
-            LivroCaixaDAO lcDAo = new LivroCaixaDAO();
+            CaixaGeralDAO lcDAo = new CaixaGeralDAO();
             lcDAo.add(lc);
 //            JOptionPane.showMessageDialog(rootPane, "Item adicionado com sucesso!");
             setVisible(false);
@@ -179,20 +198,21 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAdicionaCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdicionaCaixaGeral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAdicionaCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdicionaCaixaGeral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAdicionaCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdicionaCaixaGeral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAdicionaCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdicionaCaixaGeral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaAdicionaCaixa().setVisible(true);
+                new TelaAdicionaCaixaGeral().setVisible(true);
             }
         });
     }

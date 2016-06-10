@@ -53,6 +53,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mmCartao.setVisible(Util.verificaPermissao("V_CARTAO", 0));
         mmFornecedor.setVisible(Util.verificaPermissao("V_FORNECEDOR", 0));
         mmContaBancaria.setVisible(Util.verificaPermissao("V_CONTA_BANCARIA", 0));
+        mmCaixaGeral.setVisible(Util.verificaPermissao("CAIXA_GERAL", 0));
+        mmListarCaixas.setVisible(Util.verificaPermissao("LISTAR_CAIXAS", 0));
     }
 
     /**
@@ -64,7 +66,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem4 = new javax.swing.JMenuItem();
         lblImage = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mCadastro = new javax.swing.JMenu();
@@ -85,8 +86,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mmVenda = new javax.swing.JMenuItem();
         mmListarVendas = new javax.swing.JMenuItem();
         mmOrcamento = new javax.swing.JMenuItem();
-
-        jMenuItem4.setText("jMenuItem4");
+        jMenu4 = new javax.swing.JMenu();
+        mmCaixaGeral = new javax.swing.JMenuItem();
+        mmListarCaixas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -257,6 +259,32 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setMnemonic('g');
+        jMenu4.setText("Geral");
+        jMenu4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+
+        mmCaixaGeral.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        mmCaixaGeral.setMnemonic('c');
+        mmCaixaGeral.setText("Caixa Geral");
+        mmCaixaGeral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mmCaixaGeralActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mmCaixaGeral);
+
+        mmListarCaixas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        mmListarCaixas.setMnemonic('l');
+        mmListarCaixas.setText("Listar Caixas");
+        mmListarCaixas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mmListarCaixasActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mmListarCaixas);
+
+        jMenuBar1.add(jMenu4);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -344,6 +372,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tcb.setVisible(true);
     }//GEN-LAST:event_mmContaBancariaActionPerformed
 
+    private void mmCaixaGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmCaixaGeralActionPerformed
+        TelaCaixaGeral tcg = new TelaCaixaGeral();
+        tcg.setVisible(true);
+    }//GEN-LAST:event_mmCaixaGeralActionPerformed
+
+    private void mmListarCaixasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmListarCaixasActionPerformed
+        TelaListarCaixas tlc = new TelaListarCaixas();
+        tlc.setVisible(true);
+    }//GEN-LAST:event_mmListarCaixasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -383,11 +421,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JLabel lblImage;
     private javax.swing.JMenu mCadastro;
     private javax.swing.JMenuItem mmCaixa;
+    private javax.swing.JMenuItem mmCaixaGeral;
     private javax.swing.JMenuItem mmCartao;
     private javax.swing.JMenuItem mmCliente;
     private javax.swing.JMenuItem mmContaBancaria;
@@ -395,6 +434,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mmEmpresa;
     private javax.swing.JMenuItem mmFornecedor;
     private javax.swing.JMenuItem mmGrupoProduto;
+    private javax.swing.JMenuItem mmListarCaixas;
     private javax.swing.JMenuItem mmListarVendas;
     private javax.swing.JMenuItem mmOrcamento;
     private javax.swing.JMenuItem mmProduto;

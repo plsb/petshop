@@ -8,9 +8,16 @@
 		<defaultValueExpression><![CDATA["C:\\Users\\Pedro Saraiva\\Documents\\GitHub\\petshop\\petshop\\relatorios\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select c.descricao as desccaixa, c.valorEntrada, c.valorSaida, c.data datacaixa from livrocaixa c
-where c.data=$P!{sql}
-order by c.id]]>
+		<![CDATA[select lc.descricao as desccaixa, lc.valorEntrada, lc.valorSaida, c.dataAbriu dataabriucaixa, c.dataFechou datafechoucaixa,
+	c.horaAbriu horaabriucaixa, c.horafechou horafechoucaixa, u.nome, lc.data dtitem,
+	c.retirada, c.valorFicaCaixa, c.nrCaixa,
+	(select valorFicaCaixa from caixa where nrCaixa=c.nrCaixa and id!=c.id order by id desc limit 1) vlAnterior, c.aberto,
+	e.razaoSocial
+ from empresa e,caixa c
+left join livrocaixa lc on c.id=lc.caixa_id
+inner join usuario u on u.id=c.user_id
+where c.id=$P!{sql}
+order by lc.id]]>
 	</queryString>
 	<field name="desccaixa" class="java.lang.String"/>
 	<field name="valorEntrada" class="java.lang.Double">
@@ -19,7 +26,30 @@ order by c.id]]>
 	<field name="valorSaida" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="datacaixa" class="java.sql.Date"/>
+	<field name="dataabriucaixa" class="java.sql.Date"/>
+	<field name="datafechoucaixa" class="java.sql.Date"/>
+	<field name="horaabriucaixa" class="java.sql.Time"/>
+	<field name="horafechoucaixa" class="java.sql.Time"/>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dtitem" class="java.sql.Date"/>
+	<field name="retirada" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorFicaCaixa" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nrCaixa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vlAnterior" class="java.lang.Double"/>
+	<field name="aberto" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="razaoSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<variable name="saldo" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{valorEntrada}-$F{valorSaida}]]></variableExpression>
 	</variable>
@@ -28,6 +58,9 @@ order by c.id]]>
 	</variable>
 	<variable name="vlSaida" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{valorSaida}]]></variableExpression>
+	</variable>
+	<variable name="saldogeral" class="java.lang.Double">
+		<variableExpression><![CDATA[(($F{retirada}+$F{valorFicaCaixa})-$F{vlAnterior})-$V{saldo}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -44,117 +77,217 @@ order by c.id]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="29" splitType="Stretch">
+		<band height="140" splitType="Stretch">
 			<textField>
 				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="0" y="0" width="555" height="24"/>
 				<textElement textAlignment="Center">
 					<font fontName="Bitstream Vera Sans Mono" size="18" isBold="true" isUnderline="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["RELATÓRIO DE CAIXA DO DIA "+$F{datacaixa}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["RELATÓRIO DE CAIXA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="198" y="57" width="357" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Usuário: "+$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="0" y="81" width="198" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dt. Aberto: "+$F{dataabriucaixa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="0" y="105" width="198" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datafechoucaixa}==null?"Dt. Fechado: ":"Dt. Fechado: "+$F{datafechoucaixa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="198" y="81" width="198" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Hora Aberto: "+$F{horaabriucaixa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="198" y="105" width="198" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horafechoucaixa}==null?"Hora Fechado: ":"Hora Fechado: "+$F{horafechoucaixa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="1" y="57" width="198" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nº Caixa: "+$F{nrCaixa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="1" y="24" width="552" height="24"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{razaoSocial}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="22" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="0" y="0" width="179" height="20"/>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="0" y="4" width="179" height="20"/>
 				<textElement>
 					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Descrição]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="425" y="0" width="52" height="20"/>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="425" y="4" width="52" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Saída]]></text>
 			</staticText>
-			<line>
-				<reportElement uuid="e801ea51-0a2b-4ac7-b566-771253323d55" x="0" y="20" width="555" height="1"/>
-			</line>
 			<staticText>
-				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="492" y="2" width="52" height="20"/>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="492" y="3" width="52" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Saldo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="360" y="0" width="53" height="20"/>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="360" y="4" width="53" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Entrada]]></text>
 			</staticText>
+			<line>
+				<reportElement uuid="e801ea51-0a2b-4ac7-b566-771253323d55" x="0" y="26" width="555" height="1"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<textField>
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="0" y="0" width="349" height="20"/>
 				<textElement>
 					<font fontName="Bitstream Vera Sans Mono" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{desccaixa}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{desccaixa}==null?"":$F{desccaixa}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="349" y="1" width="64" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{valorEntrada}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{valorEntrada}==null?"":$F{valorEntrada}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="425" y="0" width="52" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{valorSaida}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{valorSaida}==null?"":$F{valorSaida}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="480" y="1" width="64" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{saldo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{saldo}==null?"":$V{saldo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<summary>
-		<band height="70" splitType="Stretch">
-			<subreport>
-				<reportElement uuid="90164015-4fdf-483f-b88a-31d4f356302b" positionType="Float" mode="Opaque" x="0" y="27" width="555" height="42"/>
-				<subreportParameter name="data">
-					<subreportParameterExpression><![CDATA[$F{datacaixa}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportLivroCaixa_subreport1.jasper"]]></subreportExpression>
-			</subreport>
+		<band height="248" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="cade31c7-565f-4192-8081-1912bba38e76" x="3" y="29" width="553" height="82"/>
+			</rectangle>
 			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="417" y="4" width="64" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{vlSaida}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{vlSaida}==null?"":$V{vlSaida}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="350" y="4" width="64" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{vlEntrada}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{vlEntrada}==null?"":$V{vlEntrada}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="74f2cd92-e639-4518-be6a-69bcdf9bd47a" x="481" y="4" width="64" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{saldo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{saldo}==null?"":$V{saldo}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement uuid="e801ea51-0a2b-4ac7-b566-771253323d55" x="0" y="2" width="555" height="1"/>
 			</line>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="8" y="51" width="177" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Retirada: "+$F{retirada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="9" y="75" width="176" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Gaveta: "+$F{valorFicaCaixa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="439" y="74" width="115" height="24"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aberto}==true?
+"Cx. Aberto":
+$V{saldogeral}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="190" y="75" width="184" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Anterior: "+$F{vlAnterior}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="3" y="29" width="552" height="24"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RESUMO"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f7138e77-05c6-4e54-b0d0-24df9baf9e4f" x="1" y="194" width="552" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[___________________________________________________________________]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="1" y="214" width="549" height="24"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="438" y="52" width="115" height="24"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Saldo:"]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

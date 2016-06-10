@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -141,7 +142,7 @@ public class TelaFechaCaixa extends javax.swing.JDialog {
         jPanel1.add(tfValorAtual, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 150, -1));
 
         jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel4.setText("Valor Atual.: (*)");
+        jLabel4.setText("Valor Gaveta.: (*)");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, -1, -1));
 
         lbl.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 14)); // NOI18N
@@ -224,8 +225,8 @@ public class TelaFechaCaixa extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "ERRO no valor atual!");
                 return;
             }
-            if (valorAtual <= 0 || valorRetirada <= 0) {
-                JOptionPane.showMessageDialog(rootPane, "O Valores devem ser Maiores que 0!");
+            if (valorAtual < 0 || valorRetirada < 0) {
+                JOptionPane.showMessageDialog(rootPane, "O Valores não podem ser negativos!");
                 tfValorRetirada.requestFocus();
                 return;
             }
@@ -255,6 +256,10 @@ public class TelaFechaCaixa extends javax.swing.JDialog {
 
             cgDAO.add(cg);
             dispose();
+            
+            HashMap parametros = new HashMap();
+            parametros.put("sql", Ativo.getCaixa().getId());
+            Util.imprimir("relatorios/reportLivroCaixa.jrxml", parametros);
 
             //como foi fechado, o caixa ativo será null
             Ativo.setCaixa(null);

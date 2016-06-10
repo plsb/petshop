@@ -85,6 +85,7 @@ public class TelaProduto extends javax.swing.JDialog {
         tfPrecoCompra.setEnabled(b);
         tfQtdEstoque.setEditable(b);
         cbUnidade.setEnabled(b);
+        cbFornecedor.setEnabled(b);
     }
 
     private Produto produto;
@@ -379,7 +380,12 @@ public class TelaProduto extends javax.swing.JDialog {
                 produto.setDescricao(tfDescricao.getText());
                 produto.setCodigo(tfCodigo.getText());
                 produto.setGrupoProduto((GrupoProduto) cbGrupo.getSelectedItem());
-                produto.setFornecedor((Fornecedor) cbFornecedor.getSelectedItem());
+                //caso seja serviço
+                try {
+                    produto.setFornecedor((Fornecedor) cbFornecedor.getSelectedItem());
+                } catch (Exception e) {
+                    
+                }                
                 produto.setServico(chbServico.isSelected());
                 produto.setReferencia(tfReferencia.getText());
                 if (!tfEstoqueMinimo.getText().equals("")) {
@@ -414,7 +420,7 @@ public class TelaProduto extends javax.swing.JDialog {
                         tfCodigo.requestFocus();
                         return;
                     }
-                    if (produto.getQtdEstoque() <= 0) {
+                    if (produto.getQtdEstoque() <= 0 && !produto.isServico()) {
                         JOptionPane.showMessageDialog(rootPane, "Quantidade não pode ser menor ou igual a 0!", "ERRO", JOptionPane.ERROR_MESSAGE);
                         tfQtdEstoque.requestFocus();
                         return;
