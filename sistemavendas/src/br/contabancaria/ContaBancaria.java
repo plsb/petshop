@@ -98,5 +98,11 @@ public class ContaBancaria implements Serializable, Comparable<ContaBancaria>{
         }
         return true;
     }
-        
+
+    @Override
+    public String toString() {
+        return descricao+", "+tipo+", Nº "+numero+", Agência: "+agencia;
+    }
+
+    
 }

@@ -143,6 +143,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
         jCheckBox13 = new javax.swing.JCheckBox();
         jCheckBox14 = new javax.swing.JCheckBox();
         jCheckBox15 = new javax.swing.JCheckBox();
+        jCheckBox16 = new javax.swing.JCheckBox();
         lbTexto = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         btSalvar = new javax.swing.JButton();
@@ -676,9 +677,9 @@ public class TelaPermissoes extends javax.swing.JDialog {
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Geral"));
         jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jCheckBox13.setText("Contas à Pagar");
-        jCheckBox13.setName("CONTAS_PAGAR"); // NOI18N
-        jPanel16.add(jCheckBox13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        jCheckBox13.setText("Movimentação Conta Bancária");
+        jCheckBox13.setName("MOV_CONTA_BANCARIA"); // NOI18N
+        jPanel16.add(jCheckBox13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         jCheckBox14.setText("Caixa Geral");
         jCheckBox14.setName("CAIXA_GERAL"); // NOI18N
@@ -687,6 +688,10 @@ public class TelaPermissoes extends javax.swing.JDialog {
         jCheckBox15.setText("Listar Caixas");
         jCheckBox15.setName("LISTAR_CAIXAS"); // NOI18N
         jPanel16.add(jCheckBox15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        jCheckBox16.setText("Contas à Pagar");
+        jCheckBox16.setName("CONTAS_PAGAR"); // NOI18N
+        jPanel16.add(jCheckBox16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -959,6 +964,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox jCheckBox13;
     private javax.swing.JCheckBox jCheckBox14;
     private javax.swing.JCheckBox jCheckBox15;
+    private javax.swing.JCheckBox jCheckBox16;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;

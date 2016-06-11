@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportLivroCaixa_resumovendas" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d5886de8-82c0-4d39-b7a5-1cdc555866db">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="idCaixa" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+		sum(vlCartao) cartao,
+		sum(vlPromissoria) prazo,
+		sum(vlVista) vista,
+		(select sum(valorTotal) from venda where cancelada=true and caixa_id=v.caixa_id) vlCanceladas
+from venda v
+where v.cancelada=false and v.caixa_id=$P{idCaixa}]]>
+	</queryString>
+	<field name="cartao" class="java.lang.Double"/>
+	<field name="prazo" class="java.lang.Double"/>
+	<field name="vista" class="java.lang.Double"/>
+	<field name="vlCanceladas" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="176" splitType="Stretch">
+			<line>
+				<reportElement uuid="46480733-3027-4d95-b946-8caa54a60613" x="0" y="11" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<rectangle>
+				<reportElement uuid="282ff21e-cab7-4cb2-83d6-3bbbee6336ac" x="160" y="46" width="225" height="106"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="139d94c2-5e0d-4ee1-8d9d-b4789bcb6685" x="0" y="15" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[RESUMO VENDAS]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="171" y="51" width="101" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Vl. Vista: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="171" y="99" width="101" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Vl. Cartão: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="171" y="75" width="101" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Vl. Prazo: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="171" y="123" width="101" height="24"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Canceladas: "]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="272" y="51" width="101" height="24"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vista}==null?0:$F{vista}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="272" y="75" width="101" height="24"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prazo}==null?0:$F{prazo}
+]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="272" y="99" width="101" height="24"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cartao}==null?0:$F{cartao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="6973aab1-471e-4b85-a1d7-ad6db07bce10" x="272" y="123" width="101" height="24"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vlCanceladas}==null?0:$F{vlCanceladas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

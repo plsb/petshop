@@ -144,10 +144,11 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
                 return;
             }
             if(valor<=0){
-                JOptionPane.showMessageDialog(rootPane, "O Valor Inicial deve ser Maior que 0!");
+                JOptionPane.showMessageDialog(rootPane, "O Valor deve ser Maior que 0!");
                 tfValor.requestFocus();
                 return ;
             }
+            
             
             if (rbEntrada.isSelected()) {
 

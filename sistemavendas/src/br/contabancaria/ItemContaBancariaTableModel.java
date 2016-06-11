@@ -10,9 +10,9 @@
  * implícita de ADEQUAÇÃO a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU
  * para maiores detalhes.
  */
-package br.livro;
+package br.contabancaria;
 
-import br.grupo_produto.*;
+import br.cliente.*;
 import br.util.Util;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,10 +25,10 @@ import javax.swing.table.AbstractTableModel;
  * @author Francisco Junior
  */
 @SuppressWarnings("serial")
-public class LivroCaixaTableModel extends AbstractTableModel {
+public class ItemContaBancariaTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Código", "Entrada", "Saída", "Saldo", "Descrição"};
-    private List<LivroCaixa> livro;
+    private String[] nomeColunas = {"Código", "", "Entrada", "Saída", "Saldo", "Descrição"};
+    private List<ItemContaBancaria> contas;
 
     /**
      * Construtor sobrecarregado.
@@ -36,11 +36,11 @@ public class LivroCaixaTableModel extends AbstractTableModel {
      * @param lista List(Autor).
      */
     // construtor que adiciona a lista passada pelo método ao alunos  
-    public LivroCaixaTableModel(List<LivroCaixa> lista) {
-        livro = new ArrayList(new HashSet(lista));
+    public ItemContaBancariaTableModel(List<ItemContaBancaria> lista) {
+        contas = new ArrayList(new HashSet(lista));
 //        this.leitores.clear();
 //        this.leitores.addAll(lista);
-        Collections.sort(livro);
+        Collections.sort(contas);
         super.fireTableDataChanged();
     }
 
@@ -51,7 +51,7 @@ public class LivroCaixaTableModel extends AbstractTableModel {
      */
     @Override
     public int getRowCount() {
-        return livro.size();
+        return contas.size();
     }
 
     /**
@@ -73,35 +73,44 @@ public class LivroCaixaTableModel extends AbstractTableModel {
      */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        LivroCaixa l = livro.get(rowIndex);
+        ItemContaBancaria conta = contas.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return Util.decimalFormat().format(l.getId());
-
+                return Util.decimalFormat().format(conta.getId());
             case 1:
-                return l.getValorEntrada();
+                return conta.getBloqueada();
             case 2:
-                return l.getValorSaida();
+                return conta.getEntrada();
             case 3:
+                return conta.getSaida();
+            case 4:
                 double saldo = 0;
                 if (rowIndex == 0) {
-                    saldo = l.getValorEntrada() - l.getValorSaida();
+                    if (conta.isBloqueada()) {
+                        saldo = 0;
+                    } else {
+                        saldo = conta.getEntrada() - conta.getSaida();
+                    }
                 } else {
-                    Object o = getValueAt(rowIndex - 1, 3);
-                    saldo = Double.parseDouble(String.valueOf(o).replaceFirst(",", "."))
-                            + (l.getValorEntrada() - l.getValorSaida());
+                    Object o = getValueAt(rowIndex - 1, 4);
+                    if (conta.isBloqueada()) {
+                        saldo = Double.parseDouble(String.valueOf(o).replaceFirst(",", "."));
+                    } else {
+                        saldo = Double.parseDouble(String.valueOf(o).replaceFirst(",", "."))
+                                + (conta.getEntrada() - conta.getSaida());
+                    }
                 }
                 return Util.acertarNumero(saldo);
-            case 4:
-                return l.getDescricao();
 
+            case 5:
+                return conta.getDescricao();
         }
         return null;
     }
 
-    public LivroCaixa getValueAt(int rowIndex) {
-        LivroCaixa l = livro.get(rowIndex);
-        return l;
+    public ItemContaBancaria getValueAt(int rowIndex) {
+        ItemContaBancaria conta = contas.get(rowIndex);
+        return conta;
     }
 
     /**
@@ -123,7 +132,8 @@ public class LivroCaixaTableModel extends AbstractTableModel {
                 return nomeColunas[3];
             case 4:
                 return nomeColunas[4];
-
+            case 5:
+                return nomeColunas[5];
         }
         return null;
     }

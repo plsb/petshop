@@ -43,6 +43,7 @@
         <mapping class="br.orcamento.ItemOrcamento"/>
         <mapping class="br.auditoria.Auditoria"/>
         <mapping class="br.contabancaria.ContaBancaria"/>
+        <mapping class="br.contabancaria.ItemContaBancaria"/>
     </session-factory>
 </hibernate-configuration>
 

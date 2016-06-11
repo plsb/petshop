@@ -1,4 +1,3 @@
-
 package br.caixageral;
 
 import br.cliente.*;
@@ -16,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class CaixaGeralTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Código", "Data", "Descrição","Entrada", "Saída"};
+    private String[] nomeColunas = {"Código", "Data", "Entrada", "Saída", "Saldo", "Descrição"};
     private List<CaixaGeral> cg;
 
     /**
@@ -69,16 +68,26 @@ public class CaixaGeralTableModel extends AbstractTableModel {
             case 1:
                 return caixa.getData();
             case 2:
-                return caixa.getDescricao();
-            case 3:
                 return caixa.getValorEntrada();
-            case 4:
+            case 3:
                 return caixa.getValorSaida();
-            
+            case 4:
+                double saldo = 0;
+                if (rowIndex == 0) {
+                    saldo = caixa.getValorEntrada() - caixa.getValorSaida();
+                } else {
+                    Object o = getValueAt(rowIndex-1, 4);
+                    saldo = Double.parseDouble(String.valueOf(o).replaceFirst(",", "."))+
+                            (caixa.getValorEntrada() - caixa.getValorSaida());
+                }
+                return Util.acertarNumero(saldo);
+            case 5:
+                return caixa.getDescricao();
+
         }
         return null;
     }
-    
+
     public CaixaGeral getValueAt(int rowIndex) {
         CaixaGeral caixa = cg.get(rowIndex);
         return caixa;
@@ -103,6 +112,8 @@ public class CaixaGeralTableModel extends AbstractTableModel {
                 return nomeColunas[3];
             case 4:
                 return nomeColunas[4];
+            case 5:
+                return nomeColunas[5];
         }
         return null;
     }

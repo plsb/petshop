@@ -7,6 +7,13 @@ package br.telas;
 
 import br.util.Ativo;
 import br.util.Util;
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Image;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.BarcodeEAN;
+import com.lowagie.text.pdf.PdfContentByte;
+import com.lowagie.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -53,6 +60,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mmCartao.setVisible(Util.verificaPermissao("V_CARTAO", 0));
         mmFornecedor.setVisible(Util.verificaPermissao("V_FORNECEDOR", 0));
         mmContaBancaria.setVisible(Util.verificaPermissao("V_CONTA_BANCARIA", 0));
+        mmMovimentContaBancaria.setVisible(Util.verificaPermissao("MOV_CONTA_BANCARIA", 0));
         mmCaixaGeral.setVisible(Util.verificaPermissao("CAIXA_GERAL", 0));
         mmListarCaixas.setVisible(Util.verificaPermissao("LISTAR_CAIXAS", 0));
         mmListarCaixas.setVisible(Util.verificaPermissao("CONTAS_PAGAR", 0));
@@ -91,6 +99,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mmCaixaGeral = new javax.swing.JMenuItem();
         mmContasPagar = new javax.swing.JMenuItem();
         mmListarCaixas = new javax.swing.JMenuItem();
+        mmMovimentContaBancaria = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -295,6 +304,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu4.add(mmListarCaixas);
 
+        mmMovimentContaBancaria.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        mmMovimentContaBancaria.setMnemonic('m');
+        mmMovimentContaBancaria.setText("Movimentação Conta Bancária");
+        mmMovimentContaBancaria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mmMovimentContaBancariaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mmMovimentContaBancaria);
+
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -347,6 +366,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void mmUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmUsuarioActionPerformed
         TelaUsuario tu = new TelaUsuario();
         tu.setVisible(true);
+        permissoes();
     }//GEN-LAST:event_mmUsuarioActionPerformed
 
     private void mmVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmVendaActionPerformed
@@ -398,6 +418,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaContaPagar tcp = new TelaContaPagar();
         tcp.setVisible(true);
     }//GEN-LAST:event_mmContasPagarActionPerformed
+
+    private void mmMovimentContaBancariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmMovimentContaBancariaActionPerformed
+        TelaMovimentacaoContaBancaria tmcb = new TelaMovimentacaoContaBancaria();
+        tmcb.setVisible(true);
+    }//GEN-LAST:event_mmMovimentContaBancariaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -454,6 +479,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mmGrupoProduto;
     private javax.swing.JMenuItem mmListarCaixas;
     private javax.swing.JMenuItem mmListarVendas;
+    private javax.swing.JMenuItem mmMovimentContaBancaria;
     private javax.swing.JMenuItem mmOrcamento;
     private javax.swing.JMenuItem mmProduto;
     private javax.swing.JMenuItem mmUsuario;
