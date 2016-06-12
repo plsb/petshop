@@ -1,8 +1,11 @@
-
 package br.telas;
 
+import br.caixageral.CaixaGeral;
+import br.caixageral.CaixaGeralDAO;
 import br.cliente.Cliente;
 import br.cliente.ClienteDAO;
+import br.contabancaria.ItemContaBancaria;
+import br.contabancaria.ItemContaBancariaDAO;
 import br.contaspagar.ContaPagarCellRenderer;
 import br.contaspagar.ContasPagar;
 import br.contaspagar.ContasPagarDAO;
@@ -57,7 +60,7 @@ public class TelaContaPagar extends javax.swing.JDialog {
         SimpleDateFormat dfdtData;
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
         tfDataInicio.setText(dfdtData.format(new Date()));
-        tfDataFim.setText(dfdtData.format(new Date()));
+        tfDataFim.setText(dfdtData.format(Util.ultimoDiaMes()));
         btPesquisarActionPerformed(null);
 
     }
@@ -230,6 +233,7 @@ public class TelaContaPagar extends javax.swing.JDialog {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btContas.add(rbContasPagas);
         rbContasPagas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         rbContasPagas.setText("Contas Pagas");
         rbContasPagas.addActionListener(new java.awt.event.ActionListener() {
@@ -239,6 +243,7 @@ public class TelaContaPagar extends javax.swing.JDialog {
         });
         jPanel2.add(rbContasPagas, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, -1, -1));
 
+        btContas.add(rbContasAbert);
         rbContasAbert.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         rbContasAbert.setText("Contas em Aberto");
         rbContasAbert.addActionListener(new java.awt.event.ActionListener() {
@@ -329,27 +334,24 @@ public class TelaContaPagar extends javax.swing.JDialog {
             btRemover.setEnabled(false);
         }
         tbContas.setAutoCreateRowSorter(true);
-        tbContas.setDefaultRenderer(Object.class, 
+        tbContas.setDefaultRenderer(Object.class,
                 new ContaPagarCellRenderer());
-                
+
     }
 
     private void btReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReceberActionPerformed
-        if (Util.verificaPermissao("RECEBER_CONTA_RECEBER", 1)) {
-            if(!Util.verificaCaixaAberto()){
-                JOptionPane.showMessageDialog(rootPane, "Caixa Fechado!");
-                return ;
-            }
-            
+
             int row = tbContas.getSelectedRow();
             Object o;
             if (row > -1) { //então tem ítem selecionado
                 o = tbContas.getValueAt(row, 0);
-                ContasReceberDAO crDAO = new ContasReceberDAO();
+                ContasPagarDAO crDAO = new ContasPagarDAO();
                 String s = String.valueOf(o);
-                ContasReceber cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
+                ContasPagar cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
                 if (!cr.isPaga()) {
-                    TelaContaPromissoriaRec.chamaTela(cr);
+                    TelaContaPagarRec tcpr = new TelaContaPagarRec(cr);
+                    tcpr.setVisible(true);
+                    
                     btPesquisarActionPerformed(evt);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
@@ -360,51 +362,65 @@ public class TelaContaPagar extends javax.swing.JDialog {
                         "ERRO", JOptionPane.ERROR_MESSAGE);
             }
 
-        }
+
     }//GEN-LAST:event_btReceberActionPerformed
 
     private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
-        if (Util.verificaPermissao("EDITAR_CONTA_RECEBER", 1)) {
-            int row = tbContas.getSelectedRow();
-            Object o;
-            if (row > -1) { //então tem ítem selecionado
-                o = tbContas.getValueAt(row, 0);
-                ContasReceberDAO crDAO = new ContasReceberDAO();
-                String s = String.valueOf(o);
-                ContasReceber cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
-                if (!cr.isPaga()) {
-                    TelaContaPromissoriaCad.chamaEdita(cr);
-                    btPesquisarActionPerformed(evt);
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
-                }
+        int row = tbContas.getSelectedRow();
+        Object o;
+        if (row > -1) { //então tem ítem selecionado
+            o = tbContas.getValueAt(row, 0);
+            ContasPagarDAO crDAO = new ContasPagarDAO();
+            String s = String.valueOf(o);
+            ContasPagar cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
+            if (!cr.isPaga()) {
+                TelaContaPagarCad tcpc = new TelaContaPagarCad(cr);
+                tcpc.setVisible(true);
+                btPesquisarActionPerformed(evt);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
-                        "ERRO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
             }
-
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
+                    "ERRO", JOptionPane.ERROR_MESSAGE);
         }
+
+
     }//GEN-LAST:event_btEditActionPerformed
 
     private void btNovo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovo3ActionPerformed
-            TelaContaPromissoriaCad tcpc = new TelaContaPromissoriaCad();
-            tcpc.setVisible(true);
-            btPesquisarActionPerformed(evt);
+        TelaContaPagarCad tcpc = new TelaContaPagarCad();
+        tcpc.setVisible(true);
+        btPesquisarActionPerformed(evt);
     }//GEN-LAST:event_btNovo3ActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
-        if (Util.verificaPermissao("EXCLUIR_CONTA_RECEBER", 1)) {
             int row = tbContas.getSelectedRow();
             Object o;
             if (row > -1) { //então tem ítem selecionado
                 o = tbContas.getValueAt(row, 0);
-                ContasReceberDAO crDAO = new ContasReceberDAO();
+                ContasPagarDAO crDAO = new ContasPagarDAO();
                 String s = String.valueOf(o);
-                ContasReceber cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
+                ContasPagar cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
                 if (!cr.isPaga()) {
                     if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir a conta selecionada?", "EXCLUIR",
                             JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                         crDAO.remove(cr);
+                        
+                        //remove do caixa, caso tenha sido paga pelo caixa
+                        CaixaGeralDAO cgDAO = new CaixaGeralDAO();
+                        List<CaixaGeral> listaCg = cgDAO.checkExists("contaPagar", cr);
+                        for (CaixaGeral listaCg1 : listaCg) {
+                            cgDAO.remove(listaCg1);
+                        }
+                        
+                        //remove da contabancaria, caso tenha sido paga pela contabancaria
+                        ItemContaBancariaDAO icbDAO = new ItemContaBancariaDAO();
+                        List<ItemContaBancaria> listaICB = icbDAO.checkExists("contaPagar", cr);
+                        for (ItemContaBancaria listaICB1 : listaICB) {
+                            icbDAO.remove(listaICB1);
+                        }                        
+                        
                         btPesquisarActionPerformed(evt);
                     }
                 } else {
@@ -414,7 +430,7 @@ public class TelaContaPagar extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
                         "ERRO", JOptionPane.ERROR_MESSAGE);
             }
-        }
+
     }//GEN-LAST:event_btRemoverActionPerformed
 
     private void tbContasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbContasKeyPressed
@@ -437,28 +453,27 @@ public class TelaContaPagar extends javax.swing.JDialog {
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         if (!tfDataInicio.getText().equals("  /  /    ")
-            && !tfDataFim.getText().equals("  /  /    ")) {
-            
-            Date iniDate=null, endDate=null;
-            
+                && !tfDataFim.getText().equals("  /  /    ")) {
+
+            Date iniDate = null, endDate = null;
+
             iniDate = Util.verificaData(tfDataInicio.getText());
 
-            if(iniDate==null){
+            if (iniDate == null) {
                 JOptionPane.showMessageDialog(rootPane, "Data Inicial Incorreta!");
                 return;
             }
 
             endDate = Util.verificaData(tfDataFim.getText());
-            if(endDate==null){
+            if (endDate == null) {
                 JOptionPane.showMessageDialog(rootPane, "Data Fim Incorreta!");
                 return;
             }
 
             ContasPagarDAO crDAO = new ContasPagarDAO();
             preencheTabela(crDAO.listaContasFornecedor(
-                cbFornecedor.getSelectedIndex()==0?null:(Fornecedor) cbFornecedor.getSelectedItem(),
-                rbContasPagas.isSelected()
-                ,iniDate, endDate));
+                    cbFornecedor.getSelectedIndex() == 0 ? null : (Fornecedor) cbFornecedor.getSelectedItem(),
+                    rbContasPagas.isSelected(), iniDate, endDate));
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "Informe as Datas!");

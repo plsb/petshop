@@ -45,7 +45,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         SimpleDateFormat dfdtData;
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
         tfDataInicio.setText(dfdtData.format(new Date()));
-        tfDataFim.setText(dfdtData.format(new Date()));
+        tfDataFim.setText(dfdtData.format(Util.ultimoDiaMes()));
         if (cliente != null) {
             cbCliente.setSelectedItem(cliente);
             cbCliente.setEnabled(false);

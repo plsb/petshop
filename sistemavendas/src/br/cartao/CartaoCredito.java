@@ -7,7 +7,6 @@ package br.cartao;
 
 import br.cliente.Cliente;
 import br.venda.Venda;
-import com.sun.security.ntlm.Client;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;

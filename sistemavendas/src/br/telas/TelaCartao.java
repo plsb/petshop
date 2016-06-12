@@ -51,7 +51,7 @@ public class TelaCartao extends javax.swing.JDialog {
         cbCliente.setSelectedItem(v.getCliente());
         cbCliente.setEnabled(false);
         tfValor.setText(String.valueOf(v.getVlCartao()));
-        
+
         SimpleDateFormat dfdtData;
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
         tfData.setText(dfdtData.format(new Date()));
@@ -220,6 +220,11 @@ public class TelaCartao extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         tfData.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        tfData.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfDataFocusLost(evt);
+            }
+        });
         jPanel1.add(tfData, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 130, -1));
 
         jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
@@ -381,10 +386,10 @@ public class TelaCartao extends javax.swing.JDialog {
         } catch (ParseException ex) {
             System.out.println(ex.getMessage());
         }
-        if(venda!=null){
+        if (venda != null) {
             cc.setVenda(venda);
         }
-            
+
         cc.setBandeira(cbBandeira1.getSelectedItem().toString());
         ccDAO.add(cc);
         dispose();
@@ -396,8 +401,18 @@ public class TelaCartao extends javax.swing.JDialog {
     }//GEN-LAST:event_cbQtParcelasFocusGained
 
     private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
+        if (Util.verificaValor(tfValor.getText(), 0) == null) {
+            tfValor.setText("");
+        }
         cbQtParcelasItemStateChanged(null);
     }//GEN-LAST:event_tfValorFocusLost
+
+    private void tfDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataFocusLost
+        if(Util.verificaData(tfData.getText())==null){
+            JOptionPane.showMessageDialog(rootPane, "Data inválida!");
+            tfData.setText("");
+        }
+    }//GEN-LAST:event_tfDataFocusLost
 
     /**
      * @param args the command line arguments

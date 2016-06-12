@@ -48,6 +48,8 @@ public class TelaFornecedor extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mpRelatorio = new javax.swing.JPopupMenu();
+        mmCurvaABC = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -74,6 +76,15 @@ public class TelaFornecedor extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         tfIE = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        btnImprimir = new javax.swing.JButton();
+
+        mmCurvaABC.setText("Curva ABC");
+        mmCurvaABC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mmCurvaABCActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(mmCurvaABC);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -226,6 +237,14 @@ public class TelaFornecedor extends javax.swing.JDialog {
         jLabel8.setText("Inscr. Estadual.:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, -1, -1));
 
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 40, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 600, 290));
 
         pack();
@@ -346,6 +365,43 @@ public class TelaFornecedor extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCepFocusLost
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+
+        mpRelatorio.show(btnImprimir, btnImprimir.getWidth(), btnImprimir.getHeight());
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void mmCurvaABCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmCurvaABCActionPerformed
+        if(Util.verificaPermissao("REL_CURVA_ABC_FORNECEDOR", 1)){
+            HashMap<String, String> map = TelaEscolhaData.chamaTela();
+            if (map != null) {
+                String dataInicial = "", dataFinal = "";
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = new java.sql.Date(format.parse(map.get("dtIni")).getTime());
+                    dataInicial = String.valueOf(data);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = new java.sql.Date(format.parse(map.get("dtFim")).getTime());
+                    dataFinal = String.valueOf(data);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                HashMap parametros = new HashMap();
+                parametros.put("dtInicial", "'" + dataInicial + "'");
+                parametros.put("dtFinal", "'" + dataFinal + "'");
+                Util.imprimir("relatorios/reportCurvaABCFornecedor.jrxml", parametros);
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível gerar o relatório!");
+            }
+
+        }
+    }//GEN-LAST:event_mmCurvaABCActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -388,6 +444,7 @@ public class TelaFornecedor extends javax.swing.JDialog {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar1;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JComboBox cbEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -401,6 +458,8 @@ public class TelaFornecedor extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lbTexto;
+    private javax.swing.JMenuItem mmCurvaABC;
+    private javax.swing.JPopupMenu mpRelatorio;
     private javax.swing.JFormattedTextField tfCNPJ;
     private javax.swing.JFormattedTextField tfCep;
     private javax.swing.JTextField tfCidade;

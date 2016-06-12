@@ -394,7 +394,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="10" y="160" width="180" height="140"/>
+                      <AbsoluteConstraints x="10" y="160" width="180" height="150"/>
                     </Constraint>
                   </Constraints>
 
@@ -407,6 +407,7 @@
                                   <Component id="EXCLUIR_GRUPO_PRODUTO" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jCheckBox17" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                           </Group>
@@ -422,7 +423,9 @@
                               <Component id="EXCLUIR_GRUPO_PRODUTO" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="19" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jCheckBox17" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -457,6 +460,15 @@
                         <Property name="text" type="java.lang.String" value="Visualizar"/>
                         <Property name="name" type="java.lang.String" value="V_GRUPO_PRODUTO" noResource="true"/>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="jCheckBox17">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Relat. Curva ABC"/>
+                        <Property name="name" type="java.lang.String" value="REL_CURVA_ABC_GRUP" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox17ActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -532,11 +544,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="CE_EMPRESA2" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jCheckBox12" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="EXCLUIR_CLIENTE19" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jCheckBox18" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -550,7 +563,9 @@
                               <Component id="CE_EMPRESA2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="EXCLUIR_CLIENTE19" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="45" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jCheckBox18" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="22" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -576,6 +591,15 @@
                         <Property name="text" type="java.lang.String" value="Excluir "/>
                         <Property name="name" type="java.lang.String" value="EXCLUIR_FORNECEDOR" noResource="true"/>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="jCheckBox18">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Relat. Curva ABC"/>
+                        <Property name="name" type="java.lang.String" value="REL_CURVA_ABC_FORNECEDOR" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox18ActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

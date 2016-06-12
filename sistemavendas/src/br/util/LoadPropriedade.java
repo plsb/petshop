@@ -15,7 +15,7 @@ public class LoadPropriedade {
     public static String loadProperty(String property) {
 
         try {
-//            enderecoDoJar =Util.retornaCaminhoApp()+"config.ini";
+            enderecoDoJar =Util.retornaCaminhoApp()+"config.ini";
             enderecoDoJar ="config.ini";
             File file = new File(enderecoDoJar);
             FileInputStream f = new FileInputStream(file);

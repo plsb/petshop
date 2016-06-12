@@ -461,7 +461,7 @@ public class Util {
     public static Date verificaData(String data) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false);
-        Date date =null;
+        Date date = null;
         try {
             date = sdf.parse(data);
             return date;
@@ -469,7 +469,43 @@ public class Util {
         } catch (ParseException e) {
             return date;
         }
+
+    }
+
+    public static Double verificaValor(String valor, double minimo) {
+        Double d = null;
+        try {
+            d = Double.parseDouble(valor.replaceFirst(",", "."));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Valor Incompatível!");
+            return null;
+        }
+        if (d <= minimo) {
+            JOptionPane.showMessageDialog(null, "Valor deve ser superior à " + String.valueOf(minimo));
+            return null;
+        }
+
+        return d;
+
+    }
+
+    public static Date ultimoDiaMes() {
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTime(new Date());
+
+        int dia = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int mes = (cal.get(Calendar.MONDAY) + 1);
+        int ano = cal.get(Calendar.YEAR);
+
+        System.out.println(dia + "/" + mes + "/" + ano);
         
+        Date data=null;
+        try {
+            data = (new SimpleDateFormat("dd/MM/yyyy")).parse(dia + "/" + mes + "/" + ano);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
 }

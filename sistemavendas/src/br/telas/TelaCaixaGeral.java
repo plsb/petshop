@@ -11,6 +11,10 @@ import br.caixageral.CaixaGeralTableModel;
 import br.livro.LivroCaixa;
 import br.util.FormataTamanhoColunasJTable;
 import br.util.Util;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -27,12 +31,17 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
         initComponents();
         setModal(true);
         setLocationRelativeTo(null);
-        preencheTable();
+        SimpleDateFormat dfdtData;
+        dfdtData = new SimpleDateFormat("dd/MM/yyyy");
+        tfDataInicio.setText(dfdtData.format(new Date()));
+        tfDataFim.setText(dfdtData.format(new Date()));
+        btPesquisarActionPerformed(null);
+        tfEntradas1.setEditable(false);
+        tfSaidas.setEditable(false);
+        tfSaldo.setEditable(false);
     }
 
-    private void preencheTable() {
-        CaixaGeralDAO cgDAO = new CaixaGeralDAO();
-        List<CaixaGeral> lista = cgDAO.list();
+    private void preencheTabela(List<CaixaGeral> lista) {
         CaixaGeralTableModel cgtm = new CaixaGeralTableModel(lista);
         tb.setModel(cgtm);
         FormataTamanhoColunasJTable.packColumns(tb, 0);
@@ -45,7 +54,7 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
         tfEntradas1.setText(String.format("%.2f", entrada));
         tfSaidas.setText(String.format("%.2f", saida));
         tfSaldo.setText(String.format("%.2f", saldo));
-        
+
     }
 
     /**
@@ -70,11 +79,21 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        btPesquisar = new javax.swing.JButton();
+        tfDataInicio = new javax.swing.JFormattedTextField();
+        tfDataFim = new javax.swing.JFormattedTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tb.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
         tb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -88,32 +107,41 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tb);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 580, 355));
+
         lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 30)); // NOI18N
         lbTexto.setText("Caixa Geral");
+        jPanel1.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 40));
 
         jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Entradas.:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 480, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Saídas.:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 510, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Saldo.:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 540, -1, -1));
 
         tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfSaldo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfSaldo.setEnabled(false);
         tfSaldo.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jPanel1.add(tfSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 540, 110, -1));
 
         tfSaidas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfSaidas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfSaidas.setEnabled(false);
         tfSaidas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jPanel1.add(tfSaidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 510, 110, -1));
 
         tfEntradas1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfEntradas1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfEntradas1.setEnabled(false);
         tfEntradas1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jPanel1.add(tfEntradas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 480, 110, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/interface (5).png"))); // NOI18N
         jButton2.setMnemonic('n');
@@ -123,6 +151,7 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
                 jButton2ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 70, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/delete_gr.png"))); // NOI18N
         jButton1.setMnemonic('e');
@@ -132,6 +161,7 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, 71, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/transfer_gr.png"))); // NOI18N
         jButton3.setMnemonic('t');
@@ -141,63 +171,56 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
                 jButton3ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 77, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lbTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel1))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfEntradas1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lbTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel4)
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tfEntradas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addComponent(tfSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 500));
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/find.png"))); // NOI18N
+        btPesquisar.setToolTipText("Pesquisar");
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 40, -1));
+
+        try {
+            tfDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tfDataInicio.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jPanel2.add(tfDataInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 110, -1));
+
+        try {
+            tfDataFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tfDataFim.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jPanel2.add(tfDataFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 110, -1));
+
+        jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jLabel5.setText("Dt. Fim:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jLabel6.setText("Dt. Inicio:");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 580, 70));
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/printer_gr.png"))); // NOI18N
+        jButton4.setToolTipText("Imprimir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 70, 70));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -205,12 +228,12 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         TelaAdicionaCaixaGeral tacg = new TelaAdicionaCaixaGeral();
         tacg.setVisible(true);
-        preencheTable();
+        btPesquisarActionPerformed(evt);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int i = tb.getSelectedRow();
-        if (i > 0) {
+        if (i >= 0) {
 
             if (JOptionPane.showConfirmDialog(rootPane, "Deseja excluir o Ítem Selecionado?",
                     "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -218,7 +241,7 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
                 CaixaGeral cg = cgtm.getValueAt(i);
                 CaixaGeralDAO dao = new CaixaGeralDAO();
                 dao.remove(cg);
-                preencheTable();
+        btPesquisarActionPerformed(evt);
             }
 
         } else {
@@ -230,8 +253,62 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         TelaTransferencia tt = new TelaTransferencia();
         tt.setVisible(true);
-        preencheTable();
+        btPesquisarActionPerformed(evt);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        if (!tfDataInicio.getText().equals("  /  /    ")
+                && !tfDataFim.getText().equals("  /  /    ")) {
+
+            Date iniDate = null, endDate = null;
+            iniDate = Util.verificaData(tfDataInicio.getText());
+
+            if (iniDate == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data Inicial Incorreta!");
+                return;
+            }
+
+            endDate = Util.verificaData(tfDataFim.getText());
+            if (endDate == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data Fim Incorreta!");
+                return;
+            }
+            CaixaGeralDAO crDAO = new CaixaGeralDAO();
+            preencheTabela(crDAO.listaCaixaDatas(iniDate, endDate));
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Informe as Datas!");
+        }
+    }//GEN-LAST:event_btPesquisarActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String sql = "0 ";
+        java.sql.Date dtIni = null, dtFim = null;
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            java.sql.Date data = new java.sql.Date(format.parse(tfDataInicio.getText()).getTime());
+            dtIni = data;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            java.sql.Date data = new java.sql.Date(format.parse(tfDataFim.getText()).getTime());
+            dtFim = data;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (dtIni != null && dtFim != null) {
+            btPesquisarActionPerformed(evt);
+            sql += " and data between '" + String.valueOf(dtIni) + "' and '" + String.valueOf(dtFim)+"'";
+        }
+        HashMap parametros = new HashMap();
+        parametros.put("sql", sql);
+        Util.imprimir("relatorios/reportCaixaGeral.jrxml", parametros);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,16 +346,23 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btPesquisar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbTexto;
     private javax.swing.JTable tb;
+    private javax.swing.JFormattedTextField tfDataFim;
+    private javax.swing.JFormattedTextField tfDataInicio;
     private javax.swing.JFormattedTextField tfEntradas1;
     private javax.swing.JFormattedTextField tfSaidas;
     private javax.swing.JFormattedTextField tfSaldo;

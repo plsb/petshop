@@ -5,6 +5,7 @@
  */
 package br.telas;
 
+import br.empresa.EmpresaDAO;
 import br.util.Ativo;
 import br.util.Util;
 import com.lowagie.text.Chunk;
@@ -31,7 +32,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tl.setVisible(true);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Tela Principal - Usuário: " + Ativo.getUsuario().getNome());
+        EmpresaDAO eDAO = new EmpresaDAO();
+        String barraTitulo="";
+        if (eDAO.list().size() > 0) {
+            barraTitulo = "Tela Principal - " + eDAO.list().get(0).getRazaoSocial() + " | Usuário: " + Ativo.getUsuario().getNome();
+        } else {
+            barraTitulo = "Tela Principal - Usuário: " + Ativo.getUsuario().getNome();
+        }
+
+        setTitle(barraTitulo);
         String enderecoDoJar = Util.retornaCaminhoApp() + "logo.jpg";
         try {
             ImageIcon logo = new ImageIcon(enderecoDoJar);
@@ -63,7 +72,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mmMovimentContaBancaria.setVisible(Util.verificaPermissao("MOV_CONTA_BANCARIA", 0));
         mmCaixaGeral.setVisible(Util.verificaPermissao("CAIXA_GERAL", 0));
         mmListarCaixas.setVisible(Util.verificaPermissao("LISTAR_CAIXAS", 0));
-        mmListarCaixas.setVisible(Util.verificaPermissao("CONTAS_PAGAR", 0));
+        mmContasPagar.setVisible(Util.verificaPermissao("CONTAS_PAGAR", 0));
     }
 
     /**

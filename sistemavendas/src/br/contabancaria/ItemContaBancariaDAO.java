@@ -5,15 +5,12 @@
  */
 package br.contabancaria;
 
-import br.contasreceber.ContasReceber;
-import br.fornecedor.Fornecedor;
 import br.util.GenericDAO;
 import br.util.HibernateUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.criterion.Restrictions;
-import sun.net.www.content.text.Generic;
 
 /**
  *
@@ -54,6 +51,31 @@ public class ItemContaBancariaDAO extends GenericDAO<ItemContaBancaria> {
             
             lista = getSessao().createCriteria(ItemContaBancaria.class)
                     .add(Restrictions.eq("contaBancaria", conta))
+                    .list();
+            
+            double entrada=0, saida=0;
+            for (ItemContaBancaria lista1 : lista) {
+                if(!lista1.isBloqueada()){
+                    entrada += lista1.getEntrada();
+                    saida += lista1.getSaida();
+                }
+            }
+            saldo = entrada-saida;
+            
+        } catch (Exception e) {
+            getSessao().close();
+        }
+        return saldo;
+    }
+    
+    public double saldoContaAntesDe(Date data) {
+        List<ItemContaBancaria> lista = new ArrayList<>();
+        double saldo = 0;
+        try {
+            setSessao(HibernateUtil.getSessionFactory().openSession());
+            
+            lista = getSessao().createCriteria(ItemContaBancaria.class)
+                    .add(Restrictions.lt("data", data))
                     .list();
             
             double entrada=0, saida=0;

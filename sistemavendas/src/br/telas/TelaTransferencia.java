@@ -302,7 +302,7 @@ public class TelaTransferencia extends javax.swing.JDialog {
                 //se for para caixa geral
                 ItemContaBancaria icb = new ItemContaBancaria();
                 icb.setData(new Date());
-                icb.setDescricao("TRANSFERÊNCIA PARA CAIXA GERAL");
+                icb.setDescricao("TRANSF P/ CAIXA GERAL");
                 icb.setEntrada(0);
                 icb.setSaida(valor);
                 icb.setContaBancaria(contaOrigemBancaria);
@@ -312,7 +312,7 @@ public class TelaTransferencia extends javax.swing.JDialog {
 
                 CaixaGeral cg = new CaixaGeral();
                 cg.setData(new Date());
-                cg.setDescricao("TRANSFERÊNCIA DA CONTA " + contaOrigemBancaria.toString());
+                cg.setDescricao("TRANSF DA CONTA " + contaOrigemBancaria.toString());
                 cg.setValorEntrada(valor);
                 cg.setValorSaida(0);
                 CaixaGeralDAO cgDAO = new CaixaGeralDAO();
@@ -329,7 +329,7 @@ public class TelaTransferencia extends javax.swing.JDialog {
 
                 ItemContaBancaria icb = new ItemContaBancaria();
                 icb.setData(new Date());
-                icb.setDescricao("TRANSFERÊNCIA PARA CONTA " + contaDestino.toString());
+                icb.setDescricao("TRANSF P/ CONTA " + contaDestino.toString());
                 icb.setEntrada(0);
                 icb.setSaida(valor);
                 icb.setContaBancaria(contaOrigemBancaria);
@@ -337,7 +337,7 @@ public class TelaTransferencia extends javax.swing.JDialog {
 
                 ItemContaBancaria icb2 = new ItemContaBancaria();
                 icb2.setData(new Date());
-                icb2.setDescricao("TRANSFERÊNCIA DA CONTA " + contaOrigemBancaria.toString());
+                icb2.setDescricao("TRANSF DA CONTA " + contaOrigemBancaria.toString());
                 icb2.setEntrada(valor);
                 icb2.setSaida(0);
                 icb2.setContaBancaria(contaDestino);
@@ -356,14 +356,14 @@ public class TelaTransferencia extends javax.swing.JDialog {
             CaixaGeralDAO cgDAO = new CaixaGeralDAO();
             CaixaGeral cg = new CaixaGeral();
             cg.setData(new Date());
-            cg.setDescricao("TRANSFERÊNCIA PARA CONTA " + contaDestino.toString());
+            cg.setDescricao("TRANSF P/ CONTA " + contaDestino.toString());
             cg.setValorSaida(valor);
             cg.setValorEntrada(0);
             cgDAO.add(cg);
 
             ItemContaBancaria icb2 = new ItemContaBancaria();
             icb2.setData(new Date());
-            icb2.setDescricao("TRANSFERÊNCIA DE CAIXA GERAL");
+            icb2.setDescricao("TRANSF DE CAIXA GERAL");
             icb2.setEntrada(valor);
             icb2.setSaida(0);
             icb2.setContaBancaria(contaDestino);

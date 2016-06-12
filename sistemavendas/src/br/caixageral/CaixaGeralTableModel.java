@@ -74,7 +74,9 @@ public class CaixaGeralTableModel extends AbstractTableModel {
             case 4:
                 double saldo = 0;
                 if (rowIndex == 0) {
-                    saldo = caixa.getValorEntrada() - caixa.getValorSaida();
+                    CaixaGeralDAO dao = new CaixaGeralDAO();
+                    saldo = (caixa.getValorEntrada() - caixa.getValorSaida())+
+                                                dao.saldoContaAntesDe(caixa.getData());
                 } else {
                     Object o = getValueAt(rowIndex-1, 4);
                     saldo = Double.parseDouble(String.valueOf(o).replaceFirst(",", "."))+

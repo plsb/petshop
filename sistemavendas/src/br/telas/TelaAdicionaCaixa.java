@@ -75,6 +75,11 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
 
         tfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfValor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        tfValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfValorFocusLost(evt);
+            }
+        });
         jPanel1.add(tfValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 160, -1));
 
         try {
@@ -162,6 +167,12 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
             setVisible(false);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
+        if(Util.verificaValor(tfValor.getText(), 0)==null){
+            tfValor.setText("");
+        }
+    }//GEN-LAST:event_tfValorFocusLost
 
     /**
      * @param args the command line arguments

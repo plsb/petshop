@@ -207,6 +207,11 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
         if (!tfQtParcelas.getText().equals("") && !tfQtdDias.getText().equals("")) {
             int qtdParcelas = Integer.parseInt(tfQtParcelas.getText());
             int qtdDias = Integer.parseInt(tfQtdDias.getText());
+            
+            if(qtdParcelas<=0 || qtdDias<=0){
+                JOptionPane.showMessageDialog(rootPane, "Valores devem ser maiores que 0!");
+                return ;
+            }
             Date dataVencimento = new Date();
 
             Date dt = new Date();

@@ -5,6 +5,7 @@
  */
 package br.contabancaria;
 
+import br.contaspagar.ContasPagar;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -31,6 +32,17 @@ public class ItemContaBancaria implements Serializable, Comparable<ItemContaBanc
     private double saida;
     
     private boolean bloqueada;
+    
+    @ManyToOne
+    private ContasPagar contaPagar;
+
+    public ContasPagar getContaPagar() {
+        return contaPagar;
+    }
+
+    public void setContaPagar(ContasPagar contaPagar) {
+        this.contaPagar = contaPagar;
+    }
     
     @Temporal(TemporalType.DATE)
     private Date data;

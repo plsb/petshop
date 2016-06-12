@@ -5,14 +5,10 @@
  */
 package br.telas;
 
-import br.cliente.Cliente;
-import br.cliente.ClienteDAO;
-import br.contasreceber.ContasReceber;
-import br.contasreceber.ContasReceberDAO;
-import br.grupo_produto.GrupoProduto;
-import br.grupo_produto.GrupoProdutoDAO;
-import br.grupo_produto.GrupoTableModel;
-import br.util.HibernateUtil;
+import br.contaspagar.ContasPagar;
+import br.contaspagar.ContasPagarDAO;
+import br.fornecedor.Fornecedor;
+import br.fornecedor.FornecedorDAO;
 import br.util.Util;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -26,54 +22,54 @@ import javax.swing.JOptionPane;
  *
  * @author Pedro Saraiva
  */
-public class TelaContaPromissoriaCad extends javax.swing.JDialog {
+public class TelaContaPagarCad extends javax.swing.JDialog {
 
-    public static void chamaEdita(ContasReceber cr) {
-        TelaContaPromissoriaCad.cr = cr;
-        new TelaContaPromissoriaCad().setVisible(true);
-    }
-
+    
     /**
      * Creates new form TelaCliente
      */
-    public TelaContaPromissoriaCad() {
+    public TelaContaPagarCad() {
         initComponents();
         setModal(true);
-        setTitle("Adiciona/Edita Conta à Receber");
+        setTitle("Adiciona/Edita Conta à Pagar");
         setLocationRelativeTo(null);
-        preencheCliente();
+        preencheFornecedor();
+        SimpleDateFormat dfdtData;
+        dfdtData = new SimpleDateFormat("dd/MM/yyyy");
+        tfDataCompra.setText(dfdtData.format(new Date()));
     }
-
-    public void preencheCliente() {
-        cbCliente.removeAllItems();
-        cbCliente.addItem("--");
-        ClienteDAO cDAO = new ClienteDAO();
-        List<Cliente> lista = cDAO.checkExists("ativo", true);
+    
+    public TelaContaPagarCad(ContasPagar cr) {
+        initComponents();
+        setModal(true);
+        setTitle("Adiciona/Edita Conta à Pagar");
+        setLocationRelativeTo(null);
+        preencheFornecedor();
+        SimpleDateFormat dfdtData;
+        dfdtData = new SimpleDateFormat("dd/MM/yyyy");
+        this.cr = cr;
+        
+        tfDataCompra.setText(dfdtData.format(cr.getDataConta()));
+        tfDataVencimento.setText(dfdtData.format(cr.getDataVencimento()));
+        tfNrConta.setText(cr.getNrConta());
+        tfNrParcela.setText(String.valueOf(cr.getNrParcela()));
+        tfValor.setText(String.valueOf(cr.getValor()).replace(".", ","));
+        cbFornecedor.setSelectedItem(cr.getFornecedor());
+    }
+    
+    public void preencheFornecedor() {
+        cbFornecedor.removeAllItems();
+        cbFornecedor.addItem("--");
+        FornecedorDAO cDAO = new FornecedorDAO();
+        List<Fornecedor> lista = cDAO.list();
         Collections.sort(lista);
-        for (Cliente c : lista) {
-            cbCliente.addItem(c);
-        }
-        if (cr != null) {
-            cbCliente.setSelectedItem(cr.getCliente());
-            cbCliente.setEnabled(false);
-            Date dt = cr.getDataVencimento();
-            SimpleDateFormat dfdtData;
-            dfdtData = new SimpleDateFormat("dd/MM/yyyy");
-            tfDataVencimento.setText(dfdtData.format(dt));
-
-            dt = cr.getDataCadastro();
-            dfdtData = new SimpleDateFormat("dd/MM/yyyy");
-            tfDataCompra.setText(dfdtData.format(dt));
-            tfNrConta.setText(cr.getNrConta());
-            tfNrConta.setEnabled(false);
-            tfNrParcela.setText(String.valueOf(cr.getNrParcela()));
-            tfNrParcela.setEnabled(false);
-            tfValor.setText(String.valueOf(cr.getValor()).replace(".", ","));
+        for (Fornecedor c : lista) {
+            cbFornecedor.addItem(c);
         }
     }
 
-    private static ContasReceber cr = null;
-    private ContasReceberDAO dao = new ContasReceberDAO();
+    private static ContasPagar cr=null;
+    private ContasPagarDAO dao = new ContasPagarDAO();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,7 +88,7 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
         tfValor = new javax.swing.JFormattedTextField();
         btSalvar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        cbCliente = new javax.swing.JComboBox();
+        cbFornecedor = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         tfDataVencimento = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -118,7 +114,7 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 30)); // NOI18N
-        lbTexto.setText("Conta à Receber");
+        lbTexto.setText("Conta à Pagar");
         jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 40));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 40));
@@ -158,17 +154,17 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
         jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, 43, -1));
 
         jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel3.setText("Cliente.: *");
+        jLabel3.setText("Fornecedor.: *");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        cbCliente.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        cbCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
-        cbCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+        cbFornecedor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        cbFornecedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
+        cbFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                cbClienteFocusLost(evt);
+                cbFornecedorFocusLost(evt);
             }
         });
-        jPanel1.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 380, -1));
+        jPanel1.add(cbFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 380, -1));
 
         jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Data Vencimento.: *");
@@ -230,16 +226,17 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (cr == null) {
-            cr = new ContasReceber();
+            cr = new ContasPagar();
         }
-        if (Util.chkVazio(cbCliente.getSelectedItem().toString(), tfValor.getText(),
+        if (Util.chkVazio(cbFornecedor.getSelectedItem().toString(), tfValor.getText(),
                 tfDataVencimento.getText(), tfDataCompra.getText(), tfNrParcela.getText(), tfNrConta.getText())) {
-            cr.setCliente((Cliente) cbCliente.getSelectedItem());
+            cr.setFornecedor((Fornecedor) cbFornecedor.getSelectedItem());
             cr.setValor(Double.parseDouble(tfValor.getText().replace(",", ".")));
             cr.setPaga(false);
             cr.setNrParcela(Integer.parseInt(tfNrParcela.getText()));
             cr.setNrConta(tfNrConta.getText());
-
+            
+            
             String dataString = tfDataVencimento.getText();
             try {
                 DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
@@ -249,37 +246,37 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
             } catch (ParseException ex) {
                 System.out.println(ex.getMessage());
             }
-
+            
             dataString = tfDataCompra.getText();
             try {
                 DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
                 java.util.Date data;
                 data = new java.util.Date(fmt.parse(dataString).getTime());
-                cr.setDataCadastro(data);
+                cr.setDataConta(data);
             } catch (ParseException ex) {
                 System.out.println(ex.getMessage());
             }
-
-            if (cr.getId() == null) {
+            
+            if(cr.getId()==null){
                 dao.add(cr);
-                JOptionPane.showMessageDialog(rootPane, "Conta à Receber Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Conta à Pagar Cadastrada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 dao.update(cr);
-                JOptionPane.showMessageDialog(rootPane, "Conta à Receber Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Conta à Pagar Editada Com Sucesso!", "INFO",JOptionPane.INFORMATION_MESSAGE);
             }
             limpaCampos();
-        }
+        } 
     }//GEN-LAST:event_btSalvarActionPerformed
 
-    private void limpaCampos() {
+    private void limpaCampos(){
         cr = null;
         setVisible(false);
-
+        
     }
-
-    private void cbClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbClienteFocusLost
-
-    }//GEN-LAST:event_cbClienteFocusLost
+    
+    private void cbFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbFornecedorFocusLost
+        
+    }//GEN-LAST:event_cbFornecedorFocusLost
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         limpaCampos();
@@ -290,7 +287,7 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosed
 
     private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
-        if (Util.verificaValor(tfValor.getText(), 0) == null) {
+        if(Util.verificaValor(tfValor.getText(), 0)==null){
             tfValor.setText("");
         }
     }//GEN-LAST:event_tfValorFocusLost
@@ -326,14 +323,18 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaContaPromissoriaCad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaContaPagarCad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaContaPromissoriaCad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaContaPagarCad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaContaPromissoriaCad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaContaPagarCad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaContaPromissoriaCad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaContaPagarCad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -342,7 +343,7 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaContaPromissoriaCad().setVisible(true);
+                new TelaContaPagarCad().setVisible(true);
             }
         });
     }
@@ -350,7 +351,7 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JComboBox cbCliente;
+    private javax.swing.JComboBox cbFornecedor;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

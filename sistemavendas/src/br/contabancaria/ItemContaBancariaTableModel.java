@@ -27,7 +27,7 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class ItemContaBancariaTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Código", "", "Entrada", "Saída", "Saldo", "Descrição"};
+    private String[] nomeColunas = {"Código", "Data", "", "Entrada", "Saída", "Saldo", "Descrição"};
     private List<ItemContaBancaria> contas;
 
     /**
@@ -78,21 +78,26 @@ public class ItemContaBancariaTableModel extends AbstractTableModel {
             case 0:
                 return Util.decimalFormat().format(conta.getId());
             case 1:
-                return conta.getBloqueada();
+                return conta.getData();
             case 2:
-                return conta.getEntrada();
+                return conta.getBloqueada();
             case 3:
-                return conta.getSaida();
+                return conta.getEntrada();
             case 4:
+                return conta.getSaida();
+            case 5:
                 double saldo = 0;
                 if (rowIndex == 0) {
+                    ItemContaBancariaDAO dao = new ItemContaBancariaDAO();
                     if (conta.isBloqueada()) {
-                        saldo = 0;
+                        saldo = dao.saldoContaAntesDe(conta.getData());
                     } else {
-                        saldo = conta.getEntrada() - conta.getSaida();
+                        saldo = (conta.getEntrada() - conta.getSaida())+
+                                        dao.saldoContaAntesDe(conta.getData());
                     }
                 } else {
-                    Object o = getValueAt(rowIndex - 1, 4);
+                    Object o = getValueAt(rowIndex - 1, 5);
+                    
                     if (conta.isBloqueada()) {
                         saldo = Double.parseDouble(String.valueOf(o).replaceFirst(",", "."));
                     } else {
@@ -102,7 +107,7 @@ public class ItemContaBancariaTableModel extends AbstractTableModel {
                 }
                 return Util.acertarNumero(saldo);
 
-            case 5:
+            case 6:
                 return conta.getDescricao();
         }
         return null;
@@ -134,6 +139,8 @@ public class ItemContaBancariaTableModel extends AbstractTableModel {
                 return nomeColunas[4];
             case 5:
                 return nomeColunas[5];
+            case 6:
+                return nomeColunas[6];
         }
         return null;
     }

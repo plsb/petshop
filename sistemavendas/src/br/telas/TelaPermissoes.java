@@ -101,6 +101,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
         EXCLUIR_GRUPO_PRODUTO = new javax.swing.JCheckBox();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox17 = new javax.swing.JCheckBox();
         jPanel14 = new javax.swing.JPanel();
         CE_EMPRESA1 = new javax.swing.JCheckBox();
         jCheckBox11 = new javax.swing.JCheckBox();
@@ -108,6 +109,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
         CE_EMPRESA2 = new javax.swing.JCheckBox();
         jCheckBox12 = new javax.swing.JCheckBox();
         EXCLUIR_CLIENTE19 = new javax.swing.JCheckBox();
+        jCheckBox18 = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         CE_CLIENTE1 = new javax.swing.JCheckBox();
@@ -387,6 +389,14 @@ public class TelaPermissoes extends javax.swing.JDialog {
         jCheckBox2.setText("Visualizar");
         jCheckBox2.setName("V_GRUPO_PRODUTO"); // NOI18N
 
+        jCheckBox17.setText("Relat. Curva ABC");
+        jCheckBox17.setName("REL_CURVA_ABC_GRUP"); // NOI18N
+        jCheckBox17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox17ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -396,7 +406,8 @@ public class TelaPermissoes extends javax.swing.JDialog {
                     .addComponent(CE_GRUPO_PRODUTOS)
                     .addComponent(EXCLUIR_GRUPO_PRODUTO)
                     .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2))
+                    .addComponent(jCheckBox2)
+                    .addComponent(jCheckBox17))
                 .addGap(59, 59, 59))
         );
         jPanel9Layout.setVerticalGroup(
@@ -409,10 +420,12 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addComponent(EXCLUIR_GRUPO_PRODUTO)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox1)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCheckBox17)
+                .addContainerGap())
         );
 
-        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 180, 140));
+        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 180, 150));
 
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Empresa"));
 
@@ -464,6 +477,14 @@ public class TelaPermissoes extends javax.swing.JDialog {
         EXCLUIR_CLIENTE19.setText("Excluir ");
         EXCLUIR_CLIENTE19.setName("EXCLUIR_FORNECEDOR"); // NOI18N
 
+        jCheckBox18.setText("Relat. Curva ABC");
+        jCheckBox18.setName("REL_CURVA_ABC_FORNECEDOR"); // NOI18N
+        jCheckBox18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox18ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
@@ -472,7 +493,8 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CE_EMPRESA2)
                     .addComponent(jCheckBox12)
-                    .addComponent(EXCLUIR_CLIENTE19))
+                    .addComponent(EXCLUIR_CLIENTE19)
+                    .addComponent(jCheckBox18))
                 .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
@@ -483,7 +505,9 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addComponent(CE_EMPRESA2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(EXCLUIR_CLIENTE19)
-                .addGap(0, 45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox18)
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 160, 140));
@@ -878,6 +902,14 @@ public class TelaPermissoes extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_CE_EMPRESA2ActionPerformed
 
+    private void jCheckBox17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox17ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox17ActionPerformed
+
+    private void jCheckBox18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox18ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox18ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -965,6 +997,8 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox jCheckBox14;
     private javax.swing.JCheckBox jCheckBox15;
     private javax.swing.JCheckBox jCheckBox16;
+    private javax.swing.JCheckBox jCheckBox17;
+    private javax.swing.JCheckBox jCheckBox18;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;

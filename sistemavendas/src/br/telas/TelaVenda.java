@@ -486,6 +486,14 @@ public class TelaVenda extends javax.swing.JDialog {
         }
         venda.setCancelada(false);
         venda.setUsuario(Ativo.getUsuario());
+        VendaDAO vDAO = new VendaDAO();
+        if(venda.getId()==null){
+   
+            vDAO.add(venda);
+        } else {
+            vDAO.update(venda);
+        }
+        lblNrVenda.setText(Util.decimalFormat().format(venda.getId()));
 
     }
 
@@ -907,9 +915,11 @@ public class TelaVenda extends javax.swing.JDialog {
             case "VC":
                 cbTipoPagamento.setSelectedIndex(3);
         }
-
+        cbTipoPagamentoFocusLost(null);
         cbCliente.setSelectedItem(o.getCliente());
+        cbClienteFocusLost(null);
         cbVendedor.setSelectedItem(o.getVendedor());
+        
 
         preencheVenda();
         ItemOrcamentoDAO iODAO = new ItemOrcamentoDAO();

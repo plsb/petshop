@@ -6,7 +6,6 @@
 package br.contabancaria;
 
 import br.util.GenericDAO;
-import sun.net.www.content.text.Generic;
 
 /**
  *

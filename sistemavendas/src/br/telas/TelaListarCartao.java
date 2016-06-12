@@ -160,7 +160,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
                 btExcluirActionPerformed(evt);
             }
         });
-        jPanel1.add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 70, 50));
+        jPanel1.add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, 70, 50));
 
         jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel5.setText("Valor Total.: ");
@@ -187,7 +187,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
                 btNovoActionPerformed(evt);
             }
         });
-        jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 350, 70, 50));
+        jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, 70, 50));
 
         btImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
         btImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -195,7 +195,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
                 btImprimirActionPerformed(evt);
             }
         });
-        jPanel1.add(btImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, -1, 50));
+        jPanel1.add(btImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, -1, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 410));
 
@@ -286,6 +286,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            btPesquisarActionPerformed(null);
 
             HashMap parametros = new HashMap();
             parametros.put("dtInicial", "'"+dataInicial+"'");

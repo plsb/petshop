@@ -150,6 +150,11 @@ public class TelaMoviCadEditaContaBancaria extends javax.swing.JDialog {
 
         tfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfValor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        tfValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfValorFocusLost(evt);
+            }
+        });
         jPanel1.add(tfValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 160, -1));
 
         try {
@@ -158,6 +163,11 @@ public class TelaMoviCadEditaContaBancaria extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         tfData.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        tfData.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfDataFocusLost(evt);
+            }
+        });
         jPanel1.add(tfData, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 160, -1));
 
         jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
@@ -243,6 +253,19 @@ public class TelaMoviCadEditaContaBancaria extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void tfDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataFocusLost
+        if(Util.verificaData(tfData.getText())==null){
+            JOptionPane.showMessageDialog(rootPane, "Data inválida!");
+            tfData.setText("");
+        }
+    }//GEN-LAST:event_tfDataFocusLost
+
+    private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
+        if(Util.verificaValor(tfValor.getText(), 0)==null){
+            tfValor.setText("");
+        }
+    }//GEN-LAST:event_tfValorFocusLost
 
     private void limpaCampos() {
 

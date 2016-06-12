@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
@@ -57,6 +59,7 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
         sexo = new javax.swing.ButtonGroup();
         mpRelatorio = new javax.swing.JPopupMenu();
         miRelatorioProdutoPorGrupo = new javax.swing.JMenuItem();
+        mmCurvaABC = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -79,6 +82,14 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
             }
         });
         mpRelatorio.add(miRelatorioProdutoPorGrupo);
+
+        mmCurvaABC.setText("Curva ABC");
+        mmCurvaABC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mmCurvaABCActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(mmCurvaABC);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -282,6 +293,38 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_miRelatorioProdutoPorGrupoActionPerformed
 
+    private void mmCurvaABCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmCurvaABCActionPerformed
+        if(Util.verificaPermissao("REL_CURVA_ABC_GRUP", 1)){
+            HashMap<String, String> map = TelaEscolhaData.chamaTela();
+            if (map != null) {
+                String dataInicial = "", dataFinal = "";
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = new java.sql.Date(format.parse(map.get("dtIni")).getTime());
+                    dataInicial = String.valueOf(data);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = new java.sql.Date(format.parse(map.get("dtFim")).getTime());
+                    dataFinal = String.valueOf(data);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                HashMap parametros = new HashMap();
+                parametros.put("dtInicial", "'" + dataInicial + "'");
+                parametros.put("dtFinal", "'" + dataFinal + "'");
+                Util.imprimir("relatorios/reportCurvaABCGrupoEstoque.jrxml", parametros);
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível gerar o relatório!");
+            }
+            
+        }
+    }//GEN-LAST:event_mmCurvaABCActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -331,6 +374,7 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lbTexto;
     private javax.swing.JMenuItem miRelatorioProdutoPorGrupo;
+    private javax.swing.JMenuItem mmCurvaABC;
     private javax.swing.JPopupMenu mpRelatorio;
     private javax.swing.ButtonGroup sexo;
     private javax.swing.JFormattedTextField tfDesconto;
