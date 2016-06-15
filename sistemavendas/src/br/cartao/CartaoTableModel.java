@@ -84,7 +84,7 @@ public class CartaoTableModel extends AbstractTableModel {
             case 3:
                 return cartao.getBandeira();
             case 4:
-                return cartao.getCliente().getNome();
+                return cartao.getCliente()==null?cartao.getDescricao():cartao.getCliente().getNome();
             case 5:
                 return cartao.getQtdParcelas();
             case 6:

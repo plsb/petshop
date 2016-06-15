@@ -154,7 +154,7 @@ public class TelaCliente extends javax.swing.JDialog {
         jPanel1.add(tfTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 160, -1));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel3.setText("Endereço.: *");
+        jLabel3.setText("Endereço.: ");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -183,7 +183,7 @@ public class TelaCliente extends javax.swing.JDialog {
         jPanel1.add(tfCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 160, -1));
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel5.setText("CPF.: *");
+        jLabel5.setText("CPF.: ");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/pataverde.png"))); // NOI18N
@@ -196,7 +196,7 @@ public class TelaCliente extends javax.swing.JDialog {
         jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 43, -1));
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
-        btNovo.setToolTipText("Novor");
+        btNovo.setToolTipText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovoActionPerformed(evt);
@@ -230,7 +230,7 @@ public class TelaCliente extends javax.swing.JDialog {
         jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, 29));
 
         jLabel6.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel6.setText("Cidade.: *");
+        jLabel6.setText("Cidade.: ");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         tfCidade.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -241,14 +241,14 @@ public class TelaCliente extends javax.swing.JDialog {
         jPanel1.add(cbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 160, -1));
 
         jLabel29.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel29.setText("Estado.:*");
+        jLabel29.setText("Estado.:");
         jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
 
         tfNomeMae.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jPanel1.add(tfNomeMae, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 400, -1));
 
         jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel7.setText("Nome da Mãe.: *");
+        jLabel7.setText("Nome da Mãe.: ");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
 
         cbAtivo.setBackground(new java.awt.Color(255, 255, 255));
@@ -262,6 +262,7 @@ public class TelaCliente extends javax.swing.JDialog {
         jPanel1.add(cbAtivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btnImprimir.setToolTipText("Imprimir");
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
@@ -294,9 +295,7 @@ public class TelaCliente extends javax.swing.JDialog {
             if (cliente == null) {
                 cliente = new Cliente();
             }
-            if (Util.chkVazio(tfNome.getText(), tfTelefone.getText(), tfCPF.getText(),
-                    cbEstado.getSelectedItem().toString(), tfCidade.getText(),
-                    tfNomeMae.getText())) {
+            if (Util.chkVazio(tfNome.getText())) {
                 if (!rbMasculino.isSelected() && !rbFeminino.isSelected()) {
                     JOptionPane.showMessageDialog(null, "Preencha todos os campos com '*'! ");
                     return;
@@ -308,27 +307,37 @@ public class TelaCliente extends javax.swing.JDialog {
                 cliente.setTelefone(tfTelefone.getText().replaceAll("\\D*", ""));
                 cliente.setSexo((rbFeminino.isSelected()) ? 'F' : 'M');
                 cliente.setCidade(tfCidade.getText());
-                cliente.setEstado(cbEstado.getSelectedItem().toString());
+                if (cbEstado.getSelectedIndex() != 0) {
+                    cliente.setEstado(cbEstado.getSelectedItem().toString());
+                } else {
+                    cliente.setEstado("");
+                }
                 cliente.setNomeMae(tfNomeMae.getText());
                 cliente.setAtivo(cbAtivo.isSelected());
-                if (!Util.CPF(tfCPF.getText().replaceAll("\\D*", ""))) {
-                    JOptionPane.showMessageDialog(rootPane, "CPF Inválido!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    return;
+                if (!tfCPF.getText().equals("   .   .   -  ")) {
+                    if (!Util.CPF(tfCPF.getText().replaceAll("\\D*", ""))) {
+                        JOptionPane.showMessageDialog(rootPane, "CPF Inválido!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    cliente.setCpf(tfCPF.getText().replaceAll("\\D*", ""));
                 }
-                cliente.setCpf(tfCPF.getText().replaceAll("\\D*", ""));
 
                 if (cliente.getId() == null) {
                     if (dao.checkExists("cpf", cliente.getCpf()).size() > 0) {
-                        JOptionPane.showMessageDialog(rootPane, "CPF já informado!", "ERRO", JOptionPane.ERROR_MESSAGE);
-                        tfCPF.requestFocus();
-                        return;
+                        if (!tfCPF.getText().equals("")) {
+                            JOptionPane.showMessageDialog(rootPane, "CPF já informado!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                            tfCPF.requestFocus();
+                            return;
+                        }
                     }
 
-                    dao.add(cliente);
-                    JOptionPane.showMessageDialog(rootPane, "Cliente Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (dao.add(cliente)) {
+                        JOptionPane.showMessageDialog(rootPane, "Cliente Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } else {
-                    dao.update(cliente);
-                    JOptionPane.showMessageDialog(rootPane, "Cliente Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (dao.update(cliente)) {
+                        JOptionPane.showMessageDialog(rootPane, "Cliente Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
                 limpaCampos();
             }
@@ -390,7 +399,7 @@ public class TelaCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_cbAtivoActionPerformed
 
     private void tfCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCPFFocusLost
-        if (!Util.CPF(tfCPF.getText().replaceAll("\\D*", ""))) {
+        if (!Util.CPF(tfCPF.getText().replaceAll("\\D*", "")) && !tfCPF.getText().equals("   .   .   -  ")) {
             JOptionPane.showMessageDialog(rootPane, "CPF Inválido!", "ERROR", JOptionPane.ERROR_MESSAGE);
             tfCPF.setText("");
         }

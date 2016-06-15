@@ -54,6 +54,7 @@ public class TelaVerificaPermissao extends javax.swing.JDialog {
         tfSenha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -67,17 +68,18 @@ public class TelaVerificaPermissao extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel1.setText("Senha");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         tfLogin.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jPanel1.add(tfLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 310, -1));
+        jPanel1.add(tfLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 310, -1));
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel2.setText("Login");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("VERIFICA PERMISSÕES");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 310, -1));
 
         tfSenha.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jPanel1.add(tfSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 310, -1));
+        jPanel1.add(tfSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 310, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +87,7 @@ public class TelaVerificaPermissao extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 50, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 50, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/login.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -93,9 +95,13 @@ public class TelaVerificaPermissao extends javax.swing.JDialog {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 50, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 50, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 180));
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setText("Login");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 210));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -183,6 +189,7 @@ public class TelaVerificaPermissao extends javax.swing.JDialog {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField tfLogin;
     private javax.swing.JPasswordField tfSenha;

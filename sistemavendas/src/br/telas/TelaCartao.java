@@ -51,6 +51,7 @@ public class TelaCartao extends javax.swing.JDialog {
         cbCliente.setSelectedItem(v.getCliente());
         cbCliente.setEnabled(false);
         tfValor.setText(String.valueOf(v.getVlCartao()));
+        tfDescricao.setText(tfDescricao.getText());
 
         SimpleDateFormat dfdtData;
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
@@ -98,6 +99,9 @@ public class TelaCartao extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         tfValor = new javax.swing.JFormattedTextField();
         btSalvar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        tfDescricao = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
 
@@ -110,13 +114,13 @@ public class TelaCartao extends javax.swing.JDialog {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel2.png"))); // NOI18N
-        btSair.setToolTipText("Salvar");
+        btSair.setToolTipText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSairActionPerformed(evt);
             }
         });
-        jPanel1.add(btSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 43, -1));
+        jPanel1.add(btSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 43, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cartão de"));
@@ -172,11 +176,11 @@ public class TelaCartao extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 170, 60));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 200, 60));
 
         jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Qtd Parcelas:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
         cbQtParcelas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         cbQtParcelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10" }));
@@ -208,11 +212,11 @@ public class TelaCartao extends javax.swing.JDialog {
                 cbQtParcelasKeyPressed(evt);
             }
         });
-        jPanel1.add(cbQtParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 160, -1));
+        jPanel1.add(cbQtParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 160, -1));
 
         jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Bandeira: *");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, -1, -1));
 
         try {
             tfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -225,11 +229,11 @@ public class TelaCartao extends javax.swing.JDialog {
                 tfDataFocusLost(evt);
             }
         });
-        jPanel1.add(tfData, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 130, -1));
+        jPanel1.add(tfData, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 130, -1));
 
         jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Valor:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
 
         cbBandeira1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         cbBandeira1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "ELO", "Hiper", "Master", "Visa" }));
@@ -238,14 +242,14 @@ public class TelaCartao extends javax.swing.JDialog {
                 cbBandeira1ActionPerformed(evt);
             }
         });
-        jPanel1.add(cbBandeira1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 230, -1));
+        jPanel1.add(cbBandeira1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 230, -1));
 
         lblValorQtd.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jPanel1.add(lblValorQtd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 160, 20));
+        jPanel1.add(lblValorQtd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 160, 20));
 
         jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Data:*");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
 
         cbCliente.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         cbCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "ELO", "Hiper", "Master", "Visa" }));
@@ -254,11 +258,11 @@ public class TelaCartao extends javax.swing.JDialog {
                 cbClienteActionPerformed(evt);
             }
         });
-        jPanel1.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 280, -1));
+        jPanel1.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 250, -1));
 
         jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel5.setText("Cliente: *");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jLabel5.setText("Descrição.: ");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         tfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfValor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
@@ -267,7 +271,7 @@ public class TelaCartao extends javax.swing.JDialog {
                 tfValorFocusLost(evt);
             }
         });
-        jPanel1.add(tfValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, 130, -1));
+        jPanel1.add(tfValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 130, -1));
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/pataverde.png"))); // NOI18N
         btSalvar.setToolTipText("Salvar");
@@ -276,9 +280,25 @@ public class TelaCartao extends javax.swing.JDialog {
                 btSalvarActionPerformed(evt);
             }
         });
-        jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, 43, -1));
+        jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, 43, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 440, 230));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/add (1).png"))); // NOI18N
+        jButton2.setToolTipText("Cadastrar Cliente");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 30, -1));
+
+        jLabel6.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jLabel6.setText("Cliente: ");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, 20));
+
+        tfDescricao.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
+        jPanel1.add(tfDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 430, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 450, 290));
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -287,7 +307,7 @@ public class TelaCartao extends javax.swing.JDialog {
         lbTexto.setText("Cartão Crédito/Débito");
         jPanel4.add(lbTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 40));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 40));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -359,7 +379,7 @@ public class TelaCartao extends javax.swing.JDialog {
     }//GEN-LAST:event_cbClienteActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (cbBandeira1.getSelectedIndex() == 0 || cbCliente.getSelectedIndex() == 0
+        if (cbBandeira1.getSelectedIndex() == 0
                 || tfValor.getText().isEmpty() || tfData.getText().equals("  /  /    ")) {
             JOptionPane.showMessageDialog(rootPane, "Informe os Camppos Obrigatórios (*)!");
             return;
@@ -368,10 +388,17 @@ public class TelaCartao extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Informe a Quantidade de Parcelas!");
             return;
         }
+        if (cbCliente.getSelectedIndex() == 0 && tfDescricao.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o Cliente ou a Descrição");
+            return;
+        }
         CartaoCredito cc = new CartaoCredito();
         CartaoCreditoDAO ccDAO = new CartaoCreditoDAO();
-        cc.setCliente((Cliente) cbCliente.getSelectedItem());
+        if (cbCliente.getSelectedIndex() != 0) {
+            cc.setCliente((Cliente) cbCliente.getSelectedItem());
+        }
         cc.setDebito(rbDebito.isSelected());
+        cc.setDescricao(tfDescricao.getText());
         if (cbQtParcelas.getSelectedIndex() != 0) {
             cc.setQtdParcelas(cbQtParcelas.getSelectedIndex());
         } else {
@@ -391,7 +418,9 @@ public class TelaCartao extends javax.swing.JDialog {
         }
 
         cc.setBandeira(cbBandeira1.getSelectedItem().toString());
-        ccDAO.add(cc);
+        if (ccDAO.add(cc)) {
+            JOptionPane.showMessageDialog(rootPane, "Cartão Adicionado Com Sucesso!");
+        }
         dispose();
 
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -401,18 +430,26 @@ public class TelaCartao extends javax.swing.JDialog {
     }//GEN-LAST:event_cbQtParcelasFocusGained
 
     private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
-        if (Util.verificaValor(tfValor.getText(), 0) == null) {
+        if (Util.verificaValor(tfValor.getText(), 0) == null && !tfValor.getText().equals("")) {
             tfValor.setText("");
         }
         cbQtParcelasItemStateChanged(null);
     }//GEN-LAST:event_tfValorFocusLost
 
     private void tfDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataFocusLost
-        if(Util.verificaData(tfData.getText())==null){
+        if (Util.verificaData(tfData.getText()) == null) {
             JOptionPane.showMessageDialog(rootPane, "Data inválida!");
             tfData.setText("");
         }
     }//GEN-LAST:event_tfDataFocusLost
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (Util.verificaPermissao("CE_CLIENTE", 1)) {
+            TelaCliente tc = new TelaCliente();
+            tc.setVisible(true);
+            preencheCliente();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -457,11 +494,13 @@ public class TelaCartao extends javax.swing.JDialog {
     private javax.swing.JComboBox cbBandeira1;
     private javax.swing.JComboBox cbCliente;
     private javax.swing.JComboBox cbQtParcelas;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -470,6 +509,7 @@ public class TelaCartao extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbCredito;
     private javax.swing.JRadioButton rbDebito;
     private javax.swing.JFormattedTextField tfData;
+    private javax.swing.JTextField tfDescricao;
     private javax.swing.JFormattedTextField tfValor;
     // End of variables declaration//GEN-END:variables
 }

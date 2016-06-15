@@ -22,6 +22,8 @@ public class ContasPagar implements Comparable<ContasPagar>{
     @GeneratedValue
     private Integer id;
     
+    private String descricao;
+    
     @ManyToOne
     private Fornecedor fornecedor;
     
@@ -43,7 +45,26 @@ public class ContasPagar implements Comparable<ContasPagar>{
     private double valorPago;
     
     private boolean paga;
+    
+    @ManyToOne
+    private GrupoContasPagar grupo;
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
+    public GrupoContasPagar getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(GrupoContasPagar grupo) {
+        this.grupo = grupo;
+    }
+    
     public boolean isPaga() {
         return paga;
     }
@@ -175,6 +196,8 @@ public class ContasPagar implements Comparable<ContasPagar>{
     public int compareTo(ContasPagar o) {
         return id.compareTo(o.id);
     }
+    
+    
     
 }
 

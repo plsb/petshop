@@ -69,7 +69,7 @@ public class TelaProduto extends javax.swing.JDialog {
             cbGrupo.addItem(gr);
         }
     }
-    
+
     private void preencheFornecedor() {
         FornecedorDAO dao = new FornecedorDAO();
         List<Fornecedor> lista = dao.list();
@@ -132,11 +132,13 @@ public class TelaProduto extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         cbFornecedor = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         tfCodigo = new javax.swing.JTextField();
         btnImprimir = new javax.swing.JButton();
         tfReferencia = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         imEstoqueMinimo.setText("Estoque Mínimo");
         imEstoqueMinimo.addActionListener(new java.awt.event.ActionListener() {
@@ -242,7 +244,7 @@ public class TelaProduto extends javax.swing.JDialog {
 
         cbGrupo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         cbGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
-        jPanel1.add(cbGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 240, -1));
+        jPanel1.add(cbGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 190, -1));
 
         jLabel29.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel29.setText("Grupo de Produtos.:*");
@@ -318,6 +320,15 @@ public class TelaProduto extends javax.swing.JDialog {
         cbFornecedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
         jPanel2.add(cbFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 330, -1));
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/add (1).png"))); // NOI18N
+        jButton1.setToolTipText("Cadastrar Fornecedor");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 30, -1));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 540, 170));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -328,6 +339,7 @@ public class TelaProduto extends javax.swing.JDialog {
         jPanel1.add(tfCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 170, -1));
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btnImprimir.setToolTipText("Imprimir");
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
@@ -341,6 +353,15 @@ public class TelaProduto extends javax.swing.JDialog {
         jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel7.setText("Referência.: ");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/add (1).png"))); // NOI18N
+        jButton2.setToolTipText("Cadastrar Gruppo de Produtos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 30, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 570, 360));
 
@@ -384,8 +405,8 @@ public class TelaProduto extends javax.swing.JDialog {
                 try {
                     produto.setFornecedor((Fornecedor) cbFornecedor.getSelectedItem());
                 } catch (Exception e) {
-                    
-                }                
+
+                }
                 produto.setServico(chbServico.isSelected());
                 produto.setReferencia(tfReferencia.getText());
                 if (!tfEstoqueMinimo.getText().equals("")) {
@@ -425,19 +446,21 @@ public class TelaProduto extends javax.swing.JDialog {
                         tfQtdEstoque.requestFocus();
                         return;
                     }
-                    dao.add(produto);
-                    Util.adicionaEstoque("PRODUTO CADASTRADO", produto.getQtdEstoque(), 0, produto);
-                    JOptionPane.showMessageDialog(rootPane, "Produto Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    dao.update(produto);
-                    if (quantidade > produto.getQtdEstoque()) {
-                        double saida = quantidade - produto.getQtdEstoque();
-                        Util.adicionaEstoque("PRODUTO EDITADO", 0, saida, produto);
-                    } else if (quantidade < produto.getQtdEstoque()) {
-                        double entrada = produto.getQtdEstoque() - quantidade;
-                        Util.adicionaEstoque("PRODUTO EDITADO", entrada, 0, produto);
+                    if (dao.add(produto)) {
+                        Util.adicionaEstoque("PRODUTO CADASTRADO", produto.getQtdEstoque(), 0, produto);
+                        JOptionPane.showMessageDialog(rootPane, "Produto Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
                     }
-                    JOptionPane.showMessageDialog(rootPane, "Produto Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    if (dao.update(produto)) {
+                        if (quantidade > produto.getQtdEstoque()) {
+                            double saida = quantidade - produto.getQtdEstoque();
+                            Util.adicionaEstoque("PRODUTO EDITADO", 0, saida, produto);
+                        } else if (quantidade < produto.getQtdEstoque()) {
+                            double entrada = produto.getQtdEstoque() - quantidade;
+                            Util.adicionaEstoque("PRODUTO EDITADO", entrada, 0, produto);
+                        }
+                        JOptionPane.showMessageDialog(rootPane, "Produto Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
                 limpaCampos();
             }
@@ -670,6 +693,22 @@ public class TelaProduto extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_imCurvaABCActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (Util.verificaPermissao("CE_FORNECEDOR", 1)) {
+            TelaFornecedor tf = new TelaFornecedor();
+            tf.setVisible(true);
+            preencheFornecedor();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (Util.verificaPermissao("CE_GRUPO_PRODUTO", 1)) {
+            TelaGrupoProduto tgp = new TelaGrupoProduto();
+            tgp.setVisible(true);
+            preencheGrupo();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -721,6 +760,8 @@ public class TelaProduto extends javax.swing.JDialog {
     private javax.swing.JMenuItem imEstoqueMinimo;
     private javax.swing.JMenuItem imHistoricoAlteracaoItem;
     private javax.swing.JMenuItem imRelacaoProdutos;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;

@@ -38,7 +38,7 @@ public class TelaMoviCadEditaContaBancaria extends javax.swing.JDialog {
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
         tfData.setText(dfdtData.format(new Date()));
     }
-    
+
     public TelaMoviCadEditaContaBancaria(ItemContaBancaria ib) {
         initComponents();
         setModal(true);
@@ -46,7 +46,7 @@ public class TelaMoviCadEditaContaBancaria extends javax.swing.JDialog {
         setTitle("Edita Item de Conta Bancária");
         limpaCampos();
         itemContaBancaria = ib;
-        if(ib.getEntrada()>0){
+        if (ib.getEntrada() > 0) {
             rbEntrada.setSelected(true);
             tfValor.setText(Util.acertarNumero(ib.getEntrada()));
         } else {
@@ -60,10 +60,10 @@ public class TelaMoviCadEditaContaBancaria extends javax.swing.JDialog {
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
         tfData.setText(dfdtData.format(ib.getData()));
         tfDescricao.setText(ib.getDescricao());
-        
+
     }
-    
-    public TelaMoviCadEditaContaBancaria(){
+
+    public TelaMoviCadEditaContaBancaria() {
         initComponents();
     }
 
@@ -217,21 +217,21 @@ public class TelaMoviCadEditaContaBancaria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "ERRO no valor!");
                 return;
             }
-            if(valor<=0){
+            if (valor <= 0) {
                 JOptionPane.showMessageDialog(rootPane, "O Valor deve ser Maior que 0!");
                 tfValor.requestFocus();
-                return ;
+                return;
             }
             Date data = Util.verificaData(tfData.getText());
-            if(data==null){
+            if (data == null) {
                 JOptionPane.showMessageDialog(rootPane, "Data inválida!");
-                return ;
+                return;
             }
-            
+
             itemContaBancaria.setBloqueada(cbBloqueado.isSelected());
             itemContaBancaria.setContaBancaria(contaBancaria);
             itemContaBancaria.setDescricao(tfDescricao.getText());
-            if(rbEntrada.isSelected()){
+            if (rbEntrada.isSelected()) {
                 itemContaBancaria.setEntrada(valor);
                 itemContaBancaria.setSaida(0);
             } else {
@@ -242,10 +242,15 @@ public class TelaMoviCadEditaContaBancaria extends javax.swing.JDialog {
 
             if (itemContaBancaria.getId() == null) {
 
-                dao.add(itemContaBancaria);
+                if (dao.add(itemContaBancaria)) {
 
+                    JOptionPane.showMessageDialog(rootPane, "Item adicionado com sucesso!");
+                }
             } else {
-                dao.update(itemContaBancaria);
+                if (dao.update(itemContaBancaria)) {
+
+                    JOptionPane.showMessageDialog(rootPane, "Item atualizado com sucesso!");
+                }
 
             }
             limpaCampos();
@@ -255,14 +260,14 @@ public class TelaMoviCadEditaContaBancaria extends javax.swing.JDialog {
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void tfDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataFocusLost
-        if(Util.verificaData(tfData.getText())==null){
+        if (Util.verificaData(tfData.getText()) == null) {
             JOptionPane.showMessageDialog(rootPane, "Data inválida!");
             tfData.setText("");
         }
     }//GEN-LAST:event_tfDataFocusLost
 
     private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
-        if(Util.verificaValor(tfValor.getText(), 0)==null){
+        if (Util.verificaValor(tfValor.getText(), 0) == null) {
             tfValor.setText("");
         }
     }//GEN-LAST:event_tfValorFocusLost
@@ -285,16 +290,21 @@ public class TelaMoviCadEditaContaBancaria extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaMoviCadEditaContaBancaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMoviCadEditaContaBancaria.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaMoviCadEditaContaBancaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMoviCadEditaContaBancaria.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaMoviCadEditaContaBancaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMoviCadEditaContaBancaria.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaMoviCadEditaContaBancaria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMoviCadEditaContaBancaria.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

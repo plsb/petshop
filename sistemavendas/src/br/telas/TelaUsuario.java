@@ -126,7 +126,7 @@ public class TelaUsuario extends javax.swing.JDialog {
         jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, 43, -1));
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
-        btNovo.setToolTipText("Novor");
+        btNovo.setToolTipText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovoActionPerformed(evt);
@@ -179,6 +179,7 @@ public class TelaUsuario extends javax.swing.JDialog {
 
         lblPermissoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/reporting.png"))); // NOI18N
         lblPermissoes.setText("Permissões");
+        lblPermissoes.setToolTipText("Permissões de Usuário");
         lblPermissoes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPermissoes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -193,8 +194,8 @@ public class TelaUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        if(JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Usuário?", "", JOptionPane.YES_NO_OPTION, 
-                JOptionPane.INFORMATION_MESSAGE)==JOptionPane.YES_OPTION){
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir o Usuário?", "", JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
             dao.remove(usuario);
             limpaCampos();
         }
@@ -210,41 +211,43 @@ public class TelaUsuario extends javax.swing.JDialog {
         }
         if (Util.chkVazio(tfNome.getText(), tfLogin.getText(), tfConfirmarSenha.getText(),
                 tfConfirmarSenha.getText())) {
-            if(!tfConfirmarSenha.getText().equals(tfConfirmarSenha.getText())){
+            if (!tfConfirmarSenha.getText().equals(tfConfirmarSenha.getText())) {
                 JOptionPane.showMessageDialog(null, "Senha confirmada incorretamente! ");
                 tfConfirmarSenha.requestFocus();
-                return ;
-            }           
-            
+                return;
+            }
+
             usuario.setAdministrador(ckAdministrador.isSelected());
             usuario.setLogin(tfLogin.getText());
             usuario.setNome(tfNome.getText());
             usuario.setSenha(tfConfirmarSenha.getText());
             usuario.setAtivo(ckAtivo.isSelected());
-            
-            if(usuario.getId()==null){
+
+            if (usuario.getId() == null) {
                 if (dao.checkExists("login", tfLogin.getText()).size() > 0) {
                     JOptionPane.showMessageDialog(rootPane, "Login já informado!", "ERRO", JOptionPane.ERROR_MESSAGE);
                     tfLogin.requestFocus();
                     return;
                 }
-                
-                dao.add(usuario);
-                JOptionPane.showMessageDialog(rootPane, "Usuário Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+
+                if (dao.add(usuario)) {
+                    JOptionPane.showMessageDialog(rootPane, "Usuário Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                }
             } else {
-                dao.update(usuario);
-                JOptionPane.showMessageDialog(rootPane, "Usuário Editado Com Sucesso!", "INFO",JOptionPane.INFORMATION_MESSAGE);
+                if (dao.update(usuario)) {
+                    JOptionPane.showMessageDialog(rootPane, "Usuário Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
             limpaCampos();
-        } 
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         limpaCampos();
-        
+
     }//GEN-LAST:event_btNovoActionPerformed
 
-    private void limpaCampos(){
+    private void limpaCampos() {
         ckAdministrador.setSelected(false);
         usuario = new Usuario();
         tfConfirmarSenha.setText("");
@@ -256,26 +259,26 @@ public class TelaUsuario extends javax.swing.JDialog {
         btDelete.setEnabled(false);
         lblPermissoes.setVisible(false);
         tfNome.requestFocus();
-        
+
     }
-    
+
     private void btPesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisar1ActionPerformed
-        List<Usuario> lista = (!(tfNome.getText().equals("")) ? dao.checkExists("nome",tfNome.getText()) : dao.list());
+        List<Usuario> lista = (!(tfNome.getText().equals("")) ? dao.checkExists("nome", tfNome.getText()) : dao.list());
         UsuarioTableModel stm = new UsuarioTableModel(lista);
         Object o = TelaPesquisa.exibeTela(stm, "Usuário");
         if (o != null) {
             usuario = new Usuario();
-            usuario = dao.checkExists("id",Integer.valueOf(String.valueOf(o))).get(0);
+            usuario = dao.checkExists("id", Integer.valueOf(String.valueOf(o))).get(0);
             tfNome.setText(usuario.getNome());
             tfLogin.setText(usuario.getLogin());
             ckAdministrador.setSelected(usuario.isAdministrador());
             ckAtivo.setSelected(usuario.isAtivo());
-            
+
             btDelete.setEnabled(true);
             lblPermissoes.setVisible(true);
-            
+
         }
-        
+
     }//GEN-LAST:event_btPesquisar1ActionPerformed
 
     private void ckAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAdministradorActionPerformed

@@ -507,5 +507,24 @@ public class Util {
         }
         return data;
     }
+    
+    public static Date primeiroDiaMes() {
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTime(new Date());
+
+        int dia = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
+        int mes = (cal.get(Calendar.MONDAY) + 1);
+        int ano = cal.get(Calendar.YEAR);
+
+        System.out.println(dia + "/" + mes + "/" + ano);
+        
+        Date data=null;
+        try {
+            data = (new SimpleDateFormat("dd/MM/yyyy")).parse(dia + "/" + mes + "/" + ano);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
 
 }

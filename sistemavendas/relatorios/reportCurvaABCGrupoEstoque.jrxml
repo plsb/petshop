@@ -18,13 +18,13 @@
 			inner join produto on produto.id=itemvenda.produto_id
 			inner join venda on venda.id=itemvenda.venda_id
 			where venda.data between $P!{dtInicial} and $P!{dtFinal} and venda.cancelada=false
-			and produto.servico=false and venda.data is not null )) porc,
+			and venda.data is not null )) porc,
 	gp.descricao descGrupo
 	from itemvenda iv
 inner join produto p on p.id=iv.produto_id
 inner join grupoproduto gp on gp.id=p.grupoproduto_id
 inner join venda v on v.id=iv.venda_id
-where v.data between $P!{dtInicial} and $P!{dtFinal} and v.cancelada=false and p.servico=false and v.data is not null
+where v.data between $P!{dtInicial} and $P!{dtFinal} and v.cancelada=false and v.data is not null
 group by gp.id
 order by 5 desc]]>
 	</queryString>

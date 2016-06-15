@@ -90,10 +90,11 @@ public class ItemContaBancariaTableModel extends AbstractTableModel {
                 if (rowIndex == 0) {
                     ItemContaBancariaDAO dao = new ItemContaBancariaDAO();
                     if (conta.isBloqueada()) {
-                        saldo = dao.saldoContaAntesDe(conta.getData());
+                        saldo = dao.saldoContaAntesDe(conta.getData(), conta.getContaBancaria());
                     } else {
                         saldo = (conta.getEntrada() - conta.getSaida())+
-                                        dao.saldoContaAntesDe(conta.getData());
+                                        dao.saldoContaAntesDe(conta.getData(),
+                                                conta.getContaBancaria());
                     }
                 } else {
                     Object o = getValueAt(rowIndex - 1, 5);

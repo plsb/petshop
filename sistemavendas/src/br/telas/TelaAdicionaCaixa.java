@@ -148,13 +148,12 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "ERRO no valor!");
                 return;
             }
-            if(valor<=0){
+            if (valor <= 0) {
                 JOptionPane.showMessageDialog(rootPane, "O Valor deve ser Maior que 0!");
                 tfValor.requestFocus();
-                return ;
+                return;
             }
-            
-            
+
             if (rbEntrada.isSelected()) {
 
                 lc.setValorEntrada(valor);
@@ -162,14 +161,15 @@ public class TelaAdicionaCaixa extends javax.swing.JDialog {
                 lc.setValorSaida(valor);
             }
             LivroCaixaDAO lcDAo = new LivroCaixaDAO();
-            lcDAo.add(lc);
-//            JOptionPane.showMessageDialog(rootPane, "Item adicionado com sucesso!");
+            if (lcDAo.add(lc)) {
+                JOptionPane.showMessageDialog(rootPane, "Item adicionado com sucesso!");
+            }
             setVisible(false);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
-        if(Util.verificaValor(tfValor.getText(), 0)==null){
+        if (Util.verificaValor(tfValor.getText(), 0) == null) {
             tfValor.setText("");
         }
     }//GEN-LAST:event_tfValorFocusLost

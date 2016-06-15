@@ -6,6 +6,7 @@
 package br.cliente;
 
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ public class Cliente implements Comparable<Cliente>{
     @GeneratedValue
     private Integer id;
     
+    @Column(nullable = false)
     private String nome;
     
     private String endereco;

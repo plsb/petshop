@@ -68,13 +68,14 @@ public class ItemContaBancariaDAO extends GenericDAO<ItemContaBancaria> {
         return saldo;
     }
     
-    public double saldoContaAntesDe(Date data) {
+    public double saldoContaAntesDe(Date data, ContaBancaria cb) {
         List<ItemContaBancaria> lista = new ArrayList<>();
         double saldo = 0;
         try {
             setSessao(HibernateUtil.getSessionFactory().openSession());
             
             lista = getSessao().createCriteria(ItemContaBancaria.class)
+                    .add(Restrictions.eq("contaBancaria", cb))
                     .add(Restrictions.lt("data", data))
                     .list();
             

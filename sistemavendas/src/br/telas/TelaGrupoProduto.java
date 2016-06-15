@@ -151,7 +151,7 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
         jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 43, -1));
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
-        btNovo.setToolTipText("Novor");
+        btNovo.setToolTipText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovoActionPerformed(evt);
@@ -169,6 +169,7 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
         jPanel1.add(btPesquisar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 43, 40));
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btnImprimir.setToolTipText("Imprimir");
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
@@ -205,11 +206,13 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
                 gr.setDescricao(tfNome.getText());
                 gr.setDescontoAVista(Double.parseDouble(tfDesconto.getText().replaceFirst(",", ".")));
                 if (gr.getId() == null) {
-                    dao.add(gr);
-                    JOptionPane.showMessageDialog(rootPane, "Grupo Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (dao.add(gr)) {
+                        JOptionPane.showMessageDialog(rootPane, "Grupo Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } else {
-                    dao.update(gr);
-                    JOptionPane.showMessageDialog(rootPane, "Grupo Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (dao.update(gr)) {
+                        JOptionPane.showMessageDialog(rootPane, "Grupo Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
                 limpaCampos();
             }
@@ -294,7 +297,7 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_miRelatorioProdutoPorGrupoActionPerformed
 
     private void mmCurvaABCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmCurvaABCActionPerformed
-        if(Util.verificaPermissao("REL_CURVA_ABC_GRUP", 1)){
+        if (Util.verificaPermissao("REL_CURVA_ABC_GRUP", 1)) {
             HashMap<String, String> map = TelaEscolhaData.chamaTela();
             if (map != null) {
                 String dataInicial = "", dataFinal = "";
@@ -321,7 +324,7 @@ public class TelaGrupoProduto extends javax.swing.JDialog {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Não foi possível gerar o relatório!");
             }
-            
+
         }
     }//GEN-LAST:event_mmCurvaABCActionPerformed
 

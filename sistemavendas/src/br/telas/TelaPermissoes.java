@@ -834,7 +834,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
         }
         UsuarioDAO dao = new UsuarioDAO();
         dao.update(usuario);
-        Ativo.setUsuario(usuario);
+//        Ativo.setUsuario(usuario);
         dispose();
     }//GEN-LAST:event_btSalvarActionPerformed
 

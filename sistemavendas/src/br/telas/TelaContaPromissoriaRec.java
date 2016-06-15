@@ -49,7 +49,7 @@ public class TelaContaPromissoriaRec extends javax.swing.JDialog {
     public TelaContaPromissoriaRec() {
         initComponents();
         setModal(true);
-        setTitle("Recebe Conta");
+        setTitle("Receber Conta");
         setLocationRelativeTo(null);
         lblCliente.setText(cr.getCliente().getNome());
         lblDataVencimento.setText(String.valueOf(cr.getDataVencimento()));
@@ -225,7 +225,7 @@ public class TelaContaPromissoriaRec extends javax.swing.JDialog {
     }//GEN-LAST:event_tfValorKeyPressed
 
     private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
-        if (Util.verificaValor(tfValor.getText(), 0) == null) {
+        if (Util.verificaValor(tfValor.getText(), 0) == null && !tfValor.getText().equals("")) {
             tfValor.setText("");
         }
     }//GEN-LAST:event_tfValorFocusLost

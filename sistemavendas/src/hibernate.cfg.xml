@@ -36,6 +36,7 @@
         <mapping class="br.cartao.CartaoCredito"/>
         <mapping class="br.contasreceber.ContasReceber"/>
         <mapping class="br.contaspagar.ContasPagar"/>
+        <mapping class="br.contaspagar.GrupoContasPagar"/>
         <mapping class="br.livro.LivroCaixa"/>
         <mapping class="br.fornecedor.Fornecedor"/>
         <mapping class="br.usuario.Usuario"/>

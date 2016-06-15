@@ -26,10 +26,10 @@ import javax.swing.table.AbstractTableModel;
  * @author Francisco Junior
  */
 @SuppressWarnings("serial")
-public class ContasPagarTableModel extends AbstractTableModel {
+public class GrupoContasPagarTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Código", "Nr Conta", "Descrição", "Nr Parcela", "Data Vencimento", "Valor", "Data Pagamento", "Valor Pago"};
-    private List<ContasPagar> contas;
+    private String[] nomeColunas = {"Código", "Descrição"};
+    private List<GrupoContasPagar> gr;
 
     /**
      * Construtor sobrecarregado.
@@ -37,11 +37,11 @@ public class ContasPagarTableModel extends AbstractTableModel {
      * @param lista List(Autor).
      */
     // construtor que adiciona a lista passada pelo método ao alunos  
-    public ContasPagarTableModel(List<ContasPagar> lista) {
-        contas = new ArrayList(new HashSet(lista));
+    public GrupoContasPagarTableModel(List<GrupoContasPagar> lista) {
+        gr = new ArrayList(new HashSet(lista));
 //        this.leitores.clear();
 //        this.leitores.addAll(lista);
-        Collections.sort(contas);
+        Collections.sort(gr);
         super.fireTableDataChanged();
     }
 
@@ -52,7 +52,7 @@ public class ContasPagarTableModel extends AbstractTableModel {
      */
     @Override
     public int getRowCount() {
-        return contas.size();
+        return gr.size();
     }
 
     /**
@@ -74,33 +74,17 @@ public class ContasPagarTableModel extends AbstractTableModel {
      */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        ContasPagar conta = contas.get(rowIndex);
+        GrupoContasPagar conta = gr.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return Util.decimalFormat().format(conta.getId());
             case 1:
-                return conta.getNrConta()==null ? "" : conta.getNrConta();
-            case 2:
-                return conta.getFornecedor()!=null?conta.getFornecedor().getRazaoSocial():conta.getDescricao();
-            case 3:
-                return conta.getNrParcela() == 0 ? "01" : conta.getNrParcela();
-            case 4:
-                return conta.getDataVencimento() == null ? "" : conta.getDataVencimento();
-            case 5:
-                return conta.getValor();
-            case 6:
-                return conta.getDataPagamento();
-            case 7:
-                return conta.getValorPago();
+                return conta.getDescricao();
+            
         }
         return null;
     }
     
-    public ContasPagar getValueAt(int rowIndex) {
-        ContasPagar conta = contas.get(rowIndex);
-        
-        return conta;
-    }
 
     /**
      * Método sobrescrito.
@@ -115,18 +99,6 @@ public class ContasPagarTableModel extends AbstractTableModel {
                 return nomeColunas[0];
             case 1:
                 return nomeColunas[1];
-            case 2:
-                return nomeColunas[2];
-            case 3:
-                return nomeColunas[3];
-            case 4:
-                return nomeColunas[4];
-            case 5:
-                return nomeColunas[5];
-            case 6:
-                return nomeColunas[6];
-            case 7:
-                return nomeColunas[7];
         }
         return null;
     }

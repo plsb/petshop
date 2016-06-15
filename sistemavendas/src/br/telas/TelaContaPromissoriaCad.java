@@ -101,6 +101,7 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
         tfDataCompra = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         tfNrConta = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -168,7 +169,7 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
                 cbClienteFocusLost(evt);
             }
         });
-        jPanel1.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 380, -1));
+        jPanel1.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 340, -1));
 
         jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Data Vencimento.: *");
@@ -219,6 +220,15 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
         tfNrConta.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jPanel1.add(tfNrConta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 180, 20));
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/add (1).png"))); // NOI18N
+        jButton2.setToolTipText("Cadastrar Gruppo de Produtos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 30, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 430, 270));
 
         pack();
@@ -261,11 +271,13 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
             }
 
             if (cr.getId() == null) {
-                dao.add(cr);
-                JOptionPane.showMessageDialog(rootPane, "Conta à Receber Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                if (dao.add(cr)) {
+                    JOptionPane.showMessageDialog(rootPane, "Conta à Receber Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                }
             } else {
-                dao.update(cr);
-                JOptionPane.showMessageDialog(rootPane, "Conta à Receber Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                if (dao.update(cr)) {
+                    JOptionPane.showMessageDialog(rootPane, "Conta à Receber Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
             limpaCampos();
         }
@@ -296,18 +308,26 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
     }//GEN-LAST:event_tfValorFocusLost
 
     private void tfDataCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataCompraFocusLost
-        if(Util.verificaData(tfDataCompra.getText())==null){
+        if (Util.verificaData(tfDataCompra.getText()) == null) {
             JOptionPane.showMessageDialog(rootPane, "Data inválida!");
             tfDataCompra.setText("");
         }
     }//GEN-LAST:event_tfDataCompraFocusLost
 
     private void tfDataVencimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataVencimentoFocusLost
-        if(Util.verificaData(tfDataVencimento.getText())==null){
+        if (Util.verificaData(tfDataVencimento.getText()) == null) {
             JOptionPane.showMessageDialog(rootPane, "Data inválida!");
             tfDataVencimento.setText("");
         }
     }//GEN-LAST:event_tfDataVencimentoFocusLost
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (Util.verificaPermissao("CE_CLIENTE", 1)) {
+            TelaCliente tc = new TelaCliente();
+            tc.setVisible(true);
+            preencheCliente();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -351,6 +371,7 @@ public class TelaContaPromissoriaCad extends javax.swing.JDialog {
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox cbCliente;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

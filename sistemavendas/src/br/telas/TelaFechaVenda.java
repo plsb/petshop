@@ -216,6 +216,7 @@ public class TelaFechaVenda extends javax.swing.JDialog {
         jButton1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 18)); // NOI18N
         jButton1.setMnemonic('f');
         jButton1.setText("Finalizar");
+        jButton1.setToolTipText("Finalizar Venda");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

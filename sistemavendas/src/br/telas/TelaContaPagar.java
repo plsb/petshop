@@ -59,7 +59,7 @@ public class TelaContaPagar extends javax.swing.JDialog {
         }
         SimpleDateFormat dfdtData;
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
-        tfDataInicio.setText(dfdtData.format(new Date()));
+        tfDataInicio.setText(dfdtData.format(Util.primeiroDiaMes()));
         tfDataFim.setText(dfdtData.format(Util.ultimoDiaMes()));
         btPesquisarActionPerformed(null);
 
@@ -146,7 +146,7 @@ public class TelaContaPagar extends javax.swing.JDialog {
         jPanel1.add(lblVencer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 80, -1));
 
         btReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/valuetotal.png"))); // NOI18N
-        btReceber.setToolTipText("Receber Conta");
+        btReceber.setToolTipText("Pagar Conta");
         btReceber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btReceberActionPerformed(evt);

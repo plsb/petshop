@@ -47,8 +47,8 @@ public class TelaListarCartao extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         SimpleDateFormat dfdtData;
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
-        tfDataInicio.setText(dfdtData.format(new Date()));
-        tfDataFim.setText(dfdtData.format(new Date()));
+        tfDataInicio.setText(dfdtData.format(Util.primeiroDiaMes()));
+        tfDataFim.setText(dfdtData.format(Util.ultimoDiaMes()));
         btPesquisarActionPerformed(null);
         setTitle("Listar Cartões Crédito/Débito");
     }
@@ -181,7 +181,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
         jPanel1.add(btSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 350, 70, 50));
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
-        btNovo.setToolTipText("Excluir");
+        btNovo.setToolTipText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovoActionPerformed(evt);
@@ -190,6 +190,7 @@ public class TelaListarCartao extends javax.swing.JDialog {
         jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, 70, 50));
 
         btImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btImprimir.setToolTipText("Imprimir");
         btImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btImprimirActionPerformed(evt);

@@ -156,13 +156,12 @@ public class TelaAdicionaCaixaGeral extends javax.swing.JDialog {
             try {
                 Date data = sdf.parse(dataString);
                 lc.setData(data);
-  // se passou pra cá, é porque a data é válida
+                // se passou pra cá, é porque a data é válida
             } catch (ParseException e) {
                 // se cair aqui, a data é inválida
                 JOptionPane.showMessageDialog(rootPane, "Data Incorreta!");
                 return;
             }
-
 
             lc.setData(new Date());
             lc.setDescricao(tfDescricao.getText());
@@ -186,20 +185,21 @@ public class TelaAdicionaCaixaGeral extends javax.swing.JDialog {
                 lc.setValorSaida(valor);
             }
             CaixaGeralDAO lcDAo = new CaixaGeralDAO();
-            lcDAo.add(lc);
-//            JOptionPane.showMessageDialog(rootPane, "Item adicionado com sucesso!");
+            if (lcDAo.add(lc)) {
+                JOptionPane.showMessageDialog(rootPane, "Item adicionado com sucesso!");
+            }
             setVisible(false);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
-        if(Util.verificaValor(tfValor.getText(), 0)==null){
+        if (Util.verificaValor(tfValor.getText(), 0) == null) {
             tfValor.setText("");
         }
     }//GEN-LAST:event_tfValorFocusLost
 
     private void tfDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataFocusLost
-        if(Util.verificaData(tfData.getText())==null){
+        if (Util.verificaData(tfData.getText()) == null) {
             JOptionPane.showMessageDialog(rootPane, "Data inválida!");
             tfData.setText("");
         }

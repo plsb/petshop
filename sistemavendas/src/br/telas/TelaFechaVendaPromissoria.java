@@ -146,6 +146,7 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
         btGerar.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         btGerar.setMnemonic('g');
         btGerar.setText("Gerar");
+        btGerar.setToolTipText("Gerar Parcelar");
         btGerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGerarActionPerformed(evt);

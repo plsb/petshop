@@ -214,11 +214,13 @@ public class TelaEmpresa extends javax.swing.JDialog {
 
                 if (empresa.getId() == null) {
 
-                    dao.add(empresa);
-                    JOptionPane.showMessageDialog(rootPane, "Empresa Cadastrada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (dao.add(empresa)) {
+                        JOptionPane.showMessageDialog(rootPane, "Empresa Cadastrada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } else {
-                    dao.update(empresa);
-                    JOptionPane.showMessageDialog(rootPane, "Empresa Editada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (dao.update(empresa)) {
+                        JOptionPane.showMessageDialog(rootPane, "Empresa Editada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
 //            limpaCampos();
             }

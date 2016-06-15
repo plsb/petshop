@@ -132,7 +132,7 @@ public class TelaVendedor extends javax.swing.JDialog {
         jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 43, -1));
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
-        btNovo.setToolTipText("Novor");
+        btNovo.setToolTipText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovoActionPerformed(evt);
@@ -160,6 +160,7 @@ public class TelaVendedor extends javax.swing.JDialog {
         jPanel1.add(cbAtivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, -1, -1));
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btnImprimir.setToolTipText("Imprimir");
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
@@ -198,11 +199,13 @@ public class TelaVendedor extends javax.swing.JDialog {
                 v.setAtivo(cbAtivo.isSelected());
                 if (v.getId() == null) {
                     v.setAtivo(true);
-                    dao.add(v);
-                    JOptionPane.showMessageDialog(rootPane, "Vendedor Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (dao.add(v)) {
+                        JOptionPane.showMessageDialog(rootPane, "Vendedor Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } else {
-                    dao.update(v);
-                    JOptionPane.showMessageDialog(rootPane, "Vendedor Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (dao.update(v)) {
+                        JOptionPane.showMessageDialog(rootPane, "Vendedor Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
                 limpaCampos();
             }

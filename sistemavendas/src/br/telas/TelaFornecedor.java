@@ -144,7 +144,7 @@ public class TelaFornecedor extends javax.swing.JDialog {
         jPanel1.add(tfTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 160, -1));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel3.setText("Endereço.: *");
+        jLabel3.setText("Endereço.: ");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         try {
@@ -174,7 +174,7 @@ public class TelaFornecedor extends javax.swing.JDialog {
         jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, 43, -1));
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
-        btNovo.setToolTipText("Novor");
+        btNovo.setToolTipText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovoActionPerformed(evt);
@@ -192,7 +192,7 @@ public class TelaFornecedor extends javax.swing.JDialog {
         jPanel1.add(btPesquisar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 43, 40));
 
         jLabel6.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel6.setText("Cidade.: *");
+        jLabel6.setText("Cidade.: ");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         tfCidade.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -203,7 +203,7 @@ public class TelaFornecedor extends javax.swing.JDialog {
         jPanel1.add(cbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 160, -1));
 
         jLabel29.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel29.setText("Estado.:*");
+        jLabel29.setText("Estado.:");
         jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
 
         tfNomeFantasia.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -227,7 +227,7 @@ public class TelaFornecedor extends javax.swing.JDialog {
         jPanel1.add(tfCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 160, -1));
 
         jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel7.setText("CEP.: *");
+        jLabel7.setText("CEP.: ");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, -1, -1));
 
         tfIE.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -238,6 +238,7 @@ public class TelaFornecedor extends javax.swing.JDialog {
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, -1, -1));
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btnImprimir.setToolTipText("Imprimir");
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
@@ -270,13 +271,17 @@ public class TelaFornecedor extends javax.swing.JDialog {
             if (fornecedor == null) {
                 fornecedor = new Fornecedor();
             }
-            if (Util.chkVazio(tfRazaoSocial.getText(), tfNomeFantasia.getText(), tfEndereco.getText(), cbEstado.getSelectedItem().toString(), tfCidade.getText(), tfCep.getText())) {
+            if (Util.chkVazio(tfRazaoSocial.getText(), tfNomeFantasia.getText())) {
 
                 fornecedor.setCep(tfCep.getText().replaceAll("\\D*", ""));
                 fornecedor.setCidade(tfCidade.getText());
                 fornecedor.setCnpj(tfCNPJ.getText().replaceAll("\\D*", ""));
                 fornecedor.setEndereco(tfEndereco.getText());
-                fornecedor.setEstado(cbEstado.getSelectedItem().toString());
+                if (cbEstado.getSelectedIndex() != 0) {
+                    fornecedor.setEstado(cbEstado.getSelectedItem().toString());
+                } else {
+                    fornecedor.setEstado("");
+                }
                 fornecedor.setIe(tfIE.getText());
                 fornecedor.setNomeFantasia(tfNomeFantasia.getText());
                 fornecedor.setRazaoSocial(tfRazaoSocial.getText());
@@ -292,18 +297,22 @@ public class TelaFornecedor extends javax.swing.JDialog {
                 if (fornecedor.getId() == null) {
                     if (!fornecedor.getCnpj().equals("")) {
 
-                        if (dao.checkExists("cnpj", fornecedor.getCnpj()).size() > 0) {
+                        if (dao.checkExists("cnpj", fornecedor.getCnpj()).size() > 0
+                                && !tfCNPJ.getText().equals("")) {
                             JOptionPane.showMessageDialog(rootPane, "CNPJ já informado!", "ERRO", JOptionPane.ERROR_MESSAGE);
                             tfCNPJ.requestFocus();
                             return;
                         }
+
                     }
 
-                    dao.add(fornecedor);
-                    JOptionPane.showMessageDialog(rootPane, "Fornecedor Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (dao.add(fornecedor)) {
+                        JOptionPane.showMessageDialog(rootPane, "Fornecedor Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } else {
-                    dao.update(fornecedor);
-                    JOptionPane.showMessageDialog(rootPane, "Fornecedor Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (dao.update(fornecedor)) {
+                        JOptionPane.showMessageDialog(rootPane, "Fornecedor Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
                 limpaCampos();
             }
@@ -355,7 +364,7 @@ public class TelaFornecedor extends javax.swing.JDialog {
     }//GEN-LAST:event_btPesquisar1ActionPerformed
 
     private void tfCNPJFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCNPJFocusLost
-        if (!Util.CNPJ(tfCNPJ.getText().replaceAll("\\D*", ""))) {
+        if (!Util.CNPJ(tfCNPJ.getText().replaceAll("\\D*", "")) && !tfCNPJ.getText().equals("  .   .   /    -  ")) {
             JOptionPane.showMessageDialog(rootPane, "CNPJ Inválido!", "ERROR", JOptionPane.ERROR_MESSAGE);
             tfCNPJ.setText("");
         }
@@ -371,7 +380,7 @@ public class TelaFornecedor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void mmCurvaABCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmCurvaABCActionPerformed
-        if(Util.verificaPermissao("REL_CURVA_ABC_FORNECEDOR", 1)){
+        if (Util.verificaPermissao("REL_CURVA_ABC_FORNECEDOR", 1)) {
             HashMap<String, String> map = TelaEscolhaData.chamaTela();
             if (map != null) {
                 String dataInicial = "", dataFinal = "";

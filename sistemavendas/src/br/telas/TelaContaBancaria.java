@@ -129,7 +129,7 @@ public class TelaContaBancaria extends javax.swing.JDialog {
         jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 43, -1));
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/new.png"))); // NOI18N
-        btNovo.setToolTipText("Novor");
+        btNovo.setToolTipText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovoActionPerformed(evt);
@@ -194,7 +194,7 @@ public class TelaContaBancaria extends javax.swing.JDialog {
             if (conta == null) {
                 conta = new ContaBancaria();
             }
-            if (Util.chkVazio(tfDescricao.getText(), tfAgencia.getText(), tfNumero.getText(), 
+            if (Util.chkVazio(tfDescricao.getText(), tfAgencia.getText(), tfNumero.getText(),
                     cbTipo.getSelectedItem().toString(), cbBanco.getSelectedItem().toString())) {
 
                 conta.setNumero(tfNumero.getText());
@@ -203,14 +203,15 @@ public class TelaContaBancaria extends javax.swing.JDialog {
                 conta.setDescricao(tfDescricao.getText());
                 conta.setBanco(cbBanco.getSelectedItem().toString());
 
-
                 if (conta.getId() == null) {
-                    
-                    dao.add(conta);
-                    JOptionPane.showMessageDialog(rootPane, "Conta Cadastrada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+
+                    if (dao.add(conta)) {
+                        JOptionPane.showMessageDialog(rootPane, "Conta Cadastrada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } else {
-                    dao.update(conta);
-                    JOptionPane.showMessageDialog(rootPane, "Conta Editada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (dao.update(conta)) {
+                        JOptionPane.showMessageDialog(rootPane, "Conta Editada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
                 limpaCampos();
             }

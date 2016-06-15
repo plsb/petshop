@@ -7,6 +7,8 @@ package br.telas;
 
 import br.contaspagar.ContasPagar;
 import br.contaspagar.ContasPagarDAO;
+import br.contaspagar.GrupoContasPagar;
+import br.contaspagar.GrupoContasPagarDAO;
 import br.fornecedor.Fornecedor;
 import br.fornecedor.FornecedorDAO;
 import br.util.Util;
@@ -24,7 +26,6 @@ import javax.swing.JOptionPane;
  */
 public class TelaContaPagarCad extends javax.swing.JDialog {
 
-    
     /**
      * Creates new form TelaCliente
      */
@@ -34,29 +35,36 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
         setTitle("Adiciona/Edita Conta à Pagar");
         setLocationRelativeTo(null);
         preencheFornecedor();
+        preencheGrupoDespesa();
         SimpleDateFormat dfdtData;
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
         tfDataCompra.setText(dfdtData.format(new Date()));
     }
-    
+
     public TelaContaPagarCad(ContasPagar cr) {
         initComponents();
         setModal(true);
         setTitle("Adiciona/Edita Conta à Pagar");
         setLocationRelativeTo(null);
         preencheFornecedor();
+        preencheGrupoDespesa();
         SimpleDateFormat dfdtData;
         dfdtData = new SimpleDateFormat("dd/MM/yyyy");
         this.cr = cr;
-        
+
         tfDataCompra.setText(dfdtData.format(cr.getDataConta()));
         tfDataVencimento.setText(dfdtData.format(cr.getDataVencimento()));
         tfNrConta.setText(cr.getNrConta());
         tfNrParcela.setText(String.valueOf(cr.getNrParcela()));
         tfValor.setText(String.valueOf(cr.getValor()).replace(".", ","));
+        if(cr.getFornecedor()!=null){
         cbFornecedor.setSelectedItem(cr.getFornecedor());
+        }
+        cbGrupoDespesa.setSelectedItem(cr.getGrupo());
+        tfDescricao.setText(cr.getDescricao());
+        
     }
-    
+
     public void preencheFornecedor() {
         cbFornecedor.removeAllItems();
         cbFornecedor.addItem("--");
@@ -68,7 +76,18 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
         }
     }
 
-    private static ContasPagar cr=null;
+    public void preencheGrupoDespesa() {
+        cbGrupoDespesa.removeAllItems();
+        cbGrupoDespesa.addItem("--");
+        GrupoContasPagarDAO cDAO = new GrupoContasPagarDAO();
+        List<GrupoContasPagar> lista = cDAO.list();
+        Collections.sort(lista);
+        for (GrupoContasPagar c : lista) {
+            cbGrupoDespesa.addItem(c);
+        }
+    }
+
+    private static ContasPagar cr = null;
     private ContasPagarDAO dao = new ContasPagarDAO();
 
     /**
@@ -97,6 +116,12 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
         tfDataCompra = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         tfNrConta = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        cbGrupoDespesa = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        tfDescricao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -129,11 +154,11 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
                 btCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 43, 41));
+        jPanel1.add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, 43, 41));
 
         jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel2.setText("Valor.: *");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
         tfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfValor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
@@ -142,7 +167,7 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
                 tfValorFocusLost(evt);
             }
         });
-        jPanel1.add(tfValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 180, -1));
+        jPanel1.add(tfValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 180, -1));
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/pataverde.png"))); // NOI18N
         btSalvar.setToolTipText("Salvar");
@@ -151,11 +176,11 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
                 btSalvarActionPerformed(evt);
             }
         });
-        jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, 43, -1));
+        jPanel1.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, 43, -1));
 
         jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel3.setText("Fornecedor.: *");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        jLabel3.setText("Descrição.:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         cbFornecedor.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         cbFornecedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
@@ -164,11 +189,11 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
                 cbFornecedorFocusLost(evt);
             }
         });
-        jPanel1.add(cbFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 380, -1));
+        jPanel1.add(cbFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 340, -1));
 
         jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Data Vencimento.: *");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, -1, -1));
 
         try {
             tfDataVencimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -181,19 +206,19 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
                 tfDataVencimentoFocusLost(evt);
             }
         });
-        jPanel1.add(tfDataVencimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 180, -1));
+        jPanel1.add(tfDataVencimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 180, -1));
 
         jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel5.setText("Nr Parcela.: *");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, -1, -1));
 
         tfNrParcela.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         tfNrParcela.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jPanel1.add(tfNrParcela, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 180, -1));
+        jPanel1.add(tfNrParcela, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 180, -1));
 
         jLabel6.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel6.setText("Nr Conta.: *");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         try {
             tfDataCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -206,16 +231,54 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
                 tfDataCompraFocusLost(evt);
             }
         });
-        jPanel1.add(tfDataCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 180, -1));
+        jPanel1.add(tfDataCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 180, -1));
 
         jLabel7.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel7.setText("Data Compra.: *");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        jLabel7.setText("Data Conta.: *");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
         tfNrConta.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jPanel1.add(tfNrConta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 180, 20));
+        jPanel1.add(tfNrConta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 180, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 430, 270));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/add (1).png"))); // NOI18N
+        jButton1.setToolTipText("Cadastrar Fornecedor");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 30, -1));
+
+        cbGrupoDespesa.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        cbGrupoDespesa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
+        cbGrupoDespesa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbGrupoDespesaFocusLost(evt);
+            }
+        });
+        jPanel1.add(cbGrupoDespesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 340, -1));
+
+        jLabel8.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jLabel8.setText("Plano de Contas.:*");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/add (1).png"))); // NOI18N
+        jButton2.setToolTipText("Cadastrar Plano de Contas");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, 30, -1));
+
+        jLabel9.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
+        jLabel9.setText("Fornecedor.: ");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        tfDescricao.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 11)); // NOI18N
+        jPanel1.add(tfDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 380, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 430, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -228,15 +291,24 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
         if (cr == null) {
             cr = new ContasPagar();
         }
-        if (Util.chkVazio(cbFornecedor.getSelectedItem().toString(), tfValor.getText(),
+        if (Util.chkVazio(cbGrupoDespesa.getSelectedItem().toString(), tfValor.getText(),
                 tfDataVencimento.getText(), tfDataCompra.getText(), tfNrParcela.getText(), tfNrConta.getText())) {
-            cr.setFornecedor((Fornecedor) cbFornecedor.getSelectedItem());
+            
+            if(cbFornecedor.getSelectedIndex()==0 && tfDescricao.getText().equals("")){
+                JOptionPane.showMessageDialog(rootPane, "Informe o Fornecedor ou a Descrição!");
+                return ;
+            }
+            
+            if (cbFornecedor.getSelectedIndex() != 0) {
+                cr.setFornecedor((Fornecedor) cbFornecedor.getSelectedItem());
+            }
+            cr.setGrupo((GrupoContasPagar) cbGrupoDespesa.getSelectedItem());
             cr.setValor(Double.parseDouble(tfValor.getText().replace(",", ".")));
             cr.setPaga(false);
             cr.setNrParcela(Integer.parseInt(tfNrParcela.getText()));
             cr.setNrConta(tfNrConta.getText());
-            
-            
+            cr.setDescricao(tfDescricao.getText());
+
             String dataString = tfDataVencimento.getText();
             try {
                 DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
@@ -246,7 +318,7 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
             } catch (ParseException ex) {
                 System.out.println(ex.getMessage());
             }
-            
+
             dataString = tfDataCompra.getText();
             try {
                 DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
@@ -256,26 +328,28 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
             } catch (ParseException ex) {
                 System.out.println(ex.getMessage());
             }
-            
-            if(cr.getId()==null){
-                dao.add(cr);
-                JOptionPane.showMessageDialog(rootPane, "Conta à Pagar Cadastrada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+
+            if (cr.getId() == null) {
+                if (dao.add(cr)) {
+                    JOptionPane.showMessageDialog(rootPane, "Conta à Pagar Cadastrada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                }
             } else {
-                dao.update(cr);
-                JOptionPane.showMessageDialog(rootPane, "Conta à Pagar Editada Com Sucesso!", "INFO",JOptionPane.INFORMATION_MESSAGE);
+                if (dao.update(cr)) {
+                    JOptionPane.showMessageDialog(rootPane, "Conta à Pagar Editada Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
             limpaCampos();
-        } 
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
 
-    private void limpaCampos(){
+    private void limpaCampos() {
         cr = null;
         setVisible(false);
-        
+
     }
-    
+
     private void cbFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbFornecedorFocusLost
-        
+
     }//GEN-LAST:event_cbFornecedorFocusLost
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -287,24 +361,43 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosed
 
     private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
-        if(Util.verificaValor(tfValor.getText(), 0)==null){
+        if (Util.verificaValor(tfValor.getText(), 0) == null) {
             tfValor.setText("");
         }
     }//GEN-LAST:event_tfValorFocusLost
 
     private void tfDataCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataCompraFocusLost
-        if(Util.verificaData(tfDataCompra.getText())==null){
+        if (Util.verificaData(tfDataCompra.getText()) == null) {
             JOptionPane.showMessageDialog(rootPane, "Data inválida!");
             tfDataCompra.setText("");
         }
     }//GEN-LAST:event_tfDataCompraFocusLost
 
     private void tfDataVencimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataVencimentoFocusLost
-        if(Util.verificaData(tfDataVencimento.getText())==null){
+        if (Util.verificaData(tfDataVencimento.getText()) == null) {
             JOptionPane.showMessageDialog(rootPane, "Data inválida!");
             tfDataVencimento.setText("");
         }
     }//GEN-LAST:event_tfDataVencimentoFocusLost
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (Util.verificaPermissao("CE_FORNECEDOR", 1)) {
+            TelaFornecedor tf = new TelaFornecedor();
+            tf.setVisible(true);
+            preencheFornecedor();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbGrupoDespesaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbGrupoDespesaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbGrupoDespesaFocusLost
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        TelaGrupoContasPagar tgcp = new TelaGrupoContasPagar();
+        tgcp.setVisible(true);
+        preencheGrupoDespesa();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -352,17 +445,23 @@ public class TelaContaPagarCad extends javax.swing.JDialog {
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox cbFornecedor;
+    private javax.swing.JComboBox cbGrupoDespesa;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lbTexto;
     private javax.swing.JFormattedTextField tfDataCompra;
     private javax.swing.JFormattedTextField tfDataVencimento;
+    private javax.swing.JTextField tfDescricao;
     private javax.swing.JTextField tfNrConta;
     private javax.swing.JFormattedTextField tfNrParcela;
     private javax.swing.JFormattedTextField tfValor;

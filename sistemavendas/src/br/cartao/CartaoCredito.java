@@ -23,6 +23,8 @@ public class CartaoCredito implements Comparable<CartaoCredito>{
     @GeneratedValue
     private Integer id;
     
+    private String descricao;
+    
     private String bandeira;
     
     private int qtdParcelas;
@@ -40,6 +42,14 @@ public class CartaoCredito implements Comparable<CartaoCredito>{
     
     private double valor;
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
     public Integer getId() {
         return id;
     }

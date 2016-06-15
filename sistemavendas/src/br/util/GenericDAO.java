@@ -6,6 +6,7 @@ package br.util;
 
 import br.auditoria.Auditoria;
 import br.auditoria.AuditoriaDAO;
+import br.usuario.Usuario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -53,8 +54,8 @@ public abstract class GenericDAO<T> {
            
         } catch (HibernateException e) {
             System.out.println(e.getMessage()+" | "+e.getCause());
-//            JOptionPane.showMessageDialog(null, "Não foi possível inserir " + entity.getClass()
-//                    + ". Erro: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível inserir " + entity.getClass()
+                    + ". Erro: " + e.getMessage());
             return false;
         } finally {
             
@@ -78,8 +79,8 @@ public abstract class GenericDAO<T> {
             }
             
         } catch (HibernateException e) {
-//            JOptionPane.showMessageDialog(null, "Não foi possível atualizar " + entity.getClass()
-//                    + ". Erro: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível atualizar " + entity.getClass()
+                    + ". Erro: " + e.getMessage());
             return false;
         } finally {
             getSessao().close();
@@ -103,8 +104,8 @@ public abstract class GenericDAO<T> {
             }
             
         } catch (HibernateException e) {
-//            JOptionPane.showMessageDialog(null, "Não foi possível remover " + entity.getClass()
-//                    + ". Erro: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível remover " + entity.getClass()
+                    + ". Erro: " + e.getMessage());
             return false;
         } finally {
             getSessao().close();

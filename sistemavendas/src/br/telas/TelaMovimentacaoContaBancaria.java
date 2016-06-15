@@ -84,6 +84,7 @@ public class TelaMovimentacaoContaBancaria extends javax.swing.JDialog {
         tfDataFim = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -208,7 +209,7 @@ public class TelaMovimentacaoContaBancaria extends javax.swing.JDialog {
                 cbContaFocusLost(evt);
             }
         });
-        jPanel2.add(cbConta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 490, -1));
+        jPanel2.add(cbConta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 450, -1));
 
         try {
             tfDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -233,6 +234,15 @@ public class TelaMovimentacaoContaBancaria extends javax.swing.JDialog {
         jLabel6.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel6.setText("Dt. Inicio:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/add (1).png"))); // NOI18N
+        jButton3.setToolTipText("Cadastrar Conta");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 30, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 590, 80));
 
@@ -447,6 +457,14 @@ public class TelaMovimentacaoContaBancaria extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (Util.verificaPermissao("CE_CONTA_BANCARIA", 1)) {
+            TelaContaBancaria tc = new TelaContaBancaria();
+            tc.setVisible(true);
+            preencheConta();
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -495,6 +513,7 @@ public class TelaMovimentacaoContaBancaria extends javax.swing.JDialog {
     private javax.swing.JComboBox cbConta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

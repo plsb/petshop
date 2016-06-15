@@ -107,6 +107,7 @@ public class TelaFechaCaixa extends javax.swing.JDialog {
         jPanel1.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 260, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel2.png"))); // NOI18N
+        jButton1.setToolTipText("Sair");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -115,6 +116,7 @@ public class TelaFechaCaixa extends javax.swing.JDialog {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 50, 40));
 
         btConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/ok.png"))); // NOI18N
+        btConfirmar.setToolTipText("Fechar Caixa");
         btConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btConfirmarActionPerformed(evt);

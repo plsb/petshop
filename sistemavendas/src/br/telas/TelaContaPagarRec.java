@@ -38,13 +38,14 @@ public class TelaContaPagarRec extends javax.swing.JDialog {
         initComponents();
         this.cr = cr;
         setModal(true);
-        setTitle("Recebe Conta");
+        setTitle("Receber Conta");
         setLocationRelativeTo(null);
-        lblCliente.setText(cr.getFornecedor().getRazaoSocial());
+        lblCliente.setText(cr.getFornecedor() != null ? cr.getFornecedor().getRazaoSocial() : cr.getDescricao());
         lblDataVencimento.setText(String.valueOf(cr.getDataVencimento()));
         lblValor.setText(String.valueOf(cr.getValor()));
         rbCxGeral.setSelected(true);
         preencheContas();
+        tfValor.requestFocus();
 
     }
 
@@ -156,7 +157,7 @@ public class TelaContaPagarRec extends javax.swing.JDialog {
         jPanel1.add(lblDataVencimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jLabel5.setText("Fornecedor.: ");
+        jLabel5.setText("Descrição.:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
@@ -245,11 +246,13 @@ public class TelaContaPagarRec extends javax.swing.JDialog {
                     CaixaGeral cg = new CaixaGeral();
                     cg.setContaPagar(cr);
                     cg.setData(new Date());
-                    cg.setDescricao("CONTA PAGA de "+cr.getFornecedor().getRazaoSocial()
-                            + " Nº"+cr.getNrConta());
+                    String descricao = cr.getFornecedor() != null ? cr.getFornecedor().getRazaoSocial()
+                            : cr.getDescricao();
+                    cg.setDescricao("CONTA PAGA de " + descricao
+                            + " Nº" + cr.getNrConta());
                     cg.setValorSaida(valoraReceber);
                     cg.setValorEntrada(0);
-                    
+
                     CaixaGeralDAO cgDAO = new CaixaGeralDAO();
                     cgDAO.add(cg);
                 } else {
@@ -257,8 +260,10 @@ public class TelaContaPagarRec extends javax.swing.JDialog {
                     icb.setContaBancaria((ContaBancaria) cbContaBancaria.getSelectedItem());
                     icb.setContaPagar(cr);
                     icb.setData(new Date());
-                    icb.setDescricao("CONTA PAGA de "+cr.getFornecedor().getRazaoSocial()
-                            + " Nº"+cr.getNrConta());
+                    String descricao = cr.getFornecedor() != null ? cr.getFornecedor().getRazaoSocial()
+                            : cr.getDescricao();
+                    icb.setDescricao("CONTA PAGA de " + descricao
+                            + " Nº" + cr.getNrConta());
                     icb.setEntrada(0);
                     icb.setSaida(valoraReceber);
                     ItemContaBancariaDAO icbDAO = new ItemContaBancariaDAO();
@@ -271,7 +276,10 @@ public class TelaContaPagarRec extends javax.swing.JDialog {
                             + "\nDeseja Criar uma nova Conta com o Restante do Valor?", "Pagar", JOptionPane.YES_NO_OPTION)
                             == JOptionPane.YES_OPTION) {
                         ContasPagar cr2 = new ContasPagar();
-                        cr2.setFornecedor(cr.getFornecedor());
+                        if (cr.getFornecedor() != null) {
+                            cr2.setFornecedor(cr.getFornecedor());
+                        }
+                        cr2.setDescricao(cr.getDescricao());
                         cr2.setDataVencimento(cr.getDataVencimento());
                         cr2.setNrConta("P" + cr.getNrConta());
                         cr2.setNrParcela(cr.getNrParcela());
@@ -281,7 +289,7 @@ public class TelaContaPagarRec extends javax.swing.JDialog {
 
                     }
                 }
-                setVisible(false);
+                dispose();
             }
 
         } else {
@@ -300,7 +308,7 @@ public class TelaContaPagarRec extends javax.swing.JDialog {
     }//GEN-LAST:event_tfValorKeyPressed
 
     private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
-        if (Util.verificaValor(tfValor.getText(), 0) == null) {
+        if (Util.verificaValor(tfValor.getText(), 0) == null && !tfValor.getText().equals("")) {
             tfValor.setText("");
         }
     }//GEN-LAST:event_tfValorFocusLost

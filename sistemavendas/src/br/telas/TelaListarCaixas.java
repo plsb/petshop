@@ -127,6 +127,7 @@ public class TelaListarCaixas extends javax.swing.JDialog {
         jPanel1.add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 40, -1));
 
         btImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btImprimir.setToolTipText("Imprimir");
         btImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btImprimirActionPerformed(evt);
@@ -135,7 +136,7 @@ public class TelaListarCaixas extends javax.swing.JDialog {
         jPanel1.add(btImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, -1, 50));
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/cancel2.png"))); // NOI18N
-        btSair.setToolTipText("Visualizar Venda");
+        btSair.setToolTipText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSairActionPerformed(evt);

@@ -241,6 +241,7 @@ public class TelaListarOrcamento extends javax.swing.JDialog {
         jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 350, -1, 50));
 
         btImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btImprimir.setToolTipText("Imprimir");
         btImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btImprimirActionPerformed(evt);
