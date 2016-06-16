@@ -107,7 +107,7 @@ public class CaixaGeral implements Comparable<CaixaGeral>{
 
     @Override
     public int compareTo(CaixaGeral o) {
-        return id.compareTo(o.id);
+        return data.compareTo(o.data);
     }
     
 }

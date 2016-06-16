@@ -113,7 +113,7 @@ public class ItemContaBancaria implements Serializable, Comparable<ItemContaBanc
 
     @Override
     public int compareTo(ItemContaBancaria o) {
-        return id.compareTo(o.id);
+        return data.compareTo(o.data);
     }
     
 }

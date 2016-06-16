@@ -44,12 +44,12 @@ public abstract class GenericDAO<T> {
             this.setTransacao(getSessao().beginTransaction());
             this.getSessao().save(entity);
             this.getTransacao().commit();
-            Object o = entity;
-            if(o.getClass()!=Auditoria.class){
-                AuditoriaDAO aDAO = new AuditoriaDAO();
-                aDAO.adicionaAuditoria(o.getClass().getName().toString(), "[NOVO] "+
-                        o.toString());
-            }
+//            Object o = entity;
+//            if(o.getClass()!=Auditoria.class){
+//                AuditoriaDAO aDAO = new AuditoriaDAO();
+//                aDAO.adicionaAuditoria(o.getClass().getName().toString(), "[NOVO] "+
+//                        o.toString());
+//            }
 
            
         } catch (HibernateException e) {
@@ -71,12 +71,12 @@ public abstract class GenericDAO<T> {
             this.getSessao().merge(entity);
             this.getTransacao().commit();
             
-            Object o = entity;
-            if(o.getClass()!=Auditoria.class){
-                AuditoriaDAO aDAO = new AuditoriaDAO();
-                aDAO.adicionaAuditoria(o.getClass().getName().toString(),"[ALTERAÇÃO] "+
-                        o.toString());
-            }
+//            Object o = entity;
+//            if(o.getClass()!=Auditoria.class){
+//                AuditoriaDAO aDAO = new AuditoriaDAO();
+//                aDAO.adicionaAuditoria(o.getClass().getName().toString(),"[ALTERAÇÃO] "+
+//                        o.toString());
+//            }
             
         } catch (HibernateException e) {
             JOptionPane.showMessageDialog(null, "Não foi possível atualizar " + entity.getClass()
@@ -96,12 +96,12 @@ public abstract class GenericDAO<T> {
             this.getSessao().delete(entity);
             this.getTransacao().commit();
             
-            Object o = entity;
-            if(o.getClass()!=Auditoria.class){
-                AuditoriaDAO aDAO = new AuditoriaDAO();
-                aDAO.adicionaAuditoria(o.getClass().getName().toString(),"[EXCLUSÃO] "+
-                        o.toString());
-            }
+//            Object o = entity;
+//            if(o.getClass()!=Auditoria.class){
+//                AuditoriaDAO aDAO = new AuditoriaDAO();
+//                aDAO.adicionaAuditoria(o.getClass().getName().toString(),"[EXCLUSÃO] "+
+//                        o.toString());
+//            }
             
         } catch (HibernateException e) {
             JOptionPane.showMessageDialog(null, "Não foi possível remover " + entity.getClass()

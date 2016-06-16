@@ -152,9 +152,9 @@ public class TelaAdicionaCaixaGeral extends javax.swing.JDialog {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             sdf.setLenient(false);
             String dataString = tfData.getText();
-
+            Date data=null;
             try {
-                Date data = sdf.parse(dataString);
+                data = sdf.parse(dataString);
                 lc.setData(data);
                 // se passou pra cá, é porque a data é válida
             } catch (ParseException e) {
@@ -163,7 +163,7 @@ public class TelaAdicionaCaixaGeral extends javax.swing.JDialog {
                 return;
             }
 
-            lc.setData(new Date());
+            lc.setData(data);
             lc.setDescricao(tfDescricao.getText());
             double valor = 0;
             try {
@@ -196,6 +196,7 @@ public class TelaAdicionaCaixaGeral extends javax.swing.JDialog {
         if (Util.verificaValor(tfValor.getText(), 0) == null) {
             tfValor.setText("");
         }
+        
     }//GEN-LAST:event_tfValorFocusLost
 
     private void tfDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataFocusLost

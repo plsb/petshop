@@ -308,9 +308,9 @@ public class TelaContaPagarRec extends javax.swing.JDialog {
     }//GEN-LAST:event_tfValorKeyPressed
 
     private void tfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorFocusLost
-        if (Util.verificaValor(tfValor.getText(), 0) == null && !tfValor.getText().equals("")) {
-            tfValor.setText("");
-        }
+            if (Util.verificaValor(tfValor.getText(), 0) == null) {
+                tfValor.setText("");
+            }
     }//GEN-LAST:event_tfValorFocusLost
 
     private void rbContaBancariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbContaBancariaActionPerformed

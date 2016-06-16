@@ -406,7 +406,7 @@ public class Util {
         Connection connection = HibernateUtil.getSessionFactory().openStatelessSession().connection();
         try {
             JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
-            viewer.setSize(1200, 600);
+            viewer.setSize(900, 600);
             viewer.setLocationRelativeTo(null);
             viewer.setModal(true);
             File file = new File(caminho + caminhoRelatorio);
@@ -473,6 +473,9 @@ public class Util {
     }
 
     public static Double verificaValor(String valor, double minimo) {
+        if(valor.equals("")){
+            return null;
+        }
         Double d = null;
         try {
             d = Double.parseDouble(valor.replaceFirst(",", "."));

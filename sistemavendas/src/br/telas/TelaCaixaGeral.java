@@ -241,7 +241,7 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
                 CaixaGeral cg = cgtm.getValueAt(i);
                 CaixaGeralDAO dao = new CaixaGeralDAO();
                 dao.remove(cg);
-        btPesquisarActionPerformed(evt);
+                btPesquisarActionPerformed(evt);
             }
 
         } else {
@@ -282,32 +282,36 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String sql = "0 ";
-        java.sql.Date dtIni = null, dtFim = null;
+        if (!tfDataInicio.equals("  /  /    ") || !tfDataFim.equals("  /  /    ")) {
+            String sql = "0 ";
+            java.sql.Date dtIni = null, dtFim = null;
 
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            java.sql.Date data = new java.sql.Date(format.parse(tfDataInicio.getText()).getTime());
-            dtIni = data;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            java.sql.Date data = new java.sql.Date(format.parse(tfDataFim.getText()).getTime());
-            dtFim = data;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = new java.sql.Date(format.parse(tfDataInicio.getText()).getTime());
+                dtIni = data;
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-        if (dtIni != null && dtFim != null) {
-            btPesquisarActionPerformed(evt);
-            sql += " and data between '" + String.valueOf(dtIni) + "' and '" + String.valueOf(dtFim)+"'";
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = new java.sql.Date(format.parse(tfDataFim.getText()).getTime());
+                dtFim = data;
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if (dtIni != null && dtFim != null) {
+                btPesquisarActionPerformed(evt);
+                sql += " and data between '" + String.valueOf(dtIni) + "' and '" + String.valueOf(dtFim) + "'";
+            }
+            HashMap parametros = new HashMap();
+            parametros.put("sql", sql);
+            Util.imprimir("relatorios/reportCaixaGeral.jrxml", parametros);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Informe as datas!");
         }
-        HashMap parametros = new HashMap();
-        parametros.put("sql", sql);
-        Util.imprimir("relatorios/reportCaixaGeral.jrxml", parametros);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

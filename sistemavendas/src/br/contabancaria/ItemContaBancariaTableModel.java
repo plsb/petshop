@@ -27,7 +27,7 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class ItemContaBancariaTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Código", "Data", "", "Entrada", "Saída", "Saldo", "Descrição"};
+    private String[] nomeColunas = {"Código", "Data", "", "Entrada", "Saída", /*"Saldo",*/ "Descrição"};
     private List<ItemContaBancaria> contas;
 
     /**
@@ -85,7 +85,7 @@ public class ItemContaBancariaTableModel extends AbstractTableModel {
                 return conta.getEntrada();
             case 4:
                 return conta.getSaida();
-            case 5:
+            /*case 5:
                 double saldo = 0;
                 if (rowIndex == 0) {
                     ItemContaBancariaDAO dao = new ItemContaBancariaDAO();
@@ -107,8 +107,8 @@ public class ItemContaBancariaTableModel extends AbstractTableModel {
                     }
                 }
                 return Util.acertarNumero(saldo);
-
-            case 6:
+*/
+            case 5:
                 return conta.getDescricao();
         }
         return null;
@@ -140,8 +140,8 @@ public class ItemContaBancariaTableModel extends AbstractTableModel {
                 return nomeColunas[4];
             case 5:
                 return nomeColunas[5];
-            case 6:
-                return nomeColunas[6];
+            /*case 6:
+                return nomeColunas[6];*/
         }
         return null;
     }

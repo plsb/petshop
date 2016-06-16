@@ -194,7 +194,7 @@ public class ContasPagar implements Comparable<ContasPagar>{
 
     @Override
     public int compareTo(ContasPagar o) {
-        return id.compareTo(o.id);
+        return dataVencimento.compareTo(o.dataVencimento);
     }
     
     

@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class CaixaGeralTableModel extends AbstractTableModel {
 
-    private String[] nomeColunas = {"Código", "Data", "Entrada", "Saída", "Saldo", "Descrição"};
+    private String[] nomeColunas = {"Código", "Data", "Entrada", "Saída", /*"Saldo",*/ "Descrição"};
     private List<CaixaGeral> cg;
 
     /**
@@ -71,7 +71,7 @@ public class CaixaGeralTableModel extends AbstractTableModel {
                 return caixa.getValorEntrada();
             case 3:
                 return caixa.getValorSaida();
-            case 4:
+            /*case 4:
                 double saldo = 0;
                 if (rowIndex == 0) {
                     CaixaGeralDAO dao = new CaixaGeralDAO();
@@ -83,7 +83,7 @@ public class CaixaGeralTableModel extends AbstractTableModel {
                             (caixa.getValorEntrada() - caixa.getValorSaida());
                 }
                 return Util.acertarNumero(saldo);
-            case 5:
+            */case 4:
                 return caixa.getDescricao();
 
         }
@@ -114,8 +114,8 @@ public class CaixaGeralTableModel extends AbstractTableModel {
                 return nomeColunas[3];
             case 4:
                 return nomeColunas[4];
-            case 5:
-                return nomeColunas[5];
+            /*case 5:
+                return nomeColunas[5];*/
         }
         return null;
     }

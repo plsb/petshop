@@ -34,50 +34,60 @@ order by cg.id]]>
 	<variable name="somaSaida" class="java.lang.Double" resetType="Group" resetGroup="data" calculation="Sum">
 		<variableExpression><![CDATA[$F{valorSaida}]]></variableExpression>
 	</variable>
+	<variable name="somaEntradaGeral" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorEntrada}]]></variableExpression>
+	</variable>
+	<variable name="somaSaidaGeral" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorSaida}]]></variableExpression>
+	</variable>
 	<group name="data">
 		<groupExpression><![CDATA[$F{data}]]></groupExpression>
 		<groupHeader>
-			<band height="49">
+			<band height="56">
 				<staticText>
-					<reportElement uuid="a8d563fb-145f-4d3d-8f4a-77e36d18854c" x="0" y="29" width="185" height="20"/>
+					<reportElement uuid="a8d563fb-145f-4d3d-8f4a-77e36d18854c" x="2" y="35" width="185" height="20"/>
 					<textElement>
 						<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Descrição]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="d6f0ec0a-442b-4950-89ac-d2852f0619ca" x="241" y="29" width="66" height="20"/>
+					<reportElement uuid="d6f0ec0a-442b-4950-89ac-d2852f0619ca" x="243" y="35" width="66" height="20"/>
 					<textElement textAlignment="Right">
 						<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Entrada]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="fada72cf-9996-4471-8b71-c8c8e72b781b" x="307" y="29" width="66" height="20"/>
+					<reportElement uuid="fada72cf-9996-4471-8b71-c8c8e72b781b" x="309" y="35" width="66" height="20"/>
 					<textElement textAlignment="Right">
 						<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Saída]]></text>
 				</staticText>
 				<line>
-					<reportElement uuid="a54a2b93-391a-417f-99ee-15267922a19d" x="0" y="2" width="553" height="1"/>
+					<reportElement uuid="a54a2b93-391a-417f-99ee-15267922a19d" x="3" y="52" width="553" height="1"/>
 					<graphicElement>
 						<pen lineStyle="Dashed"/>
 					</graphicElement>
 				</line>
-				<line>
-					<reportElement uuid="a54a2b93-391a-417f-99ee-15267922a19d" x="1" y="46" width="553" height="1"/>
-					<graphicElement>
-						<pen lineStyle="Solid"/>
-					</graphicElement>
-				</line>
-				<textField>
-					<reportElement uuid="cfb47731-554b-4688-b1fd-92525ed2d034" x="1" y="6" width="185" height="20"/>
-					<textElement>
+				<rectangle radius="10">
+					<reportElement uuid="1b8121c9-eaf1-4781-942f-87eb94b2db13" x="1" y="5" width="555" height="25"/>
+				</rectangle>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement uuid="e9b98c28-e164-42fc-ab86-fd427e4355fe" x="1" y="10" width="555" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Bitstream Vera Sans Mono" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="fada72cf-9996-4471-8b71-c8c8e72b781b" x="373" y="35" width="66" height="20"/>
+					<textElement textAlignment="Right">
 						<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Data:" +$F{data}]]></textFieldExpression>
-				</textField>
+					<text><![CDATA[Acumulado]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -97,18 +107,25 @@ order by cg.id]]>
 					<textFieldExpression><![CDATA[$V{somaSaida}]]></textFieldExpression>
 				</textField>
 				<textField pattern="###0.00;-###0.00">
-					<reportElement uuid="d73b3072-613f-44c9-8e7c-61ab36103b52" x="373" y="3" width="179" height="20"/>
+					<reportElement uuid="d73b3072-613f-44c9-8e7c-61ab36103b52" x="457" y="3" width="95" height="20"/>
 					<textElement textAlignment="Right">
 						<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Saldo Diário: "+($V{somaEntrada}-$V{somaSaida})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($V{somaEntrada}-$V{somaSaida})]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement uuid="a54a2b93-391a-417f-99ee-15267922a19d" x="2" y="2" width="553" height="1"/>
 					<graphicElement>
-						<pen lineStyle="Solid"/>
+						<pen lineStyle="Dashed"/>
 					</graphicElement>
 				</line>
+				<textField pattern="###0.00;-###0.00">
+					<reportElement uuid="d73b3072-613f-44c9-8e7c-61ab36103b52" x="393" y="3" width="95" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Saldo Diário: "]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupFooter>
 	</group>
@@ -116,25 +133,31 @@ order by cg.id]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="60" splitType="Stretch">
+		<band height="8" splitType="Stretch"/>
+	</title>
+	<columnHeader>
+		<band height="65" splitType="Stretch">
 			<textField>
-				<reportElement uuid="a7eb0a1f-ea2d-4b51-b4e3-c3119f798201" x="328" y="2" width="226" height="20"/>
+				<reportElement uuid="a7eb0a1f-ea2d-4b51-b4e3-c3119f798201" x="329" y="0" width="226" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Data/Hora Impressão: "+new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="45ecf8c6-8fb5-404b-a963-33674eabe892" x="2" y="22" width="551" height="20"/>
+				<reportElement uuid="45ecf8c6-8fb5-404b-a963-33674eabe892" x="3" y="20" width="551" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Bitstream Vera Sans Mono" size="16" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[CAIXA GERAL]]></text>
 			</staticText>
+			<line>
+				<reportElement uuid="a54a2b93-391a-417f-99ee-15267922a19d" x="3" y="57" width="553" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
 		</band>
-	</title>
-	<columnHeader>
-		<band height="13" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
 		<band height="25" splitType="Stretch">
@@ -168,13 +191,39 @@ order by cg.id]]>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="20">
+			<textField>
+				<reportElement uuid="51b69933-6a69-4cd6-a7e6-c40eddde10e5" x="452" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement uuid="a54a2b93-391a-417f-99ee-15267922a19d" x="-1" y="3" width="553" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="d73b3072-613f-44c9-8e7c-61ab36103b52" x="241" y="4" width="66" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{somaEntradaGeral}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="37b88c07-d006-4e62-bf1d-f0e495dfdb3a" x="307" y="4" width="66" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{somaSaidaGeral}]]></textFieldExpression>
+			</textField>
+		</band>
 	</summary>
 </jasperReport>

@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -108,6 +109,7 @@ public class TelaContaPagar extends javax.swing.JDialog {
         tfDataFim = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -301,6 +303,14 @@ public class TelaContaPagar extends javax.swing.JDialog {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 80));
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, 50, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 370));
 
         pack();
@@ -341,26 +351,26 @@ public class TelaContaPagar extends javax.swing.JDialog {
 
     private void btReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReceberActionPerformed
 
-            int row = tbContas.getSelectedRow();
-            Object o;
-            if (row > -1) { //então tem ítem selecionado
-                o = tbContas.getValueAt(row, 0);
-                ContasPagarDAO crDAO = new ContasPagarDAO();
-                String s = String.valueOf(o);
-                ContasPagar cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
-                if (!cr.isPaga()) {
-                    TelaContaPagarRec tcpr = new TelaContaPagarRec(cr);
-                    tcpr.setVisible(true);
-                    
-                    btPesquisarActionPerformed(evt);
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
-                }
+        int row = tbContas.getSelectedRow();
+        Object o;
+        if (row > -1) { //então tem ítem selecionado
+            o = tbContas.getValueAt(row, 0);
+            ContasPagarDAO crDAO = new ContasPagarDAO();
+            String s = String.valueOf(o);
+            ContasPagar cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
+            if (!cr.isPaga()) {
+                TelaContaPagarRec tcpr = new TelaContaPagarRec(cr);
+                tcpr.setVisible(true);
 
+                btPesquisarActionPerformed(evt);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
-                        "ERRO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
             }
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
+                    "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
 
 
     }//GEN-LAST:event_btReceberActionPerformed
@@ -395,41 +405,41 @@ public class TelaContaPagar extends javax.swing.JDialog {
     }//GEN-LAST:event_btNovo3ActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
-            int row = tbContas.getSelectedRow();
-            Object o;
-            if (row > -1) { //então tem ítem selecionado
-                o = tbContas.getValueAt(row, 0);
-                ContasPagarDAO crDAO = new ContasPagarDAO();
-                String s = String.valueOf(o);
-                ContasPagar cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
-                if (!cr.isPaga()) {
-                    if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir a conta selecionada?", "EXCLUIR",
-                            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                        crDAO.remove(cr);
-                        
-                        //remove do caixa, caso tenha sido paga pelo caixa
-                        CaixaGeralDAO cgDAO = new CaixaGeralDAO();
-                        List<CaixaGeral> listaCg = cgDAO.checkExists("contaPagar", cr);
-                        for (CaixaGeral listaCg1 : listaCg) {
-                            cgDAO.remove(listaCg1);
-                        }
-                        
-                        //remove da contabancaria, caso tenha sido paga pela contabancaria
-                        ItemContaBancariaDAO icbDAO = new ItemContaBancariaDAO();
-                        List<ItemContaBancaria> listaICB = icbDAO.checkExists("contaPagar", cr);
-                        for (ItemContaBancaria listaICB1 : listaICB) {
-                            icbDAO.remove(listaICB1);
-                        }                        
-                        
-                        btPesquisarActionPerformed(evt);
+        int row = tbContas.getSelectedRow();
+        Object o;
+        if (row > -1) { //então tem ítem selecionado
+            o = tbContas.getValueAt(row, 0);
+            ContasPagarDAO crDAO = new ContasPagarDAO();
+            String s = String.valueOf(o);
+            ContasPagar cr = crDAO.checkExists("id", Integer.valueOf(s)).get(0);
+            if (!cr.isPaga()) {
+                if (JOptionPane.showConfirmDialog(rootPane, "Deseja Excluir a conta selecionada?", "EXCLUIR",
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    crDAO.remove(cr);
+
+                    //remove do caixa, caso tenha sido paga pelo caixa
+                    CaixaGeralDAO cgDAO = new CaixaGeralDAO();
+                    List<CaixaGeral> listaCg = cgDAO.checkExists("contaPagar", cr);
+                    for (CaixaGeral listaCg1 : listaCg) {
+                        cgDAO.remove(listaCg1);
                     }
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
+
+                    //remove da contabancaria, caso tenha sido paga pela contabancaria
+                    ItemContaBancariaDAO icbDAO = new ItemContaBancariaDAO();
+                    List<ItemContaBancaria> listaICB = icbDAO.checkExists("contaPagar", cr);
+                    for (ItemContaBancaria listaICB1 : listaICB) {
+                        icbDAO.remove(listaICB1);
+                    }
+
+                    btPesquisarActionPerformed(evt);
                 }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
-                        "ERRO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
+                    "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_btRemoverActionPerformed
 
@@ -484,6 +494,39 @@ public class TelaContaPagar extends javax.swing.JDialog {
 
     }//GEN-LAST:event_cbFornecedorFocusLost
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (!tfDataInicio.equals("  /  /    ") || !tfDataFim.equals("  /  /    ")) {
+            java.sql.Date dtIni = null, dtFim = null;
+
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = new java.sql.Date(format.parse(tfDataInicio.getText()).getTime());
+                dtIni = data;
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = new java.sql.Date(format.parse(tfDataFim.getText()).getTime());
+                dtFim = data;
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if (dtIni != null && dtFim != null) {
+                btPesquisarActionPerformed(evt);
+            }
+            HashMap parametros = new HashMap();
+            parametros.put("dtInicial", "'" + dtIni + "'");
+            parametros.put("dtFinal", "'" + dtFim + "'");
+
+            Util.imprimir("relatorios/reportContasPagar.jrxml", parametros);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Informe as datas!");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -529,6 +572,7 @@ public class TelaContaPagar extends javax.swing.JDialog {
     private javax.swing.JButton btRemover;
     private javax.swing.JComboBox cbFornecedor;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
