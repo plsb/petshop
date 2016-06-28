@@ -177,7 +177,7 @@ order by v.id desc]]>
 				<textElement textAlignment="Left">
 					<font fontName="Bitstream Vera Sans Mono" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cpf}==null?"":$F{cpf}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -254,7 +254,7 @@ order by v.id desc]]>
 				<textFieldExpression><![CDATA[$F{tipoPagamento}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="83" y="0" width="54" height="20"/>
+				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="83" y="0" width="68" height="20"/>
 				<textElement>
 					<font fontName="Bitstream Vera Sans Mono"/>
 				</textElement>

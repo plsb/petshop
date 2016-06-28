@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -27,13 +28,14 @@ import javax.swing.JOptionPane;
  * @author Pedro Saraiva
  */
 public class TelaContaPromissoria extends javax.swing.JDialog {
-    
+
     public static void chamaTela(Cliente c) {
         TelaContaPromissoria.cliente = c;
         new TelaContaPromissoria().setVisible(true);
+        TelaContaPromissoria.cliente = null;
     }
     private static Cliente cliente = null;
-    
+
     public TelaContaPromissoria() {
         initComponents();
         setTitle("Contas à Receber");
@@ -52,18 +54,19 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
             rbContasAbert.setEnabled(false);
             rbContasPagas.setEnabled(false);
             btPesquisarActionPerformed(null);
-            
+
             ContasReceberDAO dao = new ContasReceberDAO();
             List<ContasReceber> lista = dao.checkExists("cliente", cliente);
+            Collections.sort(lista);
             if (lista.size() > 0) {
-                tfDataInicio.setText(dfdtData.format(lista.get(lista.size()-1).getDataVencimento()));
+                tfDataInicio.setText(dfdtData.format(lista.get(0).getDataVencimento()));
             }
         }
-        
+
         btPesquisarActionPerformed(null);
-        
+
     }
-    
+
     public void preencheCliente() {
         ClienteDAO cDAO = new ClienteDAO();
         List<Cliente> cList = cDAO.list();
@@ -83,6 +86,8 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
     private void initComponents() {
 
         btContas = new javax.swing.ButtonGroup();
+        mpRelatorio = new javax.swing.JPopupMenu();
+        miPromissoria = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbContas = new javax.swing.JTable();
@@ -107,6 +112,15 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         tfDataFim = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        btnImprimir = new javax.swing.JButton();
+
+        miPromissoria.setText("Promissória");
+        miPromissoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPromissoriaActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(miPromissoria);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -300,6 +314,15 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 80));
 
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/print.png"))); // NOI18N
+        btnImprimir.setToolTipText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 40, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 380));
 
         pack();
@@ -308,7 +331,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
     private void cbClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbClienteFocusLost
 
     }//GEN-LAST:event_cbClienteFocusLost
-    
+
     private void preencheTabela(List<ContasReceber> contas) {
         Collections.sort(contas);
         ContasReceberTableModel crtm = new ContasReceberTableModel(contas);
@@ -326,7 +349,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         } else {
             jLabel4.setText("Valor Pago.: ");
             lblVencer1.setText(Util.acertarNumero(valorPago));
-            
+
         }
         btReceber.setEnabled(rbContasAbert.isSelected());
         btEdit.setEnabled(rbContasAbert.isSelected());
@@ -339,7 +362,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         tbContas.setAutoCreateRowSorter(true);
         tbContas.setDefaultRenderer(Object.class,
                 new ContaReceberCellRenderer());
-        
+
     }
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
@@ -349,7 +372,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
             sdf.setLenient(false);
             String dataString = tfDataInicio.getText();
             Date iniDate = null, endDate = null;
-            
+
             try {
                 Date data = sdf.parse(dataString);
                 iniDate = data;
@@ -359,7 +382,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Data Inicial Incorreta!");
                 return;
             }
-            
+
             dataString = tfDataFim.getText();
             try {
                 Date data = sdf.parse(dataString);
@@ -370,12 +393,12 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Data Fim Incorreta!");
                 return;
             }
-            
+
             ContasReceberDAO crDAO = new ContasReceberDAO();
             preencheTabela(crDAO.listaContasCliente(
                     cbCliente.getSelectedIndex() == 0 ? null : (Cliente) cbCliente.getSelectedItem(),
                     rbContasPagas.isSelected(), iniDate, endDate));
-            
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "Informe as Datas!");
         }
@@ -387,7 +410,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Caixa Fechado!");
                 return;
             }
-            
+
             int row = tbContas.getSelectedRow();
             Object o;
             if (row > -1) { //então tem ítem selecionado
@@ -401,12 +424,12 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Conta Recebida!");
                 }
-                
+
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
                         "ERRO", JOptionPane.ERROR_MESSAGE);
             }
-            
+
         }
     }//GEN-LAST:event_btReceberActionPerformed
 
@@ -434,7 +457,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!",
                         "ERRO", JOptionPane.ERROR_MESSAGE);
             }
-            
+
         }
     }//GEN-LAST:event_btEditActionPerformed
 
@@ -486,6 +509,28 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        mpRelatorio.show(btnImprimir, btnImprimir.getWidth(), btnImprimir.getHeight());
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void miPromissoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPromissoriaActionPerformed
+        int i=tbContas.getSelectedRow();
+        if(rbContasPagas.isSelected()){
+            JOptionPane.showMessageDialog(rootPane, "Função Habilitada Apenas paa Contas em Aberto!");
+            return ;
+        }
+        if(i<0){
+            JOptionPane.showMessageDialog(rootPane, "Selecione o Ítem!");
+            return ;
+        }
+        ContasReceberTableModel crtm = (ContasReceberTableModel) tbContas.getModel();
+        ContasReceber cr = crtm.getValueAt(i);
+        
+        HashMap parametros = new HashMap();
+        parametros.put("sql", "cr.id="+cr.getId());
+        Util.imprimir("relatorios/reportPromissorias.jrxml", parametros);
+    }//GEN-LAST:event_miPromissoriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -528,6 +573,7 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btReceber;
     private javax.swing.JButton btRemover;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JComboBox cbCliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -542,6 +588,8 @@ public class TelaContaPromissoria extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblVencer1;
+    private javax.swing.JMenuItem miPromissoria;
+    private javax.swing.JPopupMenu mpRelatorio;
     private javax.swing.JRadioButton rbContasAbert;
     private javax.swing.JRadioButton rbContasPagas;
     private javax.swing.JTable tbContas;

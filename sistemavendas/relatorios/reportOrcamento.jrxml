@@ -69,14 +69,21 @@ order by iv.ordem]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="26" splitType="Stretch">
+		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="45ecf8c6-8fb5-404b-a963-33674eabe892" x="2" y="0" width="551" height="20"/>
+				<reportElement uuid="45ecf8c6-8fb5-404b-a963-33674eabe892" x="2" y="14" width="551" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Bitstream Vera Sans Mono" size="16" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[ORÇAMENTO]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="a7eb0a1f-ea2d-4b51-b4e3-c3119f798201" x="329" y="0" width="226" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Data/Hora Impressão: "+new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -92,7 +99,7 @@ order by iv.ordem]]>
 				<text><![CDATA[Orçamento Nº:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="1" y="30" width="94" height="20"/>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="1" y="30" width="108" height="20"/>
 				<textElement>
 					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
 				</textElement>
@@ -242,21 +249,21 @@ order by iv.ordem]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="387" y="0" width="35" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="422" y="0" width="59" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valorUni}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="481" y="0" width="69" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
@@ -276,7 +283,7 @@ order by iv.ordem]]>
 			<line>
 				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="3" y="0" width="552" height="1"/>
 			</line>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="456" y="16" width="92" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="11"/>
@@ -290,7 +297,7 @@ order by iv.ordem]]>
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="456" y="36" width="92" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="11"/>
@@ -304,7 +311,7 @@ order by iv.ordem]]>
 				</textElement>
 				<text><![CDATA[Desconto:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="456" y="56" width="92" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="11"/>

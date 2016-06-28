@@ -96,6 +96,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
         jCheckBox3 = new javax.swing.JCheckBox();
         EXCLUIR_CLIENTE2 = new javax.swing.JCheckBox();
         EXCLUIR_CLIENTE13 = new javax.swing.JCheckBox();
+        EXCLUIR_CLIENTE21 = new javax.swing.JCheckBox();
         jPanel9 = new javax.swing.JPanel();
         CE_GRUPO_PRODUTOS = new javax.swing.JCheckBox();
         EXCLUIR_GRUPO_PRODUTO = new javax.swing.JCheckBox();
@@ -218,10 +219,10 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addComponent(EXCLUIR_PRODUTO3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EXCLUIR_PRODUTO4)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 190, 290));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 190, 310));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Vendedor"));
 
@@ -267,7 +268,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 160, 140));
+        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 160, 140));
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Conta Bancária"));
 
@@ -307,7 +308,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addGap(0, 45, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 160, 140));
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 160, 140));
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
 
@@ -331,6 +332,9 @@ public class TelaPermissoes extends javax.swing.JDialog {
         EXCLUIR_CLIENTE13.setText("Relat. Curva ABC");
         EXCLUIR_CLIENTE13.setName("RELA_CURVA_ABC_CLIENTE"); // NOI18N
 
+        EXCLUIR_CLIENTE21.setText("Relat. Clientes em Atraso");
+        EXCLUIR_CLIENTE21.setName("RELA_CURVA_CLIENTE_EM_ATRASO"); // NOI18N
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -346,7 +350,8 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCheckBox3)
                     .addComponent(EXCLUIR_CLIENTE2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EXCLUIR_CLIENTE13, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EXCLUIR_CLIENTE13, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EXCLUIR_CLIENTE21, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
@@ -359,11 +364,14 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addComponent(EXCLUIR_CLIENTE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(EXCLUIR_CLIENTE2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(EXCLUIR_CLIENTE13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(EXCLUIR_CLIENTE13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(EXCLUIR_CLIENTE21)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 180, 140));
+        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 180, 170));
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Grupo de Produtos"));
 
@@ -425,7 +433,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 180, 150));
+        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 180, 150));
 
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Empresa"));
 
@@ -456,10 +464,10 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addComponent(jCheckBox11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CE_EMPRESA1)
-                .addGap(0, 71, Short.MAX_VALUE))
+                .addGap(0, 101, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 160, 140));
+        jPanel2.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 160, 170));
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Fornecedor"));
 
@@ -507,10 +515,10 @@ public class TelaPermissoes extends javax.swing.JDialog {
                 .addComponent(EXCLUIR_CLIENTE19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox18)
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 52, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 160, 140));
+        jPanel2.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 160, 170));
 
         jTabbedPane1.addTab("Cadastros", jPanel2);
 
@@ -972,6 +980,7 @@ public class TelaPermissoes extends javax.swing.JDialog {
     private javax.swing.JCheckBox EXCLUIR_CLIENTE19;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE2;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE20;
+    private javax.swing.JCheckBox EXCLUIR_CLIENTE21;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE3;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE4;
     private javax.swing.JCheckBox EXCLUIR_CLIENTE5;

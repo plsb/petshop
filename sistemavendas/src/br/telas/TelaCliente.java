@@ -49,6 +49,7 @@ public class TelaCliente extends javax.swing.JDialog {
         mpRelatorio = new javax.swing.JPopupMenu();
         miRelatHitoricoCliente = new javax.swing.JMenuItem();
         miRelatCurvaABC = new javax.swing.JMenuItem();
+        miRelatorioClientesEmAtraso = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         lbTexto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -95,6 +96,14 @@ public class TelaCliente extends javax.swing.JDialog {
             }
         });
         mpRelatorio.add(miRelatCurvaABC);
+
+        miRelatorioClientesEmAtraso.setText("Clientes em Atraso");
+        miRelatorioClientesEmAtraso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRelatorioClientesEmAtrasoActionPerformed(evt);
+            }
+        });
+        mpRelatorio.add(miRelatorioClientesEmAtraso);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -451,6 +460,19 @@ public class TelaCliente extends javax.swing.JDialog {
 
     }//GEN-LAST:event_miRelatCurvaABCActionPerformed
 
+    private void miRelatorioClientesEmAtrasoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatorioClientesEmAtrasoActionPerformed
+        if (Util.verificaPermissao("RELA_CURVA_CLIENTE_EM_ATRASO", 1)) {
+            HashMap parametros = new HashMap();
+
+            Util.imprimir("relatorios/reportClientesEmAtraso.jrxml", parametros);
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível gerar o relatório!");
+        }
+
+
+    }//GEN-LAST:event_miRelatorioClientesEmAtrasoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -465,16 +487,21 @@ public class TelaCliente extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCliente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCliente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCliente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCliente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -509,6 +536,7 @@ public class TelaCliente extends javax.swing.JDialog {
     private javax.swing.JLabel lbTexto;
     private javax.swing.JMenuItem miRelatCurvaABC;
     private javax.swing.JMenuItem miRelatHitoricoCliente;
+    private javax.swing.JMenuItem miRelatorioClientesEmAtraso;
     private javax.swing.JPopupMenu mpRelatorio;
     private javax.swing.JRadioButton rbFeminino;
     private javax.swing.JRadioButton rbMasculino;

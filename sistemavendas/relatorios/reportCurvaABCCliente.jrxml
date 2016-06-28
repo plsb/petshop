@@ -146,7 +146,7 @@ order by 3 desc]]>
 				<textElement>
 					<font fontName="Bitstream Vera Sans Mono"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cpf}==null?"":$F{cpf}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="8ae78fe2-c0dd-4bcd-ae86-065ef0a0e863" x="485" y="1" width="20" height="20"/>

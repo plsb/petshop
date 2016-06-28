@@ -16,7 +16,7 @@ v.id idVenda, v.vlPromissoria valorVenda
 from empresa e,contasreceber cr
 inner join cliente c on c.id=cr.cliente_id
 inner join venda v on v.id=cr.venda_id
-where v.id=$P!{sql}
+where $P!{sql}
 order by cr.nrParcela]]>
 	</queryString>
 	<field name="nrParcela" class="java.lang.Integer">
@@ -274,7 +274,7 @@ order by cr.nrParcela]]>
 				<textElement textAlignment="Left" rotation="None">
 					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["CPF: "+$F{cpf}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cpf}==null?"CPF: ":"CPF: "+$F{cpf}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement uuid="25396a12-d6b7-4df0-98ef-0bdc60f54019" x="17" y="315" width="127" height="1"/>

@@ -261,7 +261,7 @@ public class TelaFechaVendaPromissoria extends javax.swing.JDialog {
         JasperReport pathjrxml;
         HashMap parametros = new HashMap();
 
-        String sql = String.valueOf(venda.getId());
+        String sql = "v.id="+String.valueOf(venda.getId());
 
         try {
             parametros.put("sql", sql);

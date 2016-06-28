@@ -76,15 +76,17 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
         tfSaldo = new javax.swing.JFormattedTextField();
         tfSaidas = new javax.swing.JFormattedTextField();
         tfEntradas1 = new javax.swing.JFormattedTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btPesquisar = new javax.swing.JButton();
         tfDataInicio = new javax.swing.JFormattedTextField();
         tfDataFim = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -107,7 +109,7 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tb);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 580, 355));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 550, 300));
 
         lbTexto.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 1, 30)); // NOI18N
         lbTexto.setText("Caixa Geral");
@@ -115,63 +117,33 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
 
         jLabel3.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel3.setText("Entradas.:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 480, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel4.setText("Saídas.:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 510, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 440, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
         jLabel1.setText("Saldo.:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 540, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 440, -1, -1));
 
         tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfSaldo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfSaldo.setEnabled(false);
         tfSaldo.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jPanel1.add(tfSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 540, 110, -1));
+        jPanel1.add(tfSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 440, 110, -1));
 
         tfSaidas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfSaidas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfSaidas.setEnabled(false);
         tfSaidas.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jPanel1.add(tfSaidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 510, 110, -1));
+        jPanel1.add(tfSaidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, 100, -1));
 
         tfEntradas1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfEntradas1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tfEntradas1.setEnabled(false);
         tfEntradas1.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 12)); // NOI18N
-        jPanel1.add(tfEntradas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 480, 110, -1));
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/interface (5).png"))); // NOI18N
-        jButton2.setMnemonic('n');
-        jButton2.setToolTipText("Adicionar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 70, -1));
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/delete_gr.png"))); // NOI18N
-        jButton1.setMnemonic('e');
-        jButton1.setToolTipText("Excluir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, 71, -1));
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/transfer_gr.png"))); // NOI18N
-        jButton3.setMnemonic('t');
-        jButton3.setToolTipText("Transferir");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 77, -1));
+        jPanel1.add(tfEntradas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 100, -1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -209,7 +181,46 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
         jLabel6.setText("Dt. Inicio:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 580, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 550, 70));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/interface (5).png"))); // NOI18N
+        jButton2.setMnemonic('n');
+        jButton2.setToolTipText("Adicionar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton2);
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/editgr.png"))); // NOI18N
+        jButton5.setToolTipText("Editar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton5);
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/transfer_gr.png"))); // NOI18N
+        jButton3.setMnemonic('t');
+        jButton3.setToolTipText("Transferir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton3);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/delete_gr.png"))); // NOI18N
+        jButton1.setMnemonic('e');
+        jButton1.setToolTipText("Excluir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1);
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/imagens/printer_gr.png"))); // NOI18N
         jButton4.setToolTipText("Imprimir");
@@ -218,9 +229,11 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 70, 70));
+        jPanel3.add(jButton4);
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 570));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 570, 80));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -314,6 +327,20 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int i = tb.getSelectedRow();
+        if (i >= 0) {
+                CaixaGeralTableModel cgtm = (CaixaGeralTableModel) tb.getModel();
+                CaixaGeral cg = cgtm.getValueAt(i);
+                TelaAdicionaCaixaGeral tacg = new TelaAdicionaCaixaGeral(cg);
+                tacg.setVisible(true);
+                btPesquisarActionPerformed(evt);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma Linha!");
+        }
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -355,6 +382,7 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -362,6 +390,7 @@ public class TelaCaixaGeral extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbTexto;
     private javax.swing.JTable tb;

@@ -36,7 +36,33 @@ public class TelaAdicionaCaixaGeral extends javax.swing.JDialog {
 
         setModal(true);
         setLocationRelativeTo(null);
-        setTitle("Adiciona/Edita Caixa Geral");
+        setTitle("Adiciona Caixa Geral");
+        lc = null;
+    }
+
+    private CaixaGeral lc;
+
+    public TelaAdicionaCaixaGeral(CaixaGeral cx) {
+        initComponents();
+        SimpleDateFormat dfdtData;
+        dfdtData = new SimpleDateFormat("dd/MM/yyyy");
+        tfData.setText(dfdtData.format(cx.getData()));
+//        tfData.setEnabled(false);
+
+        tfDescricao.setText(cx.getDescricao());
+        if (cx.getValorEntrada() > 0) {
+            tfValor.setText(String.valueOf(cx.getValorEntrada()).replace(".", ","));
+            rbEntrada.setSelected(true);
+        } else {
+            tfValor.setText(String.valueOf(cx.getValorSaida()).replace(".", ","));
+            rbSaida.setSelected(true);
+        }
+
+        tfDescricao.requestFocus();
+        setModal(true);
+        setLocationRelativeTo(null);
+        setTitle("Edita Caixa Geral");
+        lc = cx;
     }
 
     /**
@@ -147,12 +173,14 @@ public class TelaAdicionaCaixaGeral extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Informe se é uma Entrada ou Saída!");
                 return;
             }
-            CaixaGeral lc = new CaixaGeral();
+            if (lc.getId() == null) {
+                lc = new CaixaGeral();
+            }
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             sdf.setLenient(false);
             String dataString = tfData.getText();
-            Date data=null;
+            Date data = null;
             try {
                 data = sdf.parse(dataString);
                 lc.setData(data);
@@ -181,12 +209,21 @@ public class TelaAdicionaCaixaGeral extends javax.swing.JDialog {
             if (rbEntrada.isSelected()) {
 
                 lc.setValorEntrada(valor);
+                lc.setValorSaida(0);
             } else {
                 lc.setValorSaida(valor);
+                lc.setValorEntrada(0);
             }
             CaixaGeralDAO lcDAo = new CaixaGeralDAO();
-            if (lcDAo.add(lc)) {
-                JOptionPane.showMessageDialog(rootPane, "Item adicionado com sucesso!");
+            if (lc.getId() == null) {
+                if (lcDAo.add(lc)) {
+                    JOptionPane.showMessageDialog(rootPane, "Item adicionado com sucesso!");
+                }
+            } else {
+                if (lcDAo.update(lc)) {
+                    JOptionPane.showMessageDialog(rootPane, "Item alerado com sucesso!");
+                }
+
             }
             setVisible(false);
         }
@@ -196,7 +233,7 @@ public class TelaAdicionaCaixaGeral extends javax.swing.JDialog {
         if (Util.verificaValor(tfValor.getText(), 0) == null) {
             tfValor.setText("");
         }
-        
+
     }//GEN-LAST:event_tfValorFocusLost
 
     private void tfDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataFocusLost

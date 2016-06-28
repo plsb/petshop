@@ -262,14 +262,14 @@ $F{quantidade}*$F{valorUni}]]></variableExpression>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="333" y="0" width="35" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="368" y="0" width="59" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
@@ -283,7 +283,7 @@ $F{quantidade}*$F{valorUni}]]></variableExpression>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cancelado}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="427" y="0" width="69" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono"/>
@@ -303,7 +303,7 @@ $F{quantidade}*$F{valorUni}]]></variableExpression>
 			<line>
 				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="3" y="0" width="552" height="1"/>
 			</line>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="404" y="16" width="92" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="11"/>
@@ -317,7 +317,7 @@ $F{quantidade}*$F{valorUni}]]></variableExpression>
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="404" y="36" width="92" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="11"/>
@@ -331,7 +331,7 @@ $F{quantidade}*$F{valorUni}]]></variableExpression>
 				</textElement>
 				<text><![CDATA[Desconto:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="404" y="56" width="92" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="11"/>
@@ -345,7 +345,7 @@ $F{quantidade}*$F{valorUni}]]></variableExpression>
 				</textElement>
 				<text><![CDATA[Total C/ Desc:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="93" y="26" width="65" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="10"/>
@@ -359,7 +359,7 @@ $F{quantidade}*$F{valorUni}]]></variableExpression>
 				</textElement>
 				<text><![CDATA[Vl à Vista:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="93" y="46" width="65" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="10"/>
@@ -373,7 +373,7 @@ $F{quantidade}*$F{valorUni}]]></variableExpression>
 				</textElement>
 				<text><![CDATA[Vl à Prazo:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="91" y="66" width="67" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Bitstream Vera Sans Mono" size="10"/>

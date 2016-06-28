@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportClientesEmAtraso" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ea6f4d4f-86a2-4b8c-94c4-f31747be18e8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select cr.dataVencimento, cr.nrConta, cr.nrParcela,
+		sum(cr.valor) valor, c.nome,c.cpf,
+		 AVG(DATEDIFF(CURDATE(),cr.dataVencimento)) media
+	from contasreceber cr
+inner join cliente c on c.id=cr.cliente_id
+where cr.dataVencimento<CURDATE() and paga=0
+group by c.id
+order by c.nome]]>
+	</queryString>
+	<field name="dataVencimento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nrConta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nrParcela" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="media" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="45ecf8c6-8fb5-404b-a963-33674eabe892" x="4" y="15" width="551" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bitstream Vera Sans Mono" size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTES EM ATRASO]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a7eb0a1f-ea2d-4b51-b4e3-c3119f798201" x="329" y="0" width="226" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Data/Hora Impressão: "+new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="24" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d8471146-5223-4b78-ab9f-1386eefbab59" x="393" y="0" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="35b8d1ea-6417-4cb5-a722-42205220fcaa" x="4" y="0" width="92" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ffbad295-8e46-406e-ba57-1f1e186b3ff4" x="478" y="0" width="74" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Média Atraso]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="2" y="20" width="552" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="35b8d1ea-6417-4cb5-a722-42205220fcaa" x="244" y="0" width="92" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="7a9faabd-81fc-4c73-a90b-3eeca63fe226" x="393" y="0" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="aaee4ae4-489f-48f3-bbaf-5b54ec54990f" x="4" y="0" width="240" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="93e81dc4-1a62-4da1-bfa1-51f3d75ce264" x="471" y="0" width="56" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{media}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="93e81dc4-1a62-4da1-bfa1-51f3d75ce264" x="522" y="0" width="32" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA["dias"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="aaee4ae4-489f-48f3-bbaf-5b54ec54990f" x="244" y="0" width="149" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cpf}==null?"":$F{cpf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
