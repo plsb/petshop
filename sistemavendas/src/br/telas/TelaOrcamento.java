@@ -496,7 +496,7 @@ public class TelaOrcamento extends javax.swing.JDialog {
                     tfQuantidade.requestFocus();
                     return;
                 }
-                if (it.getQuantidade() == 0) {
+                if (it.getQuantidade() < 0.0) {
                     JOptionPane.showMessageDialog(rootPane, "Quantidade não pode ser 0!");
                     tfQuantidade.requestFocus();
                     return;

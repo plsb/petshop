@@ -74,6 +74,7 @@ public class TelaProduto extends javax.swing.JDialog {
         FornecedorDAO dao = new FornecedorDAO();
         List<Fornecedor> lista = dao.list();
         Collections.sort(lista);
+        cbFornecedor.removeAllItems();
         for (Fornecedor f : lista) {
             cbFornecedor.addItem(f);
         }

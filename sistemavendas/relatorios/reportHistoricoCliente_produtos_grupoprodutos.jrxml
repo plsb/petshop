@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportHistoricoCliente_produtos_grupoprodutos" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e1a91306-073e-41d2-8498-ec77518a3135">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idcliente" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select gp.descricao, sum(iv.valorTotalComDesconto) valorTotalComDesconto
+ from venda v
+inner join itemvenda iv on v.id=iv.venda_id
+inner join produto p on p.id=iv.produto_id
+inner join grupoproduto gp on gp.id=p.grupoproduto_id
+where v.cliente_id=$P{idcliente} and v.cancelada=false and iv.cancelado=false
+group by gp.id
+order by gp.descricao]]>
+	</queryString>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorTotalComDesconto" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="1" y="7" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR TOTAL POR GRUPO DE PRODUTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="515410cd-7191-4f44-bf58-5fd31817bfc8" x="116" y="31" width="111" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1cf84b41-dca2-46ad-9f7d-36b88ced3587" x="342" y="30" width="111" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="116" y="50" width="337" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b395e20a-9ffb-4937-9d6e-ec4b75b04048" x="115" y="0" width="237" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="b395e20a-9ffb-4937-9d6e-ec4b75b04048" x="352" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorTotalComDesconto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

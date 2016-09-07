@@ -291,15 +291,7 @@ order by v.id desc]]>
 		</band>
 	</detail>
 	<summary>
-		<band height="124" splitType="Stretch">
-			<subreport>
-				<reportElement uuid="0f66c0c5-730a-4bff-a4b2-8db3d46a91d6" x="1" y="82" width="555" height="42"/>
-				<subreportParameter name="idcliente">
-					<subreportParameterExpression><![CDATA[$F{idCliente}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportHistoricoCliente_subreport1.jasper"]]></subreportExpression>
-			</subreport>
+		<band height="146" splitType="Stretch">
 			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="b1b17579-05bb-470d-b62a-8be2cd07a540" x="396" y="3" width="71" height="20"/>
 				<textElement textAlignment="Right">
@@ -331,12 +323,22 @@ order by v.id desc]]>
 				</textElement>
 				<text><![CDATA[Total Canceladas:]]></text>
 			</staticText>
-			<line>
-				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="3" y="65" width="552" height="1"/>
-				<graphicElement>
-					<pen lineStyle="Dashed"/>
-				</graphicElement>
-			</line>
+			<subreport>
+				<reportElement uuid="01722b91-e6ba-42fc-a9e9-7e21641625a9" positionType="Float" x="0" y="52" width="554" height="44"/>
+				<subreportParameter name="idcliente">
+					<subreportParameterExpression><![CDATA[$F{idCliente}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportHistoricoCliente_produtos.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="0f66c0c5-730a-4bff-a4b2-8db3d46a91d6" positionType="Float" x="1" y="101" width="555" height="42"/>
+				<subreportParameter name="idcliente">
+					<subreportParameterExpression><![CDATA[$F{idCliente}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportHistoricoCliente_subreport1.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</summary>
 </jasperReport>

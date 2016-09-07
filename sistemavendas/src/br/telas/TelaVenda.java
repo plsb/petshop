@@ -558,8 +558,8 @@ public class TelaVenda extends javax.swing.JDialog {
                     tfQuantidade.requestFocus();
                     return;
                 }
-                if (it.getQuantidade() == 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Quantidade não pode ser 0!");
+                if (it.getQuantidade() < 0.0) {
+                    JOptionPane.showMessageDialog(rootPane, "Quantidade não pode ser menor 0!");
                     tfQuantidade.requestFocus();
                     return;
                 }

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportHistoricoCliente_produtos" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="67a8d247-8cc1-4ec9-a7c1-965ae1d0e3d5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idcliente" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Pedro Saraiva\\Documents\\GitHub\\petshop\\sistemavendas\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select p.descricao, sum(iv.quantidade) quantidade, avg(iv.valorUni) valorUni, sum(iv.quantidade)*avg(iv.valorUni) valorTotal,
+			sum(iv.valorTotalComDesconto) valorTotalComDesconto
+ from venda v
+inner join itemvenda iv on v.id=iv.venda_id
+inner join produto p on p.id=iv.produto_id
+where v.cliente_id=$P{idcliente} and v.cancelada=false and iv.cancelado=false
+group by p.id
+order by p.descricao]]>
+	</queryString>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quantidade" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorUni" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorTotal" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorTotalComDesconto" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="valorTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorTotalComDesconto}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="73" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9966042f-ed5e-46e0-9236-3db3f811b23a" x="0" y="17" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bitstream Vera Sans Mono" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PORDUTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="515410cd-7191-4f44-bf58-5fd31817bfc8" x="0" y="39" width="111" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="39f7b6de-6464-4795-a4ad-389cf0ba40ce" x="267" y="39" width="40" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quant.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="886a113e-81a7-4fd0-af8f-2a4132109389" x="300" y="39" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Uni.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eafaae7d-efa2-4f34-aa12-a1c0c8b0466e" x="360" y="39" width="84" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1cf84b41-dca2-46ad-9f7d-36b88ced3587" x="444" y="39" width="111" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total C/ Desconto]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="2" y="59" width="552" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="2" y="6" width="552" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b395e20a-9ffb-4937-9d6e-ec4b75b04048" x="0" y="0" width="267" height="20"/>
+				<textElement>
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="5b302668-547e-4c14-a2bc-6a40630453c5" x="267" y="0" width="40" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="c498769d-92ca-493b-8231-8e18c809e882" x="300" y="0" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorUni}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="67ed27d1-9d00-4bf7-bccd-518805ffbf34" x="360" y="0" width="84" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="3a215484-d863-480c-8be4-9e5f684f6789" x="444" y="0" width="111" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorTotalComDesconto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="95">
+			<line>
+				<reportElement uuid="e5dab252-dbb4-4a61-96c9-4ea9e3112c83" x="1" y="3" width="552" height="1"/>
+			</line>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="3a215484-d863-480c-8be4-9e5f684f6789" x="443" y="4" width="111" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bitstream Vera Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{valorTotal}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="f1fa489e-74f2-4821-9568-f8a1b5824d37" x="0" y="38" width="553" height="48"/>
+				<subreportParameter name="idcliente">
+					<subreportParameterExpression><![CDATA[$P{idcliente}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportHistoricoCliente_produtos_grupoprodutos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>
