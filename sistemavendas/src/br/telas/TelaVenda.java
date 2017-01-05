@@ -1000,8 +1000,9 @@ public class TelaVenda extends javax.swing.JDialog {
             venda.setData(new Date());
             venda.setHora(new Date());
             venda.setValorTotal(valorTotal());
+            venda.setCaixa(Ativo.getCaixa());
             venda.setDesconto(Double.parseDouble(lblDesconto1.getText().replace(",", ".")));
-            vDAO.add(venda);
+            vDAO.update(venda);
             for (ItemVenda itensVenda1 : itensVenda) {
                 if (!itensVenda1.isCancelado()) {
                     Produto p1 = pDAO.checkExists("id", itensVenda1.getProduto().getId()).get(0);
@@ -1017,14 +1018,15 @@ public class TelaVenda extends javax.swing.JDialog {
             }
 
             itensVenda = new ArrayList<ItemVenda>();
-            venda = new Venda();
+//            venda = new Venda();
+            limpaCampos();
             preencheTabela();
-            cbCliente.setSelectedIndex(0);
-            cbTipoPagamento.setSelectedIndex(0);
-            cbVendedor.setSelectedIndex(0);
-            tfCodigo.setText("");
-            lblTexto.setText("VENDA");
-            lblPreco.setText("");
+//            cbCliente.setSelectedIndex(0);
+//            cbTipoPagamento.setSelectedIndex(0);
+//            cbVendedor.setSelectedIndex(0);
+//            tfCodigo.setText("");
+//            lblTexto.setText("VENDA");
+//            lblPreco.setText("");
 
         } else {
             setVisible(false);

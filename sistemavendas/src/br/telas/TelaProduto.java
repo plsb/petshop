@@ -295,6 +295,11 @@ public class TelaProduto extends javax.swing.JDialog {
 
         tfEstoqueMinimo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfEstoqueMinimo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfEstoqueMinimo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfEstoqueMinimoFocusLost(evt);
+            }
+        });
         jPanel2.add(tfEstoqueMinimo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 160, -1));
 
         jLabel30.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -307,6 +312,11 @@ public class TelaProduto extends javax.swing.JDialog {
 
         tfPrecoCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfPrecoCompra.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tfPrecoCompra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfPrecoCompraFocusLost(evt);
+            }
+        });
         jPanel2.add(tfPrecoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 160, -1));
 
         jLabel6.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -451,17 +461,15 @@ public class TelaProduto extends javax.swing.JDialog {
                         Util.adicionaEstoque("PRODUTO CADASTRADO", produto.getQtdEstoque(), 0, produto);
                         JOptionPane.showMessageDialog(rootPane, "Produto Cadastrado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
                     }
-                } else {
-                    if (dao.update(produto)) {
-                        if (quantidade > produto.getQtdEstoque()) {
-                            double saida = quantidade - produto.getQtdEstoque();
-                            Util.adicionaEstoque("PRODUTO EDITADO", 0, saida, produto);
-                        } else if (quantidade < produto.getQtdEstoque()) {
-                            double entrada = produto.getQtdEstoque() - quantidade;
-                            Util.adicionaEstoque("PRODUTO EDITADO", entrada, 0, produto);
-                        }
-                        JOptionPane.showMessageDialog(rootPane, "Produto Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                } else if (dao.update(produto)) {
+                    if (quantidade > produto.getQtdEstoque()) {
+                        double saida = quantidade - produto.getQtdEstoque();
+                        Util.adicionaEstoque("PRODUTO EDITADO", 0, saida, produto);
+                    } else if (quantidade < produto.getQtdEstoque()) {
+                        double entrada = produto.getQtdEstoque() - quantidade;
+                        Util.adicionaEstoque("PRODUTO EDITADO", entrada, 0, produto);
                     }
+                    JOptionPane.showMessageDialog(rootPane, "Produto Editado Com Sucesso!", "INFO", JOptionPane.INFORMATION_MESSAGE);
                 }
                 limpaCampos();
             }
@@ -575,7 +583,7 @@ public class TelaProduto extends javax.swing.JDialog {
                     JasperViewer jv = new JasperViewer(printReport, false);
                     viewer.getContentPane().add(jv.getContentPane());
                     viewer.setVisible(true);
-                //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
+                    //JasperExportManager.exportReportToPdfFile(printReport, "src/relatorios/RelAcervo.pdf");
 
                     //jv.setVisible(true);
                 } catch (JRException ex) {
@@ -709,6 +717,28 @@ public class TelaProduto extends javax.swing.JDialog {
             preencheGrupo();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tfPrecoCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfPrecoCompraFocusLost
+        if (!tfPrecoCompra.getText().isEmpty()) {
+            double prVenda = Double.parseDouble(tfPrecoVenda.getText().toString().replace(",", "."));
+            double prCusto = Double.parseDouble(tfPrecoCompra.getText().toString().replace(",", "."));
+            if (prCusto > prVenda) {
+                JOptionPane.showMessageDialog(null, "Preço de Custo não deve ser superior ao de Venda!");
+                tfPrecoCompra.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_tfPrecoCompraFocusLost
+
+    private void tfEstoqueMinimoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfEstoqueMinimoFocusLost
+        if (!tfEstoqueMinimo.getText().isEmpty()) {
+            double est = Double.parseDouble(tfQtdEstoque.getText().toString().replace(",", "."));
+            double estMin = Double.parseDouble(tfEstoqueMinimo.getText().toString().replace(",", "."));
+            if (estMin > est) {
+                JOptionPane.showMessageDialog(null, "Est. Minimo não deve ser superior a Quant. em Estoque!");
+                tfEstoqueMinimo.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_tfEstoqueMinimoFocusLost
 
     /**
      * @param args the command line arguments
